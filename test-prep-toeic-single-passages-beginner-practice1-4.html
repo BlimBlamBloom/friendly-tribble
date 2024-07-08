@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>TOEIC Single Passages - Beginner - Practice 1-4 - Flülli</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <style>
+        .answer {
+            display: none;
+        }
+        .show-answer {
+            cursor: pointer;
+            color: blue;
+            text-decoration: underline;
+            display: block;
+            margin: 10px 0;
+        }
+        .navigation-buttons {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>TOEIC Single Passages - Beginner - Practice 1</h1>
+    <p>Welcome to Beginner Single Passages, Practice 1! This practice contains 11 questions. After you've read each passage and solved the questions, you can click "show answer" to check your work. When you're ready to move on to the next passage, please click "Next Passage" to move on. You can use "Previous Passage" to go back at any time. Good luck!</p>
+    <p><strong>Note:</strong> These passages are for practice purposes. They are not official TOEIC exam questions. They simply follow the same format at varying difficulties for students who want to work on reading comprehension.</p>
+    
+    <h2>Passage 4:</h2>
+    <p>Lisa loves to paint. She has many colours and brushes. Every weekend, she goes to the park to paint the beautiful trees and flowers. Lisa’s paintings are very colorful and she likes to show them to her family and friends.</p>
+    
+    <h3>Questions:</h3>
+    <ol>
+        <li>What does Lisa love to do?
+            <ul>
+                <li>A. Dance</li>
+                <li>B. Paint</li>
+                <li>C. Cook</li>
+                <li>D. Sing</li>
+            </ul>
+            <span class="show-answer" onclick="toggleAnswer(this)">Show Answer</span>
+            <span class="answer">B. Paint</span>
+        </li>
+        <li>Where does Lisa go every weekend?
+            <ul>
+                <li>A. To the beach</li>
+                <li>B. To the park</li>
+                <li>C. To the mall</li>
+                <li>D. To the library</li>
+            </ul>
+            <span class="show-answer" onclick="toggleAnswer(this)">Show Answer</span>
+            <span class="answer">B. To the park</span>
+        </li>
+        <li>What does Lisa paint?
+            <ul>
+                <li>A. Cars and buildings</li>
+                <li>B. People and animals</li>
+                <li>C. Trees and flowers</li>
+                <li>D. Food and drinks</li>
+            </ul>
+            <span class="show-answer" onclick="toggleAnswer(this)">Show Answer</span>
+            <span class="answer">C. Trees and flowers</span>
+        </li>
+    </ol>
+
+    <div class="navigation-buttons">
+        <a href="test-prep-toeic-single-passages-beginner-practice1-3.html">Previous Passage</a>
+        <a href="test-prep-toeic-single-passages-beginner-practice1-5.html">Next Passage</a>
+    </div>
+
+    <p><a href="test-prep-toeic-single-passages-beginner.html">Back to Beginner Single Passages</a></p>
+    <p><a href="index.html">Home</a></p>
+    
+    <script>
+        function toggleAnswer(element) {
+            const answer = element.nextElementSibling;
+            answer.style.display = 'block';
+            element.style.display = 'none';
+        }
+    </script>
+</body>
+</html>
