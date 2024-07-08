@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>TOEIC Single Passages - Beginner - Practice 1-8 - Flülli</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <style>
+        .answer {
+            display: none;
+        }
+        .show-answer {
+            cursor: pointer;
+            color: blue;
+            text-decoration: underline;
+            display: block;
+            margin: 10px 0;
+        }
+        .navigation-buttons {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>TOEIC Single Passages - Beginner - Practice 1</h1>
+    <p>Welcome to Beginner Single Passages, Practice 1! This practice contains 11 questions. After you've read each passage and solved the questions, you can click "show answer" to check your work. When you're ready to move on to the next passage, please click "Next Passage" to move on. You can use "Previous Passage" to go back at any time. Good luck!</p>
+    <p><strong>Note:</strong> These passages are for practice purposes. They are not official TOEIC exam questions. They simply follow the same format at varying difficulties for students who want to work on reading comprehension.</p>
+    
+    <h2>Passage 8:</h2>
+    <p>Emma has a cat named Whiskers. Whiskers is very playful and loves to chase toys around the house. Every morning, Emma feeds Whiskers and brushes his fur. Whiskers likes to sit on Emma's lap while she reads books.</p>
+    
+    <h3>Questions:</h3>
+    <ol>
+        <li>What is the name of Emma's cat?
+            <ul>
+                <li>A. Fluffy</li>
+                <li>B. Whiskers</li>
+                <li>C. Mittens</li>
+                <li>D. Shadow</li>
+            </ul>
+            <span class="show-answer" onclick="toggleAnswer(this)">Show Answer</span>
+            <span class="answer">B. Whiskers</span>
+        </li>
+        <li>What does Whiskers love to do?
+            <ul>
+                <li>A. Sleep all day</li>
+                <li>B. Chase toys</li>
+                <li>C. Eat food</li>
+                <li>D. Drink milk</li>
+            </ul>
+            <span class="show-answer" onclick="toggleAnswer(this)">Show Answer</span>
+            <span class="answer">B. Chase toys</span>
+        </li>
+        <li>Where does Whiskers like to sit while Emma reads?
+            <ul>
+                <li>A. On the bed</li>
+                <li>B. On the chair</li>
+                <li>C. On Emma's lap</li>
+                <li>D. On the table</li>
+            </ul>
+            <span class="show-answer" onclick="toggleAnswer(this)">Show Answer</span>
+            <span class="answer">C. On Emma's lap</span>
+        </li>
+    </ol>
+
+    <div class="navigation-buttons">
+        <a href="test-prep-toeic-single-passages-beginner-practice1-7.html">Previous Passage</a>
+        <a href="test-prep-toeic-single-passages-beginner-practice1-9.html">Next Passage</a>
+    </div>
+
+    <p><a href="test-prep-toeic-single-passages-beginner.html">Back to Beginner Single Passages</a></p>
+    <p><a href="index.html">Home</a></p>
+    
+    <script>
+        function toggleAnswer(element) {
+            const answer = element.nextElementSibling;
+            answer.style.display = 'block';
+            element.style.display = 'none';
+        }
+    </script>
+</body>
+</html>
