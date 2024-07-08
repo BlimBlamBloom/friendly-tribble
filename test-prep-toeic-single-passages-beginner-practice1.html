@@ -3,12 +3,67 @@
 <head>
     <title>TOEIC Single Passages - Beginner - Practice 1 - Flülli</title>
     <link rel="stylesheet" type="text/css" href="styles.css">
+    <style>
+        .answer {
+            display: none;
+        }
+        .show-answer {
+            cursor: pointer;
+            color: blue;
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
     <h1>TOEIC Single Passages - Beginner - Practice 1</h1>
-    <p>Content coming soon...</p>
     <p><strong>Disclaimer:</strong> These are not official TOEIC exam questions, but rather examples meant to follow the same style, with varying difficulty for practice. The questions do not necessarily reflect what your exam will look like.</p>
-    <p><a href="test-prep-toeic-single-passages-beginner.html">Back to Single Passages - Beginner</a></p>
+    
+    <h2>Passage 1:</h2>
+    <p>John works at a bakery. Every morning, he wakes up at 4 a.m. and goes to the bakery. He bakes bread, cakes, and cookies. Many people come to the bakery to buy the fresh treats. John loves his job because he enjoys making people happy with his baked goods.</p>
+    
+    <h3>Questions:</h3>
+    <ol>
+        <li>Where does John work?
+            <ul>
+                <li>A. At a school</li>
+                <li>B. At a bakery</li>
+                <li>C. At a hospital</li>
+                <li>D. At a bank</li>
+            </ul>
+            <span class="show-answer" onclick="toggleAnswer(this)">Show Answer</span>
+            <span class="answer">B. At a bakery</span>
+        </li>
+        <li>What time does John wake up in the morning?
+            <ul>
+                <li>A. 6 a.m.</li>
+                <li>B. 7 a.m.</li>
+                <li>C. 4 a.m.</li>
+                <li>D. 5 a.m.</li>
+            </ul>
+            <span class="show-answer" onclick="toggleAnswer(this)">Show Answer</span>
+            <span class="answer">C. 4 a.m.</span>
+        </li>
+        <li>Why does John love his job?
+            <ul>
+                <li>A. Because he makes a lot of money</li>
+                <li>B. Because he enjoys baking</li>
+                <li>C. Because he likes working with people</li>
+                <li>D. Because he enjoys making people happy</li>
+            </ul>
+            <span class="show-answer" onclick="toggleAnswer(this)">Show Answer</span>
+            <span class="answer">D. Because he enjoys making people happy</span>
+        </li>
+    </ol>
+    
+    <p><a href="test-prep-toeic-single-passages-beginner.html">Back to Beginner Single Passages</a></p>
     <p><a href="index.html">Home</a></p>
+    
+    <script>
+        function toggleAnswer(element) {
+            const answer = element.nextElementSibling;
+            answer.style.display = 'block';
+            element.style.display = 'none';
+        }
+    </script>
 </body>
 </html>
