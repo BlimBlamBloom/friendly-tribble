@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>TOEIC Single Passages - Beginner - Practice 1-5 - Flülli</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <style>
+        .answer {
+            display: none;
+        }
+        .show-answer {
+            cursor: pointer;
+            color: blue;
+            text-decoration: underline;
+            display: block;
+            margin: 10px 0;
+        }
+        .navigation-buttons {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>TOEIC Single Passages - Beginner - Practice 1</h1>
+    <p>Welcome to Beginner Single Passages, Practice 1! This practice contains 11 questions. After you've read each passage and solved the questions, you can click "show answer" to check your work. When you're ready to move on to the next passage, please click "Next Passage" to move on. You can use "Previous Passage" to go back at any time. Good luck!</p>
+    <p><strong>Note:</strong> These passages are for practice purposes. They are not official TOEIC exam questions. They simply follow the same format at varying difficulties for students who want to work on reading comprehension.</p>
+    
+    <h2>Passage 5:</h2>
+    <p>David likes to play soccer. He plays with his friends every afternoon. David is very good at scoring goals. His team wins many games because of his skills. He dreams of becoming a professional soccer player one day.</p>
+    
+    <h3>Questions:</h3>
+    <ol>
+        <li>What sport does David like to play?
+            <ul>
+                <li>A. Basketball</li>
+                <li>B. Baseball</li>
+                <li>C. Soccer</li>
+                <li>D. Tennis</li>
+            </ul>
+            <span class="show-answer" onclick="toggleAnswer(this)">Show Answer</span>
+            <span class="answer">C. Soccer</span>
+        </li>
+        <li>When does David play soccer?
+            <ul>
+                <li>A. Every morning</li>
+                <li>B. Every afternoon</li>
+                <li>C. Every evening</li>
+                <li>D. Every night</li>
+            </ul>
+            <span class="show-answer" onclick="toggleAnswer(this)">Show Answer</span>
+            <span class="answer">B. Every afternoon</span>
+        </li>
+        <li>What is David’s dream?
+            <ul>
+                <li>A. To be a doctor</li>
+                <li>B. To be a singer</li>
+                <li>C. To be a professional soccer player</li>
+                <li>D. To be a teacher</li>
+            </ul>
+            <span class="show-answer" onclick="toggleAnswer(this)">Show Answer</span>
+            <span class="answer">C. To be a professional soccer player</span>
+        </li>
+    </ol>
+
+    <div class="navigation-buttons">
+        <a href="test-prep-toeic-single-passages-beginner-practice1-4.html">Previous Passage</a>
+        <a href="test-prep-toeic-single-passages-beginner-practice1-6.html">Next Passage</a>
+    </div>
+
+    <p><a href="test-prep-toeic-single-passages-beginner.html">Back to Beginner Single Passages</a></p>
+    <p><a href="index.html">Home</a></p>
+    
+    <script>
+        function toggleAnswer(element) {
+            const answer = element.nextElementSibling;
+            answer.style.display = 'block';
+            element.style.display = 'none';
+        }
+    </script>
+</body>
+</html>
