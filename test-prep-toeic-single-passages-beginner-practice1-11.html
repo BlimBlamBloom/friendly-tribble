@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>TOEIC Single Passages - Beginner - Practice 1-11 - Flülli</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <style>
+        .answer {
+            display: none;
+        }
+        .show-answer {
+            cursor: pointer;
+            color: blue;
+            text-decoration: underline;
+            display: block;
+            margin: 10px 0;
+        }
+        .navigation-buttons {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>TOEIC Single Passages - Beginner - Practice 1</h1>
+    <p>Welcome to Beginner Single Passages, Practice 1! This practice contains 11 questions. After you've read each passage and solved the questions, you can click "show answer" to check your work. When you're ready to move on to the next passage, please click "Next Passage" to move on. You can use "Previous Passage" to go back at any time. Good luck!</p>
+    <p><strong>Note:</strong> These passages are for practice purposes. They are not official TOEIC exam questions. They simply follow the same format at varying difficulties for students who want to work on reading comprehension.</p>
+    
+    <h2>Passage 11:</h2>
+    <p>Mark likes to ride his bicycle. Every weekend, he goes for long rides in the countryside. He enjoys the fresh air and the beautiful scenery. Mark believes that riding a bicycle is a great way to stay healthy and fit.</p>
+    
+    <h3>Questions:</h3>
+    <ol>
+        <li>What does Mark like to do?
+            <ul>
+                <li>A. Drive a car</li>
+                <li>B. Ride a bicycle</li>
+                <li>C. Ride a horse</li>
+                <li>D. Walk</li>
+            </ul>
+            <span class="show-answer" onclick="toggleAnswer(this)">Show Answer</span>
+            <span class="answer">B. Ride a bicycle</span>
+        </li>
+        <li>Where does Mark go for rides?
+            <ul>
+                <li>A. In the city</li>
+                <li>B. In the countryside</li>
+                <li>C. On the beach</li>
+                <li>D. In the mountains</li>
+            </ul>
+            <span class="show-answer" onclick="toggleAnswer(this)">Show Answer</span>
+            <span class="answer">B. In the countryside</span>
+        </li>
+        <li>Why does Mark think riding a bicycle is great?
+            <ul>
+                <li>A. It is fast</li>
+                <li>B. It is expensive</li>
+                <li>C. It helps stay healthy and fit</li>
+                <li>D. It is easy</li>
+            </ul>
+            <span class="show-answer" onclick="toggleAnswer(this)">Show Answer</span>
+            <span class="answer">C. It helps stay healthy and fit</span>
+        </li>
+    </ol>
+
+    <div class="navigation-buttons">
+        <a href="test-prep-toeic-single-passages-beginner-practice1-10.html">Previous Passage</a>
+        <a href="test-prep-toeic-single-passages-beginner-practice2-1.html">Start Practice 2</a>
+    </div>
+
+    <p><a href="test-prep-toeic-single-passages-beginner.html">Back to Beginner Single Passages</a></p>
+    <p><a href="index.html">Home</a></p>
+    
+    <script>
+        function toggleAnswer(element) {
+            const answer = element.nextElementSibling;
+            answer.style.display = 'block';
+            element.style.display = 'none';
+        }
+    </script>
+</body>
+</html>
