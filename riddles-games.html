@@ -7,7 +7,7 @@
         .answer {
             display: none;
         }
-        .toggle-answer {
+        .show-answer {
             cursor: pointer;
             color: blue;
             text-decoration: underline;
@@ -18,61 +18,56 @@
     <h1>Riddles / Games</h1>
     <ol>
         <li>What has to be broken before you can use it?
-            <br><span class="toggle-answer" onclick="toggleAnswer(this)">Show Answer</span>
-            <span class="answer">An egg<br><span class="toggle-answer" onclick="toggleAnswer(this)">Hide Answer</span></span>
+            <br><span class="show-answer" onclick="showAnswer(this)">Show Answer</span>
+            <span class="answer">An egg</span>
         </li>
         <li>I’m tall when I’m young, and I’m short when I’m old. What am I?
-            <br><span class="toggle-answer" onclick="toggleAnswer(this)">Show Answer</span>
-            <span class="answer">A candle<br><span class="toggle-answer" onclick="toggleAnswer(this)">Hide Answer</span></span>
+            <br><span class="show-answer" onclick="showAnswer(this)">Show Answer</span>
+            <span class="answer">A candle</span>
         </li>
         <li>What month of the year has 28 days?
-            <br><span class="toggle-answer" onclick="toggleAnswer(this)">Show Answer</span>
-            <span class="answer">All of them<br><span class="toggle-answer" onclick="toggleAnswer(this)">Hide Answer</span></span>
+            <br><span class="show-answer" onclick="showAnswer(this)">Show Answer</span>
+            <span class="answer">All of them</span>
         </li>
         <li>What is full of holes but still holds water?
-            <br><span class="toggle-answer" onclick="toggleAnswer(this)">Show Answer</span>
-            <span class="answer">A sponge<br><span class="toggle-answer" onclick="toggleAnswer(this)">Hide Answer</span></span>
+            <br><span class="show-answer" onclick="showAnswer(this)">Show Answer</span>
+            <span class="answer">A sponge</span>
         </li>
         <li>What question can you never answer yes to?
-            <br><span class="toggle-answer" onclick="toggleAnswer(this)">Show Answer</span>
-            <span class="answer">Are you asleep yet?<br><span class="toggle-answer" onclick="toggleAnswer(this)">Hide Answer</span></span>
+            <br><span class="show-answer" onclick="showAnswer(this)">Show Answer</span>
+            <span class="answer">Are you asleep yet?</span>
         </li>
         <li>What is always in front of you but can’t be seen?
-            <br><span class="toggle-answer" onclick="toggleAnswer(this)">Show Answer</span>
-            <span class="answer">The future<br><span class="toggle-answer" onclick="toggleAnswer(this)">Hide Answer</span></span>
+            <br><span class="show-answer" onclick="showAnswer(this)">Show Answer</span>
+            <span class="answer">The future</span>
         </li>
         <li>There’s a one-story house in which everything is yellow. Yellow walls, yellow doors, yellow furniture. What color are the stairs?
-            <br><span class="toggle-answer" onclick="toggleAnswer(this)">Show Answer</span>
-            <span class="answer">There aren’t any—it’s a one-story house.<br><span class="toggle-answer" onclick="toggleAnswer(this)">Hide Answer</span></span>
+            <br><span class="show-answer" onclick="showAnswer(this)">Show Answer</span>
+            <span class="answer">There aren’t any—it’s a one-story house.</span>
         </li>
         <li>What can you break, even if you never pick it up or touch it?
-            <br><span class="toggle-answer" onclick="toggleAnswer(this)">Show Answer</span>
-            <span class="answer">A promise<br><span class="toggle-answer" onclick="toggleAnswer(this)">Hide Answer</span></span>
+            <br><span class="show-answer" onclick="showAnswer(this)">Show Answer</span>
+            <span class="answer">A promise</span>
         </li>
         <li>What goes up but never comes down?
-            <br><span class="toggle-answer" onclick="toggleAnswer(this)">Show Answer</span>
-            <span class="answer">Your age<br><span class="toggle-answer" onclick="toggleAnswer(this)">Hide Answer</span></span>
+            <br><span class="show-answer" onclick="showAnswer(this)">Show Answer</span>
+            <span class="answer">Your age</span>
         </li>
         <li>A man who was outside in the rain without an umbrella or hat didn’t get a single hair on his head wet. Why?
-            <br><span class="toggle-answer" onclick="toggleAnswer(this)">Show Answer</span>
-            <span class="answer">He was bald<br><span class="toggle-answer" onclick="toggleAnswer(this)">Hide Answer</span></span>
+            <br><span class="show-answer" onclick="showAnswer(this)">Show Answer</span>
+            <span class="answer">He was bald</span>
         </li>
         <li>What gets wet while drying?
-            <br><span class="toggle-answer" onclick="toggleAnswer(this)">Show Answer</span>
-            <span class="answer">A towel<br><span class="toggle-answer" onclick="toggleAnswer(this)">Hide Answer</span></span>
+            <br><span class="show-answer" onclick="showAnswer(this)">Show Answer</span>
+            <span class="answer">A towel</span>
         </li>
     </ol>
     <p><a href="index.html">Home</a></p>
     <script>
-        function toggleAnswer(element) {
-            const answer = element.parentElement.querySelector('.answer');
-            if (answer.style.display === 'none' || answer.style.display === '') {
-                answer.style.display = 'block';
-                element.textContent = 'Hide Answer';
-            } else {
-                answer.style.display = 'none';
-                element.textContent = 'Show Answer';
-            }
+        function showAnswer(element) {
+            const answer = element.nextElementSibling;
+            answer.style.display = 'inline';
+            element.style.display = 'none';
         }
     </script>
 </body>
