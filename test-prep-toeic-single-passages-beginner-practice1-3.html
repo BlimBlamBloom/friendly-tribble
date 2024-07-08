@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>TOEIC Single Passages - Beginner - Practice 1-3 - Flülli</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <style>
+        .answer {
+            display: none;
+        }
+        .show-answer {
+            cursor: pointer;
+            color: blue;
+            text-decoration: underline;
+            display: block;
+            margin: 10px 0;
+        }
+        .navigation-buttons {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>TOEIC Single Passages - Beginner - Practice 1</h1>
+    <p>Welcome to Beginner Single Passages, Practice 1! This practice contains 11 questions. After you've read each passage and solved the questions, you can click "show answer" to check your work. When you're ready to move on to the next passage, please click "Next Passage" to move on. You can use "Previous Passage" to go back at any time. Good luck!</p>
+    <p><strong>Note:</strong> These passages are for practice purposes. They are not official TOEIC exam questions. They simply follow the same format at varying difficulties for students who want to work on reading comprehension.</p>
+    
+    <h2>Passage 3:</h2>
+    <p>Tom has a pet dog named Max. Max is very playful and loves to run in the park. Every evening, Tom takes Max for a walk. They play fetch and meet other dogs. Max is very friendly and enjoys being around people and other animals.</p>
+    
+    <h3>Questions:</h3>
+    <ol>
+        <li>What is the name of Tom's pet dog?
+            <ul>
+                <li>A. Sam</li>
+                <li>B. Max</li>
+                <li>C. Rex</li>
+                <li>D. Jack</li>
+            </ul>
+            <span class="show-answer" onclick="toggleAnswer(this)">Show Answer</span>
+            <span class="answer">B. Max</span>
+        </li>
+        <li>What does Max love to do?
+            <ul>
+                <li>A. Sleep all day</li>
+                <li>B. Run in the park</li>
+                <li>C. Eat a lot</li>
+                <li>D. Swim in the pool</li>
+            </ul>
+            <span class="show-answer" onclick="toggleAnswer(this)">Show Answer</span>
+            <span class="answer">B. Run in the park</span>
+        </li>
+        <li>When does Tom take Max for a walk?
+            <ul>
+                <li>A. Every morning</li>
+                <li>B. Every afternoon</li>
+                <li>C. Every evening</li>
+                <li>D. Every night</li>
+            </ul>
+            <span class="show-answer" onclick="toggleAnswer(this)">Show Answer</span>
+            <span class="answer">C. Every evening</span>
+        </li>
+    </ol>
+
+    <div class="navigation-buttons">
+        <a href="test-prep-toeic-single-passages-beginner-practice1-2.html">Previous Passage</a>
+        <a href="test-prep-toeic-single-passages-beginner-practice1-4.html">Next Passage</a>
+    </div>
+
+    <p><a href="test-prep-toeic-single-passages-beginner.html">Back to Beginner Single Passages</a></p>
+    <p><a href="index.html">Home</a></p>
+    
+    <script>
+        function toggleAnswer(element) {
+            const answer = element.nextElementSibling;
+            answer.style.display = 'block';
+            element.style.display = 'none';
+        }
+    </script>
+</body>
+</html>
