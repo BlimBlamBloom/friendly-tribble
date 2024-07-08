@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>TOEIC Single Passages - Beginner - Practice 1-9 - Flülli</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <style>
+        .answer {
+            display: none;
+        }
+        .show-answer {
+            cursor: pointer;
+            color: blue;
+            text-decoration: underline;
+            display: block;
+            margin: 10px 0;
+        }
+        .navigation-buttons {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>TOEIC Single Passages - Beginner - Practice 1</h1>
+    <p>Welcome to Beginner Single Passages, Practice 1! This practice contains 11 questions. After you've read each passage and solved the questions, you can click "show answer" to check your work. When you're ready to move on to the next passage, please click "Next Passage" to move on. You can use "Previous Passage" to go back at any time. Good luck!</p>
+    <p><strong>Note:</strong> These passages are for practice purposes. They are not official TOEIC exam questions. They simply follow the same format at varying difficulties for students who want to work on reading comprehension.</p>
+    
+    <h2>Passage 9:</h2>
+    <p>Jack is a firefighter. He works hard to keep people safe. When there is a fire, Jack and his team quickly go to the scene to put out the flames. Jack is very brave and enjoys helping others. His family is very proud of him.</p>
+    
+    <h3>Questions:</h3>
+    <ol>
+        <li>What is Jack's job?
+            <ul>
+                <li>A. Doctor</li>
+                <li>B. Teacher</li>
+                <li>C. Firefighter</li>
+                <li>D. Police officer</li>
+            </ul>
+            <span class="show-answer" onclick="toggleAnswer(this)">Show Answer</span>
+            <span class="answer">C. Firefighter</span>
+        </li>
+        <li>What does Jack do when there is a fire?
+            <ul>
+                <li>A. Calls the police</li>
+                <li>B. Runs away</li>
+                <li>C. Puts out the flames</li>
+                <li>D. Watches the fire</li>
+            </ul>
+            <span class="show-answer" onclick="toggleAnswer(this)">Show Answer</span>
+            <span class="answer">C. Puts out the flames</span>
+        </li>
+        <li>How does Jack feel about his job?
+            <ul>
+                <li>A. He enjoys it</li>
+                <li>B. He dislikes it</li>
+                <li>C. He is scared of it</li>
+                <li>D. He is bored with it</li>
+            </ul>
+            <span class="show-answer" onclick="toggleAnswer(this)">Show Answer</span>
+            <span class="answer">A. He enjoys it</span>
+        </li>
+    </ol>
+
+    <div class="navigation-buttons">
+        <a href="test-prep-toeic-single-passages-beginner-practice1-8.html">Previous Passage</a>
+        <a href="test-prep-toeic-single-passages-beginner-practice1-10.html">Next Passage</a>
+    </div>
+
+    <p><a href="test-prep-toeic-single-passages-beginner.html">Back to Beginner Single Passages</a></p>
+    <p><a href="index.html">Home</a></p>
+    
+    <script>
+        function toggleAnswer(element) {
+            const answer = element.nextElementSibling;
+            answer.style.display = 'block';
+            element.style.display = 'none';
+        }
+    </script>
+</body>
+</html>
