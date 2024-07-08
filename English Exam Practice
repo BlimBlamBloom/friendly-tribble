@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>English Exam Practice</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+    <h1>English Exam Practice</h1>
+    <p>Here are some resources that can help with test preparation. </p>
+    <p><a href="index.html">Home</a></p>
+</body>
+</html>
