@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>TOEIC Double Passages - Intermediate - Practice 1-1 - Flülli</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <style>
+        .answer {
+            display: none;
+        }
+        .show-answer {
+            cursor: pointer;
+            color: blue;
+            text-decoration: underline;
+            display: block;
+            margin: 10px 0;
+        }
+        .navigation-buttons a {
+            margin-right: 20px; /* Adds space between the links */
+            text-decoration: none; /* Removes underline from links */
+        }
+        .navigation-buttons {
+            display: flex;
+            justify-content: space-between;
+            width: 300px; /* Adjust the width as needed */
+            margin: 20px 0; /* Adds space above and below the buttons */
+        }
+        .question {
+            margin-bottom: 20px;
+        }
+        .question ul {
+            margin-top: 10px;
+        }
+        .answer-container {
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>TOEIC Double Passages - Intermediate - Practice 1</h1>
+    <p>Welcome to Intermediate Double Passages, Practice 1! This practice contains 11 examples. After you've read each passage and solved the questions, you can click "show answer" to check your work. When you're ready to move on to the next example, please click "Next Example" to move on. You can use "Previous Example" to go back at any time. Good luck!</p>
+    <p><strong>Note:</strong> These examples are for practice purposes. They are not official TOEIC exam questions. They simply follow the same format at varying difficulties for students who want to work on reading comprehension.</p>
+    
+    <h2>Example 1:</h2>
+    <h3>Passage 1: Email</h3>
+    <p>
+    <strong>From:</strong> Steven Harris steven.harris@techsolutions.com<br><br>
+    <strong>To:</strong> All Staff<br><br>
+    <strong>Subject:</strong> Introduction of New Task Management Tool<br><br>
+    Dear Team,<br><br>
+    I am pleased to inform you that we will be implementing a new task management tool called TaskMaster. This tool is designed to help us better organize our projects, improve team collaboration, and enhance overall productivity.<br><br>
+    To ensure everyone is comfortable with the new system, we will be holding training sessions next week. The sessions will take place in the main conference room. Below is the schedule:<br><br>
+    Monday, August 3: 10:00 AM - 11:30 AM<br>
+    Wednesday, August 5: 2:00 PM - 3:30 PM<br>
+    Friday, August 7: 9:00 AM - 10:30 AM<br><br>
+    Attendance is mandatory for all team leaders and project managers. Other team members are highly encouraged to attend. Please register for a session using the company intranet portal.<br><br>
+    Thank you for your cooperation.<br><br>
+    Best regards,<br><br>
+    Steven Harris<br>
+    Operations Manager
+    </p>
+
+    <h3>Passage 2: Memo</h3>
+    <p>
+    <strong>To:</strong> All Staff<br><br>
+    <strong>From:</strong> Mary Clarke, IT Department<br><br>
+    <strong>Date:</strong> July 30<br><br>
+    <strong>Subject:</strong> Preparations for TaskMaster Tool Implementation<br><br>
+    Dear Team,<br><br>
+    As we prepare to implement TaskMaster, our new task management tool, there are a few steps you need to complete before attending the training sessions:<br><br>
+    Back up all current project-related data and documents.<br>
+    Verify that your workstation meets the following system requirements:<br>
+    Operating System: Windows 10 or macOS 10.14 or later<br>
+    Memory: At least 4 GB RAM<br>
+    Disk Space: Minimum of 2 GB available<br><br>
+    Download the TaskMaster software installer from the company’s intranet: TaskMaster Download<br><br>
+    Should you encounter any issues during the installation process, please reach out to the IT support team at extension 1500.<br><br>
+    Thank you for your attention to these important preparations.<br><br>
+    Best,<br><br>
+    Mary Clarke<br>
+    IT Department
+    </p>
+    
+    <h3>Questions:</h3>
+    <ol>
+        <li class="question">What is the main purpose of Steven Harris' email?
+            <ul>
+                <li>A) To announce a company meeting</li>
+                <li>B) To introduce a new task management tool and provide training details</li>
+                <li>C) To inform about a new company policy</li>
+                <li>D) To provide a schedule for upcoming projects</li>
+            </ul>
+            <div class="answer-container">
+                <span class="show-answer" onclick="toggleAnswer(this)">Show Answer</span>
+                <span class="answer">B) To introduce a new task management tool and provide training details</span>
+            </div>
+        </li>
+        <li class="question">Who is required to attend the training sessions according to Steven Harris' email?
+            <ul>
+                <li>A) All staff members</li>
+                <li>B) Only team leaders and project managers</li>
+                <li>C) Only IT department staff</li>
+                <li>D) Team leaders, project managers, and encouraged other team members</li>
+            </ul>
+            <div class="answer-container">
+                <span class="show-answer" onclick="toggleAnswer(this)">Show Answer</span>
+                <span class="answer">D) Team leaders, project managers, and encouraged other team members</span>
+            </div>
+        </li>
+        <li class="question">According to Mary Clarke's memo, what should staff do before attending the training sessions?
+            <ul>
+                <li>A) Update their contact information</li>
+                <li>B) Complete a training module online</li>
+                <li>C) Back up project data, verify system requirements, and download the software</li>
+                <li>D) Schedule a meeting with their manager</li>
+            </ul>
+            <div class="answer-container">
+                <span class="show-answer" onclick="toggleAnswer(this)">Show Answer</span>
+                <span class="answer">C) Back up project data, verify system requirements, and download the software</span>
+            </div>
+        </li>
+        <li class="question">Why is it important for staff to verify their workstation meets the system requirements before the training sessions?
+            <ul>
+                <li>A) To ensure compatibility with the TaskMaster software</li>
+                <li>B) To enhance the speed of their computers</li>
+                <li>C) To comply with company policy</li>
+                <li>D) To prepare for a system upgrade</li>
+            </ul>
+            <div class="answer-container">
+                <span class="show-answer" onclick="toggleAnswer(this)">Show Answer</span>
+                <span class="answer">A) To ensure compatibility with the TaskMaster software</span>
+            </div>
+        </li>
+        <li class="question">If staff have issues with the installation process of TaskMaster, what should they do?
+            <ul>
+                <li>A) Ask Steven Harris</li>
+                <li>B) Register again for the training sessions</li>
+                <li>C) Contact IT support at extension 1500</li>
+                <li>D) Visit the main conference room</li>
+            </ul>
+            <div class="answer-container">
+                <span class="show-answer" onclick="toggleAnswer(this)">Show Answer</span>
+                <span class="answer">C) Contact IT support at extension 1500</span>
+            </div>
+        </li>
+    </ol>
+
+    <div class="navigation-buttons">
+        <a href="test-prep-toeic-double-passages-intermediate.html">Back to Double Passages Intermediate</a>
+        <a href="test-prep-toeic-double-passages-intermediate-practice1-2.html">Next Example</a>
+    </div>
+
+    <p><a href="index.html">Home</a></p>
+    
+    <script>
+        function toggleAnswer(element) {
+            const answer = element.nextElementSibling;
+            answer.style.display = 'block';
+            element.style.display = 'none';
+        }
+    </script>
+</body>
+</html>
