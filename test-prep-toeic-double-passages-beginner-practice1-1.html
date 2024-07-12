@@ -24,6 +24,16 @@
             width: 300px; /* Adjust the width as needed */
             margin: 20px 0; /* Adds space above and below the buttons */
         }
+        .question {
+            margin-bottom: 20px;
+        }
+        .question ul {
+            margin-top: 10px;
+        }
+        .answer-container {
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
     </style>
 </head>
 <body>
@@ -67,55 +77,65 @@
     
     <h3>Questions:</h3>
     <ol>
-        <li>What is the purpose of Tom Davis' email?
+        <li class="question">What is the purpose of Tom Davis' email?
             <ul>
                 <li>A. To announce a new store opening</li>
                 <li>B. To introduce a new check-out system and training sessions</li>
                 <li>C. To provide holiday schedules</li>
                 <li>D. To share new employee policies</li>
             </ul>
-            <span class="show-answer" onclick="toggleAnswer(this)">Show Answer</span>
-            <span class="answer">B. To introduce a new check-out system and training sessions</span>
+            <div class="answer-container">
+                <span class="show-answer" onclick="toggleAnswer(this)">Show Answer</span>
+                <span class="answer">B. To introduce a new check-out system and training sessions</span>
+            </div>
         </li>
-        <li>When are the training sessions for QuickScan?
+        <li class="question">When are the training sessions for QuickScan?
             <ul>
                 <li>A. Monday and Tuesday</li>
                 <li>B. Wednesday and Thursday</li>
                 <li>C. Monday and Wednesday</li>
                 <li>D. Tuesday and Thursday</li>
             </ul>
-            <span class="show-answer" onclick="toggleAnswer(this)">Show Answer</span>
-            <span class="answer">C. Monday and Wednesday</span>
+            <div class="answer-container">
+                <span class="show-answer" onclick="toggleAnswer(this)">Show Answer</span>
+                <span class="answer">C. Monday and Wednesday</span>
+            </div>
         </li>
-        <li>What should employees do before the training according to Jane Smith's memo?
+        <li class="question">What should employees do before the training according to Jane Smith's memo?
             <ul>
                 <li>A. Call the IT department</li>
                 <li>B. Back up sales data, check computer space, and download the software</li>
                 <li>C. Attend a meeting</li>
                 <li>D. Update their contact information</li>
             </ul>
-            <span class="show-answer" onclick="toggleAnswer(this)">Show Answer</span>
-            <span class="answer">B. Back up sales data, check computer space, and download the software</span>
+            <div class="answer-container">
+                <span class="show-answer" onclick="toggleAnswer(this)">Show Answer</span>
+                <span class="answer">B. Back up sales data, check computer space, and download the software</span>
+            </div>
         </li>
-        <li>Why should employees back up sales data on an external drive?
+        <li class="question">Why should employees back up sales data on an external drive?
             <ul>
                 <li>A. To share it with customers</li>
                 <li>B. To prevent data loss during the transition</li>
                 <li>C. To print it out later</li>
                 <li>D. To send it to the head office</li>
             </ul>
-            <span class="show-answer" onclick="toggleAnswer(this)">Show Answer</span>
-            <span class="answer">B. To prevent data loss during the transition</span>
+            <div class="answer-container">
+                <span class="show-answer" onclick="toggleAnswer(this)">Show Answer</span>
+                <span class="answer">B. To prevent data loss during the transition</span>
+            </div>
         </li>
-        <li>If employees have questions about QuickScan, what should they do?
+        <li class="question">If employees have questions about QuickScan, what should they do?
             <ul>
                 <li>A. Ask Tom Davis</li>
                 <li>B. Visit the reception desk</li>
                 <li>C. Contact the IT department at extension 202</li>
                 <li>D. Email the store manager</li>
             </ul>
-            <span class="show-answer" onclick="toggleAnswer(this)">Show Answer</span>
-            <span class="answer">C. Contact the IT department at extension 202</span>
+            <div class="answer-container">
+                <span class="show-answer" onclick="toggleAnswer(this)">Show Answer</span>
+                <span class="answer">C. Contact the IT department at extension 202</span>
+            </div>
         </li>
     </ol>
 
