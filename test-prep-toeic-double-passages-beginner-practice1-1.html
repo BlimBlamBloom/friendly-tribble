@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>TOEIC Double Passages - Beginner - Practice 1-1 - Flülli</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <style>
+        .answer {
+            display: none;
+        }
+        .show-answer {
+            cursor: pointer;
+            color: blue;
+            text-decoration: underline;
+            display: block;
+            margin: 10px 0;
+        }
+        .navigation-buttons a {
+            margin-right: 20px; /* Adds space between the links */
+            text-decoration: none; /* Removes underline from links */
+        }
+        .navigation-buttons {
+            display: flex;
+            justify-content: space-between;
+            width: 300px; /* Adjust the width as needed */
+            margin: 20px 0; /* Adds space above and below the buttons */
+        }
+    </style>
+</head>
+<body>
+    <h1>TOEIC Double Passages - Beginner - Practice 1</h1>
+    <p>Welcome to Beginner Double Passages, Practice 1! This practice contains 11 examples. After you've read each passage and solved the questions, you can click "show answer" to check your work. When you're ready to move on to the next example, please click "Next Example" to move on. You can use "Previous Example" to go back at any time. Good luck!</p>
+    <p><strong>Note:</strong> These examples are for practice purposes. They are not official TOEIC exam questions. They simply follow the same format at varying difficulties for students who want to work on reading comprehension.</p>
+    
+    <h2>Example 1:</h2>
+    <h3>Passage 1: Email</h3>
+    <p>From: Tom Davis tom.davis@supermarket.com<br>
+    To: All Employees<br>
+    Subject: New Check-Out System Training<br>
+    Dear Team,<br>
+    We are excited to introduce a new check-out system called QuickScan. This system will speed up the checkout process and reduce errors.<br>
+    Training sessions will be held next week in the training room. The schedule is as follows:<br>
+    Monday, July 8: 10:00 AM - 11:00 AM<br>
+    Wednesday, July 10: 3:00 PM - 4:00 PM<br>
+    Please sign up at the reception desk.<br>
+    Best regards,<br>
+    Tom Davis<br>
+    Store Manager</p>
+
+    <h3>Passage 2: Memo</h3>
+    <p>To: All Employees<br>
+    From: Jane Smith, IT Department<br>
+    Date: July 5<br>
+    Subject: QuickScan System Preparation<br>
+    Hello Team,<br>
+    We will soon start using QuickScan, our new check-out system. Before the training, please do the following:<br>
+    Back up all current sales data on an external drive.<br>
+    Make sure your computer has at least 1 GB of free space.<br>
+    Download the QuickScan software from the internal network: QuickScan Download<br>
+    For any questions, contact the IT department at extension 202.<br>
+    Best,<br>
+    Jane Smith<br>
+    IT Department</p>
+    
+    <h3>Questions:</h3>
+    <ol>
+        <li>What is the purpose of Tom Davis' email?
+            <ul>
+                <li>A. To announce a new store opening</li>
+                <li>B. To introduce a new check-out system and training sessions</li>
+                <li>C. To provide holiday schedules</li>
+                <li>D. To share new employee policies</li>
+            </ul>
+            <span class="show-answer" onclick="toggleAnswer(this)">Show Answer</span>
+            <span class="answer">B. To introduce a new check-out system and training sessions</span>
+        </li>
+        <li>When are the training sessions for QuickScan?
+            <ul>
+                <li>A. Monday and Tuesday</li>
+                <li>B. Wednesday and Thursday</li>
+                <li>C. Monday and Wednesday</li>
+                <li>D. Tuesday and Thursday</li>
+            </ul>
+            <span class="show-answer" onclick="toggleAnswer(this)">Show Answer</span>
+            <span class="answer">C. Monday and Wednesday</span>
+        </li>
+        <li>What should employees do before the training according to Jane Smith's memo?
+            <ul>
+                <li>A. Call the IT department</li>
+                <li>B. Back up sales data, check computer space, and download the software</li>
+                <li>C. Attend a meeting</li>
+                <li>D. Update their contact information</li>
+            </ul>
+            <span class="show-answer" onclick="toggleAnswer(this)">Show Answer</span>
+            <span class="answer">B. Back up sales data, check computer space, and download the software</span>
+        </li>
+        <li>Why should employees back up sales data on an external drive?
+            <ul>
+                <li>A. To share it with customers</li>
+                <li>B. To prevent data loss during the transition</li>
+                <li>C. To print it out later</li>
+                <li>D. To send it to the head office</li>
+            </ul>
+            <span class="show-answer" onclick="toggleAnswer(this)">Show Answer</span>
+            <span class="answer">B. To prevent data loss during the transition</span>
+        </li>
+        <li>If employees have questions about QuickScan, what should they do?
+            <ul>
+                <li>A. Ask Tom Davis</li>
+                <li>B. Visit the reception desk</li>
+                <li>C. Contact the IT department at extension 202</li>
+                <li>D. Email the store manager</li>
+            </ul>
+            <span class="show-answer" onclick="toggleAnswer(this)">Show Answer</span>
+            <span class="answer">C. Contact the IT department at extension 202</span>
+        </li>
+    </ol>
+
+    <div class="navigation-buttons">
+        <a href="test-prep-toeic-double-passages-beginner.html">Previous Example</a>
+        <a href="test-prep-toeic-double-passages-beginner-practice1-2.html">Next Example</a>
+    </div>
+
+    <p><a href="test-prep-toeic-double-passages-beginner.html">Back to Double Passages Beginner</a></p>
+    <p><a href="index.html">Home</a></p>
+    
+    <script>
+        function toggleAnswer(element) {
+            const answer = element.nextElementSibling;
+            answer.style.display = 'block';
+            element.style.display = 'none';
+        }
+    </script>
+</body>
+</html>
