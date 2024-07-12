@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>TOEIC Double Passages - Intermediate - Practice 1-2 - Flülli</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <style>
+        .answer {
+            display: none;
+        }
+        .show-answer {
+            cursor: pointer;
+            color: blue;
+            text-decoration: underline;
+            display: block;
+            margin: 10px 0;
+        }
+        .navigation-buttons a {
+            margin-right: 20px; /* Adds space between the links */
+            text-decoration: none; /* Removes underline from links */
+        }
+        .navigation-buttons {
+            display: flex;
+            justify-content: space-between;
+            width: 300px; /* Adjust the width as needed */
+            margin: 20px 0; /* Adds space above and below the buttons */
+        }
+        .question {
+            margin-bottom: 20px;
+        }
+        .question ul {
+            margin-top: 10px;
+        }
+        .answer-container {
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>TOEIC Double Passages - Intermediate - Practice 1</h1>
+    <p>Welcome to Intermediate Double Passages, Practice 1! This practice contains 11 examples. After you've read each passage and solved the questions, you can click "show answer" to check your work. When you're ready to move on to the next example, please click "Next Example" to move on. You can use "Previous Example" to go back at any time. Good luck!</p>
+    <p><strong>Note:</strong> These examples are for practice purposes. They are not official TOEIC exam questions. They simply follow the same format at varying difficulties for students who want to work on reading comprehension.</p>
+    
+    <h2>Example 2:</h2>
+    <h3>Passage 1: Email</h3>
+    <p>
+    <strong>From:</strong> Rachel Green rachel.green@foodco.com<br><br>
+    <strong>To:</strong> All Employees<br><br>
+    <strong>Subject:</strong> Implementation of New Inventory Tracking System<br><br>
+    Dear Team,<br><br>
+    I am excited to announce that we are introducing a new inventory tracking system called StockMaster. This system will help us monitor our stock levels more accurately and streamline our inventory management process.<br><br>
+    To ensure everyone is familiar with the new system, training sessions will be held next week in the training center. The schedule is as follows:<br><br>
+    Tuesday, September 8: 11:00 AM - 12:30 PM<br>
+    Thursday, September 10: 2:00 PM - 3:30 PM<br>
+    Friday, September 11: 9:00 AM - 10:30 AM<br><br>
+    Attendance is mandatory for all warehouse and logistics staff. Other employees are encouraged to attend if their schedules allow. Please sign up for a session using the company intranet.<br><br>
+    Thank you for your cooperation.<br><br>
+    Best regards,<br><br>
+    Rachel Green<br>
+    Logistics Manager
+    </p>
+
+    <h3>Passage 2: Memo</h3>
+    <p>
+    <strong>To:</strong> All Employees<br><br>
+    <strong>From:</strong> John Miller, IT Department<br><br>
+    <strong>Date:</strong> September 2<br><br>
+    <strong>Subject:</strong> Preparations for StockMaster System Implementation<br><br>
+    Dear Team,<br><br>
+    As we prepare to implement StockMaster, our new inventory tracking system, please complete the following steps before attending the training sessions:<br><br>
+    Back up all current inventory data.<br>
+    Ensure your computer meets the system requirements:<br>
+    Operating System: Windows 10 or macOS 10.14 or later<br>
+    Memory: At least 4 GB RAM<br>
+    Disk Space: Minimum of 3 GB available<br><br>
+    Download and install the StockMaster software from the company’s intranet: StockMaster Download<br><br>
+    If you encounter any issues during the installation, contact IT support at extension 1400.<br><br>
+    Thank you for your attention.<br><br>
+    Best,<br><br>
+    John Miller<br>
+    IT Department
+    </p>
+    
+    <h3>Questions:</h3>
+    <ol>
+        <li class="question">What is the main purpose of Rachel Green's email?
+            <ul>
+                <li>A) To announce a company event</li>
+                <li>B) To introduce a new inventory tracking system and provide training details</li>
+                <li>C) To inform about a new policy</li>
+                <li>D) To provide a schedule for staff meetings</li>
+            </ul>
+            <div class="answer-container">
+                <span class="show-answer" onclick="toggleAnswer(this)">Show Answer</span>
+                <span class="answer">B) To introduce a new inventory tracking system and provide training details</span>
+            </div>
+        </li>
+        <li class="question">Who must attend the training sessions according to Rachel Green's email?
+            <ul>
+                <li>A) All employees</li>
+                <li>B) Only IT staff</li>
+                <li>C) Only warehouse and logistics staff</li>
+                <li>D) Only managers</li>
+            </ul>
+            <div class="answer-container">
+                <span class="show-answer" onclick="toggleAnswer(this)">Show Answer</span>
+                <span class="answer">C) Only warehouse and logistics staff</span>
+            </div>
+        </li>
+        <li class="question">According to John Miller's memo, what should employees do before attending the training sessions?
+            <ul>
+                <li>A) Update their personal information</li>
+                <li>B) Complete an online survey</li>
+                <li>C) Back up inventory data, verify system requirements, and download the software</li>
+                <li>D) Schedule a meeting with their supervisor</li>
+            </ul>
+            <div class="answer-container">
+                <span class="show-answer" onclick="toggleAnswer(this)">Show Answer</span>
+                <span class="answer">C) Back up inventory data, verify system requirements, and download the software</span>
+            </div>
+        </li>
+        <li class="question">Why is it important for employees to ensure their computer meets the system requirements before the training sessions?
+            <ul>
+                <li>A) To enhance computer performance</li>
+                <li>B) To ensure compatibility with the StockMaster software</li>
+                <li>C) To comply with company policy</li>
+                <li>D) To prepare for a system upgrade</li>
+            </ul>
+            <div class="answer-container">
+                <span class="show-answer" onclick="toggleAnswer(this)">Show Answer</span>
+                <span class="answer">B) To ensure compatibility with the StockMaster software</span>
+            </div>
+        </li>
+        <li class="question">If employees have issues with the installation process of StockMaster, what should they do?
+            <ul>
+                <li>A) Ask Rachel Green</li>
+                <li>B) Register for another training session</li>
+                <li>C) Contact IT support at extension 1400</li>
+                <li>D) Visit the training center</li>
+            </ul>
+            <div class="answer-container">
+                <span class="show-answer" onclick="toggleAnswer(this)">Show Answer</span>
+                <span class="answer">C) Contact IT support at extension 1400</span>
+            </div>
+        </li>
+    </ol>
+
+    <div class="navigation-buttons">
+        <a href="test-prep-toeic-double-passages-intermediate-practice1-1.html">Previous Example</a>
+        <a href="test-prep-toeic-double-passages-intermediate-practice1-3.html">Next Example</a>
+    </div>
+
+    <p><a href="test-prep-toeic-double-passages-intermediate.html">Back to Double Passages Intermediate</a></p>
+    <p><a href="index.html">Home</a></p>
+    
+    <script>
+        function toggleAnswer(element) {
+            const answer = element.nextElementSibling;
+            answer.style.display = 'block';
+            element.style.display = 'none';
+        }
+    </script>
+</body>
+</html>
