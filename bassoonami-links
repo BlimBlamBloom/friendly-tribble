@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Social Media Links</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+        h1 {
+            background-color: #333;
+            color: white;
+            padding: 20px;
+            margin: 0;
+        }
+        .links {
+            margin: 50px auto;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            display: inline-block;
+            border-radius: 8px;
+        }
+        .links a {
+            display: block;
+            margin: 15px 0;
+            font-size: 20px;
+            color: #0073e6;
+            text-decoration: none;
+        }
+        .links a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h1>Connect with Bassoonami</h1>
+    <div class="links">
+        <a href="https://www.youtube.com/bassoonami" target="_blank">YouTube</a>
+        <a href="https://www.instagram.com/bassoonami" target="_blank">Instagram</a>
+        <a href="https://www.tiktok.com/@bassoonamii" target="_blank">TikTok</a>
+    </div>
+</body>
+</html>
