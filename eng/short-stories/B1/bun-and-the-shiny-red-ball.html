@@ -13,8 +13,8 @@
     <p>Bun wasn’t done yet. He decided to take the ball to his friend, a playful squirrel named Nutmeg, who lived in the tallest tree in the park. Bun ran up to the tree and barked loudly. Nutmeg looked down and saw the ball. The squirrel scurried down and grabbed the ball with his tiny paws. Together, Bun and Nutmeg played catch until the sun set.</p>
     <p>As the day ended, Bun took the ball back home and put it in his magic treasure chest. He was tired but happy, knowing that tomorrow would bring another exciting adventure.</p>
 
-    <h2 onclick="toggleVisibility('vocabulary')">Vocabulary</h2>
-    <div id="vocabulary" class="toggle-content">
+    <h2><a href="#" onclick="toggleVisibility('vocabulary')">Show Vocabulary</a></h2>
+    <div id="vocabulary" class="toggle-content" style="display:none;">
         <ul>
             <li>Fluffy – covered with soft fur or feathers.</li>
             <li>Wagging – moving from side to side quickly.</li>
@@ -30,8 +30,8 @@
         </ul>
     </div>
 
-    <h2 onclick="toggleVisibility('comprehension')">Comprehension Questions</h2>
-    <div id="comprehension" class="toggle-content">
+    <h2><a href="#" onclick="toggleVisibility('comprehension')">Show Comprehension Questions</a></h2>
+    <div id="comprehension" class="toggle-content" style="display:none;">
         <ol>
             <li>What did Bun find in the bush?</li>
             <li>How did Bun react when he found the ball?</li>
@@ -41,8 +41,8 @@
         </ol>
     </div>
 
-    <h2 onclick="toggleVisibility('discussion')">Discussion Questions</h2>
-    <div id="discussion" class="toggle-content">
+    <h2><a href="#" onclick="toggleVisibility('discussion')">Show Discussion Questions</a></h2>
+    <div id="discussion" class="toggle-content" style="display:none;">
         <ol>
             <li>Why do you think Bun enjoys going on adventures?</li>
             <li>Have you ever found something surprising while exploring? What was it?</li>
@@ -58,13 +58,22 @@
         </ol>
     </div>
 
+    <footer>
+        <p><a href="B1.html">Back to B1 Stories</a></p>
+        <p><a href="short-stories.html">Short Stories</a></p>
+        <p><a href="eng.html">English Home</a></p>
+    </footer>
+
     <script>
         function toggleVisibility(id) {
             var content = document.getElementById(id);
+            var linkText = document.querySelector(`a[href="#"]`);
             if (content.style.display === "none" || content.style.display === "") {
                 content.style.display = "block";
+                linkText.innerHTML = linkText.innerHTML.replace('Show', 'Hide');
             } else {
                 content.style.display = "none";
+                linkText.innerHTML = linkText.innerHTML.replace('Hide', 'Show');
             }
         }
     </script>
