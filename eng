@@ -1,6 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Flülli</title>
     <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
@@ -10,11 +12,11 @@
         <li><a href="discussion-questions.html">Discussion Questions</a></li>
         <li><a href="short-stories.html">Short Stories</a></li>
         <li><a href="articles.html">Articles</a></li>
-        <li><a href="vocabulary.html">Vocabulary</a></li>
         <li><a href="tongue-twisters.html">Tongue Twisters</a></li>
         <li><a href="riddles-games.html">Riddles / Games</a></li>
         <li><a href="test-prep.html">Test Prep</a></li>
         <li><a href="other-resources.html">Other Resources</a></li>
     </ul>
+    <p><a href="../index.html">Language Selection</a></p>
 </body>
 </html>
