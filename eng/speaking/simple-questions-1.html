@@ -5,118 +5,204 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Simple Questions 1 - Flülli</title>
     <link rel="stylesheet" type="text/css" href="styles.css">
+    <style>
+        .answer {
+            display: none;
+        }
+        .toggle-button {
+            cursor: pointer;
+            color: blue;
+            text-decoration: underline;
+            display: block;
+            margin: 10px 0;
+        }
+    </style>
 </head>
 <body>
     <h1>Simple Questions 1</h1>
-
-    <!-- Embedded YouTube Video -->
-    <iframe width="560" height="315" src="https://www.youtube.com/embed/MsgakjmgQuI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-
-    <!-- Questions and Sample Answers Section -->
+    
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/MsgakjmgQuI" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    
     <ol>
-        <li>What is your name?
-            <p>Sample Answer: My name is Wilfred.</p>
+        <li>
+            What is your name?
+            <span class="toggle-button" onclick="toggleAnswer(this)">Show Sample Answer</span>
+            <span class="answer">My name is Wilfred.</span>
         </li>
-        <li>How old are you?
-            <p>Sample Answer: I am 32 years old.</p>
+        <li>
+            How old are you?
+            <span class="toggle-button" onclick="toggleAnswer(this)">Show Sample Answer</span>
+            <span class="answer">I am 32 years old.</span>
         </li>
-        <li>Where do you live?
-            <p>Sample Answer: I live in Calgary.</p>
+        <li>
+            Where do you live?
+            <span class="toggle-button" onclick="toggleAnswer(this)">Show Sample Answer</span>
+            <span class="answer">I live in Calgary.</span>
         </li>
-        <li>Do you have any siblings?
-            <p>Sample Answer: Yes, I have two sisters.</p>
+        <li>
+            Do you have any siblings?
+            <span class="toggle-button" onclick="toggleAnswer(this)">Show Sample Answer</span>
+            <span class="answer">Yes, I have two sisters.</span>
         </li>
-        <li>What is your favourite colour?
-            <p>Sample Answer: My favourite colour is green.</p>
+        <li>
+            What is your favourite colour?
+            <span class="toggle-button" onclick="toggleAnswer(this)">Show Sample Answer</span>
+            <span class="answer">My favourite colour is green.</span>
         </li>
-        <li>What is your favourite food?
-            <p>Sample Answer: My favourite food is spaghetti.</p>
+        <li>
+            What is your favourite food?
+            <span class="toggle-button" onclick="toggleAnswer(this)">Show Sample Answer</span>
+            <span class="answer">My favourite food is spaghetti.</span>
         </li>
-        <li>What is your favourite movie?
-            <p>Sample Answer: My favourite movie is Iron Man.</p>
+        <li>
+            What is your favourite movie?
+            <span class="toggle-button" onclick="toggleAnswer(this)">Show Sample Answer</span>
+            <span class="answer">My favourite movie is Iron Man.</span>
         </li>
-        <li>What kind of music do you like?
-            <p>Sample Answer: I like indie music.</p>
+        <li>
+            What kind of music do you like?
+            <span class="toggle-button" onclick="toggleAnswer(this)">Show Sample Answer</span>
+            <span class="answer">I like indie music.</span>
         </li>
-        <li>Do you have any pets?
-            <p>Sample Answer: Yes, I have a dog. His name is Larry.</p>
+        <li>
+            Do you have any pets?
+            <span class="toggle-button" onclick="toggleAnswer(this)">Show Sample Answer</span>
+            <span class="answer">Yes, I have a dog. His name is Larry.</span>
         </li>
-        <li>What do you like to do in your free time?
-            <p>Sample Answer: I like to go hiking.</p>
+        <li>
+            What do you like to do in your free time?
+            <span class="toggle-button" onclick="toggleAnswer(this)">Show Sample Answer</span>
+            <span class="answer">I like to go hiking.</span>
         </li>
-        <li>Do you play any sports?
-            <p>Sample Answer: Yes, I play basketball.</p>
+        <li>
+            Do you play any sports?
+            <span class="toggle-button" onclick="toggleAnswer(this)">Show Sample Answer</span>
+            <span class="answer">Yes, I play basketball.</span>
         </li>
-        <li>What are your hobbies?
-            <p>Sample Answer: I enjoy photography and cooking.</p>
+        <li>
+            What are your hobbies?
+            <span class="toggle-button" onclick="toggleAnswer(this)">Show Sample Answer</span>
+            <span class="answer">I enjoy photography and cooking.</span>
         </li>
-        <li>What is your favourite book?
-            <p>Sample Answer: My favourite book is The Kite Runner.</p>
+        <li>
+            What is your favourite book?
+            <span class="toggle-button" onclick="toggleAnswer(this)">Show Sample Answer</span>
+            <span class="answer">My favourite book is The Kite Runner.</span>
         </li>
-        <li>Where is your favourite place to visit?
-            <p>Sample Answer: I love visiting Banff.</p>
+        <li>
+            Where is your favourite place to visit?
+            <span class="toggle-button" onclick="toggleAnswer(this)">Show Sample Answer</span>
+            <span class="answer">I love visiting Banff.</span>
         </li>
-        <li>What is your favourite season?
-            <p>Sample Answer: My favourite season is spring.</p>
+        <li>
+            What is your favourite season?
+            <span class="toggle-button" onclick="toggleAnswer(this)">Show Sample Answer</span>
+            <span class="answer">My favourite season is spring.</span>
         </li>
-        <li>Do you like to cook?
-            <p>Sample Answer: Yes, I like cooking.</p>
+        <li>
+            Do you like to cook?
+            <span class="toggle-button" onclick="toggleAnswer(this)">Show Sample Answer</span>
+            <span class="answer">Yes, I like cooking.</span>
         </li>
-        <li>What is your favourite thing to cook?
-            <p>Sample Answer: I love grilling steaks.</p>
+        <li>
+            What is your favourite thing to cook?
+            <span class="toggle-button" onclick="toggleAnswer(this)">Show Sample Answer</span>
+            <span class="answer">I love grilling steaks.</span>
         </li>
-        <li>Do you prefer to spend time indoors or outdoors?
-            <p>Sample Answer: I prefer to spend time outdoors.</p>
+        <li>
+            Do you prefer to spend time indoors or outdoors?
+            <span class="toggle-button" onclick="toggleAnswer(this)">Show Sample Answer</span>
+            <span class="answer">I prefer to spend time outdoors.</span>
         </li>
-        <li>What is your favourite way to relax?
-            <p>Sample Answer: I like to take naps.</p>
+        <li>
+            What is your favourite way to relax?
+            <span class="toggle-button" onclick="toggleAnswer(this)">Show Sample Answer</span>
+            <span class="answer">I like to take naps.</span>
         </li>
-        <li>Do you prefer watching movies or reading books?
-            <p>Sample Answer: I prefer reading books.</p>
+        <li>
+            Do you prefer watching movies or reading books?
+            <span class="toggle-button" onclick="toggleAnswer(this)">Show Sample Answer</span>
+            <span class="answer">I prefer reading books.</span>
         </li>
-        <li>What are your favourite animals?
-            <p>Sample Answer: My favourite animals are wolves and rabbits.</p>
+        <li>
+            What are your favourite animals?
+            <span class="toggle-button" onclick="toggleAnswer(this)">Show Sample Answer</span>
+            <span class="answer">My favourite animals are wolves and rabbits.</span>
         </li>
-        <li>What is your favourite holiday?
-            <p>Sample Answer: My favourite holiday is Halloween.</p>
+        <li>
+            What is your favourite holiday?
+            <span class="toggle-button" onclick="toggleAnswer(this)">Show Sample Answer</span>
+            <span class="answer">My favourite holiday is Halloween.</span>
         </li>
-        <li>What is your favourite time of day?
-            <p>Sample Answer: My favourite time of day is 2:27 PM. It's the perfect time to take a nap.</p>
+        <li>
+            What is your favourite time of day?
+            <span class="toggle-button" onclick="toggleAnswer(this)">Show Sample Answer</span>
+            <span class="answer">My favourite time of day is 2:27PM. It's the perfect time to take a nap.</span>
         </li>
-        <li>What is your favourite drink?
-            <p>Sample Answer: My favourite drink is ginger ale.</p>
+        <li>
+            What is your favourite drink?
+            <span class="toggle-button" onclick="toggleAnswer(this)">Show Sample Answer</span>
+            <span class="answer">My favourite drink is ginger ale.</span>
         </li>
-        <li>What was your favourite subject in school?
-            <p>Sample Answer: My favourite subject was philosophy.</p>
+        <li>
+            What was your favourite subject in school?
+            <span class="toggle-button" onclick="toggleAnswer(this)">Show Sample Answer</span>
+            <span class="answer">My favourite subject was philosophy.</span>
         </li>
-        <li>What was your least favourite subject in school?
-            <p>Sample Answer: My least favourite subject was chemistry.</p>
+        <li>
+            What was your least favourite subject in school?
+            <span class="toggle-button" onclick="toggleAnswer(this)">Show Sample Answer</span>
+            <span class="answer">My least favourite subject was chemistry.</span>
         </li>
-        <li>What is your favourite type of weather?
-            <p>Sample Answer: I like days that are sunny with a light breeze.</p>
+        <li>
+            What is your favourite type of weather?
+            <span class="toggle-button" onclick="toggleAnswer(this)">Show Sample Answer</span>
+            <span class="answer">I like days that are sunny with a light breeze.</span>
         </li>
-        <li>Do you like to exercise?
-            <p>Sample Answer: Yes, I go to the gym 4 days a week.</p>
+        <li>
+            Do you like to exercise?
+            <span class="toggle-button" onclick="toggleAnswer(this)">Show Sample Answer</span>
+            <span class="answer">Yes, I go to the gym 4 days a week.</span>
         </li>
-        <li>Do you prefer coffee or tea?
-            <p>Sample Answer: I prefer tea.</p>
+        <li>
+            Do you prefer coffee or tea?
+            <span class="toggle-button" onclick="toggleAnswer(this)">Show Sample Answer</span>
+            <span class="answer">I prefer tea.</span>
         </li>
-        <li>What is your favourite kind of pizza?
-            <p>Sample Answer: I like pepperoni pizza with extra cheese.</p>
+        <li>
+            What is your favourite kind of pizza?
+            <span class="toggle-button" onclick="toggleAnswer(this)">Show Sample Answer</span>
+            <span class="answer">I like pepperoni pizza with extra cheese.</span>
         </li>
-        <li>Do you play a musical instrument?
-            <p>Sample Answer: Yes, I play the guitar.</p>
+        <li>
+            Do you play a musical instrument?
+            <span class="toggle-button" onclick="toggleAnswer(this)">Show Sample Answer</span>
+            <span class="answer">Yes, I play the guitar.</span>
         </li>
-        <li>What is your favourite sport to watch?
-            <p>Sample Answer: I like to watch basketball.</p>
+        <li>
+            What is your favourite sport to watch?
+            <span class="toggle-button" onclick="toggleAnswer(this)">Show Sample Answer</span>
+            <span class="answer">I like to watch basketball.</span>
         </li>
-        <li>What is one thing you can’t live without?
-            <p>Sample Answer: I can't live without music.</p>
+        <li>
+            What is one thing you can’t live without?
+            <span class="toggle-button" onclick="toggleAnswer(this)">Show Sample Answer</span>
+            <span class="answer">I can't live without music.</span>
         </li>
     </ol>
 
-    <!-- Navigation Section -->
-    <p><a href="index.html">Home</a></p>
-
+    <p><a href="/eng/speaking.html">Back to Speaking</a></p>
+ <p><a href="/eng/index.html">Home</a></p>
+    
+    <script>
+        function toggleAnswer(element) {
+            const answer = element.nextElementSibling;
+            if (answer.style.display === "none" || answer.style.display === "") {
+                answer.style.display = "block";
+            } else {
+                answer.style.display = "none";
+            }
+        }
+    </script>
 </body>
 </html>
