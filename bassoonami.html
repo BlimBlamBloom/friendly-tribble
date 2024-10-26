@@ -14,14 +14,35 @@
             background-color: #e0f7fa;
         }
 
-        h1 {
-            background-color: #00695c;
-            color: white;
-            padding: 20px;
-            margin: 0;
+        /* Social Media Links Styling */
+        .links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            font-size: 1.5em;
+            margin: 20px auto;
         }
 
-        .links, .donation-contact, .gallery, .video-gallery {
+        .links a {
+            color: #00796b;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: color 0.3s;
+        }
+
+        .links a:hover {
+            color: #004d40;
+        }
+
+        .icon {
+            width: 24px;
+            height: 24px;
+        }
+
+        /* Donation and Contact Section */
+        .donation-contact {
             max-width: 90%;
             margin: 20px auto;
             padding: 20px;
@@ -30,23 +51,14 @@
             border-radius: 8px;
         }
 
-        .links a, .donation-contact p {
-            display: block;
-            font-size: 1.1em;
-            color: #00796b;
-            text-decoration: none;
-            margin: 10px 0;
-        }
-
-        .links a:hover {
-            text-decoration: underline;
-        }
-
         /* Gallery Section */
         .gallery {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 15px;
+            max-width: 90%;
+            margin: 20px auto;
+            padding: 20px;
         }
 
         .gallery img, .gallery video {
@@ -66,13 +78,20 @@
 </head>
 <body>
 
-    <h1>이색달리기와 공연 갤러리</h1>
-
-    <!-- Links to Social Media -->
+    <!-- Links to Social Media with Icons -->
     <div class="links">
-        <a href="https://www.youtube.com/bassoonami" target="_blank">YouTube</a>
-        <a href="https://www.instagram.com/bassoonami" target="_blank">Instagram</a>
-        <a href="https://www.tiktok.com/@bassoonamii" target="_blank">TikTok</a>
+        <a href="https://www.youtube.com/bassoonami" target="_blank">
+            <img src="https://img.icons8.com/color/48/000000/youtube-play.png" alt="YouTube Icon" class="icon">
+            YouTube
+        </a>
+        <a href="https://www.instagram.com/bassoonami" target="_blank">
+            <img src="https://img.icons8.com/color/48/000000/instagram-new.png" alt="Instagram Icon" class="icon">
+            Instagram
+        </a>
+        <a href="https://www.tiktok.com/@bassoonamii" target="_blank">
+            <img src="https://img.icons8.com/color/48/000000/tiktok--v1.png" alt="TikTok Icon" class="icon">
+            TikTok
+        </a>
     </div>
 
     <!-- Donation and Contact Section -->
@@ -91,6 +110,7 @@
         <!-- Videos -->
         <video src="https://github.com/BlimBlamBloom/friendly-tribble/blob/bf387c876c3cf657edb3801bfac7a81bd20aaaf5/KakaoTalk_20240401_022134305.mp4?raw=true" controls></video>
         <video src="https://github.com/BlimBlamBloom/friendly-tribble/blob/bf387c876c3cf657edb3801bfac7a81bd20aaaf5/KakaoTalk_20241026_175940652.mp4?raw=true" controls></video>
+        <video src="https://github.com/BlimBlamBloom/friendly-tribble/blob/29c9fa8a115c6e9bcd5d142785c8490630d96c7c/KakaoTalk_20241026_175943701.mp4?raw=true" controls></video>
     </section>
 
     <!-- Embedded YouTube Videos -->
