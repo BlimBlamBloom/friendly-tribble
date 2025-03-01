@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vowels 1</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        h1, h2 {
+            color: #333;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+        td:first-child {
+            font-size: 2em;
+        }
+        a {
+            display: block;
+            margin-top: 20px;
+            text-decoration: none;
+            color: #0073e6;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h1>Vowels 1</h1>
+    <p>
+        In this lesson we will learn the 3 short vowels in Arabic. Normally, we do not actually write the vowel symbols in daily life. 
+        However, for students like ourselves it can be helpful to learn the concepts.
+    </p>
+    <h2>Recommended Video</h2>
+    <p>
+        Here is a YouTube video that does a great job at succinctly summarizing the three short vowels. I am not affiliated with this channel, 
+        but it is the best video I found so I want to recommend it and the channel if you're interested in studying further.
+    </p>
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/wibYWrEMXvM" frameborder="0" allowfullscreen></iframe>
+    <p><a href="https://www.youtube.com/@arabic101">Arabic 101 - Subscribe</a></p>
+    
+    <h2>Short Vowels</h2>
+    <table>
+        <tr>
+            <th>Vowel Symbol</th>
+            <th>Name</th>
+            <th>Location</th>
+            <th>Example</th>
+        </tr>
+        <tr><td>َ</td><td>Fatha</td><td>Above the letter</td><td>بَ (ba)</td></tr>
+        <tr><td>ُ</td><td>Damma</td><td>Above the letter</td><td>بُ (bu)</td></tr>
+        <tr><td>ِ</td><td>Kasra</td><td>Below the letter</td><td>بِ (bi)</td></tr>
+    </table>
+    
+    <h2>Practice: Single Consonant-Vowel Combinations</h2>
+    <table>
+        <tr><td>سَ</td></tr>
+        <tr><td>بِ</td></tr>
+        <tr><td>فُ</td></tr>
+        <tr><td>مَ</td></tr>
+        <tr><td>جِ</td></tr>
+        <tr><td>ثُ</td></tr>
+        <tr><td>تِ</td></tr>
+        <tr><td>خَ</td></tr>
+        <tr><td>رُ</td></tr>
+        <tr><td>كَ</td></tr>
+        <tr><td>يِ</td></tr>
+        <tr><td>نُ</td></tr>
+        <tr><td>دَ</td></tr>
+        <tr><td>ثَ</td></tr>
+        <tr><td>فِ</td></tr>
+        <tr><td>سِ</td></tr>
+        <tr><td>لَ</td></tr>
+        <tr><td>بُ</td></tr>
+        <tr><td>مِ</td></tr>
+        <tr><td>يُ</td></tr>
+        <tr><td>تَ</td></tr>
+        <tr><td>نِ</td></tr>
+        <tr><td>جَ</td></tr>
+        <tr><td>حُ</td></tr>
+        <tr><td>رِ</td></tr>
+        <tr><td>كِ</td></tr>
+        <tr><td>ثِ</td></tr>
+        <tr><td>خُ</td></tr>
+        <tr><td>دِ</td></tr>
+        <tr><td>لُ</td></tr>
+    </table>
+    
+    <h2>Practice: Three-Letter Combinations</h2>
+    <table>
+        <tr><td>بَ سِ مَ</td></tr>
+        <tr><td>دُ رَ سِ</td></tr>
+        <tr><td>مِ جُ سَ</td></tr>
+        <tr><td>فَ سِ بُ</td></tr>
+        <tr><td>سُ بَ فِ</td></tr>
+        <tr><td>تِ رُ بَ</td></tr>
+        <tr><td>بُ فَ سِ</td></tr>
+        <tr><td>كِ سَ مُ</td></tr>
+        <tr><td>نُ رَ سِ</td></tr>
+        <tr><td>رِ مُ جَ</td></tr>
+        <tr><td>جَ سِ بُ</td></tr>
+        <tr><td>فِ مُ سَ</td></tr>
+        <tr><td>لُ بَ سِ</td></tr>
+        <tr><td>تُ رِ سَ</td></tr>
+        <tr><td>سِ كَ فُ</td></tr>
+        <tr><td>دَ سِ رُ</td></tr>
+        <tr><td>رُ فَ كِ</td></tr>
+        <tr><td>كُ بِ سَ</td></tr>
+        <tr><td>مَ سُ بِ</td></tr>
+        <tr><td>يُ رَ جِ</td></tr>
+        <tr><td>جِ سُ فَ</td></tr>
+        <tr><td>سِ فُ مَ</td></tr>
+        <tr><td>تَ بُ سِ</td></tr>
+        <tr><td>دِ جَ فُ</td></tr>
+        <tr><td>رَ سِ بُ</td></tr>
+        <tr><td>مِ سَ رُ</td></tr>
+        <tr><td>بَ فِ سُ</td></tr>
+        <tr><td>كُ سِ مَ</td></tr>
+        <tr><td>نِ سَ رَ</td></tr>
+        <tr><td>فَ كُ بِ</td></tr>
+    </table>
+    
+    <a href="https://www.flulli.com/arabic/alphabet/consonants2.html">Continue to Consonants 2</a>
+    <a href="https://www.flulli.com/arabic/index.html">Home</a>
+</body>
+</html>
