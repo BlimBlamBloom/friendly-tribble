@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consonants 1</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        h1, h2 {
+            color: #333;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+        td:first-child {
+            font-size: 2em;
+            text-align: center;
+        }
+        a {
+            display: block;
+            margin-top: 20px;
+            text-decoration: none;
+            color: #0073e6;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h1>Consonants 1</h1>
+    <p>
+        There are two very distinct things about the Arabic writing system that you should know before we start. 
+        First off, it is written from right to left. This is the opposite direction of English. Second, each letter 
+        is written differently depending on its position in the word (beginning, middle, or end). 
+    </p>
+    <p>
+        For now, we will ignore those two features for simplicity and focus on individual letters. There is an order 
+        in which the Arabic alphabet is written and I do recommend learning that, but in this practice we're going to 
+        just focus on 15 letters that I think are good to start with for English speakers. Most of them are sounds 
+        that we have in English or are written similarly to other letters. For pronunciation examples, there are countless 
+        videos online that can demonstrate better than I can. Please find one you like and follow along. Here is the list:
+    </p>
+    
+    <table>
+        <tr>
+            <th>Letter</th>
+            <th>Name of Letter</th>
+            <th>Pronunciation</th>
+        </tr>
+        <tr><td>ب</td><td>Bā’</td><td>"b" in bat</td></tr>
+        <tr><td>ت</td><td>Tā’</td><td>"t" in top</td></tr>
+        <tr><td>ث</td><td>Thā’</td><td>"th" in think</td></tr>
+        <tr><td>ج</td><td>Jīm</td><td>"j" in jump</td></tr>
+        <tr><td>ح</td><td>Ḥā’</td><td>Strong "h" (breathy)</td></tr>
+        <tr><td>خ</td><td>Khā’</td><td>"kh" like in loch</td></tr>
+        <tr><td>د</td><td>Dāl</td><td>"d" in dog</td></tr>
+        <tr><td>ر</td><td>Rā’</td><td>Rolled "r" (like Spanish)</td></tr>
+        <tr><td>س</td><td>Sīn</td><td>"s" in sun</td></tr>
+        <tr><td>ف</td><td>Fā’</td><td>"f" in fun</td></tr>
+        <tr><td>ك</td><td>Kāf</td><td>"k" in kite</td></tr>
+        <tr><td>ل</td><td>Lām</td><td>"l" in love</td></tr>
+        <tr><td>م</td><td>Mīm</td><td>"m" in moon</td></tr>
+        <tr><td>ن</td><td>Nūn</td><td>"n" in nice</td></tr>
+        <tr><td>ي</td><td>Yā’</td><td>"y" in yes</td></tr>
+    </table>
+    
+        <a href="https://www.flulli.com/arabic/alphabet/vowels1.html">Continue to Vowels 1</a>
+<a href="https://www.flulli.com/arabic/index.html">Home</a>
+</body>
+</html>
