@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>〜ながら (nagara) - Flülli</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+        }
+        h1 {
+            color: #4CAF50;
+        }
+        h2 {
+            color: #333;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+        .toggle-section {
+            margin-bottom: 20px;
+        }
+        .toggle-button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            cursor: pointer;
+        }
+        .toggle-button:hover {
+            background-color: #45a049;
+        }
+        .hidden {
+            display: none;
+        }
+        a {
+            color: #4CAF50;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <!-- Title -->
+    <h1>〜ながら (nagara)</h1>
+
+    <!-- Explanation -->
+    <h2>Explanation</h2>
+    <p>Used to describe two actions happening simultaneously ("while doing something"). Attach 〜ながら to the stem form of the verb.</p>
+    <p><strong>Example:</strong></p>
+    <p>食べる → 食べ + ながら = 食べながら</p>
+    <p>ごはんを食べながら、テレビを見ます。<br>(ごはんをたべながら、てれびをみます。)<br>"I watch TV while eating."</p>
+
+    <!-- Table for First 5 Examples -->
+    <h2>Examples 1-5</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Verb (Plain)</th>
+                <th>Verb + ながら</th>
+                <th>Example Sentence</th>
+                <th>Kanji</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>食べる</td>
+                <td>食べながら</td>
+                <td>ごはんを食べながら、テレビを見ます。</td>
+                <td>食べ (たべ)、ごはん (ごはん)、テレビ (てれび)</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>飲む</td>
+                <td>飲みながら</td>
+                <td>コーヒーを飲みながら、新聞を読みます。</td>
+                <td>飲 (の)、コーヒー (こーひー)、新聞 (しんぶん)</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>行く</td>
+                <td>行きながら</td>
+                <td>歩きながら、友達と話します。</td>
+                <td>行 (い)、歩 (ある)、友達 (ともだち)</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>来る</td>
+                <td>来ながら</td>
+                <td>来ながら、電話で話しています。</td>
+                <td>来 (き)、電話 (でんわ)</td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>見る</td>
+                <td>見ながら</td>
+                <td>映画を見ながら、ポップコーンを食べます。</td>
+                <td>見 (み)、映画 (えいが)、ポップコーン (ぽっぷこーん)</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- Toggle Section for Examples 6-15 -->
+    <div class="toggle-section">
+        <button class="toggle-button" onclick="toggleSection('section1')">Show/Hide Examples 6-15</button>
+        <div id="section1" class="hidden">
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Verb (Plain)</th>
+                        <th>Verb + ながら</th>
+                        <th>Example Sentence</th>
+                        <th>Kanji</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Examples 6-15 -->
+                    <tr>
+                        <td>6</td>
+                        <td>聞く</td>
+                        <td>聞きながら</td>
+                        <td>音楽を聞きながら、掃除をします。</td>
+                        <td>聞 (き)、音楽 (おんがく)、掃除 (そうじ)</td>
+                    </tr>
+                    <tr>
+                        <td>7</td>
+                        <td>話す</td>
+                        <td>話しながら</td>
+                        <td>友達と話しながら、公園を散歩します。</td>
+                        <td>話 (はな)、友達 (ともだち)、公園 (こうえん)</td>
+                    </tr>
+                    <tr>
+                        <td>8</td>
+                        <td>読む</td>
+                        <td>読みながら</td>
+                        <td>本を読みながら、メモを取ります。</td>
+                        <td>読 (よ)、本 (ほん)、メモ (めも)</td>
+                    </tr>
+                    <tr>
+                        <td>9</td>
+                        <td>書く</td>
+                        <td>書きながら</td>
+                        <td>手紙を書きながら、コーヒーを飲みます。</td>
+                        <td>書 (か)、手紙 (てがみ)、コーヒー (こーひー)</td>
+                    </tr>
+                    <tr>
+                        <td>10</td>
+                        <td>勉強する</td>
+                        <td>勉強しながら</td>
+                        <td>勉強しながら、音楽を聞きます。</td>
+                        <td>勉強 (べんきょう)、音楽 (おんがく)</td>
+                    </tr>
+                    <tr>
+                        <td>11</td>
+                        <td>寝る</td>
+                        <td>寝ながら</td>
+                        <td>寝ながら、夢を見ます。</td>
+                        <td>寝 (ね)、夢 (ゆめ)</td>
+                    </tr>
+                    <tr>
+                        <td>12</td>
+                        <td>起きる</td>
+                        <td>起きながら</td>
+                        <td>起きながら、ニュースを聞きます。</td>
+                        <td>起 (お)、ニュース (にゅーす)</td>
+                    </tr>
+                    <tr>
+                        <td>13</td>
+                        <td>遊ぶ</td>
+                        <td>遊びながら</td>
+                        <td>公園で遊びながら、友達と話します。</td>
+                        <td>遊 (あそ)、公園 (こうえん)、友達 (ともだち)</td>
+                    </tr>
+                    <tr>
+                        <td>14</td>
+                        <td>買う</td>
+                        <td>買いながら</td>
+                        <td>買い物をしながら、メモを取ります。</td>
+                        <td>買 (か)、買い物 (かいもの)、メモ (めも)</td>
+                    </tr>
+                    <tr>
+                        <td>15</td>
+                        <td>売る</td>
+                        <td>売りながら</td>
+                        <td>店で売りながら、お客さんと話します。</td>
+                        <td>売 (う)、店 (みせ)、お客さん (おきゃくさん)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Toggle Section for Examples 16-30 -->
+    <div class="toggle-section">
+        <button class="toggle-button" onclick="toggleSection('section2')">Show/Hide Examples 16-30</button>
+        <div id="section2" class="hidden">
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Verb (Plain)</th>
+                        <th>Verb + ながら</th>
+                        <th>Example Sentence</th>
+                        <th>Kanji</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Examples 16-30 -->
+                    <tr>
+                        <td>16</td>
+                        <td>作る</td>
+                        <td>作りながら</td>
+                        <td>料理を作りながら、歌を歌います。</td>
+                        <td>作 (つく)、料理 (りょうり)、歌 (うた)</td>
+                    </tr>
+                    <tr>
+                        <td>17</td>
+                        <td>待つ</td>
+                        <td>待ちながら</td>
+                        <td>バスを待ちながら、本を読みます。</td>
+                        <td>待 (ま)、バス (ばす)、本 (ほん)</td>
+                    </tr>
+                    <tr>
+                        <td>18</td>
+                        <td>帰る</td>
+                        <td>帰りながら</td>
+                        <td>家に帰りながら、電話で話します。</td>
+                        <td>帰 (かえ)、家 (いえ)、電話 (でんわ)</td>
+                    </tr>
+                    <tr>
+                        <td>19</td>
+                        <td>歩く</td>
+                        <td>歩きながら</td>
+                        <td>歩きながら、景色を楽しみます。</td>
+                        <td>歩 (ある)、景色 (けしき)</td>
+                    </tr>
+                    <tr>
+                        <td>20</td>
+                        <td>走る</td>
+                        <td>走りながら</td>
+                        <td>走りながら、音楽を聞きます。</td>
+                        <td>走 (はし)、音楽 (おんがく)</td>
+                    </tr>
+                    <tr>
+                        <td>21</td>
+                        <td>泳ぐ</td>
+                        <td>泳ぎながら</td>
+                        <td>海で泳ぎながら、友達と話します。</td>
+                        <td>泳 (およ)、海 (うみ)、友達 (ともだち)</td>
+                    </tr>
+                    <tr>
+                        <td>22</td>
+                        <td>始める</td>
+                        <td>始めながら</td>
+                        <td>仕事を始めながら、コーヒーを飲みます。</td>
+                        <td>始 (はじ)、仕事 (しごと)、コーヒー (こーひー)</td>
+                    </tr>
+                    <tr>
+                        <td>23</td>
+                        <td>会う</td>
+                        <td>会いながら</td>
+                        <td>友達に会いながら、カフェで話します。</td>
+                        <td>会 (あ)、友達 (ともだち)、カフェ (かふぇ)</td>
+                    </tr>
+                    <tr>
+                        <td>24</td>
+                        <td>送る</td>
+                        <td>送りながら</td>
+                        <td>メールを送りながら、返事を待ちます。</td>
+                        <td>送 (おく)、メール (めーる)、返事 (へんじ)</td>
+                    </tr>
+                    <tr>
+                        <td>25</td>
+                        <td>持つ</td>
+                        <td>持ちながら</td>
+                        <td>カバンを持ちながら、電話で話します。</td>
+                        <td>持 (も)、カバン (かばん)、電話 (でんわ)</td>
+                    </tr>
+                    <tr>
+                        <td>26</td>
+                        <td>座る</td>
+                        <td>座りながら</td>
+                        <td>椅子に座りながら、本を読みます。</td>
+                        <td>座 (すわ)、椅子 (いす)、本 (ほん)</td>
+                    </tr>
+                    <tr>
+                        <td>27</td>
+                        <td>入る</td>
+                        <td>入りながら</td>
+                        <td>お風呂に入りながら、歌を歌います。</td>
+                        <td>入 (はい)、お風呂 (おふろ)、歌 (うた)</td>
+                    </tr>
+                    <tr>
+                        <td>28</td>
+                        <td>出る</td>
+                        <td>出ながら</td>
+                        <td>家を出ながら、鍵を確認します。</td>
+                        <td>出 (で)、家 (いえ)、鍵 (かぎ)</td>
+                    </tr>
+                    <tr>
+                        <td>29</td>
+                        <td>着る</td>
+                        <td>着ながら</td>
+                        <td>新しい服を着ながら、鏡を見ます。</td>
+                        <td>着 (き)、新しい (あたらしい)、服 (ふく)、鏡 (かがみ)</td>
+                    </tr>
+                    <tr>
+                        <td>30</td>
+                        <td>洗う</td>
+                        <td>洗いながら</td>
+                        <td>服を洗いながら、音楽を聞きます。</td>
+                        <td>洗 (あら)、服 (ふく)、音楽 (おんがく)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Link Back to Index -->
+    <p><a href="/japanese/index.html">Back to Japanese Index</a></p>
+
+    <!-- JavaScript for Toggle Functionality -->
+    <script>
+        function toggleSection(id) {
+            const section = document.getElementById(id);
+            if (section.style.display === "none") {
+                section.style.display = "block";
+            } else {
+                section.style.display = "none";
+            }
+        }
+    </script>
+</body>
+</html>
