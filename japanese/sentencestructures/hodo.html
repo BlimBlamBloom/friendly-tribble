@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>〜ほど (hodo) - Flülli</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+        }
+        h1 {
+            color: #4CAF50;
+        }
+        h2 {
+            color: #333;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+        .toggle-section {
+            margin-bottom: 20px;
+        }
+        .toggle-button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            cursor: pointer;
+        }
+        .toggle-button:hover {
+            background-color: #45a049;
+        }
+        .hidden {
+            display: none;
+        }
+        a {
+            color: #4CAF50;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <!-- Title -->
+    <h1>〜ほど (hodo)</h1>
+
+    <!-- Explanation -->
+    <h2>Explanation</h2>
+    <p>Used to express a proportional relationship, meaning "the more X, the more Y" or "the more X, the less Y." Attach 〜ほど to the dictionary form of the verb.</p>
+    <p><strong>Example:</strong></p>
+    <p>食べる → 食べる + ほど = 食べるほど</p>
+    <p>食べるほど、お腹がいっぱいになります。<br>(たべるほど、おなかがいっぱいになります。)<br>"The more I eat, the fuller I get."</p>
+
+    <!-- Table for First 5 Examples -->
+    <h2>Examples 1-5</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Verb (Plain)</th>
+                <th>Verb + ほど</th>
+                <th>Example Sentence</th>
+                <th>Kanji</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>食べる</td>
+                <td>食べるほど</td>
+                <td>食べるほど、おいしくなります。</td>
+                <td>食べ (たべ)、おいしく (おいしく)</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>飲む</td>
+                <td>飲むほど</td>
+                <td>飲むほど、元気になります。</td>
+                <td>飲 (の)、元気 (げんき)</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>行く</td>
+                <td>行くほど</td>
+                <td>行くほど、景色がきれいになります。</td>
+                <td>行 (い)、景色 (けしき)、きれい (きれい)</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>来る</td>
+                <td>来るほど</td>
+                <td>来るほど、楽しくなります。</td>
+                <td>来 (き)、楽しく (たのしく)</td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>見る</td>
+                <td>見るほど</td>
+                <td>見るほど、感動します。</td>
+                <td>見 (み)、感動 (かんどう)</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- Toggle Section for Examples 6-15 -->
+    <div class="toggle-section">
+        <button class="toggle-button" onclick="toggleSection('section1')">Show/Hide Examples 6-15</button>
+        <div id="section1" class="hidden">
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Verb (Plain)</th>
+                        <th>Verb + ほど</th>
+                        <th>Example Sentence</th>
+                        <th>Kanji</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Examples 6-15 -->
+                    <tr>
+                        <td>6</td>
+                        <td>聞く</td>
+                        <td>聞くほど</td>
+                        <td>聞くほど、詳しくなります。</td>
+                        <td>聞 (き)、詳しく (くわしく)</td>
+                    </tr>
+                    <tr>
+                        <td>7</td>
+                        <td>話す</td>
+                        <td>話すほど</td>
+                        <td>話すほど、仲良くなります。</td>
+                        <td>話 (はな)、仲良く (なかよく)</td>
+                    </tr>
+                    <tr>
+                        <td>8</td>
+                        <td>読む</td>
+                        <td>読むほど</td>
+                        <td>読むほど、面白くなります。</td>
+                        <td>読 (よ)、面白く (おもしろく)</td>
+                    </tr>
+                    <tr>
+                        <td>9</td>
+                        <td>書く</td>
+                        <td>書くほど</td>
+                        <td>書くほど、上手になります。</td>
+                        <td>書 (か)、上手 (じょうず)</td>
+                    </tr>
+                    <tr>
+                        <td>10</td>
+                        <td>勉強する</td>
+                        <td>勉強するほど</td>
+                        <td>勉強するほど、わかることが増えます。</td>
+                        <td>勉強 (べんきょう)、増え (ふえ)</td>
+                    </tr>
+                    <tr>
+                        <td>11</td>
+                        <td>寝る</td>
+                        <td>寝るほど</td>
+                        <td>寝るほど、疲れが取れます。</td>
+                        <td>寝 (ね)、疲れ (つかれ)</td>
+                    </tr>
+                    <tr>
+                        <td>12</td>
+                        <td>起きる</td>
+                        <td>起きるほど</td>
+                        <td>早く起きるほど、時間が増えます。</td>
+                        <td>起 (お)、早く (はやく)、時間 (じかん)</td>
+                    </tr>
+                    <tr>
+                        <td>13</td>
+                        <td>遊ぶ</td>
+                        <td>遊ぶほど</td>
+                        <td>遊ぶほど、楽しいです。</td>
+                        <td>遊 (あそ)、楽しい (たのしい)</td>
+                    </tr>
+                    <tr>
+                        <td>14</td>
+                        <td>買う</td>
+                        <td>買うほど</td>
+                        <td>買うほど、お金がなくなります。</td>
+                        <td>買 (か)、お金 (おかね)</td>
+                    </tr>
+                    <tr>
+                        <td>15</td>
+                        <td>売る</td>
+                        <td>売るほど</td>
+                        <td>売るほど、在庫が減ります。</td>
+                        <td>売 (う)、在庫 (ざいこ)、減り (へり)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Toggle Section for Examples 16-30 -->
+    <div class="toggle-section">
+        <button class="toggle-button" onclick="toggleSection('section2')">Show/Hide Examples 16-30</button>
+        <div id="section2" class="hidden">
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Verb (Plain)</th>
+                        <th>Verb + ほど</th>
+                        <th>Example Sentence</th>
+                        <th>Kanji</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Examples 16-30 -->
+                    <tr>
+                        <td>16</td>
+                        <td>作る</td>
+                        <td>作るほど</td>
+                        <td>作るほど、上手になります。</td>
+                        <td>作 (つく)、上手 (じょうず)</td>
+                    </tr>
+                    <tr>
+                        <td>17</td>
+                        <td>待つ</td>
+                        <td>待つほど</td>
+                        <td>待つほど、不安になります。</td>
+                        <td>待 (ま)、不安 (ふあん)</td>
+                    </tr>
+                    <tr>
+                        <td>18</td>
+                        <td>帰る</td>
+                        <td>帰るほど</td>
+                        <td>帰るほど、寂しくなります。</td>
+                        <td>帰 (かえ)、寂しく (さびしく)</td>
+                    </tr>
+                    <tr>
+                        <td>19</td>
+                        <td>歩く</td>
+                        <td>歩くほど</td>
+                        <td>歩くほど、健康になります。</td>
+                        <td>歩 (ある)、健康 (けんこう)</td>
+                    </tr>
+                    <tr>
+                        <td>20</td>
+                        <td>走る</td>
+                        <td>走るほど</td>
+                        <td>走るほど、疲れます。</td>
+                        <td>走 (はし)、疲れ (つかれ)</td>
+                    </tr>
+                    <tr>
+                        <td>21</td>
+                        <td>泳ぐ</td>
+                        <td>泳ぐほど</td>
+                        <td>泳ぐほど、気持ちよくなります。</td>
+                        <td>泳 (およ)、気持ち (きもち)</td>
+                    </tr>
+                    <tr>
+                        <td>22</td>
+                        <td>始める</td>
+                        <td>始めるほど</td>
+                        <td>始めるほど、楽しくなります。</td>
+                        <td>始 (はじ)、楽しく (たのしく)</td>
+                    </tr>
+                    <tr>
+                        <td>23</td>
+                        <td>会う</td>
+                        <td>会うほど</td>
+                        <td>会うほど、好きになります。</td>
+                        <td>会 (あ)、好き (すき)</td>
+                    </tr>
+                    <tr>
+                        <td>24</td>
+                        <td>送る</td>
+                        <td>送るほど</td>
+                        <td>送るほど、寂しくなります。</td>
+                        <td>送 (おく)、寂しく (さびしく)</td>
+                    </tr>
+                    <tr>
+                        <td>25</td>
+                        <td>持つ</td>
+                        <td>持つほど</td>
+                        <td>持つほど、重くなります。</td>
+                        <td>持 (も)、重く (おもく)</td>
+                    </tr>
+                    <tr>
+                        <td>26</td>
+                        <td>座る</td>
+                        <td>座るほど</td>
+                        <td>座るほど、リラックスします。</td>
+                        <td>座 (すわ)、リラックス (りらっくす)</td>
+                    </tr>
+                    <tr>
+                        <td>27</td>
+                        <td>入る</td>
+                        <td>入るほど</td>
+                        <td>お風呂に入るほど、温まります。</td>
+                        <td>入 (はい)、お風呂 (おふろ)、温まり (あたたまり)</td>
+                    </tr>
+                    <tr>
+                        <td>28</td>
+                        <td>出る</td>
+                        <td>出るほど</td>
+                        <td>出るほど、寒くなります。</td>
+                        <td>出 (で)、寒く (さむく)</td>
+                    </tr>
+                    <tr>
+                        <td>29</td>
+                        <td>着る</td>
+                        <td>着るほど</td>
+                        <td>着るほど、暖かくなります。</td>
+                        <td>着 (き)、暖かく (あたたかく)</td>
+                    </tr>
+                    <tr>
+                        <td>30</td>
+                        <td>洗う</td>
+                        <td>洗うほど</td>
+                        <td>洗うほど、きれいになります。</td>
+                        <td>洗 (あら)、きれい (きれい)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Link Back to Index -->
+    <p><a href="/japanese/index.html">Back to Japanese Index</a></p>
+
+    <!-- JavaScript for Toggle Functionality -->
+    <script>
+        function toggleSection(id) {
+            const section = document.getElementById(id);
+            if (section.style.display === "none") {
+                section.style.display = "block";
+            } else {
+                section.style.display = "none";
+            }
+        }
+    </script>
+</body>
+</html>
