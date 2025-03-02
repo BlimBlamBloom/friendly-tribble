@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>〜ても (temo) - Flülli</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+        }
+        h1 {
+            color: #4CAF50;
+        }
+        h2 {
+            color: #333;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+        .toggle-section {
+            margin-bottom: 20px;
+        }
+        .toggle-button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            cursor: pointer;
+        }
+        .toggle-button:hover {
+            background-color: #45a049;
+        }
+        .hidden {
+            display: none;
+        }
+        a {
+            color: #4CAF50;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <!-- Title -->
+    <h1>〜ても (temo)</h1>
+
+    <!-- Explanation -->
+    <h2>Explanation</h2>
+    <p>Used to express "even if" or "no matter what." Attach 〜ても to the て-form of the verb.</p>
+    <p><strong>Example:</strong></p>
+    <p>食べる → 食べて + も = 食べても</p>
+    <p>たくさん食べても、お腹がいっぱいになりません。<br>(たくさんたべても、おなかがいっぱいになりません。)<br>"Even if I eat a lot, I don’t get full."</p>
+
+    <!-- Table for First 5 Examples -->
+    <h2>Examples 1-5</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Verb (Plain)</th>
+                <th>Verb + ても</th>
+                <th>Example Sentence</th>
+                <th>Kanji</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>食べる</td>
+                <td>食べても</td>
+                <td>たくさん食べても、お腹がいっぱいになりません。</td>
+                <td>食べ (たべ)、お腹 (おなか)</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>飲む</td>
+                <td>飲んでも</td>
+                <td>コーヒーを飲んでも、眠くならないです。</td>
+                <td>飲 (の)、コーヒー (こーひー)、眠く (ねむく)</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>行く</td>
+                <td>行っても</td>
+                <td>遠くに行っても、友達に会いたいです。</td>
+                <td>行 (い)、遠く (とおく)、友達 (ともだち)</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>来る</td>
+                <td>来ても</td>
+                <td>彼が来ても、私は家にいません。</td>
+                <td>来 (き)、家 (いえ)</td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>見る</td>
+                <td>見ても</td>
+                <td>映画を見ても、面白くないです。</td>
+                <td>見 (み)、映画 (えいが)、面白く (おもしろく)</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- Toggle Section for Examples 6-15 -->
+    <div class="toggle-section">
+        <button class="toggle-button" onclick="toggleSection('section1')">Show/Hide Examples 6-15</button>
+        <div id="section1" class="hidden">
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Verb (Plain)</th>
+                        <th>Verb + ても</th>
+                        <th>Example Sentence</th>
+                        <th>Kanji</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Examples 6-15 -->
+                    <tr>
+                        <td>6</td>
+                        <td>聞く</td>
+                        <td>聞いても</td>
+                        <td>音楽を聞いても、リラックスできません。</td>
+                        <td>聞 (き)、音楽 (おんがく)</td>
+                    </tr>
+                    <tr>
+                        <td>7</td>
+                        <td>話す</td>
+                        <td>話しても</td>
+                        <td>先生と話しても、わかりませんでした。</td>
+                        <td>話 (はな)、先生 (せんせい)</td>
+                    </tr>
+                    <tr>
+                        <td>8</td>
+                        <td>読む</td>
+                        <td>読んでも</td>
+                        <td>本を読んでも、内容を覚えていません。</td>
+                        <td>読 (よ)、本 (ほん)、内容 (ないよう)</td>
+                    </tr>
+                    <tr>
+                        <td>9</td>
+                        <td>書く</td>
+                        <td>書いても</td>
+                        <td>手紙を書いても、送りませんでした。</td>
+                        <td>書 (か)、手紙 (てがみ)、送り (おくり)</td>
+                    </tr>
+                    <tr>
+                        <td>10</td>
+                        <td>勉強する</td>
+                        <td>勉強しても</td>
+                        <td>勉強しても、テストでいい点が取れません。</td>
+                        <td>勉強 (べんきょう)、テスト (てすと)、点 (てん)</td>
+                    </tr>
+                    <tr>
+                        <td>11</td>
+                        <td>寝る</td>
+                        <td>寝ても</td>
+                        <td>早く寝ても、疲れが取れません。</td>
+                        <td>寝 (ね)、早く (はやく)、疲れ (つかれ)</td>
+                    </tr>
+                    <tr>
+                        <td>12</td>
+                        <td>起きる</td>
+                        <td>起きても</td>
+                        <td>早く起きても、時間がありません。</td>
+                        <td>起 (お)、早く (はやく)、時間 (じかん)</td>
+                    </tr>
+                    <tr>
+                        <td>13</td>
+                        <td>遊ぶ</td>
+                        <td>遊んでも</td>
+                        <td>公園で遊んでも、飽きません。</td>
+                        <td>遊 (あそ)、公園 (こうえん)、飽き (あき)</td>
+                    </tr>
+                    <tr>
+                        <td>14</td>
+                        <td>買う</td>
+                        <td>買っても</td>
+                        <td>新しい靴を買っても、履きません。</td>
+                        <td>買 (か)、新しい (あたらしい)、靴 (くつ)</td>
+                    </tr>
+                    <tr>
+                        <td>15</td>
+                        <td>売る</td>
+                        <td>売っても</td>
+                        <td>古い本を売っても、お金が足りません。</td>
+                        <td>売 (う)、古い (ふるい)、本 (ほん)、お金 (おかね)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Toggle Section for Examples 16-30 -->
+    <div class="toggle-section">
+        <button class="toggle-button" onclick="toggleSection('section2')">Show/Hide Examples 16-30</button>
+        <div id="section2" class="hidden">
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Verb (Plain)</th>
+                        <th>Verb + ても</th>
+                        <th>Example Sentence</th>
+                        <th>Kanji</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Examples 16-30 -->
+                    <tr>
+                        <td>16</td>
+                        <td>作る</td>
+                        <td>作っても</td>
+                        <td>ケーキを作っても、食べません。</td>
+                        <td>作 (つく)、ケーキ (けーき)</td>
+                    </tr>
+                    <tr>
+                        <td>17</td>
+                        <td>待つ</td>
+                        <td>待っても</td>
+                        <td>バスを待っても、来ませんでした。</td>
+                        <td>待 (ま)、バス (ばす)</td>
+                    </tr>
+                    <tr>
+                        <td>18</td>
+                        <td>帰る</td>
+                        <td>帰っても</td>
+                        <td>家に帰っても、誰もいません。</td>
+                        <td>帰 (かえ)、家 (いえ)、誰も (だれも)</td>
+                    </tr>
+                    <tr>
+                        <td>19</td>
+                        <td>歩く</td>
+                        <td>歩いても</td>
+                        <td>たくさん歩いても、疲れません。</td>
+                        <td>歩 (ある)、疲れ (つかれ)</td>
+                    </tr>
+                    <tr>
+                        <td>20</td>
+                        <td>走る</td>
+                        <td>走っても</td>
+                        <td>毎日走っても、痩せません。</td>
+                        <td>走 (はし)、毎日 (まいにち)、痩せ (やせ)</td>
+                    </tr>
+                    <tr>
+                        <td>21</td>
+                        <td>泳ぐ</td>
+                        <td>泳いでも</td>
+                        <td>海で泳いでも、寒くないです。</td>
+                        <td>泳 (およ)、海 (うみ)、寒く (さむく)</td>
+                    </tr>
+                    <tr>
+                        <td>22</td>
+                        <td>始める</td>
+                        <td>始めても</td>
+                        <td>仕事を始めても、集中できません。</td>
+                        <td>始 (はじ)、仕事 (しごと)、集中 (しゅうちゅう)</td>
+                    </tr>
+                    <tr>
+                        <td>23</td>
+                        <td>会う</td>
+                        <td>会っても</td>
+                        <td>友達に会っても、話しません。</td>
+                        <td>会 (あ)、友達 (ともだち)</td>
+                    </tr>
+                    <tr>
+                        <td>24</td>
+                        <td>送る</td>
+                        <td>送っても</td>
+                        <td>メールを送っても、返事が来ません。</td>
+                        <td>送 (おく)、メール (めーる)、返事 (へんじ)</td>
+                    </tr>
+                    <tr>
+                        <td>25</td>
+                        <td>持つ</td>
+                        <td>持っても</td>
+                        <td>カバンを持っても、重くないです。</td>
+                        <td>持 (も)、カバン (かばん)、重く (おもく)</td>
+                    </tr>
+                    <tr>
+                        <td>26</td>
+                        <td>座る</td>
+                        <td>座っても</td>
+                        <td>椅子に座っても、休めません。</td>
+                        <td>座 (すわ)、椅子 (いす)、休め (やすめ)</td>
+                    </tr>
+                    <tr>
+                        <td>27</td>
+                        <td>入る</td>
+                        <td>入っても</td>
+                        <td>お風呂に入っても、リラックスできません。</td>
+                        <td>入 (はい)、お風呂 (おふろ)</td>
+                    </tr>
+                    <tr>
+                        <td>28</td>
+                        <td>出る</td>
+                        <td>出ても</td>
+                        <td>家を出ても、雨が降っています。</td>
+                        <td>出 (で)、家 (いえ)、雨 (あめ)</td>
+                    </tr>
+                    <tr>
+                        <td>29</td>
+                        <td>着る</td>
+                        <td>着ても</td>
+                        <td>新しい服を着ても、寒いです。</td>
+                        <td>着 (き)、新しい (あたらしい)、服 (ふく)、寒い (さむい)</td>
+                    </tr>
+                    <tr>
+                        <td>30</td>
+                        <td>洗う</td>
+                        <td>洗っても</td>
+                        <td>服を洗っても、汚れが落ちません。</td>
+                        <td>洗 (あら)、服 (ふく)、汚れ (よごれ)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Link Back to Index -->
+    <p><a href="/japanese/index.html">Back to Japanese Index</a></p>
+
+    <!-- JavaScript for Toggle Functionality -->
+    <script>
+        function toggleSection(id) {
+            const section = document.getElementById(id);
+            if (section.style.display === "none") {
+                section.style.display = "block";
+            } else {
+                section.style.display = "none";
+            }
+        }
+    </script>
+</body>
+</html>
