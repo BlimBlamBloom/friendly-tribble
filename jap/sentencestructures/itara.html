@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>〜たら (tara) - Flülli</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+        }
+        h1 {
+            color: #4CAF50;
+        }
+        h2 {
+            color: #333;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+        .toggle-section {
+            margin-bottom: 20px;
+        }
+        .toggle-button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            cursor: pointer;
+        }
+        .toggle-button:hover {
+            background-color: #45a049;
+        }
+        .hidden {
+            display: none;
+        }
+        a {
+            color: #4CAF50;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <!-- Title -->
+    <h1>〜たら (tara)</h1>
+
+    <!-- Explanation -->
+    <h2>Explanation</h2>
+    <p>Used for "if" or "when" conditions. Attach 〜たら to the た-form of the verb.</p>
+    <p><strong>Example:</strong></p>
+    <p>行く → 行った + ら = 行ったら</p>
+    <p>図書館に行ったら、勉強します。<br>(としょかんにいったら、べんきょうします。)</p>
+
+    <!-- Table for First 5 Examples -->
+    <h2>Examples 1-5</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Verb (Plain)</th>
+                <th>Verb + 〜たら</th>
+                <th>Example Sentence</th>
+                <th>Kanji</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>食べる</td>
+                <td>食べたら</td>
+                <td>晩ごはんを食べたら、すぐに寝ます。</td>
+                <td>食べ (たべ)、晩ごはん (ばんごはん)、寝 (ね)</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>飲む</td>
+                <td>飲んだら</td>
+                <td>コーヒーを飲んだら、仕事を始めます。</td>
+                <td>飲 (の)、仕事 (しごと)、始め (はじめ)</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>行く</td>
+                <td>行ったら</td>
+                <td>公園に行ったら、友達とサッカーをします。</td>
+                <td>行 (い)、公園 (こうえん)、友達 (ともだち)</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>来る</td>
+                <td>来たら</td>
+                <td>彼が来たら、一緒に映画を見ます。</td>
+                <td>来 (き)、一緒 (いっしょ)、映画 (えいが)</td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>見る</td>
+                <td>見たら</td>
+                <td>映画を見たら、感想を教えてください。</td>
+                <td>見 (み)、映画 (えいが)、感想 (かんそう)</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- Toggle Section for Examples 6-15 -->
+    <div class="toggle-section">
+        <button class="toggle-button" onclick="toggleSection('section1')">Show/Hide Examples 6-15</button>
+        <div id="section1" class="hidden">
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Verb (Plain)</th>
+                        <th>Verb + 〜たら</th>
+                        <th>Example Sentence</th>
+                        <th>Kanji</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Examples 6-15 -->
+                    <tr>
+                        <td>6</td>
+                        <td>聞く</td>
+                        <td>聞いたら</td>
+                        <td>音楽を聞いたら、リラックスできます。</td>
+                        <td>聞 (き)、音楽 (おんがく)</td>
+                    </tr>
+                    <tr>
+                        <td>7</td>
+                        <td>話す</td>
+                        <td>話したら</td>
+                        <td>先生と話したら、質問がわかりました。</td>
+                        <td>話 (はな)、先生 (せんせい)、質問 (しつもん)</td>
+                    </tr>
+                    <tr>
+                        <td>8</td>
+                        <td>読む</td>
+                        <td>読んだら</td>
+                        <td>本を読んだら、感想を話します。</td>
+                        <td>読 (よ)、本 (ほん)、感想 (かんそう)</td>
+                    </tr>
+                    <tr>
+                        <td>9</td>
+                        <td>書く</td>
+                        <td>書いたら</td>
+                        <td>手紙を書いたら、すぐに送ります。</td>
+                        <td>書 (か)、手紙 (てがみ)、送り (おくり)</td>
+                    </tr>
+                    <tr>
+                        <td>10</td>
+                        <td>勉強する</td>
+                        <td>勉強したら</td>
+                        <td>勉強したら、少し休みます。</td>
+                        <td>勉強 (べんきょう)、休み (やすみ)</td>
+                    </tr>
+                    <tr>
+                        <td>11</td>
+                        <td>寝る</td>
+                        <td>寝たら</td>
+                        <td>寝たら、明日の準備をします。</td>
+                        <td>寝 (ね)、明日 (あした)、準備 (じゅんび)</td>
+                    </tr>
+                    <tr>
+                        <td>12</td>
+                        <td>起きる</td>
+                        <td>起きたら</td>
+                        <td>起きたら、まずコーヒーを飲みます。</td>
+                        <td>起 (お)、コーヒー (こーひー)、飲 (の)</td>
+                    </tr>
+                    <tr>
+                        <td>13</td>
+                        <td>遊ぶ</td>
+                        <td>遊んだら</td>
+                        <td>公園で遊んだら、家に帰ります。</td>
+                        <td>遊 (あそ)、公園 (こうえん)、帰り (かえり)</td>
+                    </tr>
+                    <tr>
+                        <td>14</td>
+                        <td>買う</td>
+                        <td>買ったら</td>
+                        <td>新しい靴を買ったら、履いてみます。</td>
+                        <td>買 (か)、新しい (あたらしい)、靴 (くつ)</td>
+                    </tr>
+                    <tr>
+                        <td>15</td>
+                        <td>売る</td>
+                        <td>売ったら</td>
+                        <td>古い本を売ったら、新しい本を買います。</td>
+                        <td>売 (う)、古い (ふるい)、本 (ほん)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Toggle Section for Examples 16-30 -->
+    <div class="toggle-section">
+        <button class="toggle-button" onclick="toggleSection('section2')">Show/Hide Examples 16-30</button>
+        <div id="section2" class="hidden">
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Verb (Plain)</th>
+                        <th>Verb + 〜たら</th>
+                        <th>Example Sentence</th>
+                        <th>Kanji</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Examples 16-30 -->
+                    <tr>
+                        <td>16</td>
+                        <td>作る</td>
+                        <td>作ったら</td>
+                        <td>ケーキを作ったら、友達にあげます。</td>
+                        <td>作 (つく)、ケーキ (けーき)、友達 (ともだち)</td>
+                    </tr>
+                    <tr>
+                        <td>17</td>
+                        <td>待つ</td>
+                        <td>待ったら</td>
+                        <td>バスを待ったら、駅まで行きます。</td>
+                        <td>待 (ま)、バス (ばす)、駅 (えき)</td>
+                    </tr>
+                    <tr>
+                        <td>18</td>
+                        <td>帰る</td>
+                        <td>帰ったら</td>
+                        <td>家に帰ったら、すぐにシャワーを浴びます。</td>
+                        <td>帰 (かえ)、家 (いえ)、シャワー (しゃわー)</td>
+                    </tr>
+                    <tr>
+                        <td>19</td>
+                        <td>歩く</td>
+                        <td>歩いたら</td>
+                        <td>散歩をしたら、気分がよくなります。</td>
+                        <td>歩 (ある)、散歩 (さんぽ)、気分 (きぶん)</td>
+                    </tr>
+                    <tr>
+                        <td>20</td>
+                        <td>走る</td>
+                        <td>走ったら</td>
+                        <td>朝走ったら、一日中元気です。</td>
+                        <td>走 (はし)、朝 (あさ)、元気 (げんき)</td>
+                    </tr>
+                    <tr>
+                        <td>21</td>
+                        <td>泳ぐ</td>
+                        <td>泳いだら</td>
+                        <td>海で泳いだら、昼ごはんを食べます。</td>
+                        <td>泳 (およ)、海 (うみ)、昼ごはん (ひるごはん)</td>
+                    </tr>
+                    <tr>
+                        <td>22</td>
+                        <td>始める</td>
+                        <td>始めたら</td>
+                        <td>仕事を始めたら、集中します。</td>
+                        <td>始 (はじ)、仕事 (しごと)、集中 (しゅうちゅう)</td>
+                    </tr>
+                    <tr>
+                        <td>23</td>
+                        <td>会う</td>
+                        <td>会ったら</td>
+                        <td>友達に会ったら、カフェに行きます。</td>
+                        <td>会 (あ)、友達 (ともだち)、カフェ (かふぇ)</td>
+                    </tr>
+                    <tr>
+                        <td>24</td>
+                        <td>送る</td>
+                        <td>送ったら</td>
+                        <td>メールを送ったら、返事を待ちます。</td>
+                        <td>送 (おく)、メール (めーる)、返事 (へんじ)</td>
+                    </tr>
+                    <tr>
+                        <td>25</td>
+                        <td>持つ</td>
+                        <td>持ったら</td>
+                        <td>カバンを持ったら、出かけます。</td>
+                        <td>持 (も)、カバン (かばん)</td>
+                    </tr>
+                    <tr>
+                        <td>26</td>
+                        <td>座る</td>
+                        <td>座ったら</td>
+                        <td>椅子に座ったら、本を読みます。</td>
+                        <td>座 (すわ)、椅子 (いす)、本 (ほん)</td>
+                    </tr>
+                    <tr>
+                        <td>27</td>
+                        <td>入る</td>
+                        <td>入ったら</td>
+                        <td>お風呂に入ったら、リラックスします。</td>
+                        <td>入 (はい)、お風呂 (おふろ)</td>
+                    </tr>
+                    <tr>
+                        <td>28</td>
+                        <td>出る</td>
+                        <td>出たら</td>
+                        <td>家を出たら、電車に乗ります。</td>
+                        <td>出 (で)、家 (いえ)、電車 (でんしゃ)</td>
+                    </tr>
+                    <tr>
+                        <td>29</td>
+                        <td>着る</td>
+                        <td>着たら</td>
+                        <td>新しい服を着たら、写真を撮ります。</td>
+                        <td>着 (き)、新しい (あたらしい)、服 (ふく)、写真 (しゃしん)、撮り (とり)</td>
+                    </tr>
+                    <tr>
+                        <td>30</td>
+                        <td>洗う</td>
+                        <td>洗ったら</td>
+                        <td>服を洗ったら、干します。</td>
+                        <td>洗 (あら)、服 (ふく)、干し (ほし)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Link Back to Index -->
+    <p><a href="/japanese/index.html">Back to Japanese Index</a></p>
+
+    <!-- JavaScript for Toggle Functionality -->
+    <script>
+        function toggleSection(id) {
+            const section = document.getElementById(id);
+            if (section.style.display === "none") {
+                section.style.display = "block";
+            } else {
+                section.style.display = "none";
+            }
+        }
+    </script>
+</body>
+</html>
