@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>〜ために (tame ni) - Flülli</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+        }
+        h1 {
+            color: #4CAF50;
+        }
+        h2 {
+            color: #333;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+        .toggle-section {
+            margin-bottom: 20px;
+        }
+        .toggle-button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            cursor: pointer;
+        }
+        .toggle-button:hover {
+            background-color: #45a049;
+        }
+        .hidden {
+            display: none;
+        }
+        a {
+            color: #4CAF50;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <!-- Title -->
+    <h1>〜ために (tame ni)</h1>
+
+    <!-- Explanation -->
+    <h2>Explanation</h2>
+    <p>Used to express purpose or reason ("in order to" or "for the sake of"). Attach 〜ために to the dictionary form of the verb.</p>
+    <p><strong>Example:</strong></p>
+    <p>食べる → 食べる + ために = 食べるために</p>
+    <p>野菜を食べるために、スーパーに行きます。<br>(やさいをたべるために、すーぱーにいきます。)<br>"I go to the supermarket in order to eat vegetables."</p>
+
+    <!-- Table for First 5 Examples -->
+    <h2>Examples 1-5</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Verb (Plain)</th>
+                <th>Verb + ために</th>
+                <th>Example Sentence</th>
+                <th>Kanji</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>食べる</td>
+                <td>食べるために</td>
+                <td>野菜を食べるために、スーパーに行きます。</td>
+                <td>食べ (たべ)、野菜 (やさい)、スーパー (すーぱー)</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>飲む</td>
+                <td>飲むために</td>
+                <td>水を飲むために、コップを持ってきました。</td>
+                <td>飲 (の)、水 (みず)、コップ (こっぷ)</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>行く</td>
+                <td>行くために</td>
+                <td>日本に行くために、パスポートを申請しました。</td>
+                <td>行 (い)、日本 (にほん)、パスポート (ぱすぽーと)</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>来る</td>
+                <td>来るために</td>
+                <td>彼が来るために、部屋を掃除しました。</td>
+                <td>来 (き)、部屋 (へや)、掃除 (そうじ)</td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>見る</td>
+                <td>見るために</td>
+                <td>映画を見るために、チケットを買いました。</td>
+                <td>見 (み)、映画 (えいが)、チケット (ちけっと)</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- Toggle Section for Examples 6-15 -->
+    <div class="toggle-section">
+        <button class="toggle-button" onclick="toggleSection('section1')">Show/Hide Examples 6-15</button>
+        <div id="section1" class="hidden">
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Verb (Plain)</th>
+                        <th>Verb + ために</th>
+                        <th>Example Sentence</th>
+                        <th>Kanji</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Examples 6-15 -->
+                    <tr>
+                        <td>6</td>
+                        <td>聞く</td>
+                        <td>聞くために</td>
+                        <td>音楽を聞くために、イヤホンを持ってきました。</td>
+                        <td>聞 (き)、音楽 (おんがく)、イヤホン (いやほん)</td>
+                    </tr>
+                    <tr>
+                        <td>7</td>
+                        <td>話す</td>
+                        <td>話すために</td>
+                        <td>先生と話すために、学校に行きました。</td>
+                        <td>話 (はな)、先生 (せんせい)、学校 (がっこう)</td>
+                    </tr>
+                    <tr>
+                        <td>8</td>
+                        <td>読む</td>
+                        <td>読むために</td>
+                        <td>本を読むために、図書館に行きます。</td>
+                        <td>読 (よ)、本 (ほん)、図書館 (としょかん)</td>
+                    </tr>
+                    <tr>
+                        <td>9</td>
+                        <td>書く</td>
+                        <td>書くために</td>
+                        <td>レポートを書くために、パソコンを使います。</td>
+                        <td>書 (か)、レポート (れぽーと)、パソコン (ぱそこん)</td>
+                    </tr>
+                    <tr>
+                        <td>10</td>
+                        <td>勉強する</td>
+                        <td>勉強するために</td>
+                        <td>勉強するために、図書館に行きます。</td>
+                        <td>勉強 (べんきょう)、図書館 (としょかん)</td>
+                    </tr>
+                    <tr>
+                        <td>11</td>
+                        <td>寝る</td>
+                        <td>寝るために</td>
+                        <td>早く寝るために、テレビを消しました。</td>
+                        <td>寝 (ね)、早く (はやく)、テレビ (てれび)</td>
+                    </tr>
+                    <tr>
+                        <td>12</td>
+                        <td>起きる</td>
+                        <td>起きるために</td>
+                        <td>朝早く起きるために、アラームをセットします。</td>
+                        <td>起 (お)、朝 (あさ)、アラーム (あらーむ)</td>
+                    </tr>
+                    <tr>
+                        <td>13</td>
+                        <td>遊ぶ</td>
+                        <td>遊ぶために</td>
+                        <td>友達と遊ぶために、公園に行きます。</td>
+                        <td>遊 (あそ)、友達 (ともだち)、公園 (こうえん)</td>
+                    </tr>
+                    <tr>
+                        <td>14</td>
+                        <td>買う</td>
+                        <td>買うために</td>
+                        <td>新しい車を買うために、お金を貯めています。</td>
+                        <td>買 (か)、新しい (あたらしい)、車 (くるま)</td>
+                    </tr>
+                    <tr>
+                        <td>15</td>
+                        <td>売る</td>
+                        <td>売るために</td>
+                        <td>古い本を売るために、店に行きました。</td>
+                        <td>売 (う)、古い (ふるい)、本 (ほん)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Toggle Section for Examples 16-30 -->
+    <div class="toggle-section">
+        <button class="toggle-button" onclick="toggleSection('section2')">Show/Hide Examples 16-30</button>
+        <div id="section2" class="hidden">
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Verb (Plain)</th>
+                        <th>Verb + ために</th>
+                        <th>Example Sentence</th>
+                        <th>Kanji</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Examples 16-30 -->
+                    <tr>
+                        <td>16</td>
+                        <td>作る</td>
+                        <td>作るために</td>
+                        <td>ケーキを作るために、材料を買いました。</td>
+                        <td>作 (つく)、ケーキ (けーき)、材料 (ざいりょう)</td>
+                    </tr>
+                    <tr>
+                        <td>17</td>
+                        <td>待つ</td>
+                        <td>待つために</td>
+                        <td>バスを待つために、駅に行きました。</td>
+                        <td>待 (ま)、バス (ばす)、駅 (えき)</td>
+                    </tr>
+                    <tr>
+                        <td>18</td>
+                        <td>帰る</td>
+                        <td>帰るために</td>
+                        <td>家に帰るために、早く仕事を終わらせます。</td>
+                        <td>帰 (かえ)、家 (いえ)、仕事 (しごと)</td>
+                    </tr>
+                    <tr>
+                        <td>19</td>
+                        <td>歩く</td>
+                        <td>歩くために</td>
+                        <td>駅まで歩くために、早く家を出ます。</td>
+                        <td>歩 (ある)、駅 (えき)、家 (いえ)</td>
+                    </tr>
+                    <tr>
+                        <td>20</td>
+                        <td>走る</td>
+                        <td>走るために</td>
+                        <td>マラソンに参加するために走るために、毎日練習します。</td>
+                        <td>走 (はし)、マラソン (まらそん)、参加 (さんか)、毎日 (まいにち)、練習 (れんしゅう)</td>
+                    </tr>
+                    <tr>
+                        <td>21</td>
+                        <td>泳ぐ</td>
+                        <td>泳ぐために</td>
+                        <td>海で泳ぐために、水着を買いました。</td>
+                        <td>泳 (およ)、海 (うみ)、水着 (みずぎ)</td>
+                    </tr>
+                    <tr>
+                        <td>22</td>
+                        <td>始める</td>
+                        <td>始めるために</td>
+                        <td>新しいプロジェクトを始めるために、準備をします。</td>
+                        <td>始 (はじ)、プロジェクト (ぷろじぇくと)、準備 (じゅんび)</td>
+                    </tr>
+                    <tr>
+                        <td>23</td>
+                        <td>会う</td>
+                        <td>会うために</td>
+                        <td>友達に会うために、カフェに行きます。</td>
+                        <td>会 (あ)、友達 (ともだち)、カフェ (かふぇ)</td>
+                    </tr>
+                    <tr>
+                        <td>24</td>
+                        <td>送る</td>
+                        <td>送るために</td>
+                        <td>荷物を送るために、郵便局に行きました。</td>
+                        <td>送 (おく)、荷物 (にもつ)、郵便局 (ゆうびんきょく)</td>
+                    </tr>
+                    <tr>
+                        <td>25</td>
+                        <td>持つ</td>
+                        <td>持つために</td>
+                        <td>カバンを持つために、手を空けます。</td>
+                        <td>持 (も)、カバン (かばん)、手 (て)</td>
+                    </tr>
+                    <tr>
+                        <td>26</td>
+                        <td>座る</td>
+                        <td>座るために</td>
+                        <td>休むために座るために、椅子を用意しました。</td>
+                        <td>座 (すわ)、休む (やすむ)、椅子 (いす)</td>
+                    </tr>
+                    <tr>
+                        <td>27</td>
+                        <td>入る</td>
+                        <td>入るために</td>
+                        <td>お風呂に入るために、タオルを準備します。</td>
+                        <td>入 (はい)、お風呂 (おふろ)、タオル (たおる)</td>
+                    </tr>
+                    <tr>
+                        <td>28</td>
+                        <td>出る</td>
+                        <td>出るために</td>
+                        <td>会議に出るために、早く会社に行きます。</td>
+                        <td>出 (で)、会議 (かいぎ)、会社 (かいしゃ)</td>
+                    </tr>
+                    <tr>
+                        <td>29</td>
+                        <td>着る</td>
+                        <td>着るために</td>
+                        <td>パーティーに着るために、新しい服を買いました。</td>
+                        <td>着 (き)、パーティー (ぱーてぃー)、服 (ふく)</td>
+                    </tr>
+                    <tr>
+                        <td>30</td>
+                        <td>洗う</td>
+                        <td>洗うために</td>
+                        <td>服を洗うために、洗濯機を使います。</td>
+                        <td>洗 (あら)、服 (ふく)、洗濯機 (せんたくき)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Link Back to Index -->
+    <p><a href="/japanese/index.html">Back to Japanese Index</a></p>
+
+    <!-- JavaScript for Toggle Functionality -->
+    <script>
+        function toggleSection(id) {
+            const section = document.getElementById(id);
+            if (section.style.display === "none") {
+                section.style.display = "block";
+            } else {
+                section.style.display = "none";
+            }
+        }
+    </script>
+</body>
+</html>
