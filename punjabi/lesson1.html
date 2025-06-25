@@ -93,9 +93,73 @@
         <iframe src="https://www.youtube.com/embed/o0Dej5y9ApU" allowfullscreen></iframe>
     </div>
     
+    <hr />
+<h2>Punjabi Vocabulary Quiz</h2>
+<div id="quiz-container">
+  <p><strong id="word"></strong></p>
+  <input type="text" id="answer" placeholder="Type your English answer here" autocomplete="off" />
+  <button onclick="checkAnswer()">Submit</button>
+  <p id="feedback"></p>
+  <p>Score: <span id="score">0</span> / <span id="total"></span></p>
+</div>
+    
     <div class="navigation">
         <a href="/punjabi.html">← Punjabi Home</a>
         <a href="lesson2.html">Lesson 2 →</a>
     </div>
-</body>
+    <script>
+const vocab = {
+  "ਤੁਸੀਂ (tusi)": "you (formal/plural)",
+  "ਕੀ (ki)": "what",
+  "ਕਰਦੇ / ਕਰਦੀ (karde / kardi)": "do (to a man / woman)",
+  "ਹੋ (ho)": "(you) are",
+  "ਮੈਂ (main)": "I",
+  "ਦੌੜ (daur)": "run",
+  "ਖਾ (kha)": "eat",
+  "ਸੌਂ (saun)": "sleep",
+  "ਸਿੱਖ (sikh)": "learn",
+  "ਪੜ੍ਹ (parh)": "read",
+  "ਹਾਂ (haan)": "(I) am"
+};
+
+const words = Object.keys(vocab);
+let score = 0;
+let questionIndex = 0;
+const totalQuestions = 5;
+
+document.getElementById('total').textContent = totalQuestions;
+
+function loadQuestion() {
+  if (questionIndex < totalQuestions) {
+    const randomIndex = Math.floor(Math.random() * words.length);
+    currentWord = words[randomIndex];
+    document.getElementById('word').textContent = currentWord;
+    document.getElementById('answer').value = '';
+    document.getElementById('feedback').textContent = '';
+  } else {
+    document.getElementById('quiz-container').innerHTML = `<h3>Quiz complete!</h3><p>Your final score: ${score} out of ${totalQuestions}</p>`;
+  }
+}
+
+function checkAnswer() {
+  const userAnswer = document.getElementById('answer').value.trim().toLowerCase();
+  const correctAnswer = vocab[currentWord].toLowerCase();
+
+  if (userAnswer === correctAnswer) {
+    score++;
+    document.getElementById('feedback').textContent = "Correct!";
+  } else {
+    document.getElementById('feedback').textContent = `Wrong. The correct answer is: ${vocab[currentWord]}`;
+  }
+
+  document.getElementById('score').textContent = score;
+  questionIndex++;
+  setTimeout(loadQuestion, 1500);
+}
+
+let currentWord = "";
+loadQuestion();
+</script>
+
+</body> 
 </html>
