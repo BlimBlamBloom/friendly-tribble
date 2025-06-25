@@ -109,23 +109,23 @@
     </div>
     <script>
 const vocab = {
-  "ਤੁਸੀਂ (tusi)": "you (formal/plural)",
-  "ਕੀ (ki)": "what",
-  "ਕਰਦੇ / ਕਰਦੀ (karde / kardi)": "do (to a man / woman)",
-  "ਹੋ (ho)": "(you) are",
-  "ਮੈਂ (main)": "I",
-  "ਦੌੜ (daur)": "run",
-  "ਖਾ (kha)": "eat",
-  "ਸੌਂ (saun)": "sleep",
-  "ਸਿੱਖ (sikh)": "learn",
-  "ਪੜ੍ਹ (parh)": "read",
-  "ਹਾਂ (haan)": "(I) am"
+  "ਤੁਸੀਂ (tusi)": ["you", "you (formal/plural)"],
+  "ਕੀ (ki)": ["what"],
+  "ਕਰਦੇ / ਕਰਦੀ (karde / kardi)": ["do", "do (to a man / woman)"],
+  "ਹੋ (ho)": ["are", "(you) are"],
+  "ਮੈਂ (main)": ["i"],
+  "ਦੌੜ (daur)": ["run"],
+  "ਖਾ (kha)": ["eat"],
+  "ਸੌਂ (saun)": ["sleep"],
+  "ਸਿੱਖ (sikh)": ["learn"],
+  "ਪੜ੍ਹ (parh)": ["read"],
+  "ਹਾਂ (haan)": ["am", "(i) am"]
 };
-
+        
 const words = Object.keys(vocab);
 let score = 0;
 let questionIndex = 0;
-const totalQuestions = 5;
+const totalQuestions = 20;
 
 document.getElementById('total').textContent = totalQuestions;
 
@@ -143,13 +143,14 @@ function loadQuestion() {
 
 function checkAnswer() {
   const userAnswer = document.getElementById('answer').value.trim().toLowerCase();
-  const correctAnswer = vocab[currentWord].toLowerCase();
+  const correctAnswers = vocab[currentWord].map(ans => ans.toLowerCase());
 
-  if (userAnswer === correctAnswer) {
+  if (correctAnswers.includes(userAnswer)) {
     score++;
     document.getElementById('feedback').textContent = "Correct!";
   } else {
-    document.getElementById('feedback').textContent = `Wrong. The correct answer is: ${vocab[currentWord]}`;
+    document.getElementById('feedback').textContent =
+      `Wrong. Accepted answers: ${vocab[currentWord].join(" / ")}`;
   }
 
   document.getElementById('score').textContent = score;
