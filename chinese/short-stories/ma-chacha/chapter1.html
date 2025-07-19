@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Chapter 1 第一章 - Ma Cha Cha</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 0 20px;
+    background-color: #fafafa;
+    color: #333;
+  }
+  h1 {
+    text-align: center;
+    color: #0073e6;
+    margin-bottom: 30px;
+  }
+  #pinyin-text, #english-text {
+    display: none;
+    background: #eef6ff;
+    border: 1px solid #b3d1ff;
+    padding: 15px;
+    margin: 10px 0 20px 0;
+    white-space: pre-wrap;
+    font-size: 1.1em;
+  }
+  button.toggle-btn {
+    background-color: #0073e6;
+    color: white;
+    border: none;
+    padding: 10px 18px;
+    margin-right: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+  }
+  button.toggle-btn:hover {
+    background-color: #005bb5;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+    margin-top: 30px;
+  }
+  th, td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: left;
+  }
+  th {
+    background-color: #e6f2ff;
+    font-weight: bold;
+  }
+  tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  #quiz-container {
+    margin-top: 40px;
+  }
+  .option-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin: 20px 0;
+  }
+  .option-card {
+    padding: 16px;
+    background-color: #e0f0ff;
+    border-radius: 12px;
+    text-align: center;
+    cursor: pointer;
+    font-size: 1.1em;
+    transition: background-color 0.3s ease;
+    box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.1);
+  }
+  .option-card:hover {
+    background-color: #cce7ff;
+  }
+  #feedback {
+    font-weight: bold;
+    font-size: 1.1em;
+    min-height: 1.4em;
+  }
+  footer {
+    margin-top: 50px;
+    text-align: center;
+  }
+  footer a {
+    color: #0073e6;
+    text-decoration: none;
+    font-size: 1.1em;
+  }
+  footer a:hover {
+    text-decoration: underline;
+  }
+</style>
+</head>
+<body>
+
+<h1>Chapter 1 第一章</h1>
+
+<!-- Chinese text -->
+<div id="chinese-text" style="white-space: pre-line;">
+第一章: 马叉叉的房子
+马叉叉有一个房子。房子不大，也不小。房子在南边，东边有一棵树，北边有一个火车站。
+每天早上，马叉叉开车去火车站。不是因为他要去工作，而是因为他想看火车。他说：“世界不错，但是我很喜欢火车!”
+马叉叉有一个朋友，是一只猫。猫不说话，但是喜欢听音乐。马叉叉下班以后，总是回家，跟猫一起听音乐，喝牛奶，吃方便面。他们在一起很开心。
+晚上，马叉叉坐在电脑前，看见一本书。他说：“这是什么书？我还没看过这本书。”猫看了看书，叫了一声：“喵。”
+</div>
+
+<!-- Buttons -->
+<div style="margin-top: 15px;">
+  <button class="toggle-btn" onclick="toggleVisibility('pinyin-text')">拼音</button>
+  <button class="toggle-btn" onclick="toggleVisibility('english-text')">英文</button>
+</div>
+
+<!-- Pinyin text -->
+<div id="pinyin-text">
+Mǎ Chāchā yǒu yí gè fángzi. Fángzi bú dà, yě bù xiǎo. Fángzi zài nánbian, dōngbian yǒu yì kē shù, běibian yǒu yí gè huǒchēzhàn.
+Měitiān zǎoshang, Mǎ Chāchā kāichē qù huǒchēzhàn. Bú shì yīnwèi tā yào qù gōngzuò, ér shì yīnwèi tā xiǎng kàn huǒchē. Tā shuō: “Shìjiè búcuò, dànshì wǒ hěn xǐhuān huǒchē!”
+Mǎ Chāchā yǒu yí gè péngyǒu, shì yì zhī māo. Māo bù shuōhuà, dànshì xǐhuān tīng yīnyuè. Mǎ Chāchā xiàbān yǐhòu, zǒngshì huíjiā, gēn māo yìqǐ tīng yīnyuè, hē niúnǎi, chī fāngbiànmiàn. Tāmen zài yìqǐ hěn kāixīn.
+Wǎnshàng, Mǎ Chāchā zuò zài diànnǎo qián, kànjiàn yì běn shū. Tā shuō: “Zhè shì shénme shū? Wǒ hái méi kànguò zhè běn shū.” Māo kànle kàn shū, jiào le yì shēng: “Miāo.”
+</div>
+
+<!-- English text -->
+<div id="english-text">
+Ma Chacha has a house. The house is not big, not small. The house is in the south. To the east, there is a tree. To the north, there is a train station.
+Every morning, Ma Chacha drives to the train station. It’s not because he’s going to work, but because he wants to watch the trains. He says, “The world is not bad, but I really like trains!”
+Ma Chacha has a friend — a cat. The cat doesn’t talk, but it likes listening to music. After work, Ma Chacha always goes home to listen to music with the cat, drink milk, and eat instant noodles. They are very happy when together.
+At night, Ma Chacha sits in front of his computer and sees a book. He says, “What kind of book is this? I haven’t seen this book before.” The cat looked at the book and meowed: “Meow.”
+</div>
+
+<!-- Vocabulary list -->
+<h2>生词</h2>
+<table>
+  <thead>
+    <tr>
+      <th>汉字</th>
+      <th>拼音</th>
+      <th>意思</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>棵</td><td>kē</td><td>measure word for trees and plants</td></tr>
+    <tr><td>每天</td><td>měitiān</td><td>every day</td></tr>
+    <tr><td>叫</td><td>jiào</td><td>to call / to cry (animal sounds)</td></tr>
+    <tr><td>安静</td><td>ānjìng</td><td>quiet / peaceful</td></tr>
+    <tr><td>看见</td><td>kànjiàn</td><td>to see / catch sight of</td></tr>
+    <tr><td>不是因为...而是...</td><td>bú shì yīn wèi... ér shì...</td><td>not because... but rather...</td></tr>
+    <tr><td>不错</td><td>búcuò</td><td>not bad</td></tr>
+    <tr><td>坐</td><td>zuò</td><td>to sit</td></tr>
+    <tr><td>声</td><td>shēng</td><td>sound</td></tr>
+    <tr><td>奇怪</td><td>qíguài</td><td>strange</td></tr>
+    <tr><td>世界</td><td>shìjiè</td><td>world</td></tr>
+  </tbody>
+</table>
+
+<!-- Vocabulary quiz -->
+<h2>练习生词</h2>
+<div id="quiz-container">
+  <p><strong id="word" style="font-size: 1.5em;"></strong></p>
+  <div id="options" class="option-grid"></div>
+  <p id="feedback"></p>
+  <p>得分: <span id="score">0</span> / <span id="total">0</span></p>
+</div>
+
+<style>
+  .option-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin: 20px 0;
+  }
+  .option-card {
+    padding: 16px;
+    background-color: #e0f0ff;
+    border-radius: 12px;
+    text-align: center;
+    cursor: pointer;
+    font-size: 1.1em;
+    transition: background-color 0.3s ease;
+    box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.1);
+  }
+  .option-card:hover {
+    background-color: #cce7ff;
+  }
+</style>
+
+<script>
+  // Vocabulary for quiz: Chinese character keys with English meanings only (no pinyin here)
+  const vocab = {
+    "棵": ["measure word for trees and plants"],
+    "每天": ["every day"],
+    "叫": ["to call / to cry (animal sounds)"],
+    "安静": ["quiet / peaceful"],
+    "看见": ["to see / catch sight of"],
+    "不是因为...而是...": ["not because... but rather..."],
+    "不错": ["not bad"],
+    "坐": ["to sit"],
+    "声": ["sound"],
+    "奇怪": ["strange"],
+    "世界": ["world"]
+  };
+
+  const words = Object.keys(vocab);
+  let score = 0;
+  let questionIndex = 0;
+  const totalQuestions = 10;
+  let currentWord = "";
+
+  document.getElementById('total').textContent = totalQuestions;
+
+  function getRandomOptions(correctAnswer) {
+    const allAnswers = Object.values(vocab).flat().filter(a => !correctAnswer.includes(a));
+    const shuffled = allAnswers.sort(() => Math.random() - 0.5);
+    const wrongOptions = shuffled.slice(0, 3);
+    const options = [...wrongOptions, correctAnswer[0]];
+    return options.sort(() => Math.random() - 0.5);
+  }
+
+  function loadQuestion() {
+    if (questionIndex >= totalQuestions) {
+      document.getElementById('quiz-container').innerHTML = `
+        <h3>练习完成！</h3>
+        <p>你的最终得分: ${score} / ${totalQuestions}</p>
+        <button onclick="restartQuiz()" style="padding: 10px 20px; font-size: 1em; margin-top: 20px;">🔁 再来一次</button>
+      `;
+      return;
+    }
+
+    currentWord = words[Math.floor(Math.random() * words.length)];
+    const correctAnswers = vocab[currentWord];
+    const options = getRandomOptions(correctAnswers);
+
+    document.getElementById('word').textContent = currentWord;
+    document.getElementById('options').innerHTML = "";
+
+    options.forEach(option => {
+      const btn = document.createElement("div");
+      btn.textContent = option;
+      btn.className = "option-card";
+      btn.onclick = () => checkAnswer(option, correctAnswers);
+      document.getElementById("options").appendChild(btn);
+    });
+
+    document.getElementById("feedback").textContent = "";
+  }
+
+  function checkAnswer(selected, correctAnswers) {
+    if (correctAnswers.map(a => a.toLowerCase()).includes(selected.toLowerCase())) {
+      score++;
+      document.getElementById("feedback").textContent = "✅ 正确!";
+    } else {
+      document.getElementById("feedback").textContent = `❌ 错误。正确答案: ${correctAnswers[0]}`;
+    }
+    document.getElementById("score").textContent = score;
+    questionIndex++;
+    setTimeout(loadQuestion, 1500);
+  }
+
+  function restartQuiz() {
+    score = 0;
+    questionIndex = 0;
+
+    document.getElementById('quiz-container').innerHTML = `
+      <p><strong id="word" style="font-size: 1.5em;"></strong></p>
+      <div id="options" class="option-grid"></div>
+      <p id="feedback"></p>
+      <p>得分: <span id="score">0</span> / <span id="total">${totalQuestions}</span></p>
+    `;
+
+    loadQuestion();
+  }
+
+  // Toggle visibility function for Pinyin and English
+  function toggleVisibility(id) {
+    const elem = document.getElementById(id);
+    if (elem.style.display === "none" || elem.style.display === "") {
+      elem.style.display = "block";
+    } else {
+      elem.style.display = "none";
+    }
+  }
+
+  loadQuestion();
+</script>
+
+<footer>
+  <a href="base-vocabulary.html">← 返回 生词</a> | 
+  <a href="chapter2.html">第二章 →</a> | 
+  <a href="/chinese/ma-chacha.html">返回首页</a>
+</footer>
+
+</body>
+</html>
