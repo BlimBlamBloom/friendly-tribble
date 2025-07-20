@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Chapter 5 第五章 - 王大鸟</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 0 20px;
+    background-color: #fafafa;
+    color: #333;
+  }
+  h1 {
+    text-align: center;
+    color: #0073e6;
+    margin-bottom: 30px;
+  }
+  #chinese-text {
+    white-space: pre-wrap;
+    font-size: 1.25em;
+    line-height: 2.2;
+    margin-bottom: 30px;
+    padding: 15px 20px;
+    background-color: #ffffff;
+    border: 1px solid #d1e3fc;
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0, 115, 230, 0.1);
+    font-family: "Noto Sans SC", "Microsoft Yahei", Arial, sans-serif;
+    letter-spacing: 0.03em;
+    text-indent: 2em;
+  }
+  #chinese-text p {
+    margin-bottom: 1.5em;
+  }
+  #pinyin-text, #english-text {
+    display: none;
+    background: #eef6ff;
+    border: 1px solid #b3d1ff;
+    padding: 15px;
+    margin: 10px 0 20px 0;
+    white-space: pre-wrap;
+    font-size: 1.1em;
+  }
+  button.toggle-btn {
+    background-color: #0073e6;
+    color: white;
+    border: none;
+    padding: 10px 18px;
+    margin-right: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+  }
+  button.toggle-btn:hover {
+    background-color: #005bb5;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+    margin-top: 30px;
+  }
+  th, td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: left;
+  }
+  th {
+    background-color: #e6f2ff;
+    font-weight: bold;
+  }
+  tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  #quiz-container {
+    margin-top: 40px;
+  }
+  .option-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin: 20px 0;
+  }
+  .option-card {
+    padding: 16px;
+    background-color: #e0f0ff;
+    border-radius: 12px;
+    text-align: center;
+    cursor: pointer;
+    font-size: 1.1em;
+    transition: background-color 0.3s ease;
+    box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.1);
+  }
+  .option-card:hover {
+    background-color: #cce7ff;
+  }
+  #feedback {
+    font-weight: bold;
+    font-size: 1.1em;
+    min-height: 1.4em;
+  }
+  footer {
+    margin-top: 50px;
+    text-align: center;
+  }
+  footer a {
+    color: #0073e6;
+    text-decoration: none;
+    font-size: 1.1em;
+  }
+  footer a:hover {
+    text-decoration: underline;
+  }
+</style>
+</head>
+<body>
+
+<h1>第五章: 王大鸟</h1>
+
+<!-- Chinese text -->
+<div id="chinese-text" style="white-space: pre-line;">
+鱼先生说：“好的，跟我来。”
+他们走到一座高的山上。山上有一棵大树。鱼先生坐在树下，看着山下的湖。
+山上很安静。只有风的声音，和鸟的歌声。
+马叉叉说：“鸟唱得很大声。”
+鱼先生点头：“那就是我们的问题。他们每天早上都唱得太大声了。马叉叉，看看湖。”
+湖水在动，好像在跳舞。
+马叉叉问：“为什么水在动？”
+鱼先生说：“因为他们唱歌唱得太大声了。湖下有垃圾。鸟唱歌的时候，声音让水动。然后水让垃圾上来了。”
+马叉叉点头：“那怎么办？”
+鱼先生回答：“有一个大鸟，他是最大的鸟。他叫王大鸟。他唱得最大声，其他的鸟都跟他唱歌。如果没有王大鸟的话，别的鸟会不唱歌了。”
+马叉叉说：“那你想我送他离开千里之外，对不对？”
+鱼先生说：“对。只有你可以帮我们。”
+马叉叉问：“为什么只有我啊？”
+鱼先生回答：“因为我们需要一个唱歌唱得非常好的人。”
+马叉叉说：“好的。走吧。”
+</div>
+
+<!-- Buttons -->
+<div style="margin-top: 15px;">
+  <button class="toggle-btn" onclick="toggleVisibility('pinyin-text')">拼音</button>
+  <button class="toggle-btn" onclick="toggleVisibility('english-text')">英文</button>
+</div>
+
+<!-- Pinyin text -->
+<div id="pinyin-text">
+Yú xiānsheng shuō: “Hǎo de, gēn wǒ lái.”
+Tāmen zǒu dào yī zuò gāo de shān shàng. Shān shàng yǒu yī kē dà shù. Yú xiānsheng zuò zài shù xià, kànzhe shān xià de hú.
+Shān shàng hěn ānjìng. Zhǐ yǒu fēng de shēngyīn, hé niǎo de gēshēng.
+Mǎ Chāchā shuō: “Niǎo chàng de hěn dàshēng.”
+Yú xiānsheng diǎntóu: “Nà jiùshì wǒmen de wèntí. Tāmen měitiān zǎoshang dōu chàng de tài dàshēng le. Mǎ Chāchā, kànkan hú.”
+Húshuǐ zài dòng, hǎoxiàng zài tiàowǔ.
+Mǎ Chāchā wèn: “Wèishénme shuǐ zài dòng?”
+Yú xiānsheng shuō: “Yīnwèi tāmen chànggē chàng de tài dàshēng le. Hú xià yǒu lājī. Niǎo chànggē de shíhou, shēngyīn ràng shuǐ dòng. Ránhòu shuǐ ràng lājī shàng lái le.”
+Mǎ Chāchā diǎntóu: “Nà zěnme bàn?”
+Yú xiānsheng huídá: “Yǒu yīgè dà niǎo, tā shì zuì dà de niǎo. Tā jiào Wáng Dàniǎo. Tā chàng de zuì dàshēng, qítā de niǎo dōu gēn tā chànggē. Rúguǒ méiyǒu Wáng Dàniǎo de huà, bié de niǎo huì bù chànggē le.”
+Mǎ Chāchā shuō: “Nà nǐ xiǎng wǒ sòng tā líkāi qiānlǐ zhī wài, duì bú duì?”
+Yú xiānsheng shuō: “Duì. Zhǐyǒu nǐ kěyǐ bāng wǒmen.”
+Mǎ Chāchā wèn: “Wèishénme zhǐyǒu wǒ a?”
+Yú xiānsheng huídá: “Yīnwèi wǒmen xūyào yīgè chànggē chàng de fēicháng hǎo de rén.”
+Mǎ Chāchā shuō: “Hǎo de. Zǒu ba.”
+</div>
+
+<!-- English text -->
+<div id="english-text">
+Mr. Yu said, "Okay, follow me."
+They walked to the top of a tall mountain. On the mountain, there was a big tree. Mr. Yu sat under the tree and looked at the lake below.
+The mountain was very quiet. There was only the sound of the wind and birds singing.
+Ma Chacha said, "The birds are singing very loudly."
+Mr. Yu nodded. "That’s our problem. Every morning they sing too loudly. Ma Chacha, look at the lake."
+The water in the lake was moving, like it was dancing.
+Ma Chacha asked, "Why is the water moving?"
+Mr. Yu said, "Because they sing too loudly. There is trash under the lake. When the birds sing, the sound makes the water move. Then the water brings the trash up."
+Ma Chacha nodded, "So what should we do?"
+Mr. Yu answered, "There is one big bird, the biggest one. His name is Big Bird King. He sings the loudest, and the other birds sing with him. If Big Bird King isn’t there, the other birds will stop singing."
+Ma Chacha said, "So you want me to send him far away, thousands of miles away, right?"
+Mr. Yu said, "Yes. Only you can help us."
+Ma Chacha asked, "Why only me?"
+Mr. Yu answered, "Because we need someone who sings really well."
+Ma Chacha said, "Alright. Let’s go."
+</div>
+
+<!-- Vocabulary list -->
+<h2>生词</h2>
+<table>
+  <thead>
+    <tr>
+      <th>汉字</th>
+      <th>拼音</th>
+      <th>意思</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>走到</td><td>zǒu dào</td><td>walk to</td></tr>
+    <tr><td>座</td><td>zuò</td><td>(classifier for mountains/buildings)</td></tr>
+    <tr><td>高</td><td>gāo</td><td>tall</td></tr>
+    <tr><td>山</td><td>shān</td><td>mountain</td></tr>
+    <tr><td>上</td><td>shàng</td><td>on, up</td></tr>
+    <tr><td>下</td><td>xià</td><td>under, down</td></tr>
+    <tr><td>风</td><td>fēng</td><td>wind</td></tr>
+    <tr><td>大声</td><td>dàshēng</td><td>loud</td></tr>
+    <tr><td>点头</td><td>diǎntóu</td><td>to nod</td></tr>
+    <tr><td>都</td><td>dōu</td><td>all</td></tr>
+    <tr><td>好像</td><td>hǎoxiàng</td><td>seem like</td></tr>
+    <tr><td>动</td><td>dòng</td><td>to move</td></tr>
+    <tr><td>垃圾</td><td>lājī</td><td>trash</td></tr>
+    <tr><td>时候</td><td>shíhou</td><td>time, when</td></tr>
+    <tr><td>让</td><td>ràng</td><td>to make, to let</td></tr>
+    <tr><td>上来</td><td>shànglái</td><td>to come up</td></tr>
+    <tr><td>怎么办</td><td>zěnme bàn</td><td>what to do</td></tr>
+    <tr><td>最</td><td>zuì</td><td>most</td></tr>
+    <tr><td>其他</td><td>qítā</td><td>other</td></tr>
+    <tr><td>送</td><td>sòng</td><td>to send</td></tr>
+    <tr><td>离开</td><td>líkāi</td><td>to leave</td></tr>
+    <tr><td>千里之外</td><td>qiānlǐ zhī wài</td><td>thousands of miles away</td></tr>
+    <tr><td>啊</td><td>a</td><td>final particle showing emotion</td></tr>
+    <tr><td>需要</td><td>xūyào</td><td>to need</td></tr>
+    <tr><td>走吧</td><td>zǒu ba</td><td>let’s go</td></tr>
+  </tbody>
+</table>
+
+<!-- Vocabulary quiz -->
+<h2>练习生词</h2>
+<div id="quiz-container">
+  <p><strong id="word" style="font-size: 1.5em;"></strong></p>
+  <div id="options" class="option-grid"></div>
+  <p id="feedback"></p>
+  <p>得分: <span id="score">0</span> / <span id="total">0</span></p>
+</div>
+
+<script>
+  // Vocabulary for quiz
+  const vocab = {
+    "走到": ["walk to"],
+    "座": ["(classifier for mountains/buildings)"],
+    "高": ["tall"],
+    "山": ["mountain"],
+    "上": ["on, up"],
+    "下": ["under, down"],
+    "风": ["wind"],
+    "大声": ["loud"],
+    "点头": ["to nod"],
+    "都": ["all"],
+    "好像": ["seem like"],
+    "动": ["to move"],
+    "垃圾": ["trash"],
+    "时候": ["time, when"],
+    "让": ["to make, to let"],
+    "上来": ["to come up"],
+    "怎么办": ["what to do"],
+    "最": ["most"],
+    "其他": ["other"],
+    "送": ["to send"],
+    "离开": ["to leave"],
+    "千里之外": ["thousands of miles away"],
+    "啊": ["final particle showing emotion"],
+    "需要": ["to need"],
+    "走吧": ["let’s go"]
+  };
+
+  const words = Object.keys(vocab);
+  let score = 0;
+  let questionIndex = 0;
+  const totalQuestions = 10;
+  let currentWord = "";
+
+  document.getElementById('total').textContent = totalQuestions;
+
+  function getRandomOptions(correctAnswer) {
+    const allAnswers = Object.values(vocab).flat().filter(a => !correctAnswer.includes(a));
+    const shuffled = allAnswers.sort(() => Math.random() - 0.5);
+    const wrongOptions = shuffled.slice(0, 3);
+    const options = [...wrongOptions, correctAnswer[0]];
+    return options.sort(() => Math.random() - 0.5);
+  }
+
+  function loadQuestion() {
+    if (questionIndex >= totalQuestions) {
+      document.getElementById('quiz-container').innerHTML = `
+        <h3>练习完成！</h3>
+        <p>你的最终得分: ${score} / ${totalQuestions}</p>
+        <button onclick="restartQuiz()" style="padding: 10px 20px; font-size: 1em; margin-top: 20px;">🔁 再来一次</button>
+      `;
+      return;
+    }
+
+    currentWord = words[Math.floor(Math.random() * words.length)];
+    const correctAnswers = vocab[currentWord];
+    const options = getRandomOptions(correctAnswers);
+
+    document.getElementById('word').textContent = currentWord;
+    document.getElementById('options').innerHTML = "";
+
+    options.forEach(option => {
+      const btn = document.createElement("div");
+      btn.textContent = option;
+      btn.className = "option-card";
+      btn.onclick = () => checkAnswer(option, correctAnswers);
+      document.getElementById("options").appendChild(btn);
+    });
+
+    document.getElementById("feedback").textContent = "";
+  }
+
+  function checkAnswer(selected, correctAnswers) {
+    if (correctAnswers.map(a => a.toLowerCase()).includes(selected.toLowerCase())) {
+      score++;
+      document.getElementById("feedback").textContent = "✅ 正确!";
+    } else {
+      document.getElementById("feedback").textContent = `❌ 错误。正确答案: ${correctAnswers[0]}`;
+    }
+    document.getElementById("score").textContent = score;
+    questionIndex++;
+    setTimeout(loadQuestion, 1500);
+  }
+
+  function restartQuiz() {
+    score = 0;
+    questionIndex = 0;
+
+    document.getElementById('quiz-container').innerHTML = `
+      <p><strong id="word" style="font-size: 1.5em;"></strong></p>
+      <div id="options" class="option-grid"></div>
+      <p id="feedback"></p>
+      <p>得分: <span id="score">0</span> / <span id="total">${totalQuestions}</span></p>
+    `;
+
+    loadQuestion();
+  }
+
+  // Toggle visibility function for Pinyin and English
+  function toggleVisibility(id) {
+    const elem = document.getElementById(id);
+    if (elem.style.display === "none" || elem.style.display === "") {
+      elem.style.display = "block";
+    } else {
+      elem.style.display = "none";
+    }
+  }
+
+  loadQuestion();
+</script>
+
+<footer>
+  <a href="chapter4.html">← 第四章</a> | 
+  <a href="chapter6.html">第六章 →</a> | 
+  <a href="/chinese/ma-chacha.html">返回首页</a>
+</footer>
+
+</body>
+</html>
