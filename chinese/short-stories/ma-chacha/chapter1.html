@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Chapter 1 第一章 - Ma Cha Cha</title>
+<title>第一章 第一章 - 马叉叉的房子</title>
 <style>
-  /* General page styles */
+  /* ======= Page Content Styles ======= */
   body {
     font-family: Arial, sans-serif;
     line-height: 1.6;
@@ -77,73 +77,6 @@
   tr:nth-child(even) {
     background-color: #f9f9f9;
   }
-
-  /* Matching game styles */
-  #game-container {
-    display: flex;
-    justify-content: center;
-    gap: 40px;
-    margin-top: 30px;
-    flex-wrap: wrap;
-  }
-  .column {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-  }
-  .card {
-    padding: 14px 20px;
-    background-color: #f0f8ff;
-    border-radius: 10px;
-    cursor: pointer;
-    font-size: 1.2em;
-    text-align: center;
-    box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.1);
-    transition: background-color 0.3s ease;
-    min-width: 160px;
-    user-select: none;
-  }
-  .card:hover {
-    background-color: #d6ecff;
-  }
-  .selected {
-    background-color: #b3e0ff !important;
-  }
-  .card.matched {
-    background-color: #ccc !important;
-    color: #666;
-    cursor: default;
-    box-shadow: none;
-  }
-  .card.matched:hover {
-    background-color: #ccc;
-  }
-
-  /* Feedback and timer */
-  #feedback {
-    font-weight: bold;
-    font-size: 1.1em;
-    min-height: 1.4em;
-    margin-top: 20px;
-    text-align: center;
-  }
-  #timer {
-    font-weight: bold;
-    font-size: 1.1em;
-    color: #0073e6;
-    margin-top: 10px;
-    text-align: center;
-  }
-  #score {
-    font-weight: bold;
-    font-size: 1.1em;
-    color: #0073e6;
-  }
-  #end-message {
-    margin-top: 30px;
-    text-align: center;
-  }
-
   footer {
     margin-top: 50px;
     text-align: center;
@@ -156,6 +89,149 @@
   footer a:hover {
     text-decoration: underline;
   }
+
+  /* ======= Matching Game Styles ======= */
+
+  #game-container {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin-top: 30px;
+    flex-wrap: nowrap; /* Prevent vertical stacking on small screens */
+  }
+
+  .column {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 180px; /* Fixed width for consistent layout */
+  }
+
+  .card {
+    padding: 14px 20px;
+    background-color: #f0f8ff;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 1.2em;
+    text-align: center;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    min-width: 160px;
+    user-select: none;
+  }
+
+  .card:hover:not(.matched):not(.animating) {
+    background-color: #d6ecff;
+    transform: scale(1.05);
+  }
+
+  .card.matched {
+    background-color: #ccc !important;
+    color: #666;
+    cursor: default;
+    box-shadow: none;
+    transform: none !important;
+  }
+
+  .selected {
+    background-color: #b3e0ff !important;
+  }
+
+  /* Animations for feedback */
+  @keyframes flashGreen {
+    0%, 100% { background-color: #b3e0ff; }
+    50% { background-color: #a0f0a0; }
+  }
+  @keyframes flashRed {
+    0%, 100% { background-color: #b3e0ff; }
+    50% { background-color: #f28b82; }
+  }
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    20%, 60% { transform: translateX(-6px); }
+    40%, 80% { transform: translateX(6px); }
+  }
+
+  .flash-green {
+    animation: flashGreen 0.5s ease forwards;
+  }
+
+  .flash-red {
+    animation: flashRed 0.5s ease forwards;
+  }
+
+  .shake {
+    animation: shake 0.5s ease;
+  }
+
+  /* Feedback text style */
+  #feedback {
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.3em;
+    min-height: 1.4em;
+    margin-top: 15px;
+  }
+
+  /* Timer and progress bar */
+  #timer-container {
+    text-align: center;
+    margin-top: 30px;
+    font-size: 1.6em;
+    font-weight: bold;
+    color: #0073e6;
+  }
+  #timer-container.low-time {
+    color: #e63946; /* Red when time low */
+  }
+
+  #progress-bar {
+    width: 100%;
+    height: 12px;
+    background-color: #d1e3fc;
+    border-radius: 6px;
+    overflow: hidden;
+    margin-top: 8px;
+  }
+
+  #progress-bar-fill {
+    height: 100%;
+    width: 100%;
+    background-color: #0073e6;
+    transition: width 0.3s linear;
+  }
+
+  /* Start button */
+  #start-button {
+    display: block;
+    margin: 30px auto 20px auto;
+    background-color: #0073e6;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-size: 1.25em;
+    cursor: pointer;
+    box-shadow: 0 5px 10px rgba(0, 115, 230, 0.4);
+    transition: background-color 0.3s ease;
+  }
+  #start-button:hover {
+    background-color: #005bb5;
+  }
+
+  /* Responsive tweak: prevent stacking by setting min-width */
+  @media (max-width: 460px) {
+    #game-container {
+      gap: 20px;
+    }
+    .column {
+      width: 150px;
+    }
+    .card {
+      min-width: 130px;
+      font-size: 1.1em;
+    }
+  }
 </style>
 </head>
 <body>
@@ -163,15 +239,16 @@
 <h1>第一章: 马叉叉的房子</h1>
 
 <p><strong>收听第一章：</strong></p>
-<iframe width="360" height="202" 
-        src="https://www.youtube.com/embed/FUiR9DOUybw" 
-        title="YouTube video player" 
-        frameborder="0" 
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-        allowfullscreen></iframe>
-  
+<iframe width="360" height="202"
+        src="https://www.youtube.com/embed/FUiR9DOUybw"
+        title="YouTube video player"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen>
+</iframe>
+
 <!-- Chinese text -->
-<div id="chinese-text">
+<div id="chinese-text" style="white-space: pre-line;">
 马叉叉有一个房子。房子不大，也不小。房子在南边，东边有一棵树，北边有一个火车站。
 每天早上，马叉叉开车去火车站。不是因为他要去工作，而是因为他想看火车。他说：“世界不错，但是我很喜欢火车!”
 马叉叉有一个朋友，是一只猫。猫不说话，但是喜欢听音乐。马叉叉下班以后，总是回家，跟猫一起听音乐，喝牛奶，吃方便面。他们在一起很开心。
@@ -226,68 +303,31 @@ At night, Ma Chacha sits in front of his computer and sees a book. He says, “W
   </tbody>
 </table>
 
-<!-- Matching Game Section -->
+<!-- Start button -->
+<button id="start-button">开始</button>
 
-<!-- Start Button -->
-<button id="start-btn" style="padding: 10px 20px; font-size: 1.2em; margin-top: 20px; cursor: pointer;">
-  开始
-</button>
+<!-- Timer display -->
+<div id="timer-container" style="display:none;">
+  Time left: <span id="timer">90</span>s
+  <div id="progress-bar"><div id="progress-bar-fill"></div></div>
+</div>
 
-<!-- Game Container (hidden initially) -->
-<div id="game-container" style="display:none;">
+<!-- Matching Game -->
+<div id="game-container" aria-live="polite" aria-label="Vocabulary matching game">
   <div class="column" id="left-column"></div>
   <div class="column" id="right-column"></div>
 </div>
 
-<!-- Feedback message -->
-<p id="feedback" style="font-size: 1.2em; margin-top: 20px;"></p>
-
-<!-- End game message and play again button -->
-<div id="end-message" style="margin-top: 30px;"></div>
-
-<style>
-  /* Matching Game Styles (keep this in your main CSS or here) */
-  #game-container {
-    display: flex;
-    justify-content: center;
-    gap: 40px;
-    margin-top: 30px;
-    flex-wrap: wrap;
-  }
-  .column {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-  }
-  .card {
-    padding: 14px 20px;
-    background-color: #f0f8ff;
-    border-radius: 10px;
-    cursor: pointer;
-    font-size: 1.2em;
-    text-align: center;
-    box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.1);
-    transition: background-color 0.3s ease;
-    min-width: 160px;
-  }
-  .card:hover {
-    background-color: #d6ecff;
-  }
-  .selected {
-    background-color: #b3e0ff !important;
-  }
-  .card.matched {
-    background-color: #ccc !important;
-    color: #666;
-    cursor: default;
-    box-shadow: none;
-  }
-  .card.matched:hover {
-    background-color: #ccc;
-  }
-</style>
+<p id="feedback"></p>
+<div id="end-message" style="margin-top: 30px; text-align: center; font-size: 1.3em;"></div>
 
 <script>
+  // Toggle visibility for pinyin and english
+  function toggleVisibility(id) {
+    const el = document.getElementById(id);
+    el.style.display = (el.style.display === 'block') ? 'none' : 'block';
+  }
+
   const vocab = {
     "棵": ["measure word for trees and plants"],
     "每天": ["every day"],
@@ -307,18 +347,9 @@ At night, Ma Chacha sits in front of his computer and sees a book. He says, “W
   let selectedLeft = null;
   let selectedRight = null;
   let matched = 0;
-  let isLocked = false;
-
-  const startBtn = document.getElementById('start-btn');
-  const gameContainer = document.getElementById('game-container');
-  const feedback = document.getElementById('feedback');
-  const endMessage = document.getElementById('end-message');
-
-  startBtn.onclick = () => {
-    startBtn.style.display = 'none';       // Hide start button
-    gameContainer.style.display = 'flex';  // Show game container
-    createCards();
-  };
+  let timerInterval = null;
+  let timeLeft = 90;
+  let gameActive = false;
 
   function shuffleArray(arr) {
     return arr.sort(() => Math.random() - 0.5);
@@ -327,6 +358,8 @@ At night, Ma Chacha sits in front of his computer and sees a book. He says, “W
   function createCards() {
     const leftColumn = document.getElementById('left-column');
     const rightColumn = document.getElementById('right-column');
+    const feedback = document.getElementById('feedback');
+    const endMessage = document.getElementById('end-message');
 
     leftColumn.innerHTML = '';
     rightColumn.innerHTML = '';
@@ -336,9 +369,8 @@ At night, Ma Chacha sits in front of his computer and sees a book. He says, “W
     matched = 0;
     selectedLeft = null;
     selectedRight = null;
-    isLocked = false;
 
-    // Select 6 random words from vocab
+    // Choose 6 random entries from vocab
     const allEntries = Object.entries(vocab);
     const selectedEntries = shuffleArray(allEntries).slice(0, 6);
 
@@ -347,10 +379,11 @@ At night, Ma Chacha sits in front of his computer and sees a book. He says, “W
       selectedVocab[word] = defs[0];
     });
 
+    currentGameVocab = selectedVocab;
+
+    // Shuffle both sides independently
     const shuffledChinese = shuffleArray(Object.keys(selectedVocab));
     const shuffledEnglish = shuffleArray(Object.values(selectedVocab));
-
-    currentGameVocab = selectedVocab;
 
     shuffledChinese.forEach(word => {
       const card = document.createElement('div');
@@ -369,8 +402,14 @@ At night, Ma Chacha sits in front of his computer and sees a book. He says, “W
     });
   }
 
+  function clearSelections(side) {
+    const cards = document.querySelectorAll(`#${side}-column .card`);
+    cards.forEach(c => c.classList.remove('selected'));
+  }
+
   function handleLeftClick(card, word) {
-    if (isLocked || card.classList.contains('matched')) return;
+    if (!gameActive) return;
+    if (card.classList.contains('matched') || card.classList.contains('animating')) return;
     clearSelections('left');
     selectedLeft = { card, word };
     card.classList.add('selected');
@@ -378,68 +417,131 @@ At night, Ma Chacha sits in front of his computer and sees a book. He says, “W
   }
 
   function handleRightClick(card, def) {
-    if (isLocked || card.classList.contains('matched')) return;
+    if (!gameActive) return;
+    if (card.classList.contains('matched') || card.classList.contains('animating')) return;
     clearSelections('right');
     selectedRight = { card, def };
     card.classList.add('selected');
     checkMatch();
   }
 
-  function clearSelections(side) {
-    const cards = document.querySelectorAll(`#${side}-column .card`);
-    cards.forEach(c => c.classList.remove('selected'));
-  }
-
   function checkMatch() {
     if (selectedLeft && selectedRight) {
       const correctDef = currentGameVocab[selectedLeft.word];
+      const feedback = document.getElementById('feedback');
+
       if (correctDef === selectedRight.def) {
         // Correct match
-        selectedLeft.card.classList.add('matched');
-        selectedRight.card.classList.add('matched');
+        selectedLeft.card.classList.add('matched', 'flash-green');
+        selectedRight.card.classList.add('matched', 'flash-green');
         selectedLeft.card.onclick = null;
         selectedRight.card.onclick = null;
         feedback.textContent = '✅ 正确!';
+
+        // Remove animation classes after animation ends
+        setTimeout(() => {
+          selectedLeft.card.classList.remove('flash-green');
+          selectedRight.card.classList.remove('flash-green');
+        }, 500);
+
         matched++;
         selectedLeft = null;
         selectedRight = null;
+
         if (matched === 6) {
-          endGame();
+          // Pause briefly before loading new set
+          setTimeout(() => {
+            createCards();
+          }, 700);
         }
       } else {
-        // Wrong match — lock clicks, clear selections immediately
-        isLocked = true;
         feedback.textContent = '❌ 再试一次!';
-        selectedLeft.card.classList.remove('selected');
-        selectedRight.card.classList.remove('selected');
-        selectedLeft = null;
-        selectedRight = null;
+        // Add shake and flash red effect on wrong cards
+        selectedLeft.card.classList.add('shake', 'flash-red', 'animating');
+        selectedRight.card.classList.add('shake', 'flash-red', 'animating');
+
+        // Disable clicking on these cards while animating
+        selectedLeft.card.onclick = null;
+        selectedRight.card.onclick = null;
+
+        // After animation, clear selections and re-enable clicks
         setTimeout(() => {
-          isLocked = false;
+          selectedLeft.card.classList.remove('shake', 'flash-red', 'animating', 'selected');
+          selectedRight.card.classList.remove('shake', 'flash-red', 'animating', 'selected');
+
+          // Re-enable clicks
+          selectedLeft.card.onclick = () => handleLeftClick(selectedLeft.card, selectedLeft.word);
+          selectedRight.card.onclick = () => handleRightClick(selectedRight.card, selectedRight.def);
+
+          selectedLeft = null;
+          selectedRight = null;
           feedback.textContent = '';
-        }, 700);
+        }, 500);
       }
     }
   }
 
-  function endGame() {
-    feedback.textContent = '';
-    endMessage.innerHTML = `
-      <p style="font-size: 1.4em;">🎉 恭喜你！全部配对成功！</p>
-      <button onclick="restartGame()" style="padding: 10px 20px; font-size: 1em; margin-top: 10px;">🔁 再来一次</button>
-    `;
+  function startGame() {
+    if (gameActive) return;
+    gameActive = true;
+    timeLeft = 90;
+    document.getElementById('timer-container').style.display = 'block';
+    document.getElementById('start-button').style.display = 'none';
+    createCards();
+    updateTimerDisplay();
+    timerInterval = setInterval(() => {
+      timeLeft--;
+      updateTimerDisplay();
+      if (timeLeft <= 0) {
+        endGame();
+      }
+    }, 1000);
   }
 
-  function restartGame() {
-    endMessage.innerHTML = '';
-    createCards();
+  function updateTimerDisplay() {
+    const timerSpan = document.getElementById('timer');
+    const timerContainer = document.getElementById('timer-container');
+    const progressBarFill = document.getElementById('progress-bar-fill');
+
+    timerSpan.textContent = timeLeft;
+    let percent = (timeLeft / 90) * 100;
+    progressBarFill.style.width = percent + '%';
+
+    if (timeLeft <= 15) {
+      timerContainer.classList.add('low-time');
+    } else {
+      timerContainer.classList.remove('low-time');
+    }
   }
+
+  function endGame() {
+    gameActive = false;
+    clearInterval(timerInterval);
+    document.getElementById('feedback').textContent = '';
+    document.getElementById('timer-container').style.display = 'none';
+
+    const endMessage = document.getElementById('end-message');
+    endMessage.innerHTML = `
+      <p>🎉 恭喜你！你在90秒内配对了 <strong>${matched}</strong> 个正确。</p>
+      <button id="start-button-again">再来一次</button>
+    `;
+
+    // Disable all cards clicks
+    document.querySelectorAll('.card').forEach(card => card.onclick = null);
+
+    document.getElementById('start-button-again').onclick = () => {
+      endMessage.innerHTML = '';
+      document.getElementById('start-button').style.display = 'inline-block';
+    };
+  }
+
+  // Set up start button event listener
+  document.getElementById('start-button').addEventListener('click', startGame);
 </script>
 
-
 <footer>
-  <a href="base-vocabulary.html">← 返回 生词</a> | 
-  <a href="chapter2.html">第二章 →</a> | 
+  <a href="base-vocabulary.html">← 返回 生词</a> |
+  <a href="chapter2.html">第二章 →</a> |
   <a href="/chinese/short-stories/ma-chacha.html">返回首页</a>
 </footer>
 
