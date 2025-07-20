@@ -229,6 +229,17 @@ At night, Ma Chacha sits in front of his computer and sees a book. He says, “W
   .selected {
     background-color: #b3e0ff !important;
   }
+
+  .card.matched {
+  background-color: #ccc !important;
+  color: #666;
+  cursor: default;
+  box-shadow: none;
+}
+.card.matched:hover {
+  background-color: #ccc;
+}
+
 </style>
 
 <script>
@@ -307,6 +318,7 @@ function createCards() {
 }
 
   function handleLeftClick(card, word) {
+    if (card.classList.contains('matched')) return;
     clearSelections('left');
     selectedLeft = { card, word };
     card.classList.add('selected');
@@ -314,6 +326,7 @@ function createCards() {
   }
 
   function handleRightClick(card, def) {
+    if (card.classList.contains('matched')) return;
     clearSelections('right');
     selectedRight = { card, def };
     card.classList.add('selected');
@@ -330,8 +343,10 @@ function createCards() {
       const correctDef = currentGameVocab[selectedLeft.word];
       if (correctDef === selectedRight.def) {
         // Match found
-        selectedLeft.card.remove();
-        selectedRight.card.remove();
+        selectedLeft.card.classList.add('matched');
+        selectedRight.card.classList.add('matched');
+        selectedLeft.card.onclick = null;
+        selectedRight.card.onclick = null;
         document.getElementById('feedback').textContent = '✅ 正确!';
         matched++;
         selectedLeft = null;
