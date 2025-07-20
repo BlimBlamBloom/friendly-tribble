@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Chapter 4 第四章 - 湖里的问题</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 0 20px;
+    background-color: #fafafa;
+    color: #333;
+  }
+  h1 {
+    text-align: center;
+    color: #0073e6;
+    margin-bottom: 30px;
+  }
+  #chinese-text {
+    white-space: pre-wrap;
+    font-size: 1.25em;
+    line-height: 2.2;
+    margin-bottom: 30px;
+    padding: 15px 20px;
+    background-color: #ffffff;
+    border: 1px solid #d1e3fc;
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0, 115, 230, 0.1);
+    font-family: "Noto Sans SC", "Microsoft Yahei", Arial, sans-serif;
+    letter-spacing: 0.03em;
+    text-indent: 2em;
+  }
+  #chinese-text p {
+    margin-bottom: 1.5em;
+  }
+  #pinyin-text, #english-text {
+    display: none;
+    background: #eef6ff;
+    border: 1px solid #b3d1ff;
+    padding: 15px;
+    margin: 10px 0 20px 0;
+    white-space: pre-wrap;
+    font-size: 1.1em;
+  }
+  button.toggle-btn {
+    background-color: #0073e6;
+    color: white;
+    border: none;
+    padding: 10px 18px;
+    margin-right: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+  }
+  button.toggle-btn:hover {
+    background-color: #005bb5;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+    margin-top: 30px;
+  }
+  th, td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: left;
+  }
+  th {
+    background-color: #e6f2ff;
+    font-weight: bold;
+  }
+  tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  #quiz-container {
+    margin-top: 40px;
+  }
+  .option-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin: 20px 0;
+  }
+  .option-card {
+    padding: 16px;
+    background-color: #e0f0ff;
+    border-radius: 12px;
+    text-align: center;
+    cursor: pointer;
+    font-size: 1.1em;
+    transition: background-color 0.3s ease;
+    box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.1);
+  }
+  .option-card:hover {
+    background-color: #cce7ff;
+  }
+  #feedback {
+    font-weight: bold;
+    font-size: 1.1em;
+    min-height: 1.4em;
+  }
+  footer {
+    margin-top: 50px;
+    text-align: center;
+  }
+  footer a {
+    color: #0073e6;
+    text-decoration: none;
+    font-size: 1.1em;
+  }
+  footer a:hover {
+    text-decoration: underline;
+  }
+</style>
+</head>
+<body>
+
+<h1>第四章: 湖里的问题</h1>
+
+<!-- Chinese text -->
+<div id="chinese-text" style="white-space: pre-line;">
+声音说：“如果你不能回答谜语的话，
+你就永远不能回家。”
+马叉叉听了，害怕死了，
+但是他说：“我会努力的！”
+然后，马叉叉看到一个大湖。
+湖水有点脏，水里有很多鱼。
+突然，一个鱼头从水里出来了，说：
+“我们的湖里有个问题。你可以帮我们吗？”
+马叉叉说：“可以呀！”
+鱼从水里走出来了。
+他像人一样走路，穿着西装。
+原来是鱼先生。
+鱼先生说：“好的，跟我来。”
+</div>
+
+<!-- Buttons -->
+<div style="margin-top: 15px;">
+  <button class="toggle-btn" onclick="toggleVisibility('pinyin-text')">拼音</button>
+  <button class="toggle-btn" onclick="toggleVisibility('english-text')">英文</button>
+</div>
+
+<!-- Pinyin text -->
+<div id="pinyin-text">
+Shēngyīn shuō: “Rúguǒ nǐ bù néng huídá míyǔ de huà,
+nǐ jiù yǒngyuǎn bù néng huí jiā.”
+Mǎ Chāchā tīng le, hàipà sǐ le,
+dànshì tā shuō: “Wǒ huì nǔlì de!”
+Ránhòu, Mǎ Chāchā kàndào yí gè dà hú.
+Húshuǐ yǒudiǎn zāng, shuǐ lǐ yǒu hěn duō yú.
+Tūrán, yí gè yútóu cóng shuǐ lǐ chūlái le, shuō:
+“Wǒmen de hú lǐ yǒu gè wèntí. Nǐ kěyǐ bāng wǒmen ma?”
+Mǎ Chāchā shuō: “Kěyǐ ya!”
+Yú cóng shuǐ lǐ zǒu chūlái le.
+Tā xiàng rén yíyàng zǒulù, chuān zhe xīzhuāng.
+Yuánlái shì Yú Xiānshēng.
+Yú Xiānshēng shuō: “Hǎo de, gēn wǒ lái.”
+</div>
+
+<!-- English text -->
+<div id="english-text">
+The voice said, “If you can’t answer the riddle,
+you will never be able to go home.”
+Ma Chacha was scared to death,
+but he said, “I’ll try my best!”
+Then, Ma Chacha saw a big lake.
+The water was a little dirty, and there were many fish in it.
+Suddenly, a fish head came out of the water and said,
+“There’s a problem in our lake. Can you help us?”
+Ma Chacha said, “Sure!”
+The fish walked out of the water.
+He walked like a human and wore a suit.
+It turned out to be Mr. Fish.
+Mr. Fish said, “Alright, follow me!”
+</div>
+
+<!-- Vocabulary list -->
+<h2>生词</h2>
+<table>
+  <thead>
+    <tr>
+      <th>汉字</th>
+      <th>拼音</th>
+      <th>意思</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>如果...的话</td><td>rúguǒ... de huà</td><td>if... (conditional phrase)</td></tr>
+    <tr><td>能</td><td>néng</td><td>can / be able to</td></tr>
+    <tr><td>回答</td><td>huídá</td><td>answer</td></tr>
+    <tr><td>永远</td><td>yǒngyuǎn</td><td>forever</td></tr>
+    <tr><td>…死了</td><td>… sǐle</td><td>extremely (after adj.)</td></tr>
+    <tr><td>努力</td><td>nǔlì</td><td>try hard / make effort</td></tr>
+    <tr><td>然后</td><td>ránhòu</td><td>then / after that</td></tr>
+    <tr><td>湖</td><td>hú</td><td>lake</td></tr>
+    <tr><td>水</td><td>shuǐ</td><td>water</td></tr>
+    <tr><td>从</td><td>cóng</td><td>from</td></tr>
+    <tr><td>出来</td><td>chūlái</td><td>come out</td></tr>
+    <tr><td>问题</td><td>wèntí</td><td>problem / question</td></tr>
+    <tr><td>可以</td><td>kěyǐ</td><td>can / may</td></tr>
+    <tr><td>帮</td><td>bāng</td><td>help</td></tr>
+    <tr><td>像</td><td>xiàng</td><td>like / resemble</td></tr>
+    <tr><td>一样</td><td>yíyàng</td><td>same / alike</td></tr>
+    <tr><td>走路</td><td>zǒulù</td><td>walk</td></tr>
+    <tr><td>跟我来</td><td>gēn wǒ lái</td><td>follow me</td></tr>
+  </tbody>
+</table>
+
+<!-- Vocabulary quiz -->
+<h2>练习生词</h2>
+<div id="quiz-container">
+  <p><strong id="word" style="font-size: 1.5em;"></strong></p>
+  <div id="options" class="option-grid"></div>
+  <p id="feedback"></p>
+  <p>得分: <span id="score">0</span> / <span id="total">0</span></p>
+</div>
+
+<style>
+  .option-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin: 20px 0;
+  }
+  .option-card {
+    padding: 16px;
+    background-color: #e0f0ff;
+    border-radius: 12px;
+    text-align: center;
+    cursor: pointer;
+    font-size: 1.1em;
+    transition: background-color 0.3s ease;
+    box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.1);
+  }
+  .option-card:hover {
+    background-color: #cce7ff;
+  }
+</style>
+
+<script>
+  // Vocabulary for quiz: Chinese character keys with English meanings only (no pinyin here)
+  const vocab = {
+    "如果...的话": ["if... (conditional phrase)"],
+    "能": ["can / be able to"],
+    "回答": ["answer"],
+    "永远": ["forever"],
+    "…死了": ["extremely (after adj.)"],
+    "努力": ["try hard / make effort"],
+    "然后": ["then / after that"],
+    "湖": ["lake"],
+    "水": ["water"],
+    "从": ["from"],
+    "出来": ["come out"],
+    "问题": ["problem / question"],
+    "可以": ["can / may"],
+    "帮": ["help"],
+    "像": ["like / resemble"],
+    "一样": ["same / alike"],
+    "走路": ["walk"],
+    "跟我来": ["follow me"]
+  };
+
+  const words = Object.keys(vocab);
+  let score = 0;
+  let questionIndex = 0;
+  const totalQuestions = 10;
+  let currentWord = "";
+
+  document.getElementById('total').textContent = totalQuestions;
+
+  function getRandomOptions(correctAnswer) {
+    const allAnswers = Object.values(vocab).flat().filter(a => !correctAnswer.includes(a));
+    const shuffled = allAnswers.sort(() => Math.random() - 0.5);
+    const wrongOptions = shuffled.slice(0, 3);
+    const options = [...wrongOptions, correctAnswer[0]];
+    return options.sort(() => Math.random() - 0.5);
+  }
+
+  function loadQuestion() {
+    if (questionIndex >= totalQuestions) {
+      document.getElementById('quiz-container').innerHTML = `
+        <h3>练习完成！</h3>
+        <p>你的最终得分: ${score} / ${totalQuestions}</p>
+        <button onclick="restartQuiz()" style="padding: 10px 20px; font-size: 1em; margin-top: 20px;">🔁 再来一次</button>
+      `;
+      return;
+    }
+
+    currentWord = words[Math.floor(Math.random() * words.length)];
+    const correctAnswers = vocab[currentWord];
+    const options = getRandomOptions(correctAnswers);
+
+    document.getElementById('word').textContent = currentWord;
+    document.getElementById('options').innerHTML = "";
+
+    options.forEach(option => {
+      const btn = document.createElement("div");
+      btn.textContent = option;
+      btn.className = "option-card";
+      btn.onclick = () => checkAnswer(option, correctAnswers);
+      document.getElementById("options").appendChild(btn);
+    });
+
+    document.getElementById("feedback").textContent = "";
+  }
+
+  function checkAnswer(selected, correctAnswers) {
+    if (correctAnswers.map(a => a.toLowerCase()).includes(selected.toLowerCase())) {
+      score++;
+      document.getElementById("feedback").textContent = "✅ 正确!";
+    } else {
+      document.getElementById("feedback").textContent = `❌ 错误。正确答案: ${correctAnswers[0]}`;
+    }
+    document.getElementById("score").textContent = score;
+    questionIndex++;
+    setTimeout(loadQuestion, 1500);
+  }
+
+  function restartQuiz() {
+    score = 0;
+    questionIndex = 0;
+
+    document.getElementById('quiz-container').innerHTML = `
+      <p><strong id="word" style="font-size: 1.5em;"></strong></p>
+      <div id="options" class="option-grid"></div>
+      <p id="feedback"></p>
+      <p>得分: <span id="score">0</span> / <span id="total">${totalQuestions}</span></p>
+    `;
+
+    loadQuestion();
+  }
+
+  // Toggle visibility function for Pinyin and English
+  function toggleVisibility(id) {
+    const elem = document.getElementById(id);
+    if (elem.style.display === "none" || elem.style.display === "") {
+      elem.style.display = "block";
+    } else {
+      elem.style.display = "none";
+    }
+  }
+
+  loadQuestion();
+</script>
+
+<footer>
+  <a href="chapter3.html">← 第三章</a> | 
+  <a href="chapter5.html">第五章 →</a> | 
+  <a href="/chinese/ma-chacha.html">返回首页</a>
+</footer>
+
+</body>
+</html>
