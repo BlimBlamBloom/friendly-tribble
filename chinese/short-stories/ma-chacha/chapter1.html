@@ -187,38 +187,51 @@ At night, Ma Chacha sits in front of his computer and sees a book. He says, “W
 </table>
 
   <!-- Vocabulary quiz -->
-<h2>练习生词</h2>
-<div id="quiz-container">
-  <p><strong id="word" style="font-size: 1.5em;"></strong></p>
-  <div id="options" class="option-grid"></div>
-  <p id="feedback"></p>
-  <p>得分: <span id="score">0</span> / <span id="total">0</span></p>
+<h2>🎯 配对游戏：练习生词</h2>
+<div id="game-container">
+  <div class="column" id="left-column"></div>
+  <div class="column" id="right-column"></div>
 </div>
+<p id="feedback" style="font-size: 1.2em; margin-top: 20px;"></p>
+<div id="end-message" style="margin-top: 30px;"></div>
 
 <style>
-  .option-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
+  #game-container {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin-top: 30px;
+    flex-wrap: wrap;
+  }
+
+  .column {
+    display: flex;
+    flex-direction: column;
     gap: 12px;
-    margin: 20px 0;
   }
-  .option-card {
-    padding: 16px;
-    background-color: #e0f0ff;
-    border-radius: 12px;
-    text-align: center;
+
+  .card {
+    padding: 14px 20px;
+    background-color: #f0f8ff;
+    border-radius: 10px;
     cursor: pointer;
-    font-size: 1.1em;
-    transition: background-color 0.3s ease;
+    font-size: 1.2em;
+    text-align: center;
     box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+    min-width: 160px;
   }
-  .option-card:hover {
-    background-color: #cce7ff;
+
+  .card:hover {
+    background-color: #d6ecff;
+  }
+
+  .selected {
+    background-color: #b3e0ff !important;
   }
 </style>
 
 <script>
-  // Vocabulary for quiz: Chinese character keys with English meanings only (no pinyin here)
   const vocab = {
     "棵": ["measure word for trees and plants"],
     "每天": ["every day"],
@@ -234,88 +247,120 @@ At night, Ma Chacha sits in front of his computer and sees a book. He says, “W
     "世界": ["world"]
   };
 
-  const words = Object.keys(vocab);
-  let score = 0;
-  let questionIndex = 0;
-  const totalQuestions = 10;
-  let currentWord = "";
+  let currentGameVocab = {}; 
 
-  document.getElementById('total').textContent = totalQuestions;
+  let selectedLeft = null;
+  let selectedRight = null;
+  let matched = 0;
 
-  function getRandomOptions(correctAnswer) {
-    const allAnswers = Object.values(vocab).flat().filter(a => !correctAnswer.includes(a));
-    const shuffled = allAnswers.sort(() => Math.random() - 0.5);
-    const wrongOptions = shuffled.slice(0, 3);
-    const options = [...wrongOptions, correctAnswer[0]];
-    return options.sort(() => Math.random() - 0.5);
+  function shuffleArray(arr) {
+    return arr.sort(() => Math.random() - 0.5);
   }
 
-  function loadQuestion() {
-    if (questionIndex >= totalQuestions) {
-      document.getElementById('quiz-container').innerHTML = `
-        <h3>练习完成！</h3>
-        <p>你的最终得分: ${score} / ${totalQuestions}</p>
-        <button onclick="restartQuiz()" style="padding: 10px 20px; font-size: 1em; margin-top: 20px;">🔁 再来一次</button>
-      `;
-      return;
+function createCards() {
+  const leftColumn = document.getElementById('left-column');
+  const rightColumn = document.getElementById('right-column');
+  const feedback = document.getElementById('feedback');
+  const endMessage = document.getElementById('end-message');
+
+  leftColumn.innerHTML = '';
+  rightColumn.innerHTML = '';
+  feedback.textContent = '';
+  endMessage.innerHTML = '';
+
+  matched = 0;
+  selectedLeft = null;
+  selectedRight = null;
+
+  // ✨ NEW: Choose 6 random entries from full vocab object
+  const allEntries = Object.entries(vocab);
+  const selectedEntries = shuffleArray(allEntries).slice(0, 6);
+
+  // Store selected words and definitions
+  const selectedVocab = {};
+  selectedEntries.forEach(([word, defs]) => {
+    selectedVocab[word] = defs[0]; // assume one definition per word for now
+  });
+
+  // Shuffle each side independently
+  const shuffledChinese = shuffleArray(Object.keys(selectedVocab));
+  const shuffledEnglish = shuffleArray(Object.values(selectedVocab));
+
+  // Update global vocab mapping for current game
+  currentGameVocab = selectedVocab;
+
+  shuffledChinese.forEach(word => {
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.textContent = word;
+    card.onclick = () => handleLeftClick(card, word);
+    leftColumn.appendChild(card);
+  });
+
+  shuffledEnglish.forEach(def => {
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.textContent = def;
+    card.onclick = () => handleRightClick(card, def);
+    rightColumn.appendChild(card);
+  });
+}
+
+  function handleLeftClick(card, word) {
+    clearSelections('left');
+    selectedLeft = { card, word };
+    card.classList.add('selected');
+    checkMatch();
+  }
+
+  function handleRightClick(card, def) {
+    clearSelections('right');
+    selectedRight = { card, def };
+    card.classList.add('selected');
+    checkMatch();
+  }
+
+  function clearSelections(side) {
+    const cards = document.querySelectorAll(`#${side}-column .card`);
+    cards.forEach(c => c.classList.remove('selected'));
+  }
+
+  function checkMatch() {
+    if (selectedLeft && selectedRight) {
+      const correctDef = currentGameVocab[selectedLeft.word];
+      if (correctDef === selectedRight.def) {
+        // Match found
+        selectedLeft.card.remove();
+        selectedRight.card.remove();
+        document.getElementById('feedback').textContent = '✅ 正确!';
+        matched++;
+        selectedLeft = null;
+        selectedRight = null;
+        if (matched === 6) {
+          endGame();
+        }
+      } else {
+        document.getElementById('feedback').textContent = '❌ Try again!';
+        selectedLeft.card.classList.remove('selected');
+        selectedRight.card.classList.remove('selected');
+        selectedLeft = null;
+        selectedRight = null;
+      }
     }
-
-    currentWord = words[Math.floor(Math.random() * words.length)];
-    const correctAnswers = vocab[currentWord];
-    const options = getRandomOptions(correctAnswers);
-
-    document.getElementById('word').textContent = currentWord;
-    document.getElementById('options').innerHTML = "";
-
-    options.forEach(option => {
-      const btn = document.createElement("div");
-      btn.textContent = option;
-      btn.className = "option-card";
-      btn.onclick = () => checkAnswer(option, correctAnswers);
-      document.getElementById("options").appendChild(btn);
-    });
-
-    document.getElementById("feedback").textContent = "";
   }
 
-  function checkAnswer(selected, correctAnswers) {
-    if (correctAnswers.map(a => a.toLowerCase()).includes(selected.toLowerCase())) {
-      score++;
-      document.getElementById("feedback").textContent = "✅ 正确!";
-    } else {
-      document.getElementById("feedback").textContent = `❌ 错误。正确答案: ${correctAnswers[0]}`;
-    }
-    document.getElementById("score").textContent = score;
-    questionIndex++;
-    setTimeout(loadQuestion, 1500);
-  }
-
-  function restartQuiz() {
-    score = 0;
-    questionIndex = 0;
-
-    document.getElementById('quiz-container').innerHTML = `
-      <p><strong id="word" style="font-size: 1.5em;"></strong></p>
-      <div id="options" class="option-grid"></div>
-      <p id="feedback"></p>
-      <p>得分: <span id="score">0</span> / <span id="total">${totalQuestions}</span></p>
+  function endGame() {
+    document.getElementById('feedback').textContent = '';
+    document.getElementById('end-message').innerHTML = `
+      <p style="font-size: 1.4em;">🎉 恭喜你！全部配对成功！</p>
+      <button onclick="createCards()" style="padding: 10px 20px; font-size: 1em; margin-top: 10px;">🔁 再来一次</button>
     `;
-
-    loadQuestion();
   }
 
-  // Toggle visibility function for Pinyin and English
-  function toggleVisibility(id) {
-    const elem = document.getElementById(id);
-    if (elem.style.display === "none" || elem.style.display === "") {
-      elem.style.display = "block";
-    } else {
-      elem.style.display = "none";
-    }
-  }
-
-  loadQuestion();
+  // Start the game
+  createCards();
 </script>
+
 
 <footer>
   <a href="base-vocabulary.html">← 返回 生词</a> | 
