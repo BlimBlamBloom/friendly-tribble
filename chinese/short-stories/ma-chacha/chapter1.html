@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Chapter 1 第一章 - Ma Cha Cha</title>
 <style>
+  /* General page styles */
   body {
     font-family: Arial, sans-serif;
     line-height: 1.6;
@@ -20,22 +21,22 @@
     margin-bottom: 30px;
   }
   #chinese-text {
-  white-space: pre-wrap;
-  font-size: 1.25em;
-  line-height: 2.2;
-  margin-bottom: 30px;
-  padding: 15px 20px;
-  background-color: #ffffff;
-  border: 1px solid #d1e3fc;
-  border-radius: 10px;
-  box-shadow: 0 2px 6px rgba(0, 115, 230, 0.1);
-  font-family: "Noto Sans SC", "Microsoft Yahei", Arial, sans-serif;
-  letter-spacing: 0.03em;
-  text-indent: 2em;
-}
-#chinese-text p {
-  margin-bottom: 1.5em;
-}
+    white-space: pre-wrap;
+    font-size: 1.25em;
+    line-height: 2.2;
+    margin-bottom: 30px;
+    padding: 15px 20px;
+    background-color: #ffffff;
+    border: 1px solid #d1e3fc;
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0, 115, 230, 0.1);
+    font-family: "Noto Sans SC", "Microsoft Yahei", Arial, sans-serif;
+    letter-spacing: 0.03em;
+    text-indent: 2em;
+  }
+  #chinese-text p {
+    margin-bottom: 1.5em;
+  }
   #pinyin-text, #english-text {
     display: none;
     background: #eef6ff;
@@ -76,33 +77,73 @@
   tr:nth-child(even) {
     background-color: #f9f9f9;
   }
-  #quiz-container {
-    margin-top: 40px;
+
+  /* Matching game styles */
+  #game-container {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin-top: 30px;
+    flex-wrap: wrap;
   }
-  .option-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
+  .column {
+    display: flex;
+    flex-direction: column;
     gap: 12px;
-    margin: 20px 0;
   }
-  .option-card {
-    padding: 16px;
-    background-color: #e0f0ff;
-    border-radius: 12px;
-    text-align: center;
+  .card {
+    padding: 14px 20px;
+    background-color: #f0f8ff;
+    border-radius: 10px;
     cursor: pointer;
-    font-size: 1.1em;
-    transition: background-color 0.3s ease;
+    font-size: 1.2em;
+    text-align: center;
     box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+    min-width: 160px;
+    user-select: none;
   }
-  .option-card:hover {
-    background-color: #cce7ff;
+  .card:hover {
+    background-color: #d6ecff;
   }
+  .selected {
+    background-color: #b3e0ff !important;
+  }
+  .card.matched {
+    background-color: #ccc !important;
+    color: #666;
+    cursor: default;
+    box-shadow: none;
+  }
+  .card.matched:hover {
+    background-color: #ccc;
+  }
+
+  /* Feedback and timer */
   #feedback {
     font-weight: bold;
     font-size: 1.1em;
     min-height: 1.4em;
+    margin-top: 20px;
+    text-align: center;
   }
+  #timer {
+    font-weight: bold;
+    font-size: 1.1em;
+    color: #0073e6;
+    margin-top: 10px;
+    text-align: center;
+  }
+  #score {
+    font-weight: bold;
+    font-size: 1.1em;
+    color: #0073e6;
+  }
+  #end-message {
+    margin-top: 30px;
+    text-align: center;
+  }
+
   footer {
     margin-top: 50px;
     text-align: center;
@@ -121,17 +162,16 @@
 
 <h1>第一章: 马叉叉的房子</h1>
 
-  <p><strong>收听第一章：</strong></p>
+<p><strong>收听第一章：</strong></p>
 <iframe width="360" height="202" 
         src="https://www.youtube.com/embed/FUiR9DOUybw" 
         title="YouTube video player" 
         frameborder="0" 
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-        allowfullscreen>
-</iframe>
+        allowfullscreen></iframe>
   
 <!-- Chinese text -->
-<div id="chinese-text" style="white-space: pre-line;">
+<div id="chinese-text">
 马叉叉有一个房子。房子不大，也不小。房子在南边，东边有一棵树，北边有一个火车站。
 每天早上，马叉叉开车去火车站。不是因为他要去工作，而是因为他想看火车。他说：“世界不错，但是我很喜欢火车!”
 马叉叉有一个朋友，是一只猫。猫不说话，但是喜欢听音乐。马叉叉下班以后，总是回家，跟猫一起听音乐，喝牛奶，吃方便面。他们在一起很开心。
@@ -186,63 +226,19 @@ At night, Ma Chacha sits in front of his computer and sees a book. He says, “W
   </tbody>
 </table>
 
-  <!-- Vocabulary quiz -->
+<!-- Matching Game Section -->
 <h2>🎯 配对游戏：练习生词</h2>
 <div id="game-container">
   <div class="column" id="left-column"></div>
   <div class="column" id="right-column"></div>
 </div>
-<p id="feedback" style="font-size: 1.2em; margin-top: 20px;"></p>
-<div id="end-message" style="margin-top: 30px;"></div>
-
-<style>
-  #game-container {
-    display: flex;
-    justify-content: center;
-    gap: 40px;
-    margin-top: 30px;
-    flex-wrap: wrap;
-  }
-
-  .column {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-  }
-
-  .card {
-    padding: 14px 20px;
-    background-color: #f0f8ff;
-    border-radius: 10px;
-    cursor: pointer;
-    font-size: 1.2em;
-    text-align: center;
-    box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.1);
-    transition: background-color 0.3s ease;
-    min-width: 160px;
-  }
-
-  .card:hover {
-    background-color: #d6ecff;
-  }
-
-  .selected {
-    background-color: #b3e0ff !important;
-  }
-
-  .card.matched {
-  background-color: #ccc !important;
-  color: #666;
-  cursor: default;
-  box-shadow: none;
-}
-.card.matched:hover {
-  background-color: #ccc;
-}
-
-</style>
+<p id="feedback"></p>
+<p id="timer">时间剩余: 90 秒</p>
+<p id="score">当前得分: 0</p>
+<div id="end-message"></div>
 
 <script>
+  // Vocabulary object: word -> [definition]
   const vocab = {
     "棵": ["measure word for trees and plants"],
     "每天": ["every day"],
@@ -258,64 +254,71 @@ At night, Ma Chacha sits in front of his computer and sees a book. He says, “W
     "世界": ["world"]
   };
 
-  let currentGameVocab = {}; 
-
+  let currentGameVocab = {};
   let selectedLeft = null;
   let selectedRight = null;
   let matched = 0;
+  let totalScore = 0;
+  let timeLeft = 90;  // seconds
+  let timerInterval = null;
 
+  // Utility: shuffle array
   function shuffleArray(arr) {
     return arr.sort(() => Math.random() - 0.5);
   }
 
-function createCards() {
-  const leftColumn = document.getElementById('left-column');
-  const rightColumn = document.getElementById('right-column');
-  const feedback = document.getElementById('feedback');
-  const endMessage = document.getElementById('end-message');
+  // Create cards for a new round of 6 pairs
+  function createCards() {
+    const leftColumn = document.getElementById('left-column');
+    const rightColumn = document.getElementById('right-column');
+    const feedback = document.getElementById('feedback');
+    const endMessage = document.getElementById('end-message');
+    const scoreDisplay = document.getElementById('score');
 
-  leftColumn.innerHTML = '';
-  rightColumn.innerHTML = '';
-  feedback.textContent = '';
-  endMessage.innerHTML = '';
+    leftColumn.innerHTML = '';
+    rightColumn.innerHTML = '';
+    feedback.textContent = '';
+    endMessage.innerHTML = '';
 
-  matched = 0;
-  selectedLeft = null;
-  selectedRight = null;
+    matched = 0;
+    selectedLeft = null;
+    selectedRight = null;
 
-  // ✨ NEW: Choose 6 random entries from full vocab object
-  const allEntries = Object.entries(vocab);
-  const selectedEntries = shuffleArray(allEntries).slice(0, 6);
+    // Select 6 random pairs
+    const allEntries = Object.entries(vocab);
+    const selectedEntries = shuffleArray(allEntries).slice(0, 6);
 
-  // Store selected words and definitions
-  const selectedVocab = {};
-  selectedEntries.forEach(([word, defs]) => {
-    selectedVocab[word] = defs[0]; // assume one definition per word for now
-  });
+    // Store current vocab pairs
+    const selectedVocab = {};
+    selectedEntries.forEach(([word, defs]) => {
+      selectedVocab[word] = defs[0];
+    });
 
-  // Shuffle each side independently
-  const shuffledChinese = shuffleArray(Object.keys(selectedVocab));
-  const shuffledEnglish = shuffleArray(Object.values(selectedVocab));
+    // Shuffle each column independently
+    const shuffledChinese = shuffleArray(Object.keys(selectedVocab));
+    const shuffledEnglish = shuffleArray(Object.values(selectedVocab));
 
-  // Update global vocab mapping for current game
-  currentGameVocab = selectedVocab;
+    currentGameVocab = selectedVocab;
 
-  shuffledChinese.forEach(word => {
-    const card = document.createElement('div');
-    card.className = 'card';
-    card.textContent = word;
-    card.onclick = () => handleLeftClick(card, word);
-    leftColumn.appendChild(card);
-  });
+    shuffledChinese.forEach(word => {
+      const card = document.createElement('div');
+      card.className = 'card';
+      card.textContent = word;
+      card.onclick = () => handleLeftClick(card, word);
+      leftColumn.appendChild(card);
+    });
 
-  shuffledEnglish.forEach(def => {
-    const card = document.createElement('div');
-    card.className = 'card';
-    card.textContent = def;
-    card.onclick = () => handleRightClick(card, def);
-    rightColumn.appendChild(card);
-  });
-}
+    shuffledEnglish.forEach(def => {
+      const card = document.createElement('div');
+      card.className = 'card';
+      card.textContent = def;
+      card.onclick = () => handleRightClick(card, def);
+      rightColumn.appendChild(card);
+    });
+
+    // Update score display (current round score resets)
+    scoreDisplay.textContent = `当前得分: 0`;
+  }
 
   function handleLeftClick(card, word) {
     if (card.classList.contains('matched')) return;
@@ -342,40 +345,105 @@ function createCards() {
     if (selectedLeft && selectedRight) {
       const correctDef = currentGameVocab[selectedLeft.word];
       if (correctDef === selectedRight.def) {
-        // Match found
+        // Correct match
         selectedLeft.card.classList.add('matched');
         selectedRight.card.classList.add('matched');
         selectedLeft.card.onclick = null;
         selectedRight.card.onclick = null;
         document.getElementById('feedback').textContent = '✅ 正确!';
         matched++;
+        totalScore++;
+        updateScore();
+
+        // Clear selection for next match
         selectedLeft = null;
         selectedRight = null;
+
         if (matched === 6) {
-          endGame();
+          // Load next set of cards if time remains
+          if (timeLeft > 0) {
+            setTimeout(() => {
+              createCards();
+            }, 1000); // short delay so user sees "正确!" feedback
+          }
         }
       } else {
+        // Incorrect match
         document.getElementById('feedback').textContent = '❌ 再试一次!';
-        selectedLeft.card.classList.remove('selected');
-        selectedRight.card.classList.remove('selected');
-        selectedLeft = null;
-        selectedRight = null;
+        // Brief delay before clearing selection so user sees feedback
+        setTimeout(() => {
+          selectedLeft.card.classList.remove('selected');
+          selectedRight.card.classList.remove('selected');
+          selectedLeft = null;
+          selectedRight = null;
+          document.getElementById('feedback').textContent = '';
+        }, 800);
       }
     }
   }
 
+  // Update the score display
+  function updateScore() {
+    document.getElementById('score').textContent = `当前得分: ${totalScore}`;
+  }
+
+  // Timer function
+  function startTimer() {
+    timeLeft = 90;
+    totalScore = 0;
+    updateScore();
+    document.getElementById('end-message').innerHTML = '';
+    document.getElementById('feedback').textContent = '';
+    updateTimerDisplay();
+
+    if (timerInterval) clearInterval(timerInterval);
+    timerInterval = setInterval(() => {
+      timeLeft--;
+      updateTimerDisplay();
+      if (timeLeft <= 0) {
+        clearInterval(timerInterval);
+        endGame();
+      }
+    }, 1000);
+  }
+
+  function updateTimerDisplay() {
+    document.getElementById('timer').textContent = `时间剩余: ${timeLeft} 秒`;
+  }
+
+  // End of 90 second game
   function endGame() {
     document.getElementById('feedback').textContent = '';
+    document.getElementById('timer').textContent = '时间到！';
+    document.getElementById('left-column').innerHTML = '';
+    document.getElementById('right-column').innerHTML = '';
     document.getElementById('end-message').innerHTML = `
-      <p style="font-size: 1.4em;">🎉 恭喜你！全部配对成功！</p>
-      <button onclick="createCards()" style="padding: 10px 20px; font-size: 1em; margin-top: 10px;">🔁 再来一次</button>
+      <p style="font-size: 1.4em;">🎉 好样的！你答对了 ${totalScore} 个。</p>
+      <button onclick="startGame()" style="padding: 10px 20px; font-size: 1em; margin-top: 10px;">🔁 再玩一次</button>
     `;
   }
 
-  // Start the game
-  createCards();
-</script>
+  // Start a full game with timer and rounds
+  function startGame() {
+    createCards();
+    startTimer();
+  }
 
+  // Toggle pinyin/english visibility functions
+  function toggleVisibility(id) {
+    const el = document.getElementById(id);
+    if (el.style.display === 'block') {
+      el.style.display = 'none';
+    } else {
+      el.style.display = 'block';
+    }
+  }
+
+  // Start the game on page load
+  window.onload = () => {
+    startGame();
+  };
+</script>
 
 <footer>
   <a href="base-vocabulary.html">← 返回 生词</a> | 
