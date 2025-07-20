@@ -227,18 +227,67 @@ At night, Ma Chacha sits in front of his computer and sees a book. He says, “W
 </table>
 
 <!-- Matching Game Section -->
-<h2>🎯 配对游戏：练习生词</h2>
-<div id="game-container">
+
+<!-- Start Button -->
+<button id="start-btn" style="padding: 10px 20px; font-size: 1.2em; margin-top: 20px; cursor: pointer;">
+  开始
+</button>
+
+<!-- Game Container (hidden initially) -->
+<div id="game-container" style="display:none;">
   <div class="column" id="left-column"></div>
   <div class="column" id="right-column"></div>
 </div>
-<p id="feedback"></p>
-<p id="timer">时间剩余: 90 秒</p>
-<p id="score">当前得分: 0</p>
-<div id="end-message"></div>
+
+<!-- Feedback message -->
+<p id="feedback" style="font-size: 1.2em; margin-top: 20px;"></p>
+
+<!-- End game message and play again button -->
+<div id="end-message" style="margin-top: 30px;"></div>
+
+<style>
+  /* Matching Game Styles (keep this in your main CSS or here) */
+  #game-container {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin-top: 30px;
+    flex-wrap: wrap;
+  }
+  .column {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .card {
+    padding: 14px 20px;
+    background-color: #f0f8ff;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 1.2em;
+    text-align: center;
+    box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+    min-width: 160px;
+  }
+  .card:hover {
+    background-color: #d6ecff;
+  }
+  .selected {
+    background-color: #b3e0ff !important;
+  }
+  .card.matched {
+    background-color: #ccc !important;
+    color: #666;
+    cursor: default;
+    box-shadow: none;
+  }
+  .card.matched:hover {
+    background-color: #ccc;
+  }
+</style>
 
 <script>
-  // Vocabulary object: word -> [definition]
   const vocab = {
     "棵": ["measure word for trees and plants"],
     "每天": ["every day"],
@@ -258,22 +307,26 @@ At night, Ma Chacha sits in front of his computer and sees a book. He says, “W
   let selectedLeft = null;
   let selectedRight = null;
   let matched = 0;
-  let totalScore = 0;
-  let timeLeft = 90;  // seconds
-  let timerInterval = null;
+  let isLocked = false;
 
-  // Utility: shuffle array
+  const startBtn = document.getElementById('start-btn');
+  const gameContainer = document.getElementById('game-container');
+  const feedback = document.getElementById('feedback');
+  const endMessage = document.getElementById('end-message');
+
+  startBtn.onclick = () => {
+    startBtn.style.display = 'none';       // Hide start button
+    gameContainer.style.display = 'flex';  // Show game container
+    createCards();
+  };
+
   function shuffleArray(arr) {
     return arr.sort(() => Math.random() - 0.5);
   }
 
-  // Create cards for a new round of 6 pairs
   function createCards() {
     const leftColumn = document.getElementById('left-column');
     const rightColumn = document.getElementById('right-column');
-    const feedback = document.getElementById('feedback');
-    const endMessage = document.getElementById('end-message');
-    const scoreDisplay = document.getElementById('score');
 
     leftColumn.innerHTML = '';
     rightColumn.innerHTML = '';
@@ -283,18 +336,17 @@ At night, Ma Chacha sits in front of his computer and sees a book. He says, “W
     matched = 0;
     selectedLeft = null;
     selectedRight = null;
+    isLocked = false;
 
-    // Select 6 random pairs
+    // Select 6 random words from vocab
     const allEntries = Object.entries(vocab);
     const selectedEntries = shuffleArray(allEntries).slice(0, 6);
 
-    // Store current vocab pairs
     const selectedVocab = {};
     selectedEntries.forEach(([word, defs]) => {
       selectedVocab[word] = defs[0];
     });
 
-    // Shuffle each column independently
     const shuffledChinese = shuffleArray(Object.keys(selectedVocab));
     const shuffledEnglish = shuffleArray(Object.values(selectedVocab));
 
@@ -315,13 +367,10 @@ At night, Ma Chacha sits in front of his computer and sees a book. He says, “W
       card.onclick = () => handleRightClick(card, def);
       rightColumn.appendChild(card);
     });
-
-    // Update score display (current round score resets)
-    scoreDisplay.textContent = `当前得分: 0`;
   }
 
   function handleLeftClick(card, word) {
-    if (card.classList.contains('matched')) return;
+    if (isLocked || card.classList.contains('matched')) return;
     clearSelections('left');
     selectedLeft = { card, word };
     card.classList.add('selected');
@@ -329,7 +378,7 @@ At night, Ma Chacha sits in front of his computer and sees a book. He says, “W
   }
 
   function handleRightClick(card, def) {
-    if (card.classList.contains('matched')) return;
+    if (isLocked || card.classList.contains('matched')) return;
     clearSelections('right');
     selectedRight = { card, def };
     card.classList.add('selected');
@@ -350,100 +399,43 @@ At night, Ma Chacha sits in front of his computer and sees a book. He says, “W
         selectedRight.card.classList.add('matched');
         selectedLeft.card.onclick = null;
         selectedRight.card.onclick = null;
-        document.getElementById('feedback').textContent = '✅ 正确!';
+        feedback.textContent = '✅ 正确!';
         matched++;
-        totalScore++;
-        updateScore();
-
-        // Clear selection for next match
         selectedLeft = null;
         selectedRight = null;
-
         if (matched === 6) {
-          // Load next set of cards if time remains
-          if (timeLeft > 0) {
-            setTimeout(() => {
-              createCards();
-            }, 1000); // short delay so user sees "正确!" feedback
-          }
+          endGame();
         }
       } else {
-        // Incorrect match
-        document.getElementById('feedback').textContent = '❌ 再试一次!';
-        // Brief delay before clearing selection so user sees feedback
+        // Wrong match — lock clicks, clear selections immediately
+        isLocked = true;
+        feedback.textContent = '❌ 再试一次!';
+        selectedLeft.card.classList.remove('selected');
+        selectedRight.card.classList.remove('selected');
+        selectedLeft = null;
+        selectedRight = null;
         setTimeout(() => {
-          selectedLeft.card.classList.remove('selected');
-          selectedRight.card.classList.remove('selected');
-          selectedLeft = null;
-          selectedRight = null;
-          document.getElementById('feedback').textContent = '';
-        }, 800);
+          isLocked = false;
+          feedback.textContent = '';
+        }, 700);
       }
     }
   }
 
-  // Update the score display
-  function updateScore() {
-    document.getElementById('score').textContent = `当前得分: ${totalScore}`;
-  }
-
-  // Timer function
-  function startTimer() {
-    timeLeft = 90;
-    totalScore = 0;
-    updateScore();
-    document.getElementById('end-message').innerHTML = '';
-    document.getElementById('feedback').textContent = '';
-    updateTimerDisplay();
-
-    if (timerInterval) clearInterval(timerInterval);
-    timerInterval = setInterval(() => {
-      timeLeft--;
-      updateTimerDisplay();
-      if (timeLeft <= 0) {
-        clearInterval(timerInterval);
-        endGame();
-      }
-    }, 1000);
-  }
-
-  function updateTimerDisplay() {
-    document.getElementById('timer').textContent = `时间剩余: ${timeLeft} 秒`;
-  }
-
-  // End of 90 second game
   function endGame() {
-    document.getElementById('feedback').textContent = '';
-    document.getElementById('timer').textContent = '时间到！';
-    document.getElementById('left-column').innerHTML = '';
-    document.getElementById('right-column').innerHTML = '';
-    document.getElementById('end-message').innerHTML = `
-      <p style="font-size: 1.4em;">🎉 好样的！你答对了 ${totalScore} 个。</p>
-      <button onclick="startGame()" style="padding: 10px 20px; font-size: 1em; margin-top: 10px;">🔁 再玩一次</button>
+    feedback.textContent = '';
+    endMessage.innerHTML = `
+      <p style="font-size: 1.4em;">🎉 恭喜你！全部配对成功！</p>
+      <button onclick="restartGame()" style="padding: 10px 20px; font-size: 1em; margin-top: 10px;">🔁 再来一次</button>
     `;
   }
 
-  // Start a full game with timer and rounds
-  function startGame() {
+  function restartGame() {
+    endMessage.innerHTML = '';
     createCards();
-    startTimer();
   }
-
-  // Toggle pinyin/english visibility functions
-  function toggleVisibility(id) {
-    const el = document.getElementById(id);
-    if (el.style.display === 'block') {
-      el.style.display = 'none';
-    } else {
-      el.style.display = 'block';
-    }
-  }
-
-  // Start the game on page load
-  window.onload = () => {
-    startGame();
-  };
 </script>
+
 
 <footer>
   <a href="base-vocabulary.html">← 返回 生词</a> | 
