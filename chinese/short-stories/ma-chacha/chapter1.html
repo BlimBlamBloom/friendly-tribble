@@ -4,234 +4,289 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>第一章 第一章 - 马叉叉的房子</title>
+/* === General Page Styles === */
 <style>
-  /* ======= Page Content Styles ======= */
-  body {
-    font-family: Arial, sans-serif;
-    line-height: 1.6;
-    max-width: 800px;
-    margin: 40px auto;
-    padding: 0 20px;
-    background-color: #fafafa;
-    color: #333;
-  }
-  h1 {
-    text-align: center;
-    color: #0073e6;
-    margin-bottom: 30px;
-  }
-  #chinese-text {
-    white-space: pre-wrap;
-    font-size: 1.25em;
-    line-height: 2.2;
-    margin-bottom: 30px;
-    padding: 15px 20px;
-    background-color: #ffffff;
-    border: 1px solid #d1e3fc;
-    border-radius: 10px;
-    box-shadow: 0 2px 6px rgba(0, 115, 230, 0.1);
-    font-family: "Noto Sans SC", "Microsoft Yahei", Arial, sans-serif;
-    letter-spacing: 0.03em;
-    text-indent: 2em;
-  }
-  #chinese-text p {
-    margin-bottom: 1.5em;
-  }
-  #pinyin-text, #english-text {
-    display: none;
-    background: #eef6ff;
-    border: 1px solid #b3d1ff;
-    padding: 15px;
-    margin: 10px 0 20px 0;
-    white-space: pre-wrap;
-    font-size: 1.1em;
-  }
-  button.toggle-btn {
-    background-color: #0073e6;
-    color: white;
-    border: none;
-    padding: 10px 18px;
-    margin-right: 10px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 1em;
-  }
-  button.toggle-btn:hover {
-    background-color: #005bb5;
-  }
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    background: #fff;
-    margin-top: 30px;
-  }
-  th, td {
-    border: 1px solid #ccc;
-    padding: 10px;
-    text-align: left;
-  }
-  th {
-    background-color: #e6f2ff;
-    font-weight: bold;
-  }
-  tr:nth-child(even) {
-    background-color: #f9f9f9;
-  }
-  footer {
-    margin-top: 50px;
-    text-align: center;
-  }
-  footer a {
-    color: #0073e6;
-    text-decoration: none;
-    font-size: 1.1em;
-  }
-  footer a:hover {
-    text-decoration: underline;
-  }
+  
+body {
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 0 20px;
+  background-color: #fafafa;
+  color: #333;
+}
 
-  /* ======= Matching Game Styles ======= */
+h1 {
+  text-align: center;
+  color: #0073e6;
+  margin-bottom: 30px;
+}
 
-  #game-container {
-    display: flex;
-    justify-content: center;
-    gap: 40px;
-    margin-top: 30px;
-    flex-wrap: nowrap; /* Prevent vertical stacking on small screens */
-  }
+#chinese-text {
+  white-space: pre-wrap;
+  font-size: 1.25em;
+  line-height: 2.2;
+  margin-bottom: 30px;
+  padding: 15px 20px;
+  background-color: #ffffff;
+  border: 1px solid #d1e3fc;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0, 115, 230, 0.1);
+  font-family: "Noto Sans SC", "Microsoft Yahei", Arial, sans-serif;
+  letter-spacing: 0.03em;
+  text-indent: 2em;
+}
 
-  .column {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    width: 180px; /* Fixed width for consistent layout */
-  }
+#chinese-text p {
+  margin-bottom: 1.5em;
+}
 
-  .card {
-    padding: 14px 20px;
-    background-color: #f0f8ff;
-    border-radius: 10px;
-    cursor: pointer;
-    font-size: 1.2em;
-    text-align: center;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-    transition: background-color 0.3s ease, transform 0.2s ease;
-    min-width: 160px;
-    user-select: none;
-  }
+#pinyin-text, #english-text {
+  display: none;
+  background: #eef6ff;
+  border: 1px solid #b3d1ff;
+  padding: 15px;
+  margin: 10px 0 20px 0;
+  white-space: pre-wrap;
+  font-size: 1.1em;
+}
 
-  .card:hover:not(.matched):not(.animating) {
-    background-color: #d6ecff;
-    transform: scale(1.05);
-  }
+button.toggle-btn {
+  background-color: #0073e6;
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  margin-right: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1em;
+}
 
-  .card.matched {
-    background-color: #ccc !important;
-    color: #666;
-    cursor: default;
-    box-shadow: none;
-    transform: none !important;
-  }
+button.toggle-btn:hover {
+  background-color: #005bb5;
+}
 
-  .selected {
-    background-color: #b3e0ff !important;
-  }
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  margin-top: 30px;
+}
 
-  /* Animations for feedback */
-  @keyframes flashGreen {
-    0%, 100% { background-color: #b3e0ff; }
-    50% { background-color: #a0f0a0; }
-  }
-  @keyframes flashRed {
-    0%, 100% { background-color: #b3e0ff; }
-    50% { background-color: #f28b82; }
-  }
-  @keyframes shake {
-    0%, 100% { transform: translateX(0); }
-    20%, 60% { transform: translateX(-6px); }
-    40%, 80% { transform: translateX(6px); }
-  }
+th, td {
+  border: 1px solid #ccc;
+  padding: 10px;
+  text-align: left;
+}
 
-  .flash-green {
-    animation: flashGreen 0.5s ease forwards;
-  }
+th {
+  background-color: #e6f2ff;
+  font-weight: bold;
+}
 
-  .flash-red {
-    animation: flashRed 0.5s ease forwards;
-  }
+tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
 
-  .shake {
-    animation: shake 0.5s ease;
-  }
+footer {
+  margin-top: 50px;
+  text-align: center;
+}
 
-  /* Feedback text style */
-  #feedback {
-    text-align: center;
-    font-weight: bold;
-    font-size: 1.3em;
-    min-height: 1.4em;
-    margin-top: 15px;
-  }
+footer a {
+  color: #0073e6;
+  text-decoration: none;
+  font-size: 1.1em;
+}
 
-  /* Timer and progress bar */
-  #timer-container {
-    text-align: center;
-    margin-top: 30px;
-    font-size: 1.6em;
-    font-weight: bold;
-    color: #0073e6;
-  }
-  #timer-container.low-time {
-    color: #e63946; /* Red when time low */
-  }
+footer a:hover {
+  text-decoration: underline;
+}
 
-  #progress-bar {
-    width: 100%;
-    height: 12px;
-    background-color: #d1e3fc;
-    border-radius: 6px;
-    overflow: hidden;
-    margin-top: 8px;
-  }
+/* === Matching Game Styles === */
 
-  #progress-bar-fill {
-    height: 100%;
-    width: 100%;
-    background-color: #0073e6;
-    transition: width 0.3s linear;
-  }
+#game-container {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  margin-top: 30px;
+  /* Fixed two column layout */
+  flex-wrap: nowrap;
+}
 
-  /* Start button */
-  #start-button {
-    display: block;
-    margin: 30px auto 20px auto;
-    background-color: #0073e6;
-    color: white;
-    border: none;
-    padding: 12px 24px;
-    border-radius: 8px;
-    font-size: 1.25em;
-    cursor: pointer;
-    box-shadow: 0 5px 10px rgba(0, 115, 230, 0.4);
-    transition: background-color 0.3s ease;
-  }
-  #start-button:hover {
-    background-color: #005bb5;
-  }
+.column {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  /* Make sure both columns have equal height to align cards */
+  flex: 1;
+  min-width: 180px;
+}
 
-  /* Responsive tweak: prevent stacking by setting min-width */
-  @media (max-width: 460px) {
-    #game-container {
-      gap: 20px;
-    }
-    .column {
-      width: 150px;
-    }
-    .card {
-      min-width: 130px;
-      font-size: 1.1em;
-    }
-  }
+.card {
+  padding: 14px 20px;
+  background-color: #f0f8ff;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 1.2em;
+  text-align: center;
+  box-shadow: 3px 4px 8px rgba(0, 0, 0, 0.15);
+  transition: background-color 0.3s ease, transform 0.15s ease;
+  min-width: 160px;
+  /* Force fixed height so cards align */
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+}
+
+.card:hover {
+  background-color: #d6ecff;
+  transform: scale(1.05);
+}
+
+.selected {
+  background-color: #b3e0ff !important;
+  box-shadow: 0 0 10px #5fb8ff;
+}
+
+.card.matched {
+  background-color: #ccc !important;
+  color: #666;
+  cursor: default;
+  box-shadow: none;
+  transform: none !important;
+}
+
+.card.matched:hover {
+  background-color: #ccc;
+}
+
+/* Feedback text */
+#feedback {
+  font-weight: bold;
+  font-size: 1.3em;
+  min-height: 1.5em;
+  margin-top: 15px;
+  text-align: center;
+}
+
+/* Timer styling */
+#timer {
+  font-size: 1.6em;
+  font-weight: bold;
+  text-align: center;
+  margin-top: 20px;
+  color: #228822; /* Green initially */
+  transition: color 0.3s ease;
+  user-select: none;
+}
+
+/* Timer warning colors */
+#timer.warning {
+  color: #d15c5c; /* Red when low time */
+}
+
+/* Progress bar container */
+#progress-bar-container {
+  width: 100%;
+  height: 16px;
+  background-color: #e0e0e0;
+  border-radius: 10px;
+  margin: 10px auto 25px auto;
+  max-width: 400px;
+  overflow: hidden;
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.2);
+}
+
+/* Progress bar fill */
+#progress-bar {
+  height: 100%;
+  background-color: #4caf50;
+  width: 100%;
+  transition: width 1s linear;
+}
+
+/* Shake animation for wrong guess */
+@keyframes shake {
+  0% { transform: translateX(0); }
+  20% { transform: translateX(-8px); }
+  40% { transform: translateX(8px); }
+  60% { transform: translateX(-8px); }
+  80% { transform: translateX(8px); }
+  100% { transform: translateX(0); }
+}
+
+.shake {
+  animation: shake 0.4s ease;
+}
+
+/* Green and Red flash for feedback */
+@keyframes flashGreen {
+  0%, 100% { background-color: #b3e0ff; }
+  50% { background-color: #a1d99b; }
+}
+
+@keyframes flashRed {
+  0%, 100% { background-color: #b3e0ff; }
+  50% { background-color: #f08080; }
+}
+
+.flash-correct {
+  animation: flashGreen 0.6s ease;
+}
+
+.flash-wrong {
+  animation: flashRed 0.6s ease;
+}
+
+/* Start button styling */
+#start-button {
+  display: block;
+  margin: 25px auto 0 auto;
+  padding: 12px 25px;
+  font-size: 1.25em;
+  background-color: #0073e6;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 2px 3px 8px rgba(0,115,230,0.4);
+  transition: background-color 0.3s ease;
+  user-select: none;
+}
+
+#start-button:hover {
+  background-color: #005bb5;
+}
+
+  /* Force card text to single line with ellipsis to avoid height issues */
+.card {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Optionally increase card height slightly if needed */
+.card {
+  height: 50px;  /* Adjust as needed for best fit */
+  min-width: 160px;
+  line-height: 1.2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Ensure columns are equal height to keep cards aligned */
+#game-container {
+  display: flex;
+  gap: 40px;
+  flex-wrap: nowrap;
+  align-items: flex-start; /* make sure items align at top */
+}
+
 </style>
 </head>
 <body>
@@ -432,17 +487,17 @@ At night, Ma Chacha sits in front of his computer and sees a book. He says, “W
 
       if (correctDef === selectedRight.def) {
         // Correct match
-        selectedLeft.card.classList.add('matched', 'flash-green');
-        selectedRight.card.classList.add('matched', 'flash-green');
+        selectedLeft.card.classList.add('matched', 'flash-correct');
+        selectedRight.card.classList.add('matched', 'flash-correct');
         selectedLeft.card.onclick = null;
         selectedRight.card.onclick = null;
         feedback.textContent = '✅ 正确!';
 
         // Remove animation classes after animation ends
         setTimeout(() => {
-          selectedLeft.card.classList.remove('flash-green');
-          selectedRight.card.classList.remove('flash-green');
-        }, 500);
+          selectedLeft.card.classList.remove('flash-correct');
+          selectedRight.card.classList.remove('flash-correct');
+        }, 600);
 
         matched++;
         selectedLeft = null;
@@ -457,26 +512,28 @@ At night, Ma Chacha sits in front of his computer and sees a book. He says, “W
       } else {
         feedback.textContent = '❌ 再试一次!';
         // Add shake and flash red effect on wrong cards
-        selectedLeft.card.classList.add('shake', 'flash-red', 'animating');
-        selectedRight.card.classList.add('shake', 'flash-red', 'animating');
+        selectedLeft.card.classList.add('shake', 'flash-wrong', 'animating');
+        selectedRight.card.classList.add('shake', 'flash-wrong', 'animating');
 
-        // Disable clicking on these cards while animating
+        // Temporarily disable clicks on these cards while animating
         selectedLeft.card.onclick = null;
         selectedRight.card.onclick = null;
 
-        // After animation, clear selections and re-enable clicks
         setTimeout(() => {
-          selectedLeft.card.classList.remove('shake', 'flash-red', 'animating', 'selected');
-          selectedRight.card.classList.remove('shake', 'flash-red', 'animating', 'selected');
+          // Remove animations and selection
+          selectedLeft.card.classList.remove('shake', 'flash-wrong', 'animating', 'selected');
+          selectedRight.card.classList.remove('shake', 'flash-wrong', 'animating', 'selected');
 
           // Re-enable clicks
           selectedLeft.card.onclick = () => handleLeftClick(selectedLeft.card, selectedLeft.word);
           selectedRight.card.onclick = () => handleRightClick(selectedRight.card, selectedRight.def);
 
+          // Clear selection variables
           selectedLeft = null;
           selectedRight = null;
+
           feedback.textContent = '';
-        }, 500);
+        }, 600);
       }
     }
   }
@@ -508,9 +565,11 @@ At night, Ma Chacha sits in front of his computer and sees a book. He says, “W
     progressBarFill.style.width = percent + '%';
 
     if (timeLeft <= 15) {
-      timerContainer.classList.add('low-time');
+      timerContainer.classList.add('warning');
+      timerSpan.style.color = '#d15c5c'; // Red color
     } else {
-      timerContainer.classList.remove('low-time');
+      timerContainer.classList.remove('warning');
+      timerSpan.style.color = '#228822'; // Green color
     }
   }
 
@@ -538,6 +597,7 @@ At night, Ma Chacha sits in front of his computer and sees a book. He says, “W
   // Set up start button event listener
   document.getElementById('start-button').addEventListener('click', startGame);
 </script>
+
 
 <footer>
   <a href="base-vocabulary.html">← 返回 生词</a> |
