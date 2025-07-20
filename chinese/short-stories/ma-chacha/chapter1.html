@@ -104,188 +104,108 @@ footer a:hover {
   text-decoration: underline;
 }
 
-/* === Matching Game Styles === */
+  /* === Matching Game Styles === */
+  #game-container {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin-top: 30px;
+    flex-wrap: nowrap;
+  }
 
-#game-container {
-  display: flex;
-  justify-content: center;
-  gap: 40px;
-  margin-top: 30px;
-  /* Fixed two column layout */
-  flex-wrap: nowrap;
-}
+  .column {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    flex: 1;
+    min-width: 180px;
+  }
 
-.column {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  /* Make sure both columns have equal height to align cards */
-  flex: 1;
-  min-width: 180px;
-}
+  .card {
+    padding: 14px 20px;
+    background-color: #f0f8ff;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 1.2em;
+    text-align: center;
+    box-shadow: 3px 4px 8px rgba(0, 0, 0, 0.15);
+    min-width: 160px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    user-select: none;
+    transition: none; /* no hover scaling */
+  }
 
-.card {
-  padding: 14px 20px;
-  background-color: #f0f8ff;
-  border-radius: 10px;
-  cursor: pointer;
-  font-size: 1.2em;
-  text-align: center;
-  box-shadow: 3px 4px 8px rgba(0, 0, 0, 0.15);
-  transition: background-color 0.3s ease, transform 0.15s ease;
-  min-width: 160px;
-  /* Force fixed height so cards align */
-  height: 60px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  user-select: none;
-}
+  .selected {
+    background-color: #b3e0ff !important;
+    box-shadow: 0 0 10px #5fb8ff;
+  }
 
-.card:hover {
-  background-color: #d6ecff;
-  transform: scale(1.05);
-}
+  .card.matched {
+    background-color: #ccc !important;
+    color: #666;
+    cursor: default;
+    box-shadow: none;
+  }
 
-.selected {
-  background-color: #b3e0ff !important;
-  box-shadow: 0 0 10px #5fb8ff;
-}
+  .card.matched:hover {
+    background-color: #ccc;
+  }
 
-.card.matched {
-  background-color: #ccc !important;
-  color: #666;
-  cursor: default;
-  box-shadow: none;
-  transform: none !important;
-}
+  /* Timer and progress bar styling kept from your original if needed */
+  #timer {
+    font-size: 1.6em;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 20px;
+    color: #228822; /* Green initially */
+    transition: color 0.3s ease;
+    user-select: none;
+  }
 
-.card.matched:hover {
-  background-color: #ccc;
-}
+  #timer.warning {
+    color: #d15c5c; /* Red when low time */
+  }
 
-/* Feedback text */
-#feedback {
-  font-weight: bold;
-  font-size: 1.3em;
-  min-height: 1.5em;
-  margin-top: 15px;
-  text-align: center;
-}
+  #progress-bar-container {
+    width: 100%;
+    height: 16px;
+    background-color: #e0e0e0;
+    border-radius: 10px;
+    margin: 10px auto 25px auto;
+    max-width: 400px;
+    overflow: hidden;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.2);
+  }
 
-/* Timer styling */
-#timer {
-  font-size: 1.6em;
-  font-weight: bold;
-  text-align: center;
-  margin-top: 20px;
-  color: #228822; /* Green initially */
-  transition: color 0.3s ease;
-  user-select: none;
-}
+  #progress-bar {
+    height: 100%;
+    background-color: #4caf50;
+    width: 100%;
+    transition: width 1s linear;
+  }
 
-/* Timer warning colors */
-#timer.warning {
-  color: #d15c5c; /* Red when low time */
-}
+  /* Start button styling */
+  #start-button {
+    display: block;
+    margin: 25px auto 0 auto;
+    padding: 12px 25px;
+    font-size: 1.25em;
+    background-color: #0073e6;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 2px 3px 8px rgba(0,115,230,0.4);
+    transition: background-color 0.3s ease;
+    user-select: none;
+  }
 
-/* Progress bar container */
-#progress-bar-container {
-  width: 100%;
-  height: 16px;
-  background-color: #e0e0e0;
-  border-radius: 10px;
-  margin: 10px auto 25px auto;
-  max-width: 400px;
-  overflow: hidden;
-  box-shadow: inset 0 1px 3px rgba(0,0,0,0.2);
-}
-
-/* Progress bar fill */
-#progress-bar {
-  height: 100%;
-  background-color: #4caf50;
-  width: 100%;
-  transition: width 1s linear;
-}
-
-/* Shake animation for wrong guess */
-@keyframes shake {
-  0% { transform: translateX(0); }
-  20% { transform: translateX(-8px); }
-  40% { transform: translateX(8px); }
-  60% { transform: translateX(-8px); }
-  80% { transform: translateX(8px); }
-  100% { transform: translateX(0); }
-}
-
-.shake {
-  animation: shake 0.4s ease;
-}
-
-/* Green and Red flash for feedback */
-@keyframes flashGreen {
-  0%, 100% { background-color: #b3e0ff; }
-  50% { background-color: #a1d99b; }
-}
-
-@keyframes flashRed {
-  0%, 100% { background-color: #b3e0ff; }
-  50% { background-color: #f08080; }
-}
-
-.flash-correct {
-  animation: flashGreen 0.6s ease;
-}
-
-.flash-wrong {
-  animation: flashRed 0.6s ease;
-}
-
-/* Start button styling */
-#start-button {
-  display: block;
-  margin: 25px auto 0 auto;
-  padding: 12px 25px;
-  font-size: 1.25em;
-  background-color: #0073e6;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  box-shadow: 2px 3px 8px rgba(0,115,230,0.4);
-  transition: background-color 0.3s ease;
-  user-select: none;
-}
-
-#start-button:hover {
-  background-color: #005bb5;
-}
-
-  /* Force card text to single line with ellipsis to avoid height issues */
-.card {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-/* Optionally increase card height slightly if needed */
-.card {
-  height: 50px;  /* Adjust as needed for best fit */
-  min-width: 160px;
-  line-height: 1.2;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* Ensure columns are equal height to keep cards aligned */
-#game-container {
-  display: flex;
-  gap: 40px;
-  flex-wrap: nowrap;
-  align-items: flex-start; /* make sure items align at top */
-}
+  #start-button:hover {
+    background-color: #005bb5;
+  }
 
 </style>
 </head>
@@ -464,7 +384,7 @@ At night, Ma Chacha sits in front of his computer and sees a book. He says, “W
 
   function handleLeftClick(card, word) {
     if (!gameActive) return;
-    if (card.classList.contains('matched') || card.classList.contains('animating')) return;
+    if (card.classList.contains('matched')) return;
     clearSelections('left');
     selectedLeft = { card, word };
     card.classList.add('selected');
@@ -473,7 +393,7 @@ At night, Ma Chacha sits in front of his computer and sees a book. He says, “W
 
   function handleRightClick(card, def) {
     if (!gameActive) return;
-    if (card.classList.contains('matched') || card.classList.contains('animating')) return;
+    if (card.classList.contains('matched')) return;
     clearSelections('right');
     selectedRight = { card, def };
     card.classList.add('selected');
@@ -487,53 +407,29 @@ At night, Ma Chacha sits in front of his computer and sees a book. He says, “W
 
       if (correctDef === selectedRight.def) {
         // Correct match
-        selectedLeft.card.classList.add('matched', 'flash-correct');
-        selectedRight.card.classList.add('matched', 'flash-correct');
+        selectedLeft.card.classList.add('matched');
+        selectedRight.card.classList.add('matched');
         selectedLeft.card.onclick = null;
         selectedRight.card.onclick = null;
         feedback.textContent = '✅ 正确!';
-
-        // Remove animation classes after animation ends
-        setTimeout(() => {
-          selectedLeft.card.classList.remove('flash-correct');
-          selectedRight.card.classList.remove('flash-correct');
-        }, 600);
 
         matched++;
         selectedLeft = null;
         selectedRight = null;
 
         if (matched === 6) {
-          // Pause briefly before loading new set
           setTimeout(() => {
             createCards();
+            feedback.textContent = '';
           }, 700);
         }
       } else {
+        // Wrong match - reset immediately, no animation
         feedback.textContent = '❌ 再试一次!';
-        // Add shake and flash red effect on wrong cards
-        selectedLeft.card.classList.add('shake', 'flash-wrong', 'animating');
-        selectedRight.card.classList.add('shake', 'flash-wrong', 'animating');
-
-        // Temporarily disable clicks on these cards while animating
-        selectedLeft.card.onclick = null;
-        selectedRight.card.onclick = null;
-
-        setTimeout(() => {
-          // Remove animations and selection
-          selectedLeft.card.classList.remove('shake', 'flash-wrong', 'animating', 'selected');
-          selectedRight.card.classList.remove('shake', 'flash-wrong', 'animating', 'selected');
-
-          // Re-enable clicks
-          selectedLeft.card.onclick = () => handleLeftClick(selectedLeft.card, selectedLeft.word);
-          selectedRight.card.onclick = () => handleRightClick(selectedRight.card, selectedRight.def);
-
-          // Clear selection variables
-          selectedLeft = null;
-          selectedRight = null;
-
-          feedback.textContent = '';
-        }, 600);
+        selectedLeft.card.classList.remove('selected');
+        selectedRight.card.classList.remove('selected');
+        selectedLeft = null;
+        selectedRight = null;
       }
     }
   }
@@ -565,11 +461,9 @@ At night, Ma Chacha sits in front of his computer and sees a book. He says, “W
     progressBarFill.style.width = percent + '%';
 
     if (timeLeft <= 15) {
-      timerContainer.classList.add('warning');
-      timerSpan.style.color = '#d15c5c'; // Red color
+      timerContainer.classList.add('low-time');
     } else {
-      timerContainer.classList.remove('warning');
-      timerSpan.style.color = '#228822'; // Green color
+      timerContainer.classList.remove('low-time');
     }
   }
 
@@ -597,6 +491,7 @@ At night, Ma Chacha sits in front of his computer and sees a book. He says, “W
   // Set up start button event listener
   document.getElementById('start-button').addEventListener('click', startGame);
 </script>
+
 
 
 <footer>
