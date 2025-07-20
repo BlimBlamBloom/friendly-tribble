@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Chapter 2 第二章 - 神秘的门</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 0 20px;
+    background-color: #fafafa;
+    color: #333;
+  }
+  h1 {
+    text-align: center;
+    color: #0073e6;
+    margin-bottom: 30px;
+  }
+  #chinese-text {
+    white-space: pre-wrap;
+    font-size: 1.25em;
+    line-height: 2.2;
+    margin-bottom: 30px;
+    padding: 15px 20px;
+    background-color: #ffffff;
+    border: 1px solid #d1e3fc;
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0, 115, 230, 0.1);
+    font-family: "Noto Sans SC", "Microsoft Yahei", Arial, sans-serif;
+    letter-spacing: 0.03em;
+    text-indent: 2em;
+  }
+  #chinese-text p {
+    margin-bottom: 1.5em;
+  }
+  #pinyin-text, #english-text {
+    display: none;
+    background: #eef6ff;
+    border: 1px solid #b3d1ff;
+    padding: 15px;
+    margin: 10px 0 20px 0;
+    white-space: pre-wrap;
+    font-size: 1.1em;
+  }
+  button.toggle-btn {
+    background-color: #0073e6;
+    color: white;
+    border: none;
+    padding: 10px 18px;
+    margin-right: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+  }
+  button.toggle-btn:hover {
+    background-color: #005bb5;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+    margin-top: 30px;
+  }
+  th, td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: left;
+  }
+  th {
+    background-color: #e6f2ff;
+    font-weight: bold;
+  }
+  tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  #quiz-container {
+    margin-top: 40px;
+  }
+  .option-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin: 20px 0;
+  }
+  .option-card {
+    padding: 16px;
+    background-color: #e0f0ff;
+    border-radius: 12px;
+    text-align: center;
+    cursor: pointer;
+    font-size: 1.1em;
+    transition: background-color 0.3s ease;
+    box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.1);
+  }
+  .option-card:hover {
+    background-color: #cce7ff;
+  }
+  #feedback {
+    font-weight: bold;
+    font-size: 1.1em;
+    min-height: 1.4em;
+  }
+  footer {
+    margin-top: 50px;
+    text-align: center;
+  }
+  footer a {
+    color: #0073e6;
+    text-decoration: none;
+    font-size: 1.1em;
+  }
+  footer a:hover {
+    text-decoration: underline;
+  }
+</style>
+</head>
+<body>
+
+<h1>第二章: 神秘的门</h1>
+
+<!-- Chinese text -->
+<div id="chinese-text" style="white-space: pre-line;">
+马叉叉打开了那本书。书里面有一扇门。门上写着：“欢迎来到奇怪的世界。”
+突然，一个声音说：“你好，马叉叉。”
+马叉叉看见一个男人，头是鱼，穿着一套西装。这个男人是鱼先生，他是一位律师。
+鱼先生说：“这本书里有谜语。你想听谜语吗？”
+马叉叉说：“我想听！”
+鱼先生笑了，说：“谜语是：什么东西，越洗越脏？”
+马叉叉想了想，可是不知道答案。
+鱼先生笑了，说：“答案马上就会出现。”
+马叉叉觉得很神奇，也有点害怕。
+</div>
+
+<!-- Buttons -->
+<div style="margin-top: 15px;">
+  <button class="toggle-btn" onclick="toggleVisibility('pinyin-text')">拼音</button>
+  <button class="toggle-btn" onclick="toggleVisibility('english-text')">英文</button>
+</div>
+
+<!-- Pinyin text -->
+<div id="pinyin-text">
+Mǎ Chā Chā dǎkāi le nà běn shū. Shū lǐmiàn yǒu yì shàn mén. Mén shàng xiězhe: “Huānyíng láidào qíguài de shìjiè.”
+Tūrán, yí ge shēngyīn shuō: “Nǐ hǎo, Mǎ Chā Chā.”
+Mǎ Chā Chā kànjiàn yí ge nánrén, tóu shì yú, chuānzhe yí tào xīzhuāng. Zhège nánrén shì Yú xiānsheng, tā shì yí wèi lǜshī.
+Yú xiānsheng shuō: “Zhè běn shū lǐ yǒu míyǔ. Nǐ xiǎng tīng míyǔ ma?”
+Mǎ Chā Chā shuō: “Wǒ xiǎng tīng!”
+Yú xiānsheng xiào le, shuō: “Míyǔ shì: Shénme dōngxi, yuè xǐ yuè zāng?”
+Mǎ Chā Chā xiǎng le xiǎng, kěshì bù zhīdào dá'àn.
+Yú xiānsheng xiào le, shuō: “Dá'àn mǎshàng jiù huì chūxiàn.”
+Mǎ Chā Chā juéde hěn shénqí, yě yǒudiǎn hàipà.
+</div>
+
+<!-- English text -->
+<div id="english-text">
+Ma Chacha opened the book. Inside the book was a door. On the door it said: "Welcome to the strange world."
+Suddenly, a voice said, "Hello, Ma Chacha."
+Ma Chacha saw a man with the head of a fish, wearing a suit. This man was Mr. Fish. He was a lawyer.
+Mr. Fish said, "There is a riddle in this book. Do you want to hear it?"
+Ma Chacha said, "I want to hear!"
+Mr. Fish smiled and said, "The riddle is: What thing gets dirtier the more you wash it?"
+Ma Chacha thought and thought, but didn’t know the answer.
+Mr. Fish smiled and said, "The answer will appear soon."
+Ma Chacha felt amazed, and also a little scared.
+</div>
+
+<!-- Vocabulary list -->
+<h2>生词</h2>
+<table>
+  <thead>
+    <tr>
+      <th>汉字</th>
+      <th>拼音</th>
+      <th>意思</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>打开</td><td>dǎkāi</td><td>to open</td></tr>
+    <tr><td>里面</td><td>lǐmiàn</td><td>inside</td></tr>
+    <tr><td>扇</td><td>shàn</td><td>(measure word for doors)</td></tr>
+    <tr><td>门</td><td>mén</td><td>door</td></tr>
+    <tr><td>写</td><td>xiě</td><td>to write</td></tr>
+    <tr><td>欢迎</td><td>huānyíng</td><td>welcome</td></tr>
+    <tr><td>突然</td><td>tūrán</td><td>suddenly</td></tr>
+    <tr><td>声音</td><td>shēngyīn</td><td>sound / voice</td></tr>
+    <tr><td>头</td><td>tóu</td><td>head</td></tr>
+    <tr><td>穿着</td><td>chuānzhe</td><td>wearing</td></tr>
+    <tr><td>一套</td><td>yí tào</td><td>one set (measure word for clothes)</td></tr>
+    <tr><td>西装</td><td>xīzhuāng</td><td>suit</td></tr>
+    <tr><td>位</td><td>wèi</td><td>(polite measure word for people)</td></tr>
+    <tr><td>谜语</td><td>míyǔ</td><td>riddle</td></tr>
+    <tr><td>笑</td><td>xiào</td><td>to smile / to laugh</td></tr>
+    <tr><td>越A越B</td><td>yuè…yuè…</td><td>the more A, the more B</td></tr>
+    <tr><td>洗</td><td>xǐ</td><td>to wash</td></tr>
+    <tr><td>脏</td><td>zāng</td><td>dirty</td></tr>
+    <tr><td>想了想</td><td>xiǎng le xiǎng</td><td>thought (for a moment)</td></tr>
+    <tr><td>答案</td><td>dá'àn</td><td>answer</td></tr>
+    <tr><td>出现</td><td>chūxiàn</td><td>to appear</td></tr>
+    <tr><td>觉得</td><td>juéde</td><td>to feel / to think</td></tr>
+    <tr><td>神奇</td><td>shénqí</td><td>magical / amazing</td></tr>
+    <tr><td>害怕</td><td>hàipà</td><td>afraid</td></tr>
+    <tr><td>东西</td><td>dōngxi</td><td>thing / stuff</td></tr>
+  </tbody>
+</table>
+
+<!-- Vocabulary quiz -->
+<h2>练习生词</h2>
+<div id="quiz-container">
+  <p><strong id="word" style="font-size: 1.5em;"></strong></p>
+  <div id="options" class="option-grid"></div>
+  <p id="feedback"></p>
+  <p>得分: <span id="score">0</span> / <span id="total">0</span></p>
+</div>
+
+<style>
+  .option-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin: 20px 0;
+  }
+  .option-card {
+    padding: 16px;
+    background-color: #e0f0ff;
+    border-radius: 12px;
+    text-align: center;
+    cursor: pointer;
+    font-size: 1.1em;
+    transition: background-color 0.3s ease;
+    box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.1);
+  }
+  .option-card:hover {
+    background-color: #cce7ff;
+  }
+</style>
+
+<script>
+  // Vocabulary for quiz: Chinese character keys with English meanings only (no pinyin here)
+  const vocab = {
+    "打开": ["to open"],
+    "里面": ["inside"],
+    "扇": ["(measure word for doors)"],
+    "门": ["door"],
+    "写": ["to write"],
+    "欢迎": ["welcome"],
+    "突然": ["suddenly"],
+    "声音": ["sound / voice"],
+    "头": ["head"],
+    "穿着": ["wearing"],
+    "一套": ["one set (measure word for clothes)"],
+    "西装": ["suit"],
+    "位": ["(polite measure word for people)"],
+    "谜语": ["riddle"],
+    "笑": ["to smile / to laugh"],
+    "越A越B": ["the more A, the more B"],
+    "洗": ["to wash"],
+    "脏": ["dirty"],
+    "想了想": ["thought (for a moment)"],
+    "答案": ["answer"],
+    "出现": ["to appear"],
+    "觉得": ["to feel / to think"],
+    "神奇": ["magical / amazing"],
+    "害怕": ["afraid"],
+    "东西": ["thing / stuff"]
+  };
+
+  const words = Object.keys(vocab);
+  let score = 0;
+  let questionIndex = 0;
+  const totalQuestions = 10;
+  let currentWord = "";
+
+  document.getElementById('total').textContent = totalQuestions;
+
+  function getRandomOptions(correctAnswer) {
+    const allAnswers = Object.values(vocab).flat().filter(a => !correctAnswer.includes(a));
+    const shuffled = allAnswers.sort(() => Math.random() - 0.5);
+    const wrongOptions = shuffled.slice(0, 3);
+    const options = [...wrongOptions, correctAnswer[0]];
+    return options.sort(() => Math.random() - 0.5);
+  }
+
+  function loadQuestion() {
+    if (questionIndex >= totalQuestions) {
+      document.getElementById('quiz-container').innerHTML = `
+        <h3>练习完成！</h3>
+        <p>你的最终得分: ${score} / ${totalQuestions}</p>
+        <button onclick="restartQuiz()" style="padding: 10px 20px; font-size: 1em; margin-top: 20px;">🔁 再来一次</button>
+      `;
+      return;
+    }
+
+    currentWord = words[Math.floor(Math.random() * words.length)];
+    const correctAnswers = vocab[currentWord];
+    const options = getRandomOptions(correctAnswers);
+
+    document.getElementById('word').textContent = currentWord;
+    document.getElementById('options').innerHTML = "";
+
+    options.forEach(option => {
+      const btn = document.createElement("div");
+      btn.textContent = option;
+      btn.className = "option-card";
+      btn.onclick = () => checkAnswer(option, correctAnswers);
+      document.getElementById("options").appendChild(btn);
+    });
+
+    document.getElementById("feedback").textContent = "";
+  }
+
+  function checkAnswer(selected, correctAnswers) {
+    if (correctAnswers.map(a => a.toLowerCase()).includes(selected.toLowerCase())) {
+      score++;
+      document.getElementById("feedback").textContent = "✅ 正确!";
+    } else {
+      document.getElementById("feedback").textContent = `❌ 错误。正确答案: ${correctAnswers[0]}`;
+    }
+    document.getElementById("score").textContent = score;
+    questionIndex++;
+    setTimeout(loadQuestion, 1500);
+  }
+
+  function restartQuiz() {
+    score = 0;
+    questionIndex = 0;
+
+    document.getElementById('quiz-container').innerHTML = `
+      <p><strong id="word" style="font-size: 1.5em;"></strong></p>
+      <div id="options" class="option-grid"></div>
+      <p id="feedback"></p>
+      <p>得分: <span id="score">0</span> / <span id="total">${totalQuestions}</span></p>
+    `;
+
+    loadQuestion();
+  }
+
+  // Toggle visibility function for Pinyin and English
+  function toggleVisibility(id) {
+    const elem = document.getElementById(id);
+    if (elem.style.display === "none" || elem.style.display === "") {
+      elem.style.display = "block";
+    } else {
+      elem.style.display = "none";
+    }
+  }
+
+  loadQuestion();
+</script>
+
+<footer>
+  <a href="chapter1.html">← 第一章</a> | 
+  <a href="chapter3.html">第三章 →</a> | 
+  <a href="/chinese/ma-chacha.html">返回首页</a>
+</footer>
+
+</body>
+</html>
