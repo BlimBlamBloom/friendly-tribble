@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Español Lección 1 - Flülli</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.8;
+            max-width: 700px;
+            margin: 40px auto;
+            padding: 0 20px;
+            background-color: #fafafa;
+            color: #333;
+        }
+        h1 {
+            text-align: center;
+            color: #0073e6;
+        }
+        pre {
+            white-space: pre-wrap;
+            font-family: inherit;
+        }
+        .navigation {
+            margin-top: 40px;
+            display: flex;
+            justify-content: space-between;
+            max-width: 700px;
+        }
+        .navigation a {
+            color: #0073e6;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .navigation a:hover {
+            text-decoration: underline;
+        }
+        .bold-label {
+            font-weight: bold;
+            margin-top: 20px;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <h1>Lección 1</h1>
+      <span class="bold-label">Conversación (Español)</span>
+    <pre>
+Alejandro: Hola.
+Polly: Hola.
+Alejandro: ¿Cómo te llamas?
+Polly: Me llamo Polly. ¿Cómo te llamas?
+Alejandro: Me llamo Alejandro. ¿De dónde eres?
+Polly: Soy de Taiwán. ¿De dónde eres?
+Alejandro: Soy de España. Encantado.
+Polly: Encantada.
+    </pre>
+
+    <span class="bold-label">對話（中文）</span>
+<pre>Alejandro：你好。
+Polly：你好。
+Alejandro：你叫什麼名字？
+Polly：我叫 Polly。你叫什麼名字？
+Alejandro：我叫 Alejandro。你從哪裡來？
+Polly：我來自台灣。你從哪裡來？
+Alejandro：我來自西班牙。很高興認識你。
+Polly：我也很高興認識你。
+</pre>
+  
+  
+    <span class="bold-label">Vocabulario </span>
+    <pre>
+Hola - 你好
+Cómo - 怎麼
+me / te - 我 / 你（受詞，用於動詞 llamar）
+llamar (llamas / llamo) - 叫；名叫
+dónde - 哪裡
+de dónde - 從哪裡
+ser (soy / eres) - 是（我是 / 你是）
+España - 西班牙
+Taiwán - 台灣
+Encantado / Encantada - 很高興認識你（男生用 Encantado，女生用 Encantada）
+    </pre>
+
+    <span class="bold-label">Preguntas y Respuestas</span>
+    <pre>
+¿Cómo te llamas? 你叫什麼名字？
+ Me llamo ______. 我叫 ______。
+
+ ¿De dónde eres? 你從哪裡來？
+ Soy de ______. 我來自 ______。  
+    </pre>
+
+<h2>Escucha 聽力</h2>
+    <div class="video-container">
+        <iframe src="https://www.youtube.com/embed/wTj5DSjPAik" allowfullscreen></iframe>
+    </div>
+    
+    <hr />
+
+
+
+<h2>Vocabulario</h2>
+<div id="quiz-container">
+  <p><strong id="word" style="font-size: 1.5em;"></strong></p>
+  <div id="options" class="option-grid"></div>
+  <p id="feedback"></p>
+  <p>Score: <span id="score">0</span> / <span id="total">0</span></p>
+</div>
+
+<style>
+  .option-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin: 20px 0;
+  }
+  .option-card {
+    padding: 16px;
+    background-color: #e0f0ff;
+    border-radius: 12px;
+    text-align: center;
+    cursor: pointer;
+    font-size: 1.1em;
+    transition: background-color 0.3s ease;
+    box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.1);
+  }
+  .option-card:hover {
+    background-color: #cce7ff;
+  }
+</style>
+
+<script>
+const vocab = {
+{
+  "Hola": ["你好"],
+  "Cómo": ["怎麼"],
+  "me": ["我（受詞）"],
+  "te": ["你（受詞）"],
+  "llamas": ["叫你"],
+  "llamo": ["叫我"],
+  "dónde": ["哪裡"],
+  "de dónde": ["從哪裡"],
+  "soy": ["我是"],
+  "eres": ["你是"],
+  "España": ["西班牙"],
+  "Taiwán": ["台灣"],
+  "Encantado": ["很高興認識你（男生用）"],
+  "Encantada": ["很高興認識你（女生用）"]
+}
+
+};
+
+const words = Object.keys(vocab);
+let score = 0;
+let questionIndex = 0;
+const totalQuestions = 10;
+let currentWord = "";
+
+document.getElementById('total').textContent = totalQuestions;
+
+function getRandomOptions(correctAnswer) {
+  // Flatten all vocab answers into one list except correct answers
+  const allAnswers = Object.values(vocab).flat().filter(a => !correctAnswer.includes(a));
+  const shuffled = allAnswers.sort(() => Math.random() - 0.5);
+  const wrongOptions = shuffled.slice(0, 3);
+  const options = [...wrongOptions, correctAnswer[0]];
+  return options.sort(() => Math.random() - 0.5);
+}
+
+function loadQuestion() {
+  if (questionIndex >= totalQuestions) {
+    document.getElementById('quiz-container').innerHTML = `
+      <h3>Quiz complete!</h3>
+      <p>Your final score: ${score} out of ${totalQuestions}</p>
+      <button onclick="restartQuiz()" style="padding: 10px 20px; font-size: 1em; margin-top: 20px;">🔁 Play Again</button>
+    `;
+    return;
+  }
+
+  currentWord = words[Math.floor(Math.random() * words.length)];
+  const correctAnswers = vocab[currentWord];
+  const options = getRandomOptions(correctAnswers);
+
+  document.getElementById('word').textContent = currentWord;
+  document.getElementById('options').innerHTML = "";
+
+  options.forEach(option => {
+    const btn = document.createElement("div");
+    btn.textContent = option;
+    btn.className = "option-card";
+    btn.onclick = () => checkAnswer(option, correctAnswers);
+    document.getElementById("options").appendChild(btn);
+  });
+
+  document.getElementById("feedback").textContent = "";
+}
+
+function checkAnswer(selected, correctAnswers) {
+  if (correctAnswers.map(a => a.toLowerCase()).includes(selected.toLowerCase())) {
+    score++;
+    document.getElementById("feedback").textContent = "✅ Correct!";
+  } else {
+    document.getElementById("feedback").textContent = `❌ Wrong. Correct answer: ${correctAnswers[0]}`;
+  }
+
+  document.getElementById("score").textContent = score;
+  questionIndex++;
+  setTimeout(loadQuestion, 1500);
+}
+
+function restartQuiz() {
+  score = 0;
+  questionIndex = 0;
+
+  document.getElementById('quiz-container').innerHTML = `
+    <p><strong id="word" style="font-size: 1.5em;"></strong></p>
+    <div id="options" class="option-grid"></div>
+    <p id="feedback"></p>
+    <p>Score: <span id="score">0</span> / <span id="total">${totalQuestions}</span></p>
+  `;
+
+  loadQuestion();
+}
+
+loadQuestion();
+</script>
+
+    
+<div class="navigation">
+        <a href="/spanish.html">← Español</a>
+        <a href="lesson2.html">Lección  2 →</a>
+    </div>
+
+</body> 
+
+    
+</html>
