@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Español Lección 1 - Flülli</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.8;
+            max-width: 700px;
+            margin: 40px auto;
+            padding: 0 20px;
+            background-color: #fafafa;
+            color: #333;
+        }
+        h1 {
+            text-align: center;
+            color: #0073e6;
+        }
+        pre {
+            white-space: pre-wrap;
+            font-family: inherit;
+        }
+        .navigation {
+            margin-top: 40px;
+            display: flex;
+            justify-content: space-between;
+            max-width: 700px;
+        }
+        .navigation a {
+            color: #0073e6;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .navigation a:hover {
+            text-decoration: underline;
+        }
+        .bold-label {
+            font-weight: bold;
+            margin-top: 20px;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <h1>Lección 1</h1>
+      <span class="bold-label">Conversación (Español)</span>
+    <pre>
+Alejandro: Buenos días.
+Polly: Buenos días.
+Alejandro: ¿Adónde vas?
+Polly: Voy a la biblioteca. ¿Adónde vas?
+Alejandro: Voy a mi universidad. ¿Te gustan los libros?
+Polly: Sí, me gustan los libros. ¿Te gusta la escuela?
+Alejandro: No, no me gusta la escuela.
+    </pre>
+
+    <span class="bold-label">對話（中文）</span>
+<pre>
+Alejandro：早安。
+Polly：早安。
+Alejandro：你要去哪裡？
+Polly：我要去圖書館。你要去哪裡？
+Alejandro：我要去我的大學。你喜歡書嗎？
+Polly：是的，我喜歡書。你喜歡上學嗎？
+Alejandro：不，我不喜歡上學。
+</pre>
+  
+  
+    <span class="bold-label">Vocabulario </span>
+    <pre>
+Buenos días - 早安
+ ¿Adónde? - 要去哪裡
+ ir (voy / vas) - 去（我去 / 你去）
+ biblioteca - 圖書館
+ universidad - 大學
+ gustar (me gusta / te gusta) - 喜歡（我喜歡 / 你喜歡）
+ libros - 書 
+ escuela - 學校
+ sí - 是的
+ no - 不
+    </pre>
+
+    <span class="bold-label">Preguntas y Respuestas</span>
+    <pre>
+¿Adónde vas? 你要去哪裡？
+ Voy a ______. 我要去 ______。
+
+cine – 電影院
+restaurante – 餐廳
+tienda – 商店
+banco – 銀行
+estación de tren – 火車站
+aeropuerto – 機場
+playa – 海灘
+montaña – 山
+museo – 博物館
+hotel – 飯店
+
+      
+¿Te gusta ____? 你喜歡___嗎？(單數)
+ Sí, me gusta ___. / No, no me gusta ___. 是的，我喜歡__。/ 不，我不喜歡__。
+¿Te gustan ____? 你喜歡___嗎？(複數)
+Sí, me gustan ___. / No, no me gustan ___. 是的，我喜歡__。/ 不，我不喜歡 
+
+música – 音樂
+películas – 電影
+té – 茶
+fútbol – 足球
+perros – 狗
+gatos – 貓
+bicicleta – 自行車
+chocolate – 巧克力
+fruta – 水果
+helado – 冰淇淋      
+    </pre>
+
+<h2>Escucha 聽力</h2>
+    <div class="video-container">
+        <iframe src="https://www.youtube.com/embed/wTj5DSjPAik" allowfullscreen></iframe>
+    </div>
+    
+    <hr />
+
+
+
+<h2>Vocabulario</h2>
+<div id="quiz-container">
+  <p><strong id="word" style="font-size: 1.5em;"></strong></p>
+  <div id="options" class="option-grid"></div>
+  <p id="feedback"></p>
+  <p>Score: <span id="score">0</span> / <span id="total">0</span></p>
+</div>
+
+<style>
+  .option-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin: 20px 0;
+  }
+  .option-card {
+    padding: 16px;
+    background-color: #e0f0ff;
+    border-radius: 12px;
+    text-align: center;
+    cursor: pointer;
+    font-size: 1.1em;
+    transition: background-color 0.3s ease;
+    box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.1);
+  }
+  .option-card:hover {
+    background-color: #cce7ff;
+  }
+</style>
+
+<script>
+const vocab = {
+  "música": ["音樂"],
+  "películas": ["電影"],
+  "té": ["茶"],
+  "fútbol": ["足球"],
+  "perros": ["狗"],
+  "gatos": ["貓"],
+  "bicicleta": ["自行車"],
+  "chocolate": ["巧克力"],
+  "fruta": ["水果"],
+  "helado": ["冰淇淋"],
+  "cine": ["電影院"],
+  "restaurante": ["餐廳"],
+  "tienda": ["商店"],
+  "banco": ["銀行"],
+  "estación de tren": ["火車站"],
+  "aeropuerto": ["機場"],
+  "playa": ["海灘"],
+  "montaña": ["山"],
+  "museo": ["博物館"],
+  "hotel": ["飯店"],
+  "Buenos días": ["早安"],
+  "¿Adónde?": ["要去哪裡"],
+  "ir (voy / vas)": ["去（我去 / 你去）"],
+  "biblioteca": ["圖書館"],
+  "universidad": ["大學"],
+  "gustar (me gusta / te gusta)": ["喜歡（我喜歡 / 你喜歡）"],
+  "libros": ["書"],
+  "escuela": ["學校"],
+  "sí": ["是的"],
+  "no": ["不"]
+};
+
+
+const words = Object.keys(vocab);
+let score = 0;
+let questionIndex = 0;
+const totalQuestions = 10;
+let currentWord = "";
+
+document.getElementById('total').textContent = totalQuestions;
+
+function getRandomOptions(correctAnswer) {
+  // Flatten all vocab answers into one list except correct answers
+  const allAnswers = Object.values(vocab).flat().filter(a => !correctAnswer.includes(a));
+  const shuffled = allAnswers.sort(() => Math.random() - 0.5);
+  const wrongOptions = shuffled.slice(0, 3);
+  const options = [...wrongOptions, correctAnswer[0]];
+  return options.sort(() => Math.random() - 0.5);
+}
+
+function loadQuestion() {
+  if (questionIndex >= totalQuestions) {
+    document.getElementById('quiz-container').innerHTML = `
+      <h3>Quiz complete!</h3>
+      <p>Your final score: ${score} out of ${totalQuestions}</p>
+      <button onclick="restartQuiz()" style="padding: 10px 20px; font-size: 1em; margin-top: 20px;">🔁 Play Again</button>
+    `;
+    return;
+  }
+
+  currentWord = words[Math.floor(Math.random() * words.length)];
+  const correctAnswers = vocab[currentWord];
+  const options = getRandomOptions(correctAnswers);
+
+  document.getElementById('word').textContent = currentWord;
+  document.getElementById('options').innerHTML = "";
+
+  options.forEach(option => {
+    const btn = document.createElement("div");
+    btn.textContent = option;
+    btn.className = "option-card";
+    btn.onclick = () => checkAnswer(option, correctAnswers);
+    document.getElementById("options").appendChild(btn);
+  });
+
+  document.getElementById("feedback").textContent = "";
+}
+
+function checkAnswer(selected, correctAnswers) {
+  if (correctAnswers.map(a => a.toLowerCase()).includes(selected.toLowerCase())) {
+    score++;
+    document.getElementById("feedback").textContent = "✅ Correct!";
+  } else {
+    document.getElementById("feedback").textContent = `❌ Wrong. Correct answer: ${correctAnswers[0]}`;
+  }
+
+  document.getElementById("score").textContent = score;
+  questionIndex++;
+  setTimeout(loadQuestion, 1500);
+}
+
+function restartQuiz() {
+  score = 0;
+  questionIndex = 0;
+
+  document.getElementById('quiz-container').innerHTML = `
+    <p><strong id="word" style="font-size: 1.5em;"></strong></p>
+    <div id="options" class="option-grid"></div>
+    <p id="feedback"></p>
+    <p>Score: <span id="score">0</span> / <span id="total">${totalQuestions}</span></p>
+  `;
+
+  loadQuestion();
+}
+
+loadQuestion();
+</script>
+
+    
+<div class="navigation">
+        <a href="/spanish.html">← Español</a>
+        <a href="lesson2.html">Lección  2 →</a>
+    </div>
+
+</body> 
+
+    
+</html>
