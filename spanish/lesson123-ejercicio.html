@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Lecciones 1-3 Ejercicios</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    padding: 20px;
+    max-width: 900px;
+    margin: auto;
+  }
+  h2 {
+    background-color: #f2f2f2;
+    padding: 10px;
+    border-radius: 8px;
+  }
+  .exercise {
+    margin-bottom: 40px;
+  }
+  .question {
+    margin: 10px 0;
+  }
+  .answer {
+    margin-left: 20px;
+    display: none;
+    color: #007700;
+  }
+  button.toggle-btn {
+    margin-left: 10px;
+    cursor: pointer;
+    border: none;
+    background-color: #e0e0e0;
+    border-radius: 4px;
+    padding: 2px 6px;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+  }
+  td {
+    padding: 6px 10px;
+    vertical-align: top;
+  }
+  .matching td {
+    border-bottom: 1px dashed #aaa;
+  }
+</style>
+</head>
+<body>
+
+<h2>Ejercicio A: Emparejar（配對）</h2>
+<div class="exercise">
+  <h3>A-1</h3>
+  <table class="matching">
+    <tr><td>biblioteca</td><td>a. 機場</td></tr>
+    <tr><td>aeropuerto</td><td>b. 書</td></tr>
+    <tr><td>escuela</td><td>c. 電影院</td></tr>
+    <tr><td>libros</td><td>d. 圖書館</td></tr>
+    <tr><td>cine</td><td>e. 學校</td></tr>
+  </table>
+
+  <h3>A-2</h3>
+  <table class="matching">
+    <tr><td>¿Adónde vas?</td><td>a. 我要去圖書館。</td></tr>
+    <tr><td>Voy a la biblioteca.</td><td>b. 早安</td></tr>
+    <tr><td>Voy a la universidad.</td><td>c. 你要去哪裡？</td></tr>
+    <tr><td>Buenos días.</td><td>d. 是的</td></tr>
+    <tr><td>Sí</td><td>e. 我要去大學。</td></tr>
+  </table>
+
+  <h3>A-3</h3>
+  <table class="matching">
+    <tr><td>¿Te gusta la escuela?</td><td>a. 我喜歡書。</td></tr>
+    <tr><td>Me gustan los libros.</td><td>b. 你喜歡書嗎？</td></tr>
+    <tr><td>No me gusta la escuela.</td><td>c. 你喜歡學校嗎？</td></tr>
+    <tr><td>Me gusta el cine.</td><td>d. 我喜歡電影。</td></tr>
+    <tr><td>¿Te gustan los libros?</td><td>e. 我不喜歡上學。</td></tr>
+  </table>
+</div>
+
+<h2>Ejercicio B: Gusta o gustan</h2>
+<div class="exercise">
+  <p class="question">1. Me ______ la escuela. <button class="toggle-btn" onclick="toggleAnswer('b1')">顯示答案</button></p>
+  <p class="answer" id="b1">gusta</p>
+
+  <p class="question">2. Me ______ la biblioteca. <button class="toggle-btn" onclick="toggleAnswer('b2')">顯示答案</button></p>
+  <p class="answer" id="b2">gusta</p>
+
+  <p class="question">3. Me ______ el cine. <button class="toggle-btn" onclick="toggleAnswer('b3')">顯示答案</button></p>
+  <p class="answer" id="b3">gusta</p>
+
+  <p class="question">4. Te ______ la universidad. <button class="toggle-btn" onclick="toggleAnswer('b4')">顯示答案</button></p>
+  <p class="answer" id="b4">gusta</p>
+
+  <p class="question">5. Me ______ el museo. <button class="toggle-btn" onclick="toggleAnswer('b5')">顯示答案</button></p>
+  <p class="answer" id="b5">gusta</p>
+
+  <p class="question">6. Te ______ los libros. <button class="toggle-btn" onclick="toggleAnswer('b6')">顯示答案</button></p>
+  <p class="answer" id="b6">gustan</p>
+
+  <p class="question">7. Me ______ las películas. <button class="toggle-btn" onclick="toggleAnswer('b7')">顯示答案</button></p>
+  <p class="answer" id="b7">gustan</p>
+
+  <p class="question">8. Te ______ los perros. <button class="toggle-btn" onclick="toggleAnswer('b8')">顯示答案</button></p>
+  <p class="answer" id="b8">gustan</p>
+
+  <p class="question">9. Me ______ los gatos. <button class="toggle-btn" onclick="toggleAnswer('b9')">顯示答案</button></p>
+  <p class="answer" id="b9">gustan</p>
+
+  <p class="question">10. Te ______ las montañas. <button class="toggle-btn" onclick="toggleAnswer('b10')">顯示答案</button></p>
+  <p class="answer" id="b10">gustan</p>
+</div>
+
+<h2>Ejercicio D: Ordenar las palabras</h2>
+<div class="exercise">
+  <p class="question">1. voy / biblioteca / a / Yo / la <button class="toggle-btn" onclick="toggleAnswer('d1')">顯示答案</button></p>
+  <p class="answer" id="d1">Yo voy a la biblioteca.</p>
+
+  <p class="question">2. me / libros / gustan / los / Sí <button class="toggle-btn" onclick="toggleAnswer('d2')">顯示答案</button></p>
+  <p class="answer" id="d2">Sí, me gustan los libros.</p>
+
+  <p class="question">3. escuela / no / me / gusta / la <button class="toggle-btn" onclick="toggleAnswer('d3')">顯示答案</button></p>
+  <p class="answer" id="d3">No me gusta la escuela.</p>
+
+  <p class="question">4. a / universidad / voy / Yo / mi <button class="toggle-btn" onclick="toggleAnswer('d4')">顯示答案</button></p>
+  <p class="answer" id="d4">Yo voy a mi universidad.</p>
+
+  <p class="question">5. helado / como / Yo <button class="toggle-btn" onclick="toggleAnswer('d5')">顯示答案</button></p>
+  <p class="answer" id="d5">Yo como helado.</p>
+</div>
+
+<h2>Ejercicio E: Lectura</h2>
+<div class="exercise">
+  <h3>Párrafo 1 – Lucía</h3>
+  <p>Hola, me llamo Lucía. Estoy bien hoy. Voy a la biblioteca. Me gustan los libros mucho. También me gusta la escuela. Hoy hace sol y hay muchas personas en la calle. Me gusta escuchar música mientras camino.</p>
+  <p class="question">1. ¿Cómo se llama ella? <button class="toggle-btn" onclick="toggleAnswer('e1')">顯示答案</button></p>
+  <p class="answer" id="e1">Lucía</p>
+
+  <p class="question">2. ¿Cómo está Lucía? <button class="toggle-btn" onclick="toggleAnswer('e2')">顯示答案</button></p>
+  <p class="answer" id="e2">Está bien</p>
+
+  <p class="question">3. ¿Adónde va Lucía? <button class="toggle-btn" onclick="toggleAnswer('e3')">顯示答案</button></p>
+  <p class="answer" id="e3">A la biblioteca</p>
+
+  <h3>Párrafo 2 – Carlos</h3>
+  <p>Hola, me llamo Carlos. Estoy cansado hoy. Voy a la universidad. No me gustan los libros. Me gusta el helado. Mi hermano juega al fútbol en el parque. A veces compro chocolate después de clases.</p>
+  <p class="question">1. ¿Cómo se llama él? <button class="toggle-btn" onclick="toggleAnswer('e4')">顯示答案</button></p>
+  <p class="answer" id="e4">Carlos</p>
+
+  <p class="question">2. ¿Cómo está Carlos? <button class="toggle-btn" onclick="toggleAnswer('e5')">顯示答案</button></p>
+  <p class="answer" id="e5">Está cansado</p>
+
+  <p class="question">3. ¿Qué le gusta a Carlos? <button class="toggle-btn" onclick="toggleAnswer('e6')">顯示答案</button></p>
+  <p class="answer" id="e6">El helado</p>
+</div>
+
+<script>
+function toggleAnswer(id) {
+  const ans = document.getElementById(id);
+  if (ans.style.display === "none" || ans.style.display === "") {
+    ans.style.display = "block";
+  } else {
+    ans.style.display = "none";
+  }
+}
+</script>
+
+</body>
+</html>
