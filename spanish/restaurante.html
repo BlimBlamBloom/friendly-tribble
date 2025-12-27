@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Español Lección 5 - Flülli</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.8;
+            max-width: 700px;
+            margin: 40px auto;
+            padding: 0 20px;
+            background-color: #fafafa;
+            color: #333;
+        }
+        h1 {
+            text-align: center;
+            color: #0073e6;
+        }
+        pre {
+            white-space: pre-wrap;
+            font-family: inherit;
+        }
+        .navigation {
+            margin-top: 40px;
+            display: flex;
+            justify-content: space-between;
+            max-width: 700px;
+        }
+        .navigation a {
+            color: #0073e6;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .navigation a:hover {
+            text-decoration: underline;
+        }
+        .bold-label {
+            font-weight: bold;
+            margin-top: 20px;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <h1>Lección 5</h1>
+      <span class="bold-label">Conversación (Español)</span>
+    <pre>
+Polly: Perdóne. La carta, por favor. Gracias
+ Camarero: ¿Qué va a tomar?
+ Polly: Me pones dos quesadillas de pollo, por favor.
+ Camarero: Y usted, ¿qué quiere comer?
+ Alejandro: Me pones una ensalada, por favor.
+ Camarero: ¿Qué quieren beber?
+ Polly: Me pones una botella de vino tinto, por favor.
+ Alejandro: Y un vaso de agua, por favor.
+    </pre>
+
+    <span class="bold-label">對話（中文）</span>
+<pre>
+Polly: 對不起，請給我菜單。
+ Polly: 謝謝。
+ Camarero: 你們想吃什麼？
+ Polly: 我想吃兩份雞肉墨西哥煎餅，謝謝。
+ Camarero: 那您呢，你們想吃什麼？
+ Alejandro: 我想吃一份沙拉，謝謝。
+ Camarero: 你們想喝什麼？
+ Polly: 我想要一瓶紅酒。
+ Alejandro: 我想要一杯水。
+</pre>
+  
+  
+    <span class="bold-label">Vocabulario</span>
+    <pre>
+perdóne – 對不起 / 打擾一下
+la carta – 菜單
+por favor – 請
+gracias – 謝謝
+me pones – 給我…（點餐用）
+dos – 兩個
+usted – 您
+ensalada – 沙拉
+botella – 瓶子
+vino tinto – 紅酒
+vaso – 杯子
+    </pre>
+
+    <span class="bold-label">Preguntas y Respuestas</span>
+    <pre>
+¿Qué va a tomar? 你想吃/喝什麼？
+¿Qué quieres comer? 你想吃什麼？
+¿Qué quieres beber? 你想喝什麼？
+Me pones ___, por favor. 請給我 ___，謝謝。
+
+<u>Comida / 食物</u>
+Paella 西班牙海鮮飯
+Salmorejo 西班牙冷番茄濃湯
+Croquetas 可樂餅
+Huevos rotos 破蛋馬鈴薯
+Ensalada César 凱薩沙拉
+Arroz 白飯
+Fideos 麵條
+Pan 麵包
+
+<u>Bebidas / 飲料</u>
+Agua 水
+Té verde 綠茶
+Cerveza 啤酒
+Vino tinto 紅酒
+Cerveza 啤酒
+Coca-Cola 可口可樂
+    </pre>
+
+<h2>Escucha 聽力</h2>
+    <div class="video-container">
+        <iframe src="https://www.youtube.com/embed/6eu6N4vfBm8" allowfullscreen></iframe>
+    </div>
+
+<h2>Videos útiles de otros creadores:</h2>
+  <div class="video-container">
+        <iframe src="https://www.youtube.com/embed/URtf6HyuWM" allowfullscreen></iframe>
+    </div>
+  
+  <div class="video-container">
+        <iframe src="https://www.youtube.com/embed/Ext7J9LVB2I" allowfullscreen></iframe>
+    </div>
+
+    <hr />
+
+
+
+<h2>Vocabulario</h2>
+<div id="quiz-container">
+  <p><strong id="word" style="font-size: 1.5em;"></strong></p>
+  <div id="options" class="option-grid"></div>
+  <p id="feedback"></p>
+  <p>Score: <span id="score">0</span> / <span id="total">0</span></p>
+</div>
+
+<style>
+  .option-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin: 20px 0;
+  }
+  .option-card {
+    padding: 16px;
+    background-color: #e0f0ff;
+    border-radius: 12px;
+    text-align: center;
+    cursor: pointer;
+    font-size: 1.1em;
+    transition: background-color 0.3s ease;
+    box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.1);
+  }
+  .option-card:hover {
+    background-color: #cce7ff;
+  }
+</style>
+
+<script>
+const vocab = {
+"perdóne": ["對不起 / 打擾一下"],
+"la carta": ["菜單"],
+"por favor": ["請"],
+"gracias": ["謝謝"],
+"me pones": ["給我…（點餐用）"],
+"dos": ["兩個"],
+"usted": ["您"],
+"ensalada": ["沙拉"],
+"botella": ["瓶子"],
+"vino tinto": ["紅酒"],
+"vaso": ["杯子"],
+"Comida": ["食物"],
+"Paella": ["西班牙海鮮飯"],
+"Salmorejo": ["西班牙冷番茄濃湯"],
+"Croquetas": ["可樂餅"],
+"Huevos rotos": ["破蛋馬鈴薯"],
+"Ensalada César": ["凱薩沙拉"],
+"Arroz": ["白飯"],
+"Fideos": ["麵條"],
+"Pan": ["麵包"],
+"Bebidas": ["飲料"],
+"Agua": ["水"],
+"Té verde": ["綠茶"],
+"Cerveza": ["啤酒"],
+"Vino tinto": ["紅酒"],
+"Coca-Cola": ["可口可樂"]
+};
+
+
+const words = Object.keys(vocab);
+let score = 0;
+let questionIndex = 0;
+const totalQuestions = 10;
+let currentWord = "";
+
+document.getElementById('total').textContent = totalQuestions;
+
+function getRandomOptions(correctAnswer) {
+  // Flatten all vocab answers into one list except correct answers
+  const allAnswers = Object.values(vocab).flat().filter(a => !correctAnswer.includes(a));
+  const shuffled = allAnswers.sort(() => Math.random() - 0.5);
+  const wrongOptions = shuffled.slice(0, 3);
+  const options = [...wrongOptions, correctAnswer[0]];
+  return options.sort(() => Math.random() - 0.5);
+}
+
+function loadQuestion() {
+  if (questionIndex >= totalQuestions) {
+    document.getElementById('quiz-container').innerHTML = `
+      <h3>Quiz complete!</h3>
+      <p>Your final score: ${score} out of ${totalQuestions}</p>
+      <button onclick="restartQuiz()" style="padding: 10px 20px; font-size: 1em; margin-top: 20px;">🔁 Play Again</button>
+    `;
+    return;
+  }
+
+  currentWord = words[Math.floor(Math.random() * words.length)];
+  const correctAnswers = vocab[currentWord];
+  const options = getRandomOptions(correctAnswers);
+
+  document.getElementById('word').textContent = currentWord;
+  document.getElementById('options').innerHTML = "";
+
+  options.forEach(option => {
+    const btn = document.createElement("div");
+    btn.textContent = option;
+    btn.className = "option-card";
+    btn.onclick = () => checkAnswer(option, correctAnswers);
+    document.getElementById("options").appendChild(btn);
+  });
+
+  document.getElementById("feedback").textContent = "";
+}
+
+function checkAnswer(selected, correctAnswers) {
+  if (correctAnswers.map(a => a.toLowerCase()).includes(selected.toLowerCase())) {
+    score++;
+    document.getElementById("feedback").textContent = "✅ Correct!";
+  } else {
+    document.getElementById("feedback").textContent = `❌ Wrong. Correct answer: ${correctAnswers[0]}`;
+  }
+
+  document.getElementById("score").textContent = score;
+  questionIndex++;
+  setTimeout(loadQuestion, 1500);
+}
+
+function restartQuiz() {
+  score = 0;
+  questionIndex = 0;
+
+  document.getElementById('quiz-container').innerHTML = `
+    <p><strong id="word" style="font-size: 1.5em;"></strong></p>
+    <div id="options" class="option-grid"></div>
+    <p id="feedback"></p>
+    <p>Score: <span id="score">0</span> / <span id="total">${totalQuestions}</span></p>
+  `;
+
+  loadQuestion();
+}
+
+loadQuestion();
+</script>
+
+    
+<div class="navigation">
+        <a href="lesson4.html">← Lección  4</a>
+        <a href="lesson5.html">Lección 5 →</a>
+    </div>
+
+</body> 
+
+    
+</html>
