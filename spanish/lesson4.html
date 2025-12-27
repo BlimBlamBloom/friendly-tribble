@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Español Lección 4 - Flülli</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.8;
+            max-width: 700px;
+            margin: 40px auto;
+            padding: 0 20px;
+            background-color: #fafafa;
+            color: #333;
+        }
+        h1 {
+            text-align: center;
+            color: #0073e6;
+        }
+        pre {
+            white-space: pre-wrap;
+            font-family: inherit;
+        }
+        .navigation {
+            margin-top: 40px;
+            display: flex;
+            justify-content: space-between;
+            max-width: 700px;
+        }
+        .navigation a {
+            color: #0073e6;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .navigation a:hover {
+            text-decoration: underline;
+        }
+        .bold-label {
+            font-weight: bold;
+            margin-top: 20px;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <h1>Lección 4</h1>
+      <span class="bold-label">Conversación (Español)</span>
+    <pre>
+Polly: ¿Qué comes tú?
+Alejandro: Yo como empanadas.
+Polly: ¿Qué come ella?
+Alejandro: Ella come pescado.
+Polly: ¿Qué come él?
+Alejandro: Él come pollo.
+Polly: ¿Qué comen ellos?
+Alejandro: Ellos comen fruta y tortilla.
+Polly: Yo tengo hambre.
+Alejandro: Yo no tengo hambre.
+    </pre>
+
+    <span class="bold-label">對話（中文）</span>
+<pre>
+Polly：你吃什麼？
+Alejandro：我吃餡餅。
+Polly：她吃什麼？
+Alejandro：她吃魚。
+Polly：他吃什麼？
+Alejandro：他吃雞肉。
+Polly：他們吃什麼？
+Alejandro：他們吃水果和蛋餅。
+Polly：我肚子餓。
+Alejandro：我不餓。
+</pre>
+  
+  
+    <span class="bold-label">Vocabulario</span>
+    <pre>
+comer – 吃
+empanada – 餡餅
+pescado – 魚
+pollo – 雞肉
+fruta – 水果
+tortilla – 蛋餅
+tengo hambre – 我餓了
+agua – 水
+    </pre>
+
+    <span class="bold-label">Verbos y Pronombres 動詞和代名詞 </span>
+    <pre>
+      <u>Pronombres - 代名詞</u>
+Yo – 我				              		      Nosotros / Nosotras – 我們吃
+Tú – 你					                      Vosotros / Vosotras – 你們吃
+Él / Ella / Usted – 他/她/您			      Ellos / Ellas – 他們/她們吃
+
+
+<u>Comer - 吃</u>
+Yo como – 我吃			                  Nosotros / Nosotras comemos – 我們吃
+Tú comes – 你吃			                  Vosotros / Vosotras coméis – 你們吃
+Él / Ella / Usted come – 他/她/您吃		Ellos / Ellas comen – 他們/她們吃
+
+Yo como pollo.
+Tú comes pollo.
+Él / Ella / Usted come pollo.
+Nosotros / Nosotras comemos pollo.
+Vosotros / Vosotras coméis pollo.
+Ellos / Ellas comen pollo.
+
+
+<u>Beber - 吃</u>
+Yo bebo – 我喝		        	          Nosotros / Nosotras bebemos – 我們喝
+Tú bebes – 你喝			                  Vosotros / Vosotras bebéis – 你們喝
+Él / Ella / Usted bebe – 他/她/您喝		Ellos / Ellas beben – 他們/她們喝
+
+Yo bebo agua.
+Tú bebes agua.
+Él / Ella / Usted bebe agua.
+Nosotros / Nosotras bebemos agua.
+Vosotros / Vosotras bebéis agua.
+Ellos / Ellas beben agua.
+
+    </pre>
+
+<h2>Escucha 聽力</h2>
+    <div class="video-container">
+        <iframe src="https://www.youtube.com/embed/UVwSGmzZX5E" allowfullscreen></iframe>
+    </div>
+    
+    <hr />
+
+
+
+<h2>Vocabulario</h2>
+<div id="quiz-container">
+  <p><strong id="word" style="font-size: 1.5em;"></strong></p>
+  <div id="options" class="option-grid"></div>
+  <p id="feedback"></p>
+  <p>Score: <span id="score">0</span> / <span id="total">0</span></p>
+</div>
+
+<style>
+  .option-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin: 20px 0;
+  }
+  .option-card {
+    padding: 16px;
+    background-color: #e0f0ff;
+    border-radius: 12px;
+    text-align: center;
+    cursor: pointer;
+    font-size: 1.1em;
+    transition: background-color 0.3s ease;
+    box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.1);
+  }
+  .option-card:hover {
+    background-color: #cce7ff;
+  }
+</style>
+
+<script>
+const vocab = {
+ "comer": ["吃"],
+"empanada": ["餡餅"],
+"pescado": ["魚"],
+"pollo": ["雞肉"],
+"fruta": ["水果"],
+"tortilla": ["蛋餅"],
+"tengo hambre": ["我餓了"],
+"agua": ["水"],
+"Yo": ["我"],
+"Tú": ["你"],
+"Él": ["他"],
+"Ella": ["她"],
+"Usted": ["您"],
+"Nosotros / Nosotras": ["我們"],
+"Vosotros / Vosotras": ["你們"],
+"Ellos": ["他們"],
+"Ellas": ["她們"]
+};
+
+
+const words = Object.keys(vocab);
+let score = 0;
+let questionIndex = 0;
+const totalQuestions = 10;
+let currentWord = "";
+
+document.getElementById('total').textContent = totalQuestions;
+
+function getRandomOptions(correctAnswer) {
+  // Flatten all vocab answers into one list except correct answers
+  const allAnswers = Object.values(vocab).flat().filter(a => !correctAnswer.includes(a));
+  const shuffled = allAnswers.sort(() => Math.random() - 0.5);
+  const wrongOptions = shuffled.slice(0, 3);
+  const options = [...wrongOptions, correctAnswer[0]];
+  return options.sort(() => Math.random() - 0.5);
+}
+
+function loadQuestion() {
+  if (questionIndex >= totalQuestions) {
+    document.getElementById('quiz-container').innerHTML = `
+      <h3>Quiz complete!</h3>
+      <p>Your final score: ${score} out of ${totalQuestions}</p>
+      <button onclick="restartQuiz()" style="padding: 10px 20px; font-size: 1em; margin-top: 20px;">🔁 Play Again</button>
+    `;
+    return;
+  }
+
+  currentWord = words[Math.floor(Math.random() * words.length)];
+  const correctAnswers = vocab[currentWord];
+  const options = getRandomOptions(correctAnswers);
+
+  document.getElementById('word').textContent = currentWord;
+  document.getElementById('options').innerHTML = "";
+
+  options.forEach(option => {
+    const btn = document.createElement("div");
+    btn.textContent = option;
+    btn.className = "option-card";
+    btn.onclick = () => checkAnswer(option, correctAnswers);
+    document.getElementById("options").appendChild(btn);
+  });
+
+  document.getElementById("feedback").textContent = "";
+}
+
+function checkAnswer(selected, correctAnswers) {
+  if (correctAnswers.map(a => a.toLowerCase()).includes(selected.toLowerCase())) {
+    score++;
+    document.getElementById("feedback").textContent = "✅ Correct!";
+  } else {
+    document.getElementById("feedback").textContent = `❌ Wrong. Correct answer: ${correctAnswers[0]}`;
+  }
+
+  document.getElementById("score").textContent = score;
+  questionIndex++;
+  setTimeout(loadQuestion, 1500);
+}
+
+function restartQuiz() {
+  score = 0;
+  questionIndex = 0;
+
+  document.getElementById('quiz-container').innerHTML = `
+    <p><strong id="word" style="font-size: 1.5em;"></strong></p>
+    <div id="options" class="option-grid"></div>
+    <p id="feedback"></p>
+    <p>Score: <span id="score">0</span> / <span id="total">${totalQuestions}</span></p>
+  `;
+
+  loadQuestion();
+}
+
+loadQuestion();
+</script>
+
+    
+<div class="navigation">
+        <a href="lesson2.html">← Lección  2</a>
+        <a href="lesson123-ejercicio.html">Lección 1-3 Ejercicio →</a>
+    </div>
+
+</body> 
+
+    
+</html>
