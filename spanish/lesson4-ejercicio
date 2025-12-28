@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Lección 4 Ejercicios</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    padding: 20px;
+    max-width: 900px;
+    margin: auto;
+  }
+  h2 {
+    background-color: #f2f2f2;
+    padding: 10px;
+    border-radius: 8px;
+  }
+  .exercise {
+    margin-bottom: 40px;
+  }
+  .question {
+    margin: 10px 0;
+  }
+  .answer {
+    margin-left: 20px;
+    display: none;
+    color: #007700;
+  }
+  button.toggle-btn {
+    margin-left: 10px;
+    cursor: pointer;
+    border: none;
+    background-color: #e0e0e0;
+    border-radius: 4px;
+    padding: 2px 6px;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+  }
+  td {
+    padding: 6px 10px;
+    vertical-align: top;
+  }
+  .matching td {
+    border-bottom: 1px dashed #aaa;
+  }
+</style>
+</head>
+<body>
+
+<h2>Ejercicio A: Emparejar（配對）</h2>
+<div class="exercise">
+  <h3>A-1</h3>
+  <table class="matching">
+    <tr><td>comer</td><td>a. 水</td></tr>
+    <tr><td>beber</td><td>b. 吃</td></tr>
+    <tr><td>agua</td><td>c. 雞肉</td></tr>
+    <tr><td>pollo</td><td>d. 喝</td></tr>
+    <tr><td>fruta</td><td>e. 水果</td></tr>
+  </table>
+
+  <h3>A-2</h3>
+  <table class="matching">
+    <tr><td>pescado</td><td>a. 我餓了</td></tr>
+    <tr><td>empanada</td><td>b. 麵包</td></tr>
+    <tr><td>tengo hambre</td><td>c. 魚</td></tr>
+    <tr><td>pan</td><td>d. 飯</td></tr>
+    <tr><td>arroz</td><td>e. 餡餅</td></tr>
+  </table>
+
+  <h3>A-3</h3>
+  <table class="matching">
+    <tr><td>como</td><td>a. 他／她吃</td></tr>
+    <tr><td>comes</td><td>b. 我吃</td></tr>
+    <tr><td>come</td><td>c. 你吃</td></tr>
+    <tr><td>comemos</td><td>d. 我喝</td></tr>
+    <tr><td>bebo</td><td>e. 我們吃</td></tr>
+  </table>
+</div>
+
+<h2>Ejercicio B: Conjuga Comer / Beber（填空動詞變化）</h2>
+<div class="exercise">
+  <h3>Sección 1: Conjuga comer（填空：comer）</h3>
+  <p class="question">1. Tú ______ pescado. （你吃魚。） <button class="toggle-btn" onclick="toggleAnswer('b1')">顯示答案</button></p>
+  <p class="answer" id="b1">comes</p>
+
+  <p class="question">2. Ellas ______ frutas y verduras. （她們吃水果和蔬菜。） <button class="toggle-btn" onclick="toggleAnswer('b2')">顯示答案</button></p>
+  <p class="answer" id="b2">comen</p>
+
+  <p class="question">3. Yo ______ pan. （我吃麵包。） <button class="toggle-btn" onclick="toggleAnswer('b3')">顯示答案</button></p>
+  <p class="answer" id="b3">como</p>
+
+  <p class="question">4. Nosotros ______ empanadas. （我們吃餡餅。） <button class="toggle-btn" onclick="toggleAnswer('b4')">顯示答案</button></p>
+  <p class="answer" id="b4">comemos</p>
+
+  <p class="question">5. Yo ______ pizza. （我吃比薩。） <button class="toggle-btn" onclick="toggleAnswer('b5')">顯示答案</button></p>
+  <p class="answer" id="b5">como</p>
+
+  <p class="question">6. Vosotros ______ verduras. （你們吃蔬菜。） <button class="toggle-btn" onclick="toggleAnswer('b6')">顯示答案</button></p>
+  <p class="answer" id="b6">coméis</p>
+
+  <p class="question">7. Tú ______ pollo. （你吃雞肉。） <button class="toggle-btn" onclick="toggleAnswer('b7')">顯示答案</button></p>
+  <p class="answer" id="b7">comes</p>
+
+  <p class="question">8. Yo ______ frutas. （我吃水果。） <button class="toggle-btn" onclick="toggleAnswer('b8')">顯示答案</button></p>
+  <p class="answer" id="b8">como</p>
+
+  <p class="question">9. Él ______ sopa. （他吃湯。） <button class="toggle-btn" onclick="toggleAnswer('b9')">顯示答案</button></p>
+  <p class="answer" id="b9">come</p>
+
+  <p class="question">10. Tú ______ arroz. （你吃飯。） <button class="toggle-btn" onclick="toggleAnswer('b10')">顯示答案</button></p>
+  <p class="answer" id="b10">comes</p>
+
+  <h3>Sección 2: Conjuga beber（填空：beber）</h3>
+  <p class="question">11. Ella ______ agua mineral. （她喝礦泉水。） <button class="toggle-btn" onclick="toggleAnswer('b11')">顯示答案</button></p>
+  <p class="answer" id="b11">bebe</p>
+
+  <p class="question">12. Yo ______ jugo de naranja. （我喝橙汁。） <button class="toggle-btn" onclick="toggleAnswer('b12')">顯示答案</button></p>
+  <p class="answer" id="b12">bebo</p>
+
+  <p class="question">13. Nosotros ______ jugo de manzana. （我們喝蘋果汁。） <button class="toggle-btn" onclick="toggleAnswer('b13')">顯示答案</button></p>
+  <p class="answer" id="b13">bebemos</p>
+
+  <p class="question">14. Tú ______ leche. （你喝牛奶。） <button class="toggle-btn" onclick="toggleAnswer('b14')">顯示答案</button></p>
+  <p class="answer" id="b14">bebes</p>
+
+  <p class="question">15. Yo ______ té. （我喝茶。） <button class="toggle-btn" onclick="toggleAnswer('b15')">顯示答案</button></p>
+  <p class="answer" id="b15">bebo</p>
+
+  <p class="question">16. Ellos ______ té helado. （他們喝冰茶。） <button class="toggle-btn" onclick="toggleAnswer('b16')">顯示答案</button></p>
+  <p class="answer" id="b16">beben</p>
+
+  <p class="question">17. Yo ______ agua. （我喝水。） <button class="toggle-btn" onclick="toggleAnswer('b17')">顯示答案</button></p>
+  <p class="answer" id="b17">bebo</p>
+
+  <p class="question">18. Tú ______ café. （你喝咖啡。） <button class="toggle-btn" onclick="toggleAnswer('b18')">顯示答案</button></p>
+  <p class="answer" id="b18">bebes</p>
+
+  <p class="question">19. Tú ______ refrescos. （你喝汽水。） <button class="toggle-btn" onclick="toggleAnswer('b19')">顯示答案</button></p>
+  <p class="answer" id="b19">bebes</p>
+
+  <p class="question">20. Vosotras ______ leche. （你們喝牛奶。） <button class="toggle-btn" onclick="toggleAnswer('b20')">顯示答案</button></p>
+  <p class="answer" id="b20">bebéis</p>
+</div>
+
+<h2>Ejercicio C: Ordenar las palabras（排列單字）</h2>
+<div class="exercise">
+  <p class="question">1. pizza / Yo / como / （我吃比薩。） <button class="toggle-btn" onclick="toggleAnswer('c1')">顯示答案</button></p>
+  <p class="answer" id="c1">Yo como pizza.</p>
+
+  <p class="question">2. comes / frutas / Tú / （你吃水果。） <button class="toggle-btn" onclick="toggleAnswer('c2')">顯示答案</button></p>
+  <p class="answer" id="c2">Tú comes frutas.</p>
+
+  <p class="question">3. agua / bebo / Yo / （我喝水。） <button class="toggle-btn" onclick="toggleAnswer('c3')">顯示答案</button></p>
+  <p class="answer" id="c3">Yo bebo agua.</p>
+
+  <p class="question">4. empanadas / comemos / Nosotros / （我們吃餡餅。） <button class="toggle-btn" onclick="toggleAnswer('c4')">顯示答案</button></p>
+  <p class="answer" id="c4">Nosotros comemos empanadas.</p>
+
+  <p class="question">5. come / pollo / Él / （他吃雞肉。） <button class="toggle-btn" onclick="toggleAnswer('c5')">顯示答案</button></p>
+  <p class="answer" id="c5">Él come pollo.</p>
+
+  <p class="question">6. empanadas / y / agua / Yo / como / （我吃餡餅並喝水。） <button class="toggle-btn" onclick="toggleAnswer('c6')">顯示答案</button></p>
+  <p class="answer" id="c6">Yo como empanadas y agua.</p>
+
+  <p class="question">7. frutas / y / leche / comes / Tú / （你吃水果並喝牛奶。） <button class="toggle-btn" onclick="toggleAnswer('c7')">顯示答案</button></p>
+  <p class="answer" id="c7">Tú comes frutas y leche.</p>
+
+  <p class="question">8. té / y / empanadas / bebe / Ella / （她喝茶並吃餡餅。） <button class="toggle-btn" onclick="toggleAnswer('c8')">顯示答案</button></p>
+  <p class="answer" id="c8">Ella bebe té y empanadas.</p>
+
+  <p class="question">9. arroz / y / pollo / comemos / Nosotros / （我們吃飯和雞肉。） <button class="toggle-btn" onclick="toggleAnswer('c9')">顯示答案</button></p>
+  <p class="answer" id="c9">Nosotros comemos arroz y pollo.</p>
+
+  <p class="question">10. pescado / y / fruta / comen / Ellos / （他們吃魚和水果。） <button class="toggle-btn" onclick="toggleAnswer('c10')">顯示答案</button></p>
+  <p class="answer" id="c10">Ellos comen pescado y fruta.</p>
+</div>
+
+<h2>Ejercicio E: Lectura（閱讀）</h2>
+<div class="exercise">
+  <h3>Párrafo 1 – Ana</h3>
+  <p>Hola, me llamo Ana. Hoy como pizza y bebo agua. Me gusta la pizza. Voy a la escuela. También me gusta beber agua.</p>
+  <p class="question">1. ¿Cómo se llama ella? <button class="toggle-btn" onclick="toggleAnswer('e1')">顯示答案</button></p>
+  <p class="answer" id="e1">Ana</p>
+
+  <p class="question">2. ¿Qué come Ana? <button class="toggle-btn" onclick="toggleAnswer('e2')">顯示答案</button></p>
+  <p class="answer" id="e2">Pizza</p>
+
+  <p class="question">3. ¿Qué bebe Ana? <button class="toggle-btn" onclick="toggleAnswer('e3')">顯示答案</button></p>
+  <p class="answer" id="e3">Agua</p>
+
+  <p class="question">4. ¿Adónde va Ana? <button class="toggle-btn" onclick="toggleAnswer('e4')">顯示答案</button></p>
+  <p class="answer" id="e4">A la escuela</p>
+
+  <p class="question">5. ¿Qué le gusta comer y beber? <button class="toggle-btn" onclick="toggleAnswer('e5')">顯示答案</button></p>
+  <p class="answer" id="e5">Pizza y agua</p>
+
+  <h3>Párrafo 2 – Luis</h3>
+  <p>Hola, me llamo Luis. Hoy como pollo y bebo té. Me gusta el pollo. Voy a la biblioteca. También me gusta beber té.</p>
+  <p class="question">1. ¿Cómo se llama él? <button class="toggle-btn" onclick="toggleAnswer('e6')">顯示答案</button></p>
+  <p class="answer" id="e6">Luis</p>
+
+  <p class="question">2. ¿Qué come Luis? <button class="toggle-btn" onclick="toggleAnswer('e7')">顯示答案</button></p>
+  <p class="answer" id="e7">Pollo</p>
+
+  <p class="question">3. ¿Qué bebe Luis? <button class="toggle-btn" onclick="toggleAnswer('e8')">顯示答案</button></p>
+  <p class="answer" id="e8">Té</p>
+
+  <p class="question">4. ¿Adónde va Luis? <button class="toggle-btn" onclick="toggleAnswer('e9')">顯示答案</button></p>
+  <p class="answer" id="e9">A la biblioteca</p>
+
+  <p class="question">5. ¿Qué le gusta comer y beber? <button class="toggle-btn" onclick="toggleAnswer('e10')">顯示答案</button></p>
+  <p class="answer" id="e10">Pollo y té</p>
+
+  <h3>Párrafo 3 – Marta</h3>
+  <p>Hola, me llamo Marta. Hoy como empanadas y bebo leche. Me gustan las empanadas. Voy a la universidad. También me gusta beber leche.</p>
+  <p class="question">1. ¿Cómo se llama ella? <button class="toggle-btn" onclick="toggleAnswer('e11')">顯示答案</button></p>
+  <p class="answer" id="e11">Marta</p>
+
+  <p class="question">2. ¿Qué come Marta? <button class="toggle-btn" onclick="toggleAnswer('e12')">顯示答案</button></p>
+  <p class="answer" id="e12">Empanadas</p>
+
+  <p class="question">3. ¿Qué bebe Marta? <button class="toggle-btn" onclick="toggleAnswer('e13')">顯示答案</button></p>
+  <p class="answer" id="e13">Leche</p>
+
+  <p class="question">4. ¿Adónde va Marta? <button class="toggle-btn" onclick="toggleAnswer('e14')">顯示答案</button></p>
+  <p class="answer" id="e14">A la universidad</p>
+
+  <p class="question">5. ¿Qué le gusta comer y beber? <button class="toggle-btn" onclick="toggleAnswer('e15')">顯示答案</button></p>
+  <p class="answer" id="e15">Empanadas y leche</p>
+</div>
+
+<script>
+function toggleAnswer(id) {
+  const ans = document.getElementById(id);
+  if (ans.style.display === "none" || ans.style.display === "") {
+    ans.style.display = "block";
+  } else {
+    ans.style.display = "none";
+  }
+}
+</script>
+
+</body>
+</html>
