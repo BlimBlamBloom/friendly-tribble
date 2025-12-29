@@ -50,7 +50,18 @@
 </style>
 </head>
 <body>
+ <script>
+function toggleAnswer(id) {
+  const ans = document.getElementById(id);
+  if (ans.style.display === "none" || ans.style.display === "") {
+    ans.style.display = "block";
+  } else {
+    ans.style.display = "none";
+  }
+}
+</script>
 
+  
 <h2>Ejercicio 1 – Escribe el número en cifras / 写出数字</h2>
 <div class="exercise">
   <p>Ejemplo: tres → 3 （例子：三 → 3）</p>
