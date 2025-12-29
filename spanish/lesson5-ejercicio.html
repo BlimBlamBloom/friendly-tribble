@@ -251,49 +251,146 @@
   <p class="answer" id="e10">catorce menos seis es ocho</p>
 </div>
 
-<h2>Ejercicio 6 – Matching / 配對遊戲</h2>
-<div class="exercise">
-  <table class="matching">
-    <tr><td>0</td><td>a. cero</td></tr>
-    <tr><td>1</td><td>b. uno</td></tr>
-    <tr><td>2</td><td>c. dos</td></tr>
-    <tr><td>3</td><td>d. tres</td></tr>
-    <tr><td>4</td><td>e. cuatro</td></tr>
-    <tr><td>5</td><td>f. cinco</td></tr>
-    <tr><td>6</td><td>g. seis</td></tr>
-    <tr><td>7</td><td>h. siete</td></tr>
-    <tr><td>8</td><td>i. ocho</td></tr>
-    <tr><td>9</td><td>j. nueve</td></tr>
-    <tr><td>10</td><td>k. diez</td></tr>
-    <tr><td>11</td><td>l. once</td></tr>
-    <tr><td>12</td><td>m. doce</td></tr>
-    <tr><td>13</td><td>n. trece</td></tr>
-    <tr><td>14</td><td>o. catorce</td></tr>
-    <tr><td>15</td><td>p. quince</td></tr>
-    <tr><td>16</td><td>q. dieciséis</td></tr>
-    <tr><td>17</td><td>r. diecisiete</td></tr>
-    <tr><td>18</td><td>s. dieciocho</td></tr>
-    <tr><td>19</td><td>t. diecinueve</td></tr>
-    <tr><td>20</td><td>u. veinte</td></tr>
-    <tr><td>21</td><td>v. veintiuno</td></tr>
-    <tr><td>22</td><td>w. veintidós</td></tr>
-    <tr><td>23</td><td>x. veintitrés</td></tr>
-    <tr><td>24</td><td>y. veinticuatro</td></tr>
-    <tr><td>25</td><td>z. veinticinco</td></tr>
-    <tr><td>26</td><td>aa. veintiséis</td></tr>
-    <tr><td>27</td><td>bb. veintisiete</td></tr>
-    <tr><td>28</td><td>cc. veintiocho</td></tr>
-    <tr><td>29</td><td>dd. veintinueve</td></tr>
-    <tr><td>30</td><td>ee. treinta</td></tr>
-    <tr><td>31</td><td>ff. treinta y uno</td></tr>
-  </table>
+<h2>Vocabulario</h2>
+<div id="quiz-container">
+  <p><strong id="word" style="font-size: 1.5em;"></strong></p>
+  <div id="options" class="option-grid"></div>
+  <p id="feedback"></p>
+  <p>Score: <span id="score">0</span> / <span id="total">0</span></p>
 </div>
 
+<style>
+  .option-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin: 20px 0;
+  }
+  .option-card {
+    padding: 16px;
+    background-color: #e0f0ff;
+    border-radius: 12px;
+    text-align: center;
+    cursor: pointer;
+    font-size: 1.1em;
+    transition: background-color 0.3s ease;
+    box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.1);
+  }
+  .option-card:hover {
+    background-color: #cce7ff;
+  }
+</style>
+
 <script>
-function toggleAnswer(id) {
-  const ans = document.getElementById(id);
-  ans.style.display = (ans.style.display === "none" || ans.style.display === "") ? "block" : "none";
+const vocab = {
+  "0": ["cero"],
+  "1": ["uno"],
+  "2": ["dos"],
+  "3": ["tres"],
+  "4": ["cuatro"],
+  "5": ["cinco"],
+  "6": ["seis"],
+  "7": ["siete"],
+  "8": ["ocho"],
+  "9": ["nueve"],
+  "10": ["diez"],
+  "11": ["once"],
+  "12": ["doce"],
+  "13": ["trece"],
+  "14": ["catorce"],
+  "15": ["quince"],
+  "16": ["dieciséis"],
+  "17": ["diecisiete"],
+  "18": ["dieciocho"],
+  "19": ["diecinueve"],
+  "20": ["veinte"],
+  "21": ["veintiuno"],
+  "22": ["veintidós"],
+  "23": ["veintitrés"],
+  "24": ["veinticuatro"],
+  "25": ["veinticinco"],
+  "26": ["veintiséis"],
+  "27": ["veintisiete"],
+  "28": ["veintiocho"],
+  "29": ["veintinueve"],
+  "30": ["treinta"],
+  "31": ["treinta y uno"]
+};
+
+
+const words = Object.keys(vocab);
+let score = 0;
+let questionIndex = 0;
+const totalQuestions = 10;
+let currentWord = "";
+
+document.getElementById('total').textContent = totalQuestions;
+
+function getRandomOptions(correctAnswer) {
+  // Flatten all vocab answers into one list except correct answers
+  const allAnswers = Object.values(vocab).flat().filter(a => !correctAnswer.includes(a));
+  const shuffled = allAnswers.sort(() => Math.random() - 0.5);
+  const wrongOptions = shuffled.slice(0, 3);
+  const options = [...wrongOptions, correctAnswer[0]];
+  return options.sort(() => Math.random() - 0.5);
 }
+
+function loadQuestion() {
+  if (questionIndex >= totalQuestions) {
+    document.getElementById('quiz-container').innerHTML = `
+      <h3>Quiz complete!</h3>
+      <p>Your final score: ${score} out of ${totalQuestions}</p>
+      <button onclick="restartQuiz()" style="padding: 10px 20px; font-size: 1em; margin-top: 20px;">🔁 Play Again</button>
+    `;
+    return;
+  }
+
+  currentWord = words[Math.floor(Math.random() * words.length)];
+  const correctAnswers = vocab[currentWord];
+  const options = getRandomOptions(correctAnswers);
+
+  document.getElementById('word').textContent = currentWord;
+  document.getElementById('options').innerHTML = "";
+
+  options.forEach(option => {
+    const btn = document.createElement("div");
+    btn.textContent = option;
+    btn.className = "option-card";
+    btn.onclick = () => checkAnswer(option, correctAnswers);
+    document.getElementById("options").appendChild(btn);
+  });
+
+  document.getElementById("feedback").textContent = "";
+}
+
+function checkAnswer(selected, correctAnswers) {
+  if (correctAnswers.map(a => a.toLowerCase()).includes(selected.toLowerCase())) {
+    score++;
+    document.getElementById("feedback").textContent = "✅ Correct!";
+  } else {
+    document.getElementById("feedback").textContent = `❌ Wrong. Correct answer: ${correctAnswers[0]}`;
+  }
+
+  document.getElementById("score").textContent = score;
+  questionIndex++;
+  setTimeout(loadQuestion, 1500);
+}
+
+function restartQuiz() {
+  score = 0;
+  questionIndex = 0;
+
+  document.getElementById('quiz-container').innerHTML = `
+    <p><strong id="word" style="font-size: 1.5em;"></strong></p>
+    <div id="options" class="option-grid"></div>
+    <p id="feedback"></p>
+    <p>Score: <span id="score">0</span> / <span id="total">${totalQuestions}</span></p>
+  `;
+
+  loadQuestion();
+}
+
+loadQuestion();
 </script>
 
 </body>
