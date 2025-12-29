@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Lección 5 Ejercicios - Números</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    padding: 20px;
+    max-width: 900px;
+    margin: auto;
+  }
+  h2 {
+    background-color: #f2f2f2;
+    padding: 10px;
+    border-radius: 8px;
+  }
+  .exercise {
+    margin-bottom: 40px;
+  }
+  .question {
+    margin: 10px 0;
+  }
+  .answer {
+    margin-left: 20px;
+    display: none;
+    color: #007700;
+  }
+  button.toggle-btn {
+    margin-left: 10px;
+    cursor: pointer;
+    border: none;
+    background-color: #e0e0e0;
+    border-radius: 4px;
+    padding: 2px 6px;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+  }
+  td {
+    padding: 6px 10px;
+    vertical-align: top;
+  }
+  .matching td {
+    border-bottom: 1px dashed #aaa;
+  }
+</style>
+</head>
+<body>
+
+<h2>Ejercicio 1 – Escribe el número en cifras / 写出数字</h2>
+<div class="exercise">
+  <p>Ejemplo: tres → 3 （例子：三 → 3）</p>
+  <p class="question">siete → ___ <button class="toggle-btn" onclick="toggleAnswer('a1')">顯示答案</button></p>
+  <p class="answer" id="a1">7</p>
+
+  <p class="question">doce → ___ <button class="toggle-btn" onclick="toggleAnswer('a2')">顯示答案</button></p>
+  <p class="answer" id="a2">12</p>
+
+  <p class="question">cuatro → ___ <button class="toggle-btn" onclick="toggleAnswer('a3')">顯示答案</button></p>
+  <p class="answer" id="a3">4</p>
+
+  <p class="question">treinta y uno → ___ <button class="toggle-btn" onclick="toggleAnswer('a4')">顯示答案</button></p>
+  <p class="answer" id="a4">31</p>
+
+  <p class="question">quince → ___ <button class="toggle-btn" onclick="toggleAnswer('a5')">顯示答案</button></p>
+  <p class="answer" id="a5">15</p>
+
+  <p class="question">nueve → ___ <button class="toggle-btn" onclick="toggleAnswer('a6')">顯示答案</button></p>
+  <p class="answer" id="a6">9</p>
+
+  <p class="question">veintidós → ___ <button class="toggle-btn" onclick="toggleAnswer('a7')">顯示答案</button></p>
+  <p class="answer" id="a7">22</p>
+
+  <p class="question">ocho → ___ <button class="toggle-btn" onclick="toggleAnswer('a8')">顯示答案</button></p>
+  <p class="answer" id="a8">8</p>
+
+  <p class="question">tres → ___ <button class="toggle-btn" onclick="toggleAnswer('a9')">顯示答案</button></p>
+  <p class="answer" id="a9">3</p>
+
+  <p class="question">veinticinco → ___ <button class="toggle-btn" onclick="toggleAnswer('a10')">顯示答案</button></p>
+  <p class="answer" id="a10">25</p>
+
+  <p class="question">veinte → ___ <button class="toggle-btn" onclick="toggleAnswer('a11')">顯示答案</button></p>
+  <p class="answer" id="a11">20</p>
+
+  <p class="question">dieciséis → ___ <button class="toggle-btn" onclick="toggleAnswer('a12')">顯示答案</button></p>
+  <p class="answer" id="a12">16</p>
+
+  <p class="question">uno → ___ <button class="toggle-btn" onclick="toggleAnswer('a13')">顯示答案</button></p>
+  <p class="answer" id="a13">1</p>
+
+  <p class="question">trece → ___ <button class="toggle-btn" onclick="toggleAnswer('a14')">顯示答案</button></p>
+  <p class="answer" id="a14">13</p>
+
+  <p class="question">seis → ___ <button class="toggle-btn" onclick="toggleAnswer('a15')">顯示答案</button></p>
+  <p class="answer" id="a15">6</p>
+</div>
+
+<h2>Ejercicio 2 – Escribe el número en palabras / 写出数字单词</h2>
+<div class="exercise">
+  <p>Ejemplo: 7 → siete （例子：7 → 七）</p>
+  <p class="question">13 → ___ <button class="toggle-btn" onclick="toggleAnswer('b1')">顯示答案</button></p>
+  <p class="answer" id="b1">trece</p>
+
+  <p class="question">8 → ___ <button class="toggle-btn" onclick="toggleAnswer('b2')">顯示答案</button></p>
+  <p class="answer" id="b2">ocho</p>
+
+  <p class="question">21 → ___ <button class="toggle-btn" onclick="toggleAnswer('b3')">顯示答案</button></p>
+  <p class="answer" id="b3">veintiuno</p>
+
+  <p class="question">2 → ___ <button class="toggle-btn" onclick="toggleAnswer('b4')">顯示答案</button></p>
+  <p class="answer" id="b4">dos</p>
+
+  <p class="question">31 → ___ <button class="toggle-btn" onclick="toggleAnswer('b5')">顯示答案</button></p>
+  <p class="answer" id="b5">treinta y uno</p>
+
+  <p class="question">17 → ___ <button class="toggle-btn" onclick="toggleAnswer('b6')">顯示答案</button></p>
+  <p class="answer" id="b6">diecisiete</p>
+
+  <p class="question">5 → ___ <button class="toggle-btn" onclick="toggleAnswer('b7')">顯示答案</button></p>
+  <p class="answer" id="b7">cinco</p>
+
+  <p class="question">10 → ___ <button class="toggle-btn" onclick="toggleAnswer('b8')">顯示答案</button></p>
+  <p class="answer" id="b8">diez</p>
+
+  <p class="question">26 → ___ <button class="toggle-btn" onclick="toggleAnswer('b9')">顯示答案</button></p>
+  <p class="answer" id="b9">veintiséis</p>
+
+  <p class="question">19 → ___ <button class="toggle-btn" onclick="toggleAnswer('b10')">顯示答案</button></p>
+  <p class="answer" id="b10">diecinueve</p>
+
+  <p class="question">7 → ___ <button class="toggle-btn" onclick="toggleAnswer('b11')">顯示答案</button></p>
+  <p class="answer" id="b11">siete</p>
+
+  <p class="question">4 → ___ <button class="toggle-btn" onclick="toggleAnswer('b12')">顯示答案</button></p>
+  <p class="answer" id="b12">cuatro</p>
+
+  <p class="question">30 → ___ <button class="toggle-btn" onclick="toggleAnswer('b13')">顯示答案</button></p>
+  <p class="answer" id="b13">treinta</p>
+
+  <p class="question">3 → ___ <button class="toggle-btn" onclick="toggleAnswer('b14')">顯示答案</button></p>
+  <p class="answer" id="b14">tres</p>
+
+  <p class="question">16 → ___ <button class="toggle-btn" onclick="toggleAnswer('b15')">顯示答案</button></p>
+  <p class="answer" id="b15">dieciséis</p>
+</div>
+
+<h2>Ejercicio 3 – Lee los números de cinco dígitos / 读五位数数字</h2>
+<div class="exercise">
+  <p>Ejemplo: 28492 → dos ocho cuatro nueve dos （例子：二八四九二）</p>
+  <p class="question">28492 → ___ <button class="toggle-btn" onclick="toggleAnswer('c1')">顯示答案</button></p>
+  <p class="answer" id="c1">dos ocho cuatro nueve dos</p>
+
+  <p class="question">77374 → ___ <button class="toggle-btn" onclick="toggleAnswer('c2')">顯示答案</button></p>
+  <p class="answer" id="c2">siete siete tres siete cuatro</p>
+
+  <p class="question">39203 → ___ <button class="toggle-btn" onclick="toggleAnswer('c3')">顯示答案</button></p>
+  <p class="answer" id="c3">tres nueve dos cero tres</p>
+
+  <p class="question">38301 → ___ <button class="toggle-btn" onclick="toggleAnswer('c4')">顯示答案</button></p>
+  <p class="answer" id="c4">tres ocho tres cero uno</p>
+
+  <p class="question">15025 → ___ <button class="toggle-btn" onclick="toggleAnswer('c5')">顯示答案</button></p>
+  <p class="answer" id="c5">uno cinco cero dos cinco</p>
+
+  <p class="question">42018 → ___ <button class="toggle-btn" onclick="toggleAnswer('c6')">顯示答案</button></p>
+  <p class="answer" id="c6">cuatro dos cero uno ocho</p>
+
+  <p class="question">60932 → ___ <button class="toggle-btn" onclick="toggleAnswer('c7')">顯示答案</button></p>
+  <p class="answer" id="c7">seis cero nueve tres dos</p>
+
+  <p class="question">98120 → ___ <button class="toggle-btn" onclick="toggleAnswer('c8')">顯示答案</button></p>
+  <p class="answer" id="c8">nueve ocho uno dos cero</p>
+
+  <p class="question">53406 → ___ <button class="toggle-btn" onclick="toggleAnswer('c9')">顯示答案</button></p>
+  <p class="answer" id="c9">cinco tres cuatro cero seis</p>
+
+  <p class="question">17239 → ___ <button class="toggle-btn" onclick="toggleAnswer('c10')">顯示答案</button></p>
+  <p class="answer" id="c10">uno siete dos tres nueve</p>
+</div>
+
+<h2>Ejercicio 4 – Sumas simples / 简单加法</h2>
+<div class="exercise">
+  <p>Ejemplo: 2 + 4 = 6 → dos más cuatro es seis （例子：二 + 四 → 二加四等于六）</p>
+  <p class="question">2 + 3 → ___ <button class="toggle-btn" onclick="toggleAnswer('d1')">顯示答案</button></p>
+  <p class="answer" id="d1">dos más tres es cinco</p>
+
+  <p class="question">1 + 4 → ___ <button class="toggle-btn" onclick="toggleAnswer('d2')">顯示答案</button></p>
+  <p class="answer" id="d2">uno más cuatro es cinco</p>
+
+  <p class="question">3 + 5 → ___ <button class="toggle-btn" onclick="toggleAnswer('d3')">顯示答案</button></p>
+  <p class="answer" id="d3">tres más cinco es ocho</p>
+
+  <p class="question">0 + 2 → ___ <button class="toggle-btn" onclick="toggleAnswer('d4')">顯示答案</button></p>
+  <p class="answer" id="d4">cero más dos es dos</p>
+
+  <p class="question">4 + 1 → ___ <button class="toggle-btn" onclick="toggleAnswer('d5')">顯示答案</button></p>
+  <p class="answer" id="d5">cuatro más uno es cinco</p>
+
+  <p class="question">5 + 7 → ___ <button class="toggle-btn" onclick="toggleAnswer('d6')">顯示答案</button></p>
+  <p class="answer" id="d6">cinco más siete es doce</p>
+
+  <p class="question">8 + 6 → ___ <button class="toggle-btn" onclick="toggleAnswer('d7')">顯示答案</button></p>
+  <p class="answer" id="d7">ocho más seis es catorce</p>
+
+  <p class="question">12 + 5 → ___ <button class="toggle-btn" onclick="toggleAnswer('d8')">顯示答案</button></p>
+  <p class="answer" id="d8">doce más cinco es diecisiete</p>
+
+  <p class="question">10 + 8 → ___ <button class="toggle-btn" onclick="toggleAnswer('d9')">顯示答案</button></p>
+  <p class="answer" id="d9">diez más ocho es dieciocho</p>
+
+  <p class="question">9 + 11 → ___ <button class="toggle-btn" onclick="toggleAnswer('d10')">顯示答案</button></p>
+  <p class="answer" id="d10">nueve más once es veinte</p>
+</div>
+
+<h2>Ejercicio 5 – Restas simples / 简单减法</h2>
+<div class="exercise">
+  <p>Ejemplo: 5 - 3 = 2 → cinco menos tres es dos （例子：五 - 三 → 五减三等于二）</p>
+  <p class="question">3 - 1 → ___ <button class="toggle-btn" onclick="toggleAnswer('e1')">顯示答案</button></p>
+  <p class="answer" id="e1">tres menos uno es dos</p>
+
+  <p class="question">5 - 2 → ___ <button class="toggle-btn" onclick="toggleAnswer('e2')">顯示答案</button></p>
+  <p class="answer" id="e2">cinco menos dos es tres</p>
+
+  <p class="question">4 - 1 → ___ <button class="toggle-btn" onclick="toggleAnswer('e3')">顯示答案</button></p>
+  <p class="answer" id="e3">cuatro menos uno es tres</p>
+
+  <p class="question">6 - 4 → ___ <button class="toggle-btn" onclick="toggleAnswer('e4')">顯示答案</button></p>
+  <p class="answer" id="e4">seis menos cuatro es dos</p>
+
+  <p class="question">7 - 3 → ___ <button class="toggle-btn" onclick="toggleAnswer('e5')">顯示答案</button></p>
+  <p class="answer" id="e5">siete menos tres es cuatro</p>
+
+  <p class="question">12 - 5 → ___ <button class="toggle-btn" onclick="toggleAnswer('e6')">顯示答案</button></p>
+  <p class="answer" id="e6">doce menos cinco es siete</p>
+
+  <p class="question">15 - 8 → ___ <button class="toggle-btn" onclick="toggleAnswer('e7')">顯示答案</button></p>
+  <p class="answer" id="e7">quince menos ocho es siete</p>
+
+  <p class="question">20 - 7 → ___ <button class="toggle-btn" onclick="toggleAnswer('e8')">顯示答案</button></p>
+  <p class="answer" id="e8">veinte menos siete es trece</p>
+
+  <p class="question">18 - 9 → ___ <button class="toggle-btn" onclick="toggleAnswer('e9')">顯示答案</button></p>
+  <p class="answer" id="e9">dieciocho menos nueve es nueve</p>
+
+  <p class="question">14 - 6 → ___ <button class="toggle-btn" onclick="toggleAnswer('e10')">顯示答案</button></p>
+  <p class="answer" id="e10">catorce menos seis es ocho</p>
+</div>
+
+<h2>Ejercicio 6 – Matching / 配對遊戲</h2>
+<div class="exercise">
+  <table class="matching">
+    <tr><td>0</td><td>a. cero</td></tr>
+    <tr><td>1</td><td>b. uno</td></tr>
+    <tr><td>2</td><td>c. dos</td></tr>
+    <tr><td>3</td><td>d. tres</td></tr>
+    <tr><td>4</td><td>e. cuatro</td></tr>
+    <tr><td>5</td><td>f. cinco</td></tr>
+    <tr><td>6</td><td>g. seis</td></tr>
+    <tr><td>7</td><td>h. siete</td></tr>
+    <tr><td>8</td><td>i. ocho</td></tr>
+    <tr><td>9</td><td>j. nueve</td></tr>
+    <tr><td>10</td><td>k. diez</td></tr>
+    <tr><td>11</td><td>l. once</td></tr>
+    <tr><td>12</td><td>m. doce</td></tr>
+    <tr><td>13</td><td>n. trece</td></tr>
+    <tr><td>14</td><td>o. catorce</td></tr>
+    <tr><td>15</td><td>p. quince</td></tr>
+    <tr><td>16</td><td>q. dieciséis</td></tr>
+    <tr><td>17</td><td>r. diecisiete</td></tr>
+    <tr><td>18</td><td>s. dieciocho</td></tr>
+    <tr><td>19</td><td>t. diecinueve</td></tr>
+    <tr><td>20</td><td>u. veinte</td></tr>
+    <tr><td>21</td><td>v. veintiuno</td></tr>
+    <tr><td>22</td><td>w. veintidós</td></tr>
+    <tr><td>23</td><td>x. veintitrés</td></tr>
+    <tr><td>24</td><td>y. veinticuatro</td></tr>
+    <tr><td>25</td><td>z. veinticinco</td></tr>
+    <tr><td>26</td><td>aa. veintiséis</td></tr>
+    <tr><td>27</td><td>bb. veintisiete</td></tr>
+    <tr><td>28</td><td>cc. veintiocho</td></tr>
+    <tr><td>29</td><td>dd. veintinueve</td></tr>
+    <tr><td>30</td><td>ee. treinta</td></tr>
+    <tr><td>31</td><td>ff. treinta y uno</td></tr>
+  </table>
+</div>
+
+<script>
+function toggleAnswer(id) {
+  const ans = document.getElementById(id);
+  ans.style.display = (ans.style.display === "none" || ans.style.display === "") ? "block" : "none";
+}
+</script>
+
+</body>
+</html>
