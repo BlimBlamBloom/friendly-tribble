@@ -124,10 +124,12 @@
             <div class="mode-buttons">
                 <button onclick="startGame('easy')">Easy</button>
                 <button onclick="startGame('medium')">Medium</button>
+                <button onclick="startGame('hard')">Hard</button>
             </div>
             <div class="highscores">
-                <h3>High Score</h3>
-                <div class="score-item">Medium Mode: <span id="highScoreDisplay">0</span></div>
+                <h3>High Scores</h3>
+                <div class="score-item">Medium: <span id="mediumHighScoreDisplay">0</span></div>
+                <div class="score-item">Hard: <span id="hardHighScoreDisplay">0</span></div>
             </div>
         </div>
         
@@ -170,9 +172,12 @@
         let frozen = false;
         let gameLoop;
         let score = 0;
-        let highScore = localStorage.getItem('mediumHighScore') || 0;
+        let mediumHighScore = localStorage.getItem('mediumHighScore') || 0;
+        let hardHighScore = localStorage.getItem('hardHighScore') || 0;
+        let ghostMoveCounter = 0;
         
-        document.getElementById('highScoreDisplay').textContent = highScore;
+        document.getElementById('mediumHighScoreDisplay').textContent = mediumHighScore;
+        document.getElementById('hardHighScoreDisplay').textContent = hardHighScore;
         
         function startGame(mode) {
             gameMode = mode;
@@ -187,8 +192,10 @@
         function showStartScreen() {
             document.getElementById('winScreen').style.display = 'none';
             document.getElementById('startScreen').style.display = 'block';
-            highScore = localStorage.getItem('mediumHighScore') || 0;
-            document.getElementById('highScoreDisplay').textContent = highScore;
+            mediumHighScore = localStorage.getItem('mediumHighScore') || 0;
+            hardHighScore = localStorage.getItem('hardHighScore') || 0;
+            document.getElementById('mediumHighScoreDisplay').textContent = mediumHighScore;
+            document.getElementById('hardHighScoreDisplay').textContent = hardHighScore;
         }
         
         function initLevel() {
@@ -196,6 +203,7 @@
             dog = { x: 10, y: 10 };
             direction = { x: 0, y: 0 };
             frozen = false;
+            ghostMoveCounter = 0;
             
             if (gameMode === 'easy') {
                 document.getElementById('verbDisplay').textContent = verbs[currentLevel].infinitive.charAt(0).toUpperCase() + verbs[currentLevel].infinitive.slice(1);
@@ -204,7 +212,11 @@
             } else {
                 document.getElementById('verbDisplay').textContent = '';
                 document.getElementById('scoreDisplay').textContent = 'Score: ' + score;
-                spawnGhostsMedium();
+                if (gameMode === 'medium') {
+                    spawnGhostsMedium();
+                } else {
+                    spawnGhostsHard();
+                }
             }
         }
         
@@ -268,7 +280,8 @@
                         x: positions[i].x,
                         y: positions[i].y,
                         conjugation: verbs[randomVerb].conjugations[randomPronoun],
-                        pronounIndex: randomPronoun
+                        pronounIndex: randomPronoun,
+                        direction: { x: 0, y: 0 }
                     });
                 }
             } else {
@@ -292,7 +305,89 @@
                             x: x,
                             y: y,
                             conjugation: verbs[randomVerb].conjugations[randomPronoun],
-                            pronounIndex: randomPronoun
+                            pronounIndex: randomPronoun,
+                            direction: { x: 0, y: 0 }
+                        });
+                        break;
+                    }
+                    attempts++;
+                }
+            }
+            
+            let hasMatch = ghosts.some(g => g.pronounIndex === currentPronounIndex);
+            if (!hasMatch && ghosts.length > 0) {
+                currentPronounIndex = ghosts[0].pronounIndex;
+            }
+        }
+        
+        function spawnGhostsHard() {
+            if (ghosts.length === 0) {
+                ghosts = [];
+                const positions = [];
+                
+                while (positions.length < 6) {
+                    const x = Math.floor(Math.random() * (tileCount - 6)) + 3;
+                    const y = Math.floor(Math.random() * (tileCount - 6)) + 3;
+                    
+                    let valid = true;
+                    for (let pos of positions) {
+                        if (Math.abs(pos.x - x) < 4 && Math.abs(pos.y - y) < 4) {
+                            valid = false;
+                            break;
+                        }
+                    }
+                    
+                    if (valid && (Math.abs(dog.x - x) > 5 || Math.abs(dog.y - y) > 5)) {
+                        positions.push({ x, y });
+                    }
+                }
+                
+                for (let i = 0; i < 6; i++) {
+                    const randomVerb = Math.floor(Math.random() * 6);
+                    const randomPronoun = Math.floor(Math.random() * 6);
+                    const directions = [
+                        { x: 0, y: -1 },
+                        { x: 0, y: 1 },
+                        { x: -1, y: 0 },
+                        { x: 1, y: 0 }
+                    ];
+                    ghosts.push({
+                        x: positions[i].x,
+                        y: positions[i].y,
+                        conjugation: verbs[randomVerb].conjugations[randomPronoun],
+                        pronounIndex: randomPronoun,
+                        direction: directions[Math.floor(Math.random() * 4)]
+                    });
+                }
+            } else {
+                let attempts = 0;
+                while (attempts < 100) {
+                    const x = Math.floor(Math.random() * (tileCount - 6)) + 3;
+                    const y = Math.floor(Math.random() * (tileCount - 6)) + 3;
+                    
+                    let valid = true;
+                    for (let ghost of ghosts) {
+                        if (Math.abs(ghost.x - x) < 4 && Math.abs(ghost.y - y) < 4) {
+                            valid = false;
+                            break;
+                        }
+                    }
+                    
+                    if (valid && (Math.abs(dog.x - x) > 5 || Math.abs(dog.y - y) > 5)) {
+                        const randomVerb = Math.floor(Math.random() * 6);
+                        const randomPronoun = Math.floor(Math.random() * 6);
+                        const directions = [
+                            { x: 0, y: -1 },
+                            { x: 0, y: 1 },
+                            { x: -1, y: 0 },
+                            { x: 1, y: 0 }
+                        ];
+                        ghosts.push({
+                            x: x,
+                            y: y,
+                            conjugation: verbs[randomVerb].conjugations[randomPronoun],
+                            pronounIndex: randomPronoun,
+                            direction: directions[Math.floor(Math.random() * 4)]
                         });
                         break;
                     }
@@ -331,8 +426,50 @@
             if (dog.y < 0) dog.y = tileCount - 1;
             if (dog.y >= tileCount) dog.y = 0;
             
+            if (gameMode === 'hard') {
+                ghostMoveCounter++;
+                if (ghostMoveCounter >= 2) {
+                    ghostMoveCounter = 0;
+                    ghosts.forEach(ghost => {
+                        if (Math.random() < 0.3) {
+                            const directions = [
+                                { x: 0, y: -1 },
+                                { x: 0, y: 1 },
+                                { x: -1, y: 0 },
+                                { x: 1, y: 0 }
+                            ];
+                            ghost.direction = directions[Math.floor(Math.random() * 4)];
+                        }
+                        
+                        ghost.x += ghost.direction.x;
+                        ghost.y += ghost.direction.y;
+                        
+                        if (ghost.x < 0) {
+                            ghost.x = 0;
+                            ghost.direction.x *= -1;
+                        }
+                        if (ghost.x >= tileCount) {
+                            ghost.x = tileCount - 1;
+                            ghost.direction.x *= -1;
+                        }
+                        if (ghost.y < 0) {
+                            ghost.y = 0;
+                            ghost.direction.y *= -1;
+                        }
+                        if (ghost.y >= tileCount) {
+                            ghost.y = tileCount - 1;
+                            ghost.direction.y *= -1;
+                        }
+                    });
+                }
+            }
+            
             for (let i = ghosts.length - 1; i >= 0; i--) {
-                if (dog.x === ghosts[i].x && dog.y === ghosts[i].y) {
+                const catchRadius = gameMode === 'hard' ? 0.5 : 1;
+                const dx = Math.abs(dog.x - ghosts[i].x);
+                const dy = Math.abs(dog.y - ghosts[i].y);
+                
+                if (dx <= catchRadius && dy <= catchRadius) {
                     if (ghosts[i].pronounIndex === currentPronounIndex) {
                         ghosts.splice(i, 1);
                         score++;
@@ -354,17 +491,28 @@
                         } else {
                             document.getElementById('scoreDisplay').textContent = 'Score: ' + score;
                             currentPronounIndex = Math.floor(Math.random() * 6);
-                            spawnGhostsMedium();
+                            if (gameMode === 'medium') {
+                                spawnGhostsMedium();
+                            } else {
+                                spawnGhostsHard();
+                            }
                         }
                     } else {
-                        if (gameMode === 'medium') {
+                        if (gameMode === 'medium' || gameMode === 'hard') {
                             clearInterval(gameLoop);
-                            if (score > highScore) {
-                                highScore = score;
-                                localStorage.setItem('mediumHighScore', highScore);
+                            const currentHighScore = gameMode === 'medium' ? mediumHighScore : hardHighScore;
+                            if (score > currentHighScore) {
+                                if (gameMode === 'medium') {
+                                    mediumHighScore = score;
+                                    localStorage.setItem('mediumHighScore', mediumHighScore);
+                                } else {
+                                    hardHighScore = score;
+                                    localStorage.setItem('hardHighScore', hardHighScore);
+                                }
                             }
+                            const finalHighScore = gameMode === 'medium' ? mediumHighScore : hardHighScore;
                             document.getElementById('gameScreen').style.display = 'none';
-                            document.getElementById('winMessage').textContent = 'Final Score: ' + score + ' | High Score: ' + highScore;
+                            document.getElementById('winMessage').textContent = 'Final Score: ' + score + ' | High Score: ' + finalHighScore;
                             document.getElementById('winScreen').style.display = 'block';
                         } else {
                             frozen = true;
@@ -446,7 +594,7 @@
             ctx.fillText(pronouns[currentPronounIndex], dogX, dogY - dogSize/2 - 10);
             
             ghosts.forEach(ghost => {
-                const ghostSize = gridSize * 1.2;
+                const ghostSize = gameMode === 'hard' ? gridSize * 0.6 : gridSize * 1.2;
                 const ghostX = ghost.x * gridSize + gridSize/2;
                 const ghostY = ghost.y * gridSize + gridSize/2;
                 
@@ -465,7 +613,8 @@
                 ctx.textBaseline = 'middle';
                 ctx.fillText('👻', ghostX, ghostY);
                 
-                ctx.font = 'bold 16px Arial';
+                const fontSize = gameMode === 'hard' ? 12 : 16;
+                ctx.font = `bold ${fontSize}px Arial`;
                 ctx.fillStyle = '#2d3436';
                 ctx.strokeStyle = 'white';
                 ctx.lineWidth = 3;
