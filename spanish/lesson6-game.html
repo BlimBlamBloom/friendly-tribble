@@ -338,8 +338,6 @@
                         score++;
                         
                         if (gameMode === 'easy') {
-                            currentPronounIndex++;
-                            
                             if (ghosts.length === 0) {
                                 currentLevel++;
                                 if (currentLevel >= verbs.length) {
@@ -350,6 +348,8 @@
                                 } else {
                                     initLevel();
                                 }
+                            } else {
+                                currentPronounIndex = ghosts[0].pronounIndex;
                             }
                         } else {
                             document.getElementById('scoreDisplay').textContent = 'Score: ' + score;
