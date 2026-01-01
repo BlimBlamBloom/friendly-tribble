@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verb Uno</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #2d3436 0%, #000000 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: white;
+        }
+
+        #gameContainer {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 48px;
+            margin-bottom: 30px;
+            color: #ffd700;
+        }
+
+        #startScreen {
+            text-align: center;
+            background: white;
+            color: #2d3436;
+            padding: 50px;
+            border-radius: 20px;
+            max-width: 800px;
+            margin: 0 auto 30px;
+        }
+
+        #startScreen h2 {
+            color: #667eea;
+            font-size: 36px;
+            margin-bottom: 30px;
+        }
+
+        #startScreen button {
+            margin: 10px;
+        }
+
+        #howToPlay {
+            display: none;
+            text-align: left;
+            margin: 30px auto;
+            padding: 30px;
+            background: #f8f9fa;
+            border-radius: 15px;
+            max-width: 700px;
+        }
+
+        #howToPlay h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+
+        #howToPlay p, #howToPlay ul {
+            font-size: 18px;
+            line-height: 1.8;
+            margin-bottom: 15px;
+        }
+
+        #howToPlay ul {
+            margin-left: 20px;
+        }
+
+        #howToPlay li {
+            margin-bottom: 10px;
+        }
+
+        #gameBoard {
+            display: grid;
+            grid-template-rows: auto auto auto;
+            grid-template-columns: 200px 1fr 200px;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .opponent-left {
+            grid-row: 2;
+            grid-column: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .opponent-top {
+            grid-row: 1;
+            grid-column: 2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .opponent-right {
+            grid-row: 2;
+            grid-column: 3;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .opponent-cards {
+            display: flex;
+            gap: -30px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .opponent-cards-vertical {
+            display: flex;
+            flex-direction: column;
+            gap: -30px;
+            align-items: center;
+        }
+
+        .mini-card {
+            width: 50px;
+            height: 70px;
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            border-radius: 8px;
+            border: 2px solid rgba(255,255,255,0.3);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .opponent-area {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .player-info {
+            font-size: 20px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .card-count {
+            background: rgba(255,255,255,0.2);
+            padding: 8px 15px;
+            border-radius: 8px;
+            font-size: 16px;
+            margin-top: 5px;
+        }
+
+        #centerArea {
+            grid-row: 2;
+            grid-column: 2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 40px;
+            padding: 40px;
+        }
+
+        #playerArea {
+            grid-row: 3;
+            grid-column: 1 / 4;
+        }
+
+        .card {
+            width: 140px;
+            height: 200px;
+            border-radius: 15px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-size: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+            border: 4px solid rgba(255,255,255,0.3);
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+        }
+
+        .card.unplayable {
+            opacity: 0.5;
+        }
+
+        .card-back {
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            color: white;
+            font-size: 48px;
+        }
+
+        .pronoun {
+            font-size: 18px;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        .verb {
+            font-size: 24px;
+            color: white;
+        }
+
+        .color-yo { background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%); }
+        .color-tu { background: linear-gradient(135deg, #3498db 0%, #2980b9 100%); }
+        .color-el { background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%); }
+        .color-nosotros { background: linear-gradient(135deg, #f39c12 0%, #d68910 100%); }
+        .color-vosotros { background: linear-gradient(135deg, #9b59b6 0%, #8e44ad 100%); }
+        .color-ellos { background: linear-gradient(135deg, #1abc9c 0%, #16a085 100%); }
+
+        #playerHand {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            padding: 20px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 20px;
+        }
+
+        #drawPile {
+            cursor: pointer;
+        }
+
+        #drawPile:hover {
+            transform: scale(1.05);
+        }
+
+        #message {
+            text-align: center;
+            font-size: 28px;
+            font-weight: bold;
+            min-height: 40px;
+            color: #ffd700;
+        }
+
+        #gameOver {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            color: #2d3436;
+            padding: 50px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+            display: none;
+            z-index: 1000;
+        }
+
+        #gameOver h2 {
+            font-size: 42px;
+            margin-bottom: 30px;
+            color: #ffd700;
+        }
+
+        .standings {
+            font-size: 24px;
+            margin: 20px 0;
+            text-align: left;
+        }
+
+        .standings div {
+            padding: 10px;
+            margin: 5px 0;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+
+        button {
+            font-size: 24px;
+            padding: 15px 40px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+
+        button:hover {
+            background: #764ba2;
+        }
+
+        .flying-card {
+            position: fixed;
+            width: 140px;
+            height: 200px;
+            border-radius: 15px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-size: 20px;
+            font-weight: bold;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+            border: 4px solid rgba(255,255,255,0.3);
+            z-index: 1000;
+            pointer-events: none;
+            transition: all 0.6s ease-in-out;
+        }
+    </style>
+</head>
+<body>
+    <div id="gameContainer">
+        <h1>🎴 Verb Uno 🎴</h1>
+        
+        <div id="startScreen">
+            <h2>Welcome to Verb Uno!</h2>
+            <button onclick="startGame()">Start Game</button>
+            <button onclick="toggleRules()">How to Play</button>
+            
+            <div id="howToPlay">
+                <h3>How to Play Verb Uno</h3>
+                <p><strong>Objective:</strong> Be the first player to play all your cards.</p>
+                
+                <h3>Setup:</h3>
+                <ul>
+                    <li>Each player starts with 7 cards</li>
+                    <li>One card is placed face-up to start the discard pile</li>
+                </ul>
+                
+                <h3>Card Colors:</h3>
+                <ul>
+                    <li>Each colour represents a pronoun: je, tu, il/elle/on, nous, vous, ils/elles</li>
+                    <li>Each card also shows a conjugated verb</li>
+                </ul>
+                
+                <h3>On Your Turn:</h3>
+                <ul>
+                    <li>Play a card that matches either the COLOUR (pronoun) OR the VERB of the top card</li>
+                    <li>If you can't play or don't want to, click DRAW to draw a card. Your turn then ends.</li>
+                </ul>
+                
+                <h3>Winning:</h3>
+                <p>The first player to play all their cards wins!</p>
+            </div>
+        </div>
+        
+        <div id="gameBoard" style="display: none;">
+            <div class="opponent-top">
+                <div class="player-info">
+                    <div>Computer 2</div>
+                    <div class="card-count" id="comp2Cards">7 cards</div>
+                </div>
+                <div class="opponent-cards" id="comp2Display"></div>
+            </div>
+
+            <div class="opponent-left">
+                <div class="player-info">
+                    <div>Computer 1</div>
+                    <div class="card-count" id="comp1Cards">7 cards</div>
+                </div>
+                <div class="opponent-cards-vertical" id="comp1Display"></div>
+            </div>
+
+            <div id="centerArea">
+                <div class="card card-back" id="drawPile" onclick="drawCard()">
+                    DRAW
+                </div>
+                <div class="card" id="discardPile"></div>
+            </div>
+
+            <div class="opponent-right">
+                <div class="player-info">
+                    <div>Computer 3</div>
+                    <div class="card-count" id="comp3Cards">7 cards</div>
+                </div>
+                <div class="opponent-cards-vertical" id="comp3Display"></div>
+            </div>
+
+            <div id="playerArea">
+                <div id="message"></div>
+                <div id="playerHand"></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="gameOver">
+        <h2 id="winnerText"></h2>
+        <div class="standings" id="standings"></div>
+        <button onclick="restartGame()">Play Again</button>
+    </div>
+
+    <script>
+        const verbs = {
+        avoir: ['ai', 'as', 'a', 'avons', 'avez', 'ont'],
+        être: ['suis', 'es', 'est', 'sommes', 'êtes', 'sont'],
+        vouloir: ['veux', 'veux', 'veut', 'voulons', 'voulez', 'veulent'],
+        pouvoir: ['peux', 'peux', 'peut', 'pouvons', 'pouvez', 'peuvent'],
+        manger: ['mange', 'manges', 'mange', 'mangeons', 'mangez', 'mangent'],
+        danser: ['danse', 'danses', 'danse', 'dansons', 'dansez', 'dansent'],
+        aller: ['vais', 'vas', 'va', 'allons', 'allez', 'vont'],
+        lire: ['lis', 'lis', 'lit', 'lisons', 'lisez', 'lisent'],
+        dormir: ['dors', 'dors', 'dort', 'dormons', 'dormez', 'dorment'],
+        regarder: ['regarde', 'regardes', 'regarde', 'regardons', 'regardez', 'regardent']
+        };
+      
+        const pronouns = ['je', 'tu', 'il/elle/on', 'nous', 'vous', 'ils/elles'];
+        const colors = ['je', 'tu', 'il/elle/on', 'nous', 'vous', 'ils/elles'];
+
+        let deck = [];
+        let playerHand = [];
+        let comp1Hand = [];
+        let comp2Hand = [];
+        let comp3Hand = [];
+        let discardPile = [];
+        let currentPlayer = 0;
+
+        function toggleRules() {
+            const rules = document.getElementById('howToPlay');
+            rules.style.display = rules.style.display === 'none' ? 'block' : 'none';
+        }
+
+        function startGame() {
+            document.getElementById('startScreen').style.display = 'none';
+            document.getElementById('gameBoard').style.display = 'grid';
+            initGame();
+        }
+
+        function createDeck() {
+            deck = [];
+            Object.keys(verbs).forEach(verb => {
+                verbs[verb].forEach((conjugation, index) => {
+                    for (let i = 0; i < 2; i++) {
+                        deck.push({
+                            verb: verb,
+                            conjugation: conjugation,
+                            pronoun: pronouns[index],
+                            color: colors[index]
+                        });
+                    }
+                });
+            });
+            shuffleDeck();
+        }
+
+        function shuffleDeck() {
+            for (let i = deck.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [deck[i], deck[j]] = [deck[j], deck[i]];
+            }
+        }
+
+        function dealCards() {
+            playerHand = deck.splice(0, 7);
+            comp1Hand = deck.splice(0, 7);
+            comp2Hand = deck.splice(0, 7);
+            comp3Hand = deck.splice(0, 7);
+            discardPile = [deck.pop()];
+        }
+
+        function renderCard(card, index = null) {
+            const cardEl = document.createElement('div');
+            cardEl.className = `card color-${card.color}`;
+            cardEl.innerHTML = `
+                <div class="pronoun">${card.pronoun}</div>
+                <div class="verb">${card.conjugation}</div>
+            `;
+            if (index !== null && currentPlayer === 0) {
+                cardEl.onclick = () => playCard(index);
+            }
+            return cardEl;
+        }
+
+        function renderHand() {
+            const handEl = document.getElementById('playerHand');
+            handEl.innerHTML = '';
+            
+            playerHand.forEach((card, index) => {
+                handEl.appendChild(renderCard(card, index));
+            });
+
+            // Render opponent card backs
+            renderOpponentCards('comp1Display', comp1Hand.length);
+            renderOpponentCards('comp2Display', comp2Hand.length);
+            renderOpponentCards('comp3Display', comp3Hand.length);
+
+            document.getElementById('comp1Cards').textContent = `${comp1Hand.length} cards`;
+            document.getElementById('comp2Cards').textContent = `${comp2Hand.length} cards`;
+            document.getElementById('comp3Cards').textContent = `${comp3Hand.length} cards`;
+            
+            const discardEl = document.getElementById('discardPile');
+            discardEl.innerHTML = '';
+            if (discardPile.length > 0) {
+                const topCard = discardPile[discardPile.length - 1];
+                discardEl.className = `card color-${topCard.color}`;
+                discardEl.innerHTML = `
+                    <div class="pronoun">${topCard.pronoun}</div>
+                    <div class="verb">${topCard.conjugation}</div>
+                `;
+            }
+        }
+
+        function renderOpponentCards(elementId, count) {
+            const container = document.getElementById(elementId);
+            container.innerHTML = '';
+            for (let i = 0; i < count; i++) {
+                const cardBack = document.createElement('div');
+                cardBack.className = 'mini-card';
+                container.appendChild(cardBack);
+            }
+        }
+
+        function isValidPlay(card) {
+            const topCard = discardPile[discardPile.length - 1];
+            return card.color === topCard.color || card.verb === topCard.verb;
+        }
+
+        function playCard(index) {
+            if (currentPlayer !== 0) return;
+            
+            const card = playerHand[index];
+            if (!isValidPlay(card)) {
+                document.getElementById('message').textContent = 'Invalid play! Must match color or verb.';
+                return;
+            }
+            
+            playerHand.splice(index, 1);
+            discardPile.push(card);
+            
+            if (playerHand.length === 0) {
+                endGame('You');
+                return;
+            }
+            
+            document.getElementById('message').textContent = '';
+            nextTurn();
+        }
+
+        function drawCard() {
+            if (currentPlayer !== 0) return;
+            
+            if (deck.length === 0) {
+                const topCard = discardPile.pop();
+                deck = [...discardPile];
+                discardPile = [topCard];
+                shuffleDeck();
+            }
+            
+            playerHand.push(deck.pop());
+            renderHand();
+            document.getElementById('message').textContent = '';
+            nextTurn();
+        }
+
+        function computerPlay(hand) {
+            for (let i = 0; i < hand.length; i++) {
+                if (isValidPlay(hand[i])) {
+                    const card = hand.splice(i, 1)[0];
+                    return card;
+                }
+            }
+            
+            if (deck.length === 0) {
+                const topCard = discardPile.pop();
+                deck = [...discardPile];
+                discardPile = [topCard];
+                shuffleDeck();
+            }
+            
+            hand.push(deck.pop());
+            return null;
+        }
+
+        function animateCardPlay(card, fromElement, callback) {
+            const flyingCard = document.createElement('div');
+            flyingCard.className = `flying-card color-${card.color}`;
+            flyingCard.innerHTML = `
+                <div class="pronoun">${card.pronoun}</div>
+                <div class="verb">${card.conjugation}</div>
+            `;
+            
+            const fromRect = fromElement.getBoundingClientRect();
+            const toRect = document.getElementById('discardPile').getBoundingClientRect();
+            
+            flyingCard.style.left = fromRect.left + 'px';
+            flyingCard.style.top = fromRect.top + 'px';
+            
+            document.body.appendChild(flyingCard);
+            
+            setTimeout(() => {
+                flyingCard.style.left = toRect.left + 'px';
+                flyingCard.style.top = toRect.top + 'px';
+            }, 50);
+            
+            setTimeout(() => {
+                document.body.removeChild(flyingCard);
+                discardPile.push(card);
+                renderHand();
+                callback();
+            }, 650);
+        }
+
+        function nextTurn() {
+            currentPlayer = (currentPlayer + 1) % 4;
+            renderHand();
+            
+            if (currentPlayer === 1) {
+                document.getElementById('message').textContent = 'Computer 1 is playing...';
+                setTimeout(() => {
+                    const card = computerPlay(comp1Hand);
+                    if (card) {
+                        const fromElement = document.getElementById('comp1Display');
+                        animateCardPlay(card, fromElement, () => {
+                            if (comp1Hand.length === 0) {
+                                endGame('Computer 1');
+                            } else {
+                                nextTurn();
+                            }
+                        });
+                    } else {
+                        renderHand();
+                        if (comp1Hand.length === 0) {
+                            endGame('Computer 1');
+                        } else {
+                            nextTurn();
+                        }
+                    }
+                }, 1000);
+            } else if (currentPlayer === 2) {
+                document.getElementById('message').textContent = 'Computer 2 is playing...';
+                setTimeout(() => {
+                    const card = computerPlay(comp2Hand);
+                    if (card) {
+                        const fromElement = document.getElementById('comp2Display');
+                        animateCardPlay(card, fromElement, () => {
+                            if (comp2Hand.length === 0) {
+                                endGame('Computer 2');
+                            } else {
+                                nextTurn();
+                            }
+                        });
+                    } else {
+                        renderHand();
+                        if (comp2Hand.length === 0) {
+                            endGame('Computer 2');
+                        } else {
+                            nextTurn();
+                        }
+                    }
+                }, 1000);
+            } else if (currentPlayer === 3) {
+                document.getElementById('message').textContent = 'Computer 3 is playing...';
+                setTimeout(() => {
+                    const card = computerPlay(comp3Hand);
+                    if (card) {
+                        const fromElement = document.getElementById('comp3Display');
+                        animateCardPlay(card, fromElement, () => {
+                            if (comp3Hand.length === 0) {
+                                endGame('Computer 3');
+                            } else {
+                                nextTurn();
+                            }
+                        });
+                    } else {
+                        renderHand();
+                        if (comp3Hand.length === 0) {
+                            endGame('Computer 3');
+                        } else {
+                            nextTurn();
+                        }
+                    }
+                }, 1000);
+            } else {
+                document.getElementById('message').textContent = 'Your turn! Play a card or draw.';
+            }
+        }
+
+        function endGame(winner) {
+            const standings = [
+                { name: 'You', cards: playerHand.length },
+                { name: 'Computer 1', cards: comp1Hand.length },
+                { name: 'Computer 2', cards: comp2Hand.length },
+                { name: 'Computer 3', cards: comp3Hand.length }
+            ].sort((a, b) => a.cards - b.cards);
+            
+            if (winner === 'You') {
+                document.getElementById('winnerText').textContent = '¡Félicitations!';
+            } else {
+                document.getElementById('winnerText').textContent = `${winner} wins!`;
+            }
+            
+            let standingsHTML = '<h3>Final Standings:</h3>';
+            standings.forEach((player, index) => {
+                standingsHTML += `<div>${index + 1}. ${player.name} - ${player.cards} cards remaining</div>`;
+            });
+            
+            document.getElementById('standings').innerHTML = standingsHTML;
+            document.getElementById('gameOver').style.display = 'block';
+        }
+
+        function restartGame() {
+            document.getElementById('gameOver').style.display = 'none';
+            document.getElementById('gameBoard').style.display = 'none';
+            document.getElementById('startScreen').style.display = 'block';
+        }
+
+        function initGame() {
+            createDeck();
+            dealCards();
+            currentPlayer = 0;
+            document.getElementById('message').textContent = 'Your turn! Play a card or draw.';
+            renderHand();
+        }
+    </script>
+</body>
+</html>
