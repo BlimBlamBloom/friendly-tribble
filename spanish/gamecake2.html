@@ -393,10 +393,9 @@
             });
         }
 
-        function selectCake(index) {
+      function selectCake(index) {
     const word = availableCakes[index];
     const q = selectedQuestions[currentQuestion];
-    const expectedWord = q.answer[currentStack.length]; // word expected in sequence
 
     const character = document.getElementById('character');
     character.className = 'character-grab';
@@ -404,13 +403,14 @@
     setTimeout(() => {
         character.className = '';
 
-        if (word === expectedWord) {
-            // ✅ Correct word in sequence
+        // Check if the clicked word is in the remaining answer sequence
+        const nextWord = q.answer[currentStack.length];
+        if (word === nextWord) {
+            // Correct word in sequence
             currentStack.push(word);
 
-            // Remove from availableCakes by value
-            const cakeIndex = availableCakes.indexOf(word);
-            if (cakeIndex !== -1) availableCakes.splice(cakeIndex, 1);
+            // Remove word from availableCakes
+            availableCakes.splice(index, 1);
 
             renderCakes();
             renderStack();
@@ -431,25 +431,22 @@
 
                     currentQuestion++;
                     if (currentQuestion < selectedQuestions.length) {
-                        setTimeout(() => startQuestion(), 500);
+                        startQuestion();
                     } else {
-                        setTimeout(() => {
-                            document.getElementById('gameArea').style.display = 'none';
-                            document.getElementById('questionNumber').style.display = 'none';
-                            document.getElementById('targetSentence').style.display = 'none';
-                            document.getElementById('feedback').style.display = 'none';
-                            document.getElementById('character').style.display = 'none';
-                            document.getElementById('completionScreen').style.display = 'block';
-                        }, 500);
+                        document.getElementById('gameArea').style.display = 'none';
+                        document.getElementById('questionNumber').style.display = 'none';
+                        document.getElementById('targetSentence').style.display = 'none';
+                        document.getElementById('feedback').style.display = 'none';
+                        document.getElementById('character').style.display = 'none';
+                        document.getElementById('completionScreen').style.display = 'block';
                     }
                 }, 1200);
             }
         } else {
-            // ❌ Incorrect
+            // Incorrect click — fall the current stack
             document.getElementById('feedback').textContent = '¡Ay caramba!';
             document.getElementById('feedback').className = 'incorrect';
 
-            // animate stacked cakes falling
             const stackedCakes = document.querySelectorAll('.stacked-cake');
             stackedCakes.forEach((cake, i) => {
                 setTimeout(() => {
@@ -457,10 +454,12 @@
                 }, i * 150);
             });
 
+            // Restart question after a short delay
             setTimeout(() => startQuestion(), 2000);
         }
-    }, 450);
+    }, 200);
 }
+
 
 
         function restartGame() {
