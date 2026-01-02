@@ -461,13 +461,7 @@
             return; // don't render the game yet
         }
 
-        // --- 2. Check if anyone has won ---
-        for (const [pid, player] of Object.entries(gameState.players)) {
-            if (player.hand.length === 0) {
-                endGame(player.name);
-                return; // stop further rendering
-            }
-        }
+  
 
         // --- 3. Render the game ---
         document.getElementById('lobbyScreen').style.display = 'none';
@@ -586,10 +580,10 @@
             return card.color === topCard.color || card.verb === topCard.verb;
         }
 
-        window.playCard = function(index) {
+       window.playCard = function(index) {
     const myTurn = (myPlayerId === 'player0' && gameState.currentPlayer === 0) ||
                   (myPlayerId === 'player1' && gameState.currentPlayer === 1);
-    
+
     if (!myTurn) return;
 
     const card = gameState.players[myPlayerId].hand[index];
@@ -601,7 +595,7 @@
 
     const newHand = [...gameState.players[myPlayerId].hand];
     newHand.splice(index, 1);
-    
+
     const newDiscardPile = [...gameState.discardPile, card];
     const nextPlayer = gameState.currentPlayer === 0 ? 1 : 0;
 
@@ -610,13 +604,14 @@
         [`players/${myPlayerId}/hand`]: newHand,
         discardPile: newDiscardPile,
         currentPlayer: nextPlayer
-    }).then(() => {
-        // Immediate check
-        if (newHand.length === 0) {
-            endGame(myPlayerName);
-        }
     });
+
+    // **Check if I won immediately**
+    if (newHand.length === 0) {
+        endGame(myPlayerName);
+    }
 };
+
 
         window.drawCard = function() {
             const myTurn = (myPlayerId === 'player0' && gameState.currentPlayer === 0) ||
