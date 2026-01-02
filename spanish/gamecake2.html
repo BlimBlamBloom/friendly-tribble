@@ -64,11 +64,6 @@
             transition: all 0.3s;
             box-shadow: 0 4px 8px rgba(0,0,0,0.2);
             position: relative;
-            visibility: visible;
-        }
-
-        .cake.hidden {
-            visibility: hidden;
         }
 
         .cake:hover {
@@ -124,9 +119,9 @@
 
         #character {
             position: fixed;
-            bottom: 50%;
+            bottom: 100px;
             left: 50%;
-            transform: translate(-50%, 250px);
+            transform: translateX(-50%);
             font-size: 80px;
             transition: all 0.5s;
             z-index: 100;
@@ -141,14 +136,16 @@
         }
 
         @keyframes grab {
-            0% { transform: translate(-50%, 250px) scale(1); }
-            50% { transform: translate(-50%, -100px) scale(1.2) rotate(10deg); }
-            100% { transform: translate(-50%, 250px) scale(1); }
+            0% { transform: translateX(-50%) scale(1); }
+            25% { left: 30%; }
+            50% { transform: translateX(-50%) scale(1.2) rotate(10deg); }
+            75% { left: 50%; }
+            100% { transform: translateX(-50%) scale(1); }
         }
 
         @keyframes carry {
-            0% { transform: translate(-50%, 250px) scale(1); }
-            100% { transform: translate(-150%, 250px) scale(1); }
+            0% { left: 50%; transform: translateX(-50%) scale(1); }
+            100% { left: -10%; transform: translateX(-50%) scale(1); }
         }
 
         .carry-stack {
@@ -223,17 +220,6 @@
             background: #e17055;
         }
 
-        #skipBtn {
-            font-size: 18px;
-            padding: 10px 25px;
-            background: #636e72;
-            margin-top: 10px;
-        }
-
-        #skipBtn:hover {
-            background: #b2bec3;
-        }
-
         #targetSentence {
             display: none;
         }
@@ -243,7 +229,6 @@
     <h1>🎂 Pastelería 🎂</h1>
     
     <div id="questionNumber"></div>
-    <button id="skipBtn" onclick="skipQuestion()">Skip Question</button>
     <div id="targetSentence"></div>
     <div id="feedback"></div>
     
@@ -330,49 +315,22 @@
             
             document.getElementById('questionNumber').textContent = `Pregunta ${currentQuestion + 1} de ${selectedQuestions.length}`;
             document.getElementById('feedback').textContent = '';
-            document.getElementById('skipBtn').style.display = 'inline-block';
-            
-            const container = document.getElementById('cakeSelection');
-            container.innerHTML = '';
             
             renderCakes();
             renderStack();
         }
 
-        function skipQuestion() {
-            currentQuestion++;
-            if (currentQuestion >= selectedQuestions.length) {
-                document.getElementById('gameArea').style.display = 'none';
-                document.getElementById('questionNumber').style.display = 'none';
-                document.getElementById('targetSentence').style.display = 'none';
-                document.getElementById('feedback').style.display = 'none';
-                document.getElementById('character').style.display = 'none';
-                document.getElementById('skipBtn').style.display = 'none';
-                document.getElementById('completionScreen').style.display = 'block';
-            } else {
-                startQuestion();
-            }
-        }
-
         function renderCakes() {
             const container = document.getElementById('cakeSelection');
-            if (container.children.length === 0) {
-                availableCakes.forEach((word, index) => {
-                    const cake = document.createElement('div');
-                    cake.className = 'cake';
-                    cake.textContent = word;
-                    cake.onclick = () => selectCake(index);
-                    cake.dataset.index = index;
-                    container.appendChild(cake);
-                });
-            } else {
-                Array.from(container.children).forEach((cake, i) => {
-                    if (!availableCakes.includes(cake.textContent)) {
-                        cake.classList.add('hidden');
-                        cake.onclick = null;
-                    }
-                });
-            }
+            container.innerHTML = '';
+            
+            availableCakes.forEach((word, index) => {
+                const cake = document.createElement('div');
+                cake.className = 'cake';
+                cake.textContent = word;
+                cake.onclick = () => selectCake(index);
+                container.appendChild(cake);
+            });
         }
 
         function renderStack() {
@@ -393,79 +351,70 @@
             });
         }
 
-    function selectCake(index) {
-    const word = availableCakes[index];
-    const q = selectedQuestions[currentQuestion];
-    const character = document.getElementById('character');
-    character.className = 'character-grab';
-
-    setTimeout(() => {
-        character.className = '';
-
-        // Instead of comparing by index, compare by value
-        const nextWord = q.answer[currentStack.length];
-        if (word === nextWord) {
-            // Add word to stack
-            currentStack.push(word);
-
-            // Remove the clicked word from availableCakes by value
-            availableCakes = availableCakes.filter(w => w !== word);
-
-            renderCakes();
-            renderStack();
-
-            // Check if sentence complete
-            if (currentStack.length === q.answer.length) {
-                document.getElementById('feedback').textContent = '¡Perfecto!';
-                document.getElementById('feedback').className = 'correct';
-                document.getElementById('skipBtn').style.display = 'none';
-
-                character.className = 'character-carry';
-                const stackArea = document.getElementById('stackArea');
-                stackArea.className = 'carry-stack';
-
-                setTimeout(() => {
-                    character.className = '';
-                    character.style.transform = 'translate(-50%, 250px)';
-                    stackArea.className = '';
-
-                    currentQuestion++;
-                    if (currentQuestion < selectedQuestions.length) {
-                        startQuestion();
-                    } else {
-                        document.getElementById('gameArea').style.display = 'none';
-                        document.getElementById('questionNumber').style.display = 'none';
-                        document.getElementById('targetSentence').style.display = 'none';
-                        document.getElementById('feedback').style.display = 'none';
-                        document.getElementById('character').style.display = 'none';
-                        document.getElementById('completionScreen').style.display = 'block';
+        function selectCake(index) {
+            const word = availableCakes[index];
+            const q = selectedQuestions[currentQuestion];
+            const expectedWord = q.answer[currentStack.length];
+            
+            const character = document.getElementById('character');
+            character.className = 'character-grab';
+            
+            setTimeout(() => {
+                character.className = '';
+                
+                if (word === expectedWord) {
+                    currentStack.push(word);
+                    availableCakes.splice(index, 1);
+                    renderCakes();
+                    renderStack();
+                    
+                    if (currentStack.length === q.answer.length) {
+                        document.getElementById('feedback').textContent = '¡Perfecto!';
+                        document.getElementById('feedback').className = 'correct';
+                        
+                        character.className = 'character-carry';
+                        const stackArea = document.getElementById('stackArea');
+                        stackArea.className = 'carry-stack';
+                        
+                        setTimeout(() => {
+                            character.className = '';
+                            character.style.left = '50%';
+                            stackArea.className = '';
+                            
+                            currentQuestion++;
+                            if (currentQuestion < selectedQuestions.length) {
+                                setTimeout(() => {
+                                    startQuestion();
+                                }, 500);
+                            } else {
+                                setTimeout(() => {
+                                    document.getElementById('gameArea').style.display = 'none';
+                                    document.getElementById('questionNumber').style.display = 'none';
+                                    document.getElementById('targetSentence').style.display = 'none';
+                                    document.getElementById('feedback').style.display = 'none';
+                                    document.getElementById('character').style.display = 'none';
+                                    document.getElementById('completionScreen').style.display = 'block';
+                                }, 500);
+                            }
+                        }, 1200);
                     }
-                }, 1200);
-            }
-        } else {
-            // Wrong word clicked
-            document.getElementById('feedback').textContent = '¡Ay caramba!';
-            document.getElementById('feedback').className = 'incorrect';
-
-            const stackedCakes = document.querySelectorAll('.stacked-cake');
-            stackedCakes.forEach((cake, i) => {
-                setTimeout(() => {
-                    cake.classList.add('falling');
-                }, i * 150);
-            });
-
-            setTimeout(() => startQuestion(), 2000);
+                } else {
+                    document.getElementById('feedback').textContent = '¡Ay caramba!';
+                    document.getElementById('feedback').className = 'incorrect';
+                    
+                    const stackedCakes = document.querySelectorAll('.stacked-cake');
+                    stackedCakes.forEach((cake, i) => {
+                        setTimeout(() => {
+                            cake.classList.add('falling');
+                        }, i * 150);
+                    });
+                    
+                    setTimeout(() => {
+                        startQuestion();
+                    }, 2000);
+                }
+            }, 450);
         }
-    }, 200);
-}
-
-            // Restart question after a short delay
-            setTimeout(() => startQuestion(), 2000);
-        }
-    }, 200);
-}
-
-
 
         function restartGame() {
             currentQuestion = 0;
@@ -476,7 +425,6 @@
             document.getElementById('targetSentence').style.display = 'block';
             document.getElementById('feedback').style.display = 'block';
             document.getElementById('character').style.display = 'block';
-            document.getElementById('skipBtn').style.display = 'inline-block';
             startQuestion();
         }
 
