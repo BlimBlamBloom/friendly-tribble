@@ -64,11 +64,6 @@
             transition: all 0.3s;
             box-shadow: 0 4px 8px rgba(0,0,0,0.2);
             position: relative;
-            visibility: visible;
-        }
-
-        .cake.hidden {
-            visibility: hidden;
         }
 
         .cake:hover {
@@ -124,9 +119,9 @@
 
         #character {
             position: fixed;
-            bottom: 50%;
+            bottom: 100px;
             left: 50%;
-            transform: translate(-50%, 250px);
+            transform: translateX(-50%);
             font-size: 80px;
             transition: all 0.5s;
             z-index: 100;
@@ -141,14 +136,16 @@
         }
 
         @keyframes grab {
-            0% { transform: translate(-50%, 250px) scale(1); }
-            50% { transform: translate(-50%, -100px) scale(1.2) rotate(10deg); }
-            100% { transform: translate(-50%, 250px) scale(1); }
+            0% { transform: translateX(-50%) scale(1); }
+            25% { left: 30%; }
+            50% { transform: translateX(-50%) scale(1.2) rotate(10deg); }
+            75% { left: 50%; }
+            100% { transform: translateX(-50%) scale(1); }
         }
 
         @keyframes carry {
-            0% { transform: translate(-50%, 250px) scale(1); }
-            100% { transform: translate(-150%, 250px) scale(1); }
+            0% { left: 50%; transform: translateX(-50%) scale(1); }
+            100% { left: -10%; transform: translateX(-50%) scale(1); }
         }
 
         .carry-stack {
@@ -223,27 +220,23 @@
             background: #e17055;
         }
 
-        #skipBtn {
-            font-size: 18px;
-            padding: 10px 25px;
-            background: #636e72;
-            margin-top: 10px;
-        }
-
-        #skipBtn:hover {
-            background: #b2bec3;
-        }
-
         #targetSentence {
             display: none;
         }
+        @media (max-width: 768px) {
+    #gameArea {
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+    }
+}
+
     </style>
 </head>
 <body>
     <h1>🎂 Pastelería 🎂</h1>
     
     <div id="questionNumber"></div>
-    <button id="skipBtn" onclick="skipQuestion()">Skip Question</button>
     <div id="targetSentence"></div>
     <div id="feedback"></div>
     
@@ -271,8 +264,8 @@
             { words: ['leo', 'yo', 'libros', 'biblioteca', 'en', 'la'], answer: ['yo', 'leo', 'libros', 'en', 'la', 'biblioteca'] },
             { words: ['monta', 'ella', 'una', 'bicicleta'], answer: ['ella', 'monta', 'una', 'bicicleta'] },
             { words: ['vas', 'tú', 'a', 'la', 'clase', 'hoy'], answer: ['tú', 'vas', 'a', 'la', 'clase', 'hoy'] },
-            { words: ['come', 'ella', 'pescado', 'restaurante'], answer: ['ella', 'come', 'pescado', 'restaurante'] },
-            { words: ['escuchamos', 'nosotros', 'la', 'música', 'universidad', 'en'], answer: ['nosotros', 'escuchamos', 'la', 'música', 'en', 'universidad'] },
+            { words: ['come', 'ella', 'pescado', 'en', 'restaurante', 'la'], answer: ['ella', 'come', 'pescado', 'en', 'la', 'restaurante'] },
+            { words: ['escuchamos', 'nosotros', 'la', 'música', 'universidad', 'en'], answer: ['nosotros', 'escuchamos', 'música', 'en', 'la', 'universidad'] },
             { words: ['leo', 'tú', 'libros', 'clase', 'en'], answer: ['tú', 'leo', 'libros', 'en', 'clase'] },
             { words: ['bebes', 'tú', 'agua', 'en', 'clase'], answer: ['tú', 'bebes', 'agua', 'en', 'clase'] },
             { words: ['me', 'gustan', 'los', 'libros'], answer: ['me', 'gustan', 'los', 'libros'] },
@@ -284,9 +277,9 @@
             { words: ['escucho', 'yo', 'música', 'clase', 'en', 'mi'], answer: ['yo', 'escucho', 'música', 'en', 'mi', 'clase'] },
             { words: ['escuchas', 'tú', 'música', 'escuela', 'en', 'la'], answer: ['tú', 'escuchas', 'música', 'en', 'la', 'escuela'] },
             { words: ['escucha', 'ella', 'música', 'casa', 'en', 'la'], answer: ['ella', 'escucha', 'música', 'en', 'la', 'casa'] },
-            { words: ['leo', 'yo', 'libro', 'biblioteca', 'en', 'la'], answer: ['yo', 'leo', 'libro', 'en', 'la', 'biblioteca'] },
-            { words: ['lees', 'tú', 'libro', 'clase'], answer: ['tú', 'lees', 'libro', 'clase'] },
-            { words: ['leen', 'ellos', 'libro', 'escuela', 'en', 'la'], answer: ['ellos', 'leen', 'libro', 'en', 'la', 'escuela'] },
+            { words: ['leo', 'yo', 'libro', 'biblioteca', 'un', 'en', 'la'], answer: ['yo', 'leo', 'un', 'libro', 'en', 'la', 'biblioteca'] },
+            { words: ['lees', 'tú', 'libro', 'clase', 'en', 'la'], answer: ['tú', 'lees', 'libro', 'en', 'la', 'clase'] },
+            { words: ['leen', 'ellos', 'libros', 'escuela', 'en', 'la'], answer: ['ellos', 'leen', 'libros', 'en', 'la', 'escuela'] },
             { words: ['voy', 'yo', 'a', 'la', 'biblioteca'], answer: ['yo', 'voy', 'a', 'la', 'biblioteca'] },
             { words: ['vas', 'tú', 'clase', 'a'], answer: ['tú', 'vas', 'a', 'clase'] },
             { words: ['comemos', 'nosotros', 'fruta', 'y', 'bebemos', 'agua'], answer: ['nosotros', 'comemos', 'fruta', 'y', 'bebemos', 'agua'] },
@@ -307,6 +300,7 @@
             { words: ['tengo', 'treinta', 'años'], answer: ['tengo', 'treinta', 'años'] },
             { words: ['tienes', 'veintiséis', 'años'], answer: ['tienes', 'veintiséis', 'años'] },
             { words: ['me', 'gusta', 'helado'], answer: ['me', 'gusta', 'helado'] },
+            { words: ['me', 'no', 'gusta', 'helado'], answer: ['no', 'me', 'gusta', 'helado'] },
             { words: ['me', 'gustan', 'libros'], answer: ['me', 'gustan', 'libros'] },
             { words: ['bebo', 'agua', 'yo'], answer: ['yo', 'bebo', 'agua'] },
             { words: ['comes', 'pollo', 'tú'], answer: ['tú', 'comes', 'pollo'] },
@@ -330,49 +324,22 @@
             
             document.getElementById('questionNumber').textContent = `Pregunta ${currentQuestion + 1} de ${selectedQuestions.length}`;
             document.getElementById('feedback').textContent = '';
-            document.getElementById('skipBtn').style.display = 'inline-block';
-            
-            const container = document.getElementById('cakeSelection');
-            container.innerHTML = '';
             
             renderCakes();
             renderStack();
         }
 
-        function skipQuestion() {
-            currentQuestion++;
-            if (currentQuestion >= selectedQuestions.length) {
-                document.getElementById('gameArea').style.display = 'none';
-                document.getElementById('questionNumber').style.display = 'none';
-                document.getElementById('targetSentence').style.display = 'none';
-                document.getElementById('feedback').style.display = 'none';
-                document.getElementById('character').style.display = 'none';
-                document.getElementById('skipBtn').style.display = 'none';
-                document.getElementById('completionScreen').style.display = 'block';
-            } else {
-                startQuestion();
-            }
-        }
-
         function renderCakes() {
             const container = document.getElementById('cakeSelection');
-            if (container.children.length === 0) {
-                availableCakes.forEach((word, index) => {
-                    const cake = document.createElement('div');
-                    cake.className = 'cake';
-                    cake.textContent = word;
-                    cake.onclick = () => selectCake(index);
-                    cake.dataset.index = index;
-                    container.appendChild(cake);
-                });
-            } else {
-                Array.from(container.children).forEach((cake, i) => {
-                    if (!availableCakes.includes(cake.textContent)) {
-                        cake.classList.add('hidden');
-                        cake.onclick = null;
-                    }
-                });
-            }
+            container.innerHTML = '';
+            
+            availableCakes.forEach((word, index) => {
+                const cake = document.createElement('div');
+                cake.className = 'cake';
+                cake.textContent = word;
+                cake.onclick = () => selectCake(index);
+                container.appendChild(cake);
+            });
         }
 
         function renderStack() {
@@ -406,15 +373,13 @@
                 
                 if (word === expectedWord) {
                     currentStack.push(word);
-                    const cakeIndex = availableCakes.indexOf(word);
-                    availableCakes.splice(cakeIndex, 1);
+                    availableCakes.splice(index, 1);
                     renderCakes();
                     renderStack();
                     
                     if (currentStack.length === q.answer.length) {
                         document.getElementById('feedback').textContent = '¡Perfecto!';
                         document.getElementById('feedback').className = 'correct';
-                        document.getElementById('skipBtn').style.display = 'none';
                         
                         character.className = 'character-carry';
                         const stackArea = document.getElementById('stackArea');
@@ -422,7 +387,7 @@
                         
                         setTimeout(() => {
                             character.className = '';
-                            character.style.transform = 'translate(-50%, 250px)';
+                            character.style.left = '50%';
                             stackArea.className = '';
                             
                             currentQuestion++;
@@ -469,7 +434,6 @@
             document.getElementById('targetSentence').style.display = 'block';
             document.getElementById('feedback').style.display = 'block';
             document.getElementById('character').style.display = 'block';
-            document.getElementById('skipBtn').style.display = 'inline-block';
             startQuestion();
         }
 
