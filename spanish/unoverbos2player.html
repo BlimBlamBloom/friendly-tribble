@@ -445,23 +445,37 @@
             }, { onlyOnce: true });
         };
 
-        function listenToGame(code) {
-            const gameRef = ref(database, `games/${code}`);
-        onValue(gameRef, (snapshot) => {
-    gameState = snapshot.val();
-    if (!gameState) return;
+   function listenToGame(code) {
+    const gameRef = ref(database, `games/${code}`);
 
-    // Check if anyone won
-    Object.entries(gameState.players).forEach(([pid, player]) => {
-        if (player.hand.length === 0) {
-            endGame(player.name);
+    onValue(gameRef, (snapshot) => {
+        gameState = snapshot.val();
+        if (!gameState) return;
+
+        // --- 1. Handle lobby / waiting for players ---
+        if (!gameState.started) {
+            document.getElementById('lobbyScreen').style.display = 'block';
+            document.getElementById('gameScreen').style.display = 'none';
+            document.getElementById('lobbyInfo').textContent =
+                `Waiting for players... (${gameState.playerCount}/2)`;
+            return; // don't render the game yet
         }
+
+        // --- 2. Check if anyone has won ---
+        for (const [pid, player] of Object.entries(gameState.players)) {
+            if (player.hand.length === 0) {
+                endGame(player.name);
+                return; // stop further rendering
+            }
+        }
+
+        // --- 3. Render the game ---
+        document.getElementById('lobbyScreen').style.display = 'none';
+        document.getElementById('gameScreen').style.display = 'block';
+        renderGame();
     });
+}
 
-    renderGame();
-});
-
-        }
 
         function createDeck() {
             const deck = [];
