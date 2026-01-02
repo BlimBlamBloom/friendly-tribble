@@ -393,28 +393,28 @@
             });
         }
 
-      function selectCake(index) {
+    function selectCake(index) {
     const word = availableCakes[index];
     const q = selectedQuestions[currentQuestion];
-
     const character = document.getElementById('character');
     character.className = 'character-grab';
 
     setTimeout(() => {
         character.className = '';
 
-        // Check if the clicked word is in the remaining answer sequence
+        // Instead of comparing by index, compare by value
         const nextWord = q.answer[currentStack.length];
         if (word === nextWord) {
-            // Correct word in sequence
+            // Add word to stack
             currentStack.push(word);
 
-            // Remove word from availableCakes
-            availableCakes.splice(index, 1);
+            // Remove the clicked word from availableCakes by value
+            availableCakes = availableCakes.filter(w => w !== word);
 
             renderCakes();
             renderStack();
 
+            // Check if sentence complete
             if (currentStack.length === q.answer.length) {
                 document.getElementById('feedback').textContent = '¡Perfecto!';
                 document.getElementById('feedback').className = 'correct';
@@ -443,7 +443,7 @@
                 }, 1200);
             }
         } else {
-            // Incorrect click — fall the current stack
+            // Wrong word clicked
             document.getElementById('feedback').textContent = '¡Ay caramba!';
             document.getElementById('feedback').className = 'incorrect';
 
@@ -453,6 +453,11 @@
                     cake.classList.add('falling');
                 }, i * 150);
             });
+
+            setTimeout(() => startQuestion(), 2000);
+        }
+    }, 200);
+}
 
             // Restart question after a short delay
             setTimeout(() => startQuestion(), 2000);
