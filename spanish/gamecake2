@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cake Shop Sentence Stacker</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(180deg, #ffeaa7 0%, #fab1a0 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+
+        h1 {
+            color: #d63031;
+            font-size: 48px;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        #gameArea {
+            display: flex;
+            gap: 40px;
+            align-items: flex-end;
+            margin-top: 40px;
+            width: 100%;
+            max-width: 1200px;
+            justify-content: center;
+        }
+
+        #cakeSelection {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            align-items: flex-end;
+            flex: 1;
+            min-height: 400px;
+            padding: 20px;
+            background: rgba(255,255,255,0.3);
+            border-radius: 20px;
+        }
+
+        .cake {
+            background: linear-gradient(135deg, #ff9ff3 0%, #feca57 100%);
+            border: 4px solid #ffffff;
+            border-radius: 15px;
+            padding: 20px 30px;
+            font-size: 24px;
+            font-weight: bold;
+            color: #2d3436;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            position: relative;
+            visibility: visible;
+        }
+
+        .cake.hidden {
+            visibility: hidden;
+        }
+
+        .cake:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+        }
+
+        .cake::before {
+            content: '🎂';
+            position: absolute;
+            top: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 30px;
+        }
+
+        #stackArea {
+            width: 400px;
+            min-height: 500px;
+            display: flex;
+            flex-direction: column-reverse;
+            align-items: center;
+            gap: 5px;
+            padding: 20px;
+            position: relative;
+        }
+
+        .stacked-cake {
+            background: linear-gradient(135deg, #ff9ff3 0%, #feca57 100%);
+            border: 4px solid #ffffff;
+            border-radius: 15px 15px 5px 5px;
+            padding: 15px;
+            font-size: 22px;
+            font-weight: bold;
+            color: #2d3436;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            text-align: center;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .stacked-cake::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            height: 8px;
+            background: linear-gradient(90deg, #ff6b9d 0%, #ffa502 100%);
+            border-radius: 0 0 5px 5px;
+        }
+
+        #character {
+            position: fixed;
+            bottom: 50%;
+            left: 50%;
+            transform: translate(-50%, 250px);
+            font-size: 80px;
+            transition: all 0.5s;
+            z-index: 100;
+        }
+
+        .character-grab {
+            animation: grab 0.4s;
+        }
+
+        .character-carry {
+            animation: carry 1s;
+        }
+
+        @keyframes grab {
+            0% { transform: translate(-50%, 250px) scale(1); }
+            50% { transform: translate(-50%, -100px) scale(1.2) rotate(10deg); }
+            100% { transform: translate(-50%, 250px) scale(1); }
+        }
+
+        @keyframes carry {
+            0% { transform: translate(-50%, 250px) scale(1); }
+            100% { transform: translate(-150%, 250px) scale(1); }
+        }
+
+        .carry-stack {
+            animation: carry-stack 1.2s forwards;
+        }
+
+        @keyframes carry-stack {
+            0% { transform: translateX(0); opacity: 1; }
+            100% { transform: translateX(-800px); opacity: 1; }
+        }
+
+        @keyframes fall {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            50% { transform: translateY(100px) rotate(45deg); opacity: 0.8; }
+            100% { transform: translateY(500px) rotate(90deg); opacity: 0; }
+        }
+
+        .falling {
+            animation: fall 1s forwards;
+        }
+
+        #questionNumber {
+            font-size: 28px;
+            color: #2d3436;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        #feedback {
+            font-size: 32px;
+            font-weight: bold;
+            margin-top: 10px;
+            min-height: 40px;
+        }
+
+        .correct {
+            color: #00b894;
+        }
+
+        .incorrect {
+            color: #d63031;
+        }
+
+        #completionScreen {
+            display: none;
+            text-align: center;
+            background: white;
+            padding: 50px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+        }
+
+        #completionScreen h2 {
+            color: #00b894;
+            font-size: 48px;
+            margin-bottom: 30px;
+        }
+
+        button {
+            font-size: 24px;
+            padding: 15px 40px;
+            background: #d63031;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+
+        button:hover {
+            background: #e17055;
+        }
+
+        #skipBtn {
+            font-size: 18px;
+            padding: 10px 25px;
+            background: #636e72;
+            margin-top: 10px;
+        }
+
+        #skipBtn:hover {
+            background: #b2bec3;
+        }
+
+        #targetSentence {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>🎂 Pastelería 🎂</h1>
+    
+    <div id="questionNumber"></div>
+    <button id="skipBtn" onclick="skipQuestion()">Skip Question</button>
+    <div id="targetSentence"></div>
+    <div id="feedback"></div>
+    
+    <div id="gameArea">
+        <div id="cakeSelection"></div>
+        <div id="stackArea"></div>
+    </div>
+    
+    <div id="character">👨‍🍳</div>
+    
+    <div id="completionScreen">
+        <h2>¡Felicidades!</h2>
+        <p style="font-size: 24px;">You've completed all the cake orders!</p>
+        <button onclick="restartGame()">Play Again</button>
+    </div>
+
+    <script>
+        const questions = [
+            { words: ['leo', 'yo', 'biblioteca', 'un', 'libro', 'en', 'la'], answer: ['yo', 'leo', 'un', 'libro', 'en', 'la', 'biblioteca'] },
+            { words: ['come', 'él', 'pollo', 'hoy'], answer: ['él', 'come', 'pollo', 'hoy'] },
+            { words: ['vamos', 'nosotros', 'a', 'universidad', 'mañana', 'la'], answer: ['nosotros', 'vamos', 'a', 'la', 'universidad', 'mañana'] },
+            { words: ['escuchas', 'tú', 'música', 'hoy'], answer: ['tú', 'escuchas', 'música', 'hoy'] },
+            { words: ['bebo', 'yo', 'mi', 'agua', 'en', 'casa', 'hoy'], answer: ['yo', 'bebo', 'agua', 'en', 'mi', 'casa', 'hoy'] },
+            { words: ['comen', 'ellos', 'tortilla'], answer: ['ellos', 'comen', 'tortilla'] },
+            { words: ['leo', 'yo', 'libros', 'biblioteca', 'en', 'la'], answer: ['yo', 'leo', 'libros', 'en', 'la', 'biblioteca'] },
+            { words: ['monta', 'ella', 'una', 'bicicleta'], answer: ['ella', 'monta', 'una', 'bicicleta'] },
+            { words: ['vas', 'tú', 'a', 'la', 'clase', 'hoy'], answer: ['tú', 'vas', 'a', 'la', 'clase', 'hoy'] },
+            { words: ['come', 'ella', 'pescado', 'restaurante'], answer: ['ella', 'come', 'pescado', 'restaurante'] },
+            { words: ['escuchamos', 'nosotros', 'la', 'música', 'universidad', 'en'], answer: ['nosotros', 'escuchamos', 'la', 'música', 'en', 'universidad'] },
+            { words: ['leo', 'tú', 'libros', 'clase', 'en'], answer: ['tú', 'leo', 'libros', 'en', 'clase'] },
+            { words: ['bebes', 'tú', 'agua', 'en', 'clase'], answer: ['tú', 'bebes', 'agua', 'en', 'clase'] },
+            { words: ['me', 'gustan', 'los', 'libros'], answer: ['me', 'gustan', 'los', 'libros'] },
+            { words: ['voy', 'yo', 'a', 'la', 'biblioteca', 'hoy'], answer: ['yo', 'voy', 'a', 'la', 'biblioteca', 'hoy'] },
+            { words: ['monta', 'yo', 'bicicleta', 'universidad', 'en', 'la'], answer: ['yo', 'monta', 'bicicleta', 'en', 'la', 'universidad'] },
+            { words: ['como', 'yo', 'en', 'el', 'helado', 'restaurante'], answer: ['yo', 'como', 'helado', 'en', 'el', 'restaurante'] },
+            { words: ['comes', 'tú', 'la', 'helado', 'casa', 'en'], answer: ['tú', 'comes', 'helado', 'en', 'la', 'casa'] },
+            { words: ['come', 'él', 'helado', 'escuela', 'en', 'la'], answer: ['él', 'come', 'helado', 'en', 'la', 'escuela'] },
+            { words: ['escucho', 'yo', 'música', 'clase', 'en', 'mi'], answer: ['yo', 'escucho', 'música', 'en', 'mi', 'clase'] },
+            { words: ['escuchas', 'tú', 'música', 'escuela', 'en', 'la'], answer: ['tú', 'escuchas', 'música', 'en', 'la', 'escuela'] },
+            { words: ['escucha', 'ella', 'música', 'casa', 'en', 'la'], answer: ['ella', 'escucha', 'música', 'en', 'la', 'casa'] },
+            { words: ['leo', 'yo', 'libro', 'biblioteca', 'en', 'la'], answer: ['yo', 'leo', 'libro', 'en', 'la', 'biblioteca'] },
+            { words: ['lees', 'tú', 'libro', 'clase'], answer: ['tú', 'lees', 'libro', 'clase'] },
+            { words: ['leen', 'ellos', 'libro', 'escuela', 'en', 'la'], answer: ['ellos', 'leen', 'libro', 'en', 'la', 'escuela'] },
+            { words: ['voy', 'yo', 'a', 'la', 'biblioteca'], answer: ['yo', 'voy', 'a', 'la', 'biblioteca'] },
+            { words: ['vas', 'tú', 'clase', 'a'], answer: ['tú', 'vas', 'a', 'clase'] },
+            { words: ['comemos', 'nosotros', 'fruta', 'y', 'bebemos', 'agua'], answer: ['nosotros', 'comemos', 'fruta', 'y', 'bebemos', 'agua'] },
+            { words: ['comen', 'ellos', 'tortilla'], answer: ['ellos', 'comen', 'tortilla'] },
+            { words: ['pones', 'me', 'una', 'ensalada', 'por', 'favor'], answer: ['me', 'pones', 'una', 'ensalada', 'por', 'favor'] },
+            { words: ['pones', 'me', 'dos', 'empanadas', 'por', 'favor'], answer: ['me', 'pones', 'dos', 'empanadas', 'por', 'favor'] },
+            { words: ['pones', 'me', 'pollo', 'por', 'favor'], answer: ['me', 'pones', 'pollo', 'por', 'favor'] },
+            { words: ['quiero', 'beber', 'agua', 'yo'], answer: ['yo', 'quiero', 'beber', 'agua'] },
+            { words: ['quiero', 'comer', 'pollo', 'yo'], answer: ['yo', 'quiero', 'comer', 'pollo'] },
+            { words: ['tengo', 'hambre', 'yo'], answer: ['yo', 'tengo', 'hambre'] },
+            { words: ['no', 'tengo', 'hambre', 'yo'], answer: ['yo', 'no', 'tengo', 'hambre'] },
+            { words: ['tienes', 'hambre', 'tú'], answer: ['tú', 'tienes', 'hambre'] },
+            { words: ['tiene', 'hambre', 'él'], answer: ['él', 'tiene', 'hambre'] },
+            { words: ['tengo', 'dos', 'perros'], answer: ['tengo', 'dos', 'perros'] },
+            { words: ['tienes', 'tres', 'libros'], answer: ['tienes', 'tres', 'libros'] },
+            { words: ['tiene', 'siete', 'empanadas'], answer: ['tiene', 'siete', 'empanadas'] },
+            { words: ['tenemos', 'agua', 'nosotros'], answer: ['nosotros', 'tenemos', 'agua'] },
+            { words: ['tengo', 'treinta', 'años'], answer: ['tengo', 'treinta', 'años'] },
+            { words: ['tienes', 'veintiséis', 'años'], answer: ['tienes', 'veintiséis', 'años'] },
+            { words: ['me', 'gusta', 'helado'], answer: ['me', 'gusta', 'helado'] },
+            { words: ['me', 'gustan', 'libros'], answer: ['me', 'gustan', 'libros'] },
+            { words: ['bebo', 'agua', 'yo'], answer: ['yo', 'bebo', 'agua'] },
+            { words: ['comes', 'pollo', 'tú'], answer: ['tú', 'comes', 'pollo'] },
+            { words: ['leo', 'libros', 'yo'], answer: ['yo', 'leo', 'libros'] }
+        ];
+
+        let currentQuestion = 0;
+        let currentStack = [];
+        let availableCakes = [];
+        let selectedQuestions = [];
+
+        function selectRandomQuestions() {
+            const shuffled = [...questions].sort(() => Math.random() - 0.5);
+            selectedQuestions = shuffled.slice(0, 10);
+        }
+
+        function startQuestion() {
+            currentStack = [];
+            const q = selectedQuestions[currentQuestion];
+            availableCakes = [...q.words];
+            
+            document.getElementById('questionNumber').textContent = `Pregunta ${currentQuestion + 1} de ${selectedQuestions.length}`;
+            document.getElementById('feedback').textContent = '';
+            document.getElementById('skipBtn').style.display = 'inline-block';
+            
+            const container = document.getElementById('cakeSelection');
+            container.innerHTML = '';
+            
+            renderCakes();
+            renderStack();
+        }
+
+        function skipQuestion() {
+            currentQuestion++;
+            if (currentQuestion >= selectedQuestions.length) {
+                document.getElementById('gameArea').style.display = 'none';
+                document.getElementById('questionNumber').style.display = 'none';
+                document.getElementById('targetSentence').style.display = 'none';
+                document.getElementById('feedback').style.display = 'none';
+                document.getElementById('character').style.display = 'none';
+                document.getElementById('skipBtn').style.display = 'none';
+                document.getElementById('completionScreen').style.display = 'block';
+            } else {
+                startQuestion();
+            }
+        }
+
+        function renderCakes() {
+            const container = document.getElementById('cakeSelection');
+            if (container.children.length === 0) {
+                availableCakes.forEach((word, index) => {
+                    const cake = document.createElement('div');
+                    cake.className = 'cake';
+                    cake.textContent = word;
+                    cake.onclick = () => selectCake(index);
+                    cake.dataset.index = index;
+                    container.appendChild(cake);
+                });
+            } else {
+                Array.from(container.children).forEach((cake, i) => {
+                    if (!availableCakes.includes(cake.textContent)) {
+                        cake.classList.add('hidden');
+                        cake.onclick = null;
+                    }
+                });
+            }
+        }
+
+        function renderStack() {
+            const container = document.getElementById('stackArea');
+            container.innerHTML = '';
+            
+            currentStack.forEach((word, index) => {
+                const cake = document.createElement('div');
+                cake.className = 'stacked-cake';
+                cake.textContent = word;
+                
+                const baseWidth = 300;
+                const widthDecrease = 30;
+                const width = baseWidth - (index * widthDecrease);
+                cake.style.width = width + 'px';
+                
+                container.appendChild(cake);
+            });
+        }
+
+        function selectCake(index) {
+    const word = availableCakes[index];
+    const q = selectedQuestions[currentQuestion];
+    const expectedWord = q.answer[currentStack.length]; // word expected in sequence
+
+    const character = document.getElementById('character');
+    character.className = 'character-grab';
+
+    setTimeout(() => {
+        character.className = '';
+
+        if (word === expectedWord) {
+            // ✅ Correct word in sequence
+            currentStack.push(word);
+
+            // Remove from availableCakes by value
+            const cakeIndex = availableCakes.indexOf(word);
+            if (cakeIndex !== -1) availableCakes.splice(cakeIndex, 1);
+
+            renderCakes();
+            renderStack();
+
+            if (currentStack.length === q.answer.length) {
+                document.getElementById('feedback').textContent = '¡Perfecto!';
+                document.getElementById('feedback').className = 'correct';
+                document.getElementById('skipBtn').style.display = 'none';
+
+                character.className = 'character-carry';
+                const stackArea = document.getElementById('stackArea');
+                stackArea.className = 'carry-stack';
+
+                setTimeout(() => {
+                    character.className = '';
+                    character.style.transform = 'translate(-50%, 250px)';
+                    stackArea.className = '';
+
+                    currentQuestion++;
+                    if (currentQuestion < selectedQuestions.length) {
+                        setTimeout(() => startQuestion(), 500);
+                    } else {
+                        setTimeout(() => {
+                            document.getElementById('gameArea').style.display = 'none';
+                            document.getElementById('questionNumber').style.display = 'none';
+                            document.getElementById('targetSentence').style.display = 'none';
+                            document.getElementById('feedback').style.display = 'none';
+                            document.getElementById('character').style.display = 'none';
+                            document.getElementById('completionScreen').style.display = 'block';
+                        }, 500);
+                    }
+                }, 1200);
+            }
+        } else {
+            // ❌ Incorrect
+            document.getElementById('feedback').textContent = '¡Ay caramba!';
+            document.getElementById('feedback').className = 'incorrect';
+
+            // animate stacked cakes falling
+            const stackedCakes = document.querySelectorAll('.stacked-cake');
+            stackedCakes.forEach((cake, i) => {
+                setTimeout(() => {
+                    cake.classList.add('falling');
+                }, i * 150);
+            });
+
+            setTimeout(() => startQuestion(), 2000);
+        }
+    }, 450);
+}
+
+
+        function restartGame() {
+            currentQuestion = 0;
+            selectRandomQuestions();
+            document.getElementById('completionScreen').style.display = 'none';
+            document.getElementById('gameArea').style.display = 'flex';
+            document.getElementById('questionNumber').style.display = 'block';
+            document.getElementById('targetSentence').style.display = 'block';
+            document.getElementById('feedback').style.display = 'block';
+            document.getElementById('character').style.display = 'block';
+            document.getElementById('skipBtn').style.display = 'inline-block';
+            startQuestion();
+        }
+
+        selectRandomQuestions();
+        startQuestion();
+    </script>
+</body>
+</html>
