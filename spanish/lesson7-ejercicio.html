@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lección 7 Ejercicios - La Hora</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    padding: 20px;
+    max-width: 900px;
+    margin: auto;
+    background-color: #fafafa;
+    color: #333;
+  }
+  h1 {
+    text-align: center;
+    color: #0073e6;
+  }
+  h2 {
+    background-color: #f2f2f2;
+    padding: 10px;
+    border-radius: 8px;
+    margin-top: 40px;
+    color: #0056b3;
+  }
+  h3 {
+    border-bottom: 2px solid #eee;
+    padding-bottom: 5px;
+    color: #444;
+  }
+  .exercise {
+    margin-bottom: 40px;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  }
+  .question {
+    margin: 12px 0;
+    font-weight: 500;
+  }
+  .answer {
+    margin-left: 20px;
+    display: none;
+    color: #007700;
+    font-weight: bold;
+    background-color: #e8f5e9;
+    padding: 5px 10px;
+    border-radius: 4px;
+    display: none;
+  }
+  button.toggle-btn {
+    margin-left: 10px;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    background-color: #f9f9f9;
+    border-radius: 4px;
+    padding: 3px 8px;
+    font-size: 0.85em;
+  }
+  button.toggle-btn:hover {
+    background-color: #e2e2e2;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+  }
+  td {
+    padding: 8px 12px;
+    vertical-align: top;
+  }
+  .matching td {
+    border-bottom: 1px dashed #aaa;
+  }
+  .navigation {
+    margin-top: 40px;
+    display: flex;
+    justify-content: space-between;
+  }
+  .navigation a {
+    color: #0073e6;
+    text-decoration: none;
+    font-weight: bold;
+  }
+</style>
+</head>
+<body>
+
+<h1>Lección 7 Ejercicios</h1>
+
+<h2>Ejercicio A: ¿Qué hora es?</h2>
+<div class="exercise">
+  <p>請寫出正確的西班牙文時間表達方式。</p>
+  
+  <div id="time-practice">
+    <p class="question">1. 1:00 AM <button class="toggle-btn" onclick="toggleAnswer('t1')">顯示答案</button></p>
+    <p class="answer" id="t1">Es la una de la mañana.</p>
+
+    <p class="question">2. 2:15 PM <button class="toggle-btn" onclick="toggleAnswer('t2')">顯示答案</button></p>
+    <p class="answer" id="t2">Son las dos y cuarto de la tarde. / Son las dos y quince de la tarde.</p>
+
+    <p class="question">3. 8:30 AM <button class="toggle-btn" onclick="toggleAnswer('t3')">顯示答案</button></p>
+    <p class="answer" id="t3">Son las ocho y media de la mañana. / Son las ocho y treinta de la mañana.</p>
+
+    <p class="question">4. 12:00 PM <button class="toggle-btn" onclick="toggleAnswer('t4')">顯示答案</button></p>
+    <p class="answer" id="t4">Es el mediodía.</p>
+
+    <p class="question">5. 12:00 AM <button class="toggle-btn" onclick="toggleAnswer('t5')">顯示答案</button></p>
+    <p class="answer" id="t5">Es la medianoche.</p>
+
+    <p class="question">6. 3:45 PM <button class="toggle-btn" onclick="toggleAnswer('t6')">顯示答案</button></p>
+    <p class="answer" id="t6">Son las tres y cuarenta y cinco de la tarde. / Son las cuatro menos cuarto de la tarde.</p>
+
+    <p class="question">7. 10:10 PM <button class="toggle-btn" onclick="toggleAnswer('t7')">顯示答案</button></p>
+    <p class="answer" id="t7">Son las diez y diez de la noche.</p>
+
+    <p class="question">8. 6:30 PM <button class="toggle-btn" onclick="toggleAnswer('t8')">顯示答案</button></p>
+    <p class="answer" id="t8">Son las seis y media de la tarde.</p>
+
+    <p class="question">9. 9:15 AM <button class="toggle-btn" onclick="toggleAnswer('t9')">顯示答案</button></p>
+    <p class="answer" id="t9">Son las nueve y cuarto de la mañana.</p>
+
+    <p class="question">10. 11:45 PM <button class="toggle-btn" onclick="toggleAnswer('t10')">顯示答案</button></p>
+    <p class="answer" id="t10">Son las once y cuarenta y cinco de la noche. / Son las doce menos cuarto de la noche.</p>
+
+    <p class="question">11. 1:42 AM <button class="toggle-btn" onclick="toggleAnswer('t11')">顯示答案</button></p>
+    <p class="answer" id="t11">Son las dos menos dieciocho de la mañana. / Es la una y cuarenta y dos de la mañana.</p>
+
+    <p class="question">12. 8:36 PM <button class="toggle-btn" onclick="toggleAnswer('t12')">顯示答案</button></p>
+    <p class="answer" id="t12">Son las ocho y treinta y seis de la noche.</p>
+
+    <p class="question">13. 5:50 AM <button class="toggle-btn" onclick="toggleAnswer('t13')">顯示答案</button></p>
+    <p class="answer" id="t13">Son las seis menos diez de la mañana. / Son las cinco y cincuenta de la mañana.</p>
+
+    <p class="question">14. 4:20 PM <button class="toggle-btn" onclick="toggleAnswer('t14')">顯示答案</button></p>
+    <p class="answer" id="t14">Son las cuatro y veinte de la tarde.</p>
+
+    <p class="question">15. 7:05 AM <button class="toggle-btn" onclick="toggleAnswer('t15')">顯示答案</button></p>
+    <p class="answer" id="t15">Son las siete y cinco de la mañana.</p>
+
+    <p class="question">16. 2:55 PM <button class="toggle-btn" onclick="toggleAnswer('t16')">顯示答案</button></p>
+    <p class="answer" id="t16">Son las tres menos cinco de la tarde. / Son las dos y cincuenta y cinco de la tarde.</p>
+
+    <p class="question">17. 10:15 AM <button class="toggle-btn" onclick="toggleAnswer('t17')">顯示答案</button></p>
+    <p class="answer" id="t17">Son las diez y cuarto de la mañana.</p>
+
+    <p class="question">18. 12:30 PM <button class="toggle-btn" onclick="toggleAnswer('t18')">顯示答案</button></p>
+    <p class="answer" id="t18">Son las doce y media de la tarde.</p>
+
+    <p class="question">19. 9:45 AM <button class="toggle-btn" onclick="toggleAnswer('t19')">顯示答案</button></p>
+    <p class="answer" id="t19">Son las nueve y cuarenta y cinco de la mañana. / Son las diez menos cuarto de la mañana.</p>
+
+    <p class="question">20. 11:11 PM <button class="toggle-btn" onclick="toggleAnswer('t20')">顯示答案</button></p>
+    <p class="answer" id="t20">Son las once y once de la noche.</p>
+  </div>
+</div>
+
+<h2>Ejercicio B: Emparejar（配對）</h2>
+<div class="exercise">
+  <h3>A-1</h3>
+  <table class="matching">
+    <tr><td>perdone</td><td>a. 但是</td></tr>
+    <tr><td>ahora</td><td>b. 很</td></tr>
+    <tr><td>pero</td><td>c. 現在</td></tr>
+    <tr><td>muy</td><td>d. 請問 / 抱歉</td></tr>
+    <tr><td>desayunar</td><td>e. 吃早餐</td></tr>
+  </table>
+  <button class="toggle-btn" onclick="toggleAnswer('ans-a1')">顯示答案</button>
+  <p class="answer" id="ans-a1">1-d, 2-c, 3-a, 4-b, 5-e</p>
+
+  <h3>A-2</h3>
+  <table class="matching">
+    <tr><td>mediodía</td><td>a. 結束</td></tr>
+    <tr><td>medianoche</td><td>b. 通常</td></tr>
+    <tr><td>normalmente</td><td>c. 吃晚餐</td></tr>
+    <tr><td>cenar</td><td>d. 午夜</td></tr>
+    <tr><td>terminar</td><td>e. 中午</td></tr>
+  </table>
+  <button class="toggle-btn" onclick="toggleAnswer('ans-a2')">顯示答案</button>
+  <p class="answer" id="ans-a2">1-e, 2-d, 3-b, 4-c, 5-a</p>
+</div>
+
+<h2>Ejercicio C: Verbos -AR（動詞變化）</h2>
+<div class="exercise">
+  <h3>Sección 1: Conjuga Desayunar, Almorzar, Cenar</h3>
+  <p class="question">1. Yo ______ a las ocho. (desayunar) <button class="toggle-btn" onclick="toggleAnswer('b1')">顯示答案</button></p>
+  <p class="answer" id="b1">desayuno</p>
+
+  <p class="question">2. Tú ______ al mediodía. (almorzar) <button class="toggle-btn" onclick="toggleAnswer('b2')">顯示答案</button></p>
+  <p class="answer" id="b2">almuerzas</p>
+
+  <p class="question">3. Nosotros ______ a las nueve. (cenar) <button class="toggle-btn" onclick="toggleAnswer('b3')">顯示答案</button></p>
+  <p class="answer" id="b3">cenamos</p>
+
+  <p class="question">4. Ellos ______ en la casa. (desayunar) <button class="toggle-btn" onclick="toggleAnswer('b4')">顯示答案</button></p>
+  <p class="answer" id="b4">desayunan</p>
+
+  <p class="question">5. Ella ______ a la una. (almorzar) <button class="toggle-btn" onclick="toggleAnswer('b5')">顯示答案</button></p>
+  <p class="answer" id="b5">almuerza</p>
+
+  <h3>Sección 2: Terminar de + Verbo</h3>
+  <p class="question">1. Yo ______ de trabajar. (terminar) <button class="toggle-btn" onclick="toggleAnswer('b6')">顯示答案</button></p>
+  <p class="answer" id="b6">termino</p>
+
+  <p class="question">2. Nosotros ______ de estudiar. (terminar) <button class="toggle-btn" onclick="toggleAnswer('b7')">顯示答案</button></p>
+  <p class="answer" id="b7">terminamos</p>
+
+  <p class="question">3. ¿A qué hora ______ tú? (terminar) <button class="toggle-btn" onclick="toggleAnswer('b8')">顯示答案</button></p>
+  <p class="answer" id="b8">terminas</p>
+</div>
+
+<h2>Ejercicio D: Traducción（翻譯）</h2>
+<div class="exercise">
+  <h3>A. Español → 中文</h3>
+  <p class="question">1. Yo almuerzo al mediodía. <button class="toggle-btn" onclick="toggleAnswer('c1')">顯示答案</button></p>
+  <p class="answer" id="c1">我在中午吃午餐。</p>
+
+  <p class="question">2. Son las diez y cuarto de la noche. <button class="toggle-btn" onclick="toggleAnswer('c2')">顯示答案</button></p>
+  <p class="answer" id="c2">現在是晚上十點十五分。</p>
+
+  <p class="question">3. Normalmente ceno a las seis. <button class="toggle-btn" onclick="toggleAnswer('c3')">顯示答案</button></p>
+  <p class="answer" id="c3">我通常六點吃晚餐。</p>
+
+  <p class="question">4. Termino de trabajar ahora. <button class="toggle-btn" onclick="toggleAnswer('c4')">顯示答案</button></p>
+  <p class="answer" id="c4">我現在結束工作。</p>
+
+  <h3>B. 中文 → Español</h3>
+  <p class="question">1. 我在早上八點吃早餐。 <button class="toggle-btn" onclick="toggleAnswer('c5')">顯示答案</button></p>
+  <p class="answer" id="c5">Yo desayuno a las ocho de la mañana.</p>
+
+  <p class="question">2. 現在是下午三點半。 <button class="toggle-btn" onclick="toggleAnswer('c6')">顯示答案</button></p>
+  <p class="answer" id="c6">Son las tres y media de la tarde ahora.</p>
+
+  <p class="question">3. 你幾點吃午餐？ <button class="toggle-btn" onclick="toggleAnswer('c7')">顯示答案</button></p>
+  <p class="answer" id="c7">¿A qué hora almuerzas?</p>
+
+  <p class="question">4. 我工作到很晚。 <button class="toggle-btn" onclick="toggleAnswer('c8')">顯示答案</button></p>
+  <p class="answer" id="c8">Trabajo hasta tarde.</p>
+</div>
+
+<h2>Ejercicio E: Ordenar las palabras（排列單字）</h2>
+<div class="exercise">
+  <p class="question">1. la / desayuno / una / a / yo <button class="toggle-btn" onclick="toggleAnswer('d1')">顯示答案</button></p>
+  <p class="answer" id="d1">Yo desayuno a la una.</p>
+
+  <p class="question">2. estudiar / de / las / ocho / a / terminamos <button class="toggle-btn" onclick="toggleAnswer('d2')">顯示答案</button></p>
+  <p class="answer" id="d2">Terminamos de estudiar a las ocho.</p>
+
+  <p class="question">3. tarde / trabaja / hasta / él <button class="toggle-btn" onclick="toggleAnswer('d3')">顯示答案</button></p>
+  <p class="answer" id="d3">Él trabaja hasta tarde.</p>
+
+  <p class="question">4. las / son / y / diez / media <button class="toggle-btn" onclick="toggleAnswer('d4')">顯示答案</button></p>
+  <p class="answer" id="d4">Son las diez y media.</p>
+
+  <p class="question">5. normalmente / desayuno / las / a / yo / siete <button class="toggle-btn" onclick="toggleAnswer('d5')">顯示答案</button></p>
+  <p class="answer" id="d5">Normalmente yo desayuno a las siete.</p>
+</div>
+
+<h2>Ejercicio F: Lectura（閱讀）</h2>
+<div class="exercise">
+  <h3>Párrafo 1</h3>
+  <p>Normalmente yo desayuno a las siete y quince de la mañana. Almuerzo al mediodía en la casa. Ceno a las seis y media de la tarde. No trabajo hasta tarde hoy.</p>
+  <p class="question">1. ¿A qué hora desayuna ella? <button class="toggle-btn" onclick="toggleAnswer('e1')">顯示答案</button></p>
+  <p class="answer" id="e1">Desayuna a las siete y quince.</p>
+  <p class="question">2. ¿Dónde almuerza ella? <button class="toggle-btn" onclick="toggleAnswer('e2')">顯示答案</button></p>
+  <p class="answer" id="e2">Almuerza en la casa.</p>
+  <p class="question">3. ¿A qué hora cena ella? <button class="toggle-btn" onclick="toggleAnswer('e3')">顯示答案</button></p>
+  <p class="answer" id="e3">Cena a las seis y media.</p>
+
+  <h3>Párrafo 2</h3>
+  <p>Hoy es un día muy ocupado. Yo desayuno a las seis de la mañana. Almorzamos a la una y media de la tarde en el banco. Termino de trabajar a las nueve de la noche. ¡Estoy muy cansado!</p>
+  <p class="question">1. ¿A qué hora desayuna él? <button class="toggle-btn" onclick="toggleAnswer('e4')">顯示答案</button></p>
+  <p class="answer" id="e4">Desayuna a las seis de la mañana.</p>
+  <p class="question">2. ¿Dónde almuerza él? <button class="toggle-btn" onclick="toggleAnswer('e5')">顯示答案</button></p>
+  <p class="answer" id="e5">Almuerza en el banco.</p>
+  <p class="question">3. ¿Cómo está él ahora? <button class="toggle-btn" onclick="toggleAnswer('e6')">顯示答案</button></p>
+  <p class="answer" id="e6">Él está muy cansado ahora.</p>
+
+  <h3>Párrafo 3</h3>
+  <p>Hoy estudio español en la biblioteca a las diez y media de la mañana. Luego, almuerzo en la casa a la una. Termino de estudiar a las cinco de la tarde.</p>
+  <p class="question">1. ¿Qué estudia él? <button class="toggle-btn" onclick="toggleAnswer('e7')">顯示答案</button></p>
+  <p class="answer" id="e7">Estudia español.</p>
+  <p class="question">2. ¿Dónde estudia él a las diez y media? <button class="toggle-btn" onclick="toggleAnswer('e8')">顯示答案</button></p>
+  <p class="answer" id="e8">Estudia en la biblioteca.</p>
+  <p class="question">3. ¿A qué hora almuerza él? <button class="toggle-btn" onclick="toggleAnswer('e9')">顯示答案</button></p>
+  <p class="answer" id="e9">Almuerza a la una.</p>
+</div>
+
+
+
+<div class="navigation">
+    <a href="lesson7.html">← Lección 7 Page</a>
+</div>
+
+<script>
+function toggleAnswer(id) {
+  const ans = document.getElementById(id);
+  if (ans.style.display === "none" || ans.style.display === "") {
+    ans.style.display = "block";
+  } else {
+    ans.style.display = "none";
+  }
+}
+</script>
+
+</body>
+</html>
