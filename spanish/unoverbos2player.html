@@ -572,30 +572,36 @@
         }
 
         window.playCard = function(index) {
-            const myTurn = (myPlayerId === 'player0' && gameState.currentPlayer === 0) ||
-                          (myPlayerId === 'player1' && gameState.currentPlayer === 1);
-            
-            if (!myTurn) return;
+    const myTurn = (myPlayerId === 'player0' && gameState.currentPlayer === 0) ||
+                  (myPlayerId === 'player1' && gameState.currentPlayer === 1);
+    
+    if (!myTurn) return;
 
-            const card = gameState.players[myPlayerId].hand[index];
-            if (!isValidPlay(card)) {
-                document.getElementById('message').textContent = 'Invalid play! Must match color or verb.';
-                setTimeout(() => renderGame(), 1500);
-                return;
-            }
+    const card = gameState.players[myPlayerId].hand[index];
+    if (!isValidPlay(card)) {
+        document.getElementById('message').textContent = 'Invalid play! Must match color or verb.';
+        setTimeout(() => renderGame(), 1500);
+        return;
+    }
 
-            const newHand = [...gameState.players[myPlayerId].hand];
-            newHand.splice(index, 1);
-            
-            const newDiscardPile = [...gameState.discardPile, card];
-            const nextPlayer = gameState.currentPlayer === 0 ? 1 : 0;
+    const newHand = [...gameState.players[myPlayerId].hand];
+    newHand.splice(index, 1);
+    
+    const newDiscardPile = [...gameState.discardPile, card];
+    const nextPlayer = gameState.currentPlayer === 0 ? 1 : 0;
 
-            update(ref(database, `games/${currentRoomCode}`), {
-                [`players/${myPlayerId}/hand`]: newHand,
-                discardPile: newDiscardPile,
-                currentPlayer: nextPlayer
-            });
-        };
+    // Update Firebase
+    update(ref(database, `games/${currentRoomCode}`), {
+        [`players/${myPlayerId}/hand`]: newHand,
+        discardPile: newDiscardPile,
+        currentPlayer: nextPlayer
+    }).then(() => {
+        // Immediate check
+        if (newHand.length === 0) {
+            endGame(myPlayerName);
+        }
+    });
+};
 
         window.drawCard = function() {
             const myTurn = (myPlayerId === 'player0' && gameState.currentPlayer === 0) ||
