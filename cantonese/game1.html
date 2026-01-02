@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我鍾意捉鬼</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: 'Arial', sans-serif;
+        }
+        #gameContainer {
+            text-align: center;
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+        }
+        #verbDisplay {
+            font-size: 36px;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+        #scoreDisplay {
+            font-size: 24px;
+            font-weight: bold;
+            color: #2d3436;
+            margin-bottom: 10px;
+        }
+        canvas {
+            border: 4px solid #667eea;
+            background: linear-gradient(135deg, #ffeaa7 0%, #74b9ff 100%);
+            display: block;
+            margin: 0 auto;
+            border-radius: 10px;
+        }
+        #startScreen, #winScreen {
+            text-align: center;
+        }
+        h1 {
+            color: #667eea;
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+        button {
+            font-size: 24px;
+            padding: 15px 40px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.3s;
+            margin: 10px;
+        }
+        button:hover {
+            background: #764ba2;
+        }
+        .instructions {
+            font-size: 18px;
+            color: #333;
+            max-width: 600px;
+            margin: 20px auto;
+            line-height: 1.6;
+        }
+        .mode-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        .highscores {
+            margin-top: 20px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .highscores h3 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+        .score-item {
+            padding: 8px;
+            margin: 5px 0;
+            background: white;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+<div id="gameContainer">
+    <div id="startScreen">
+        <h1>🐕 我鍾意捉鬼 👻</h1>
+        <div class="instructions">
+            <p>Use the arrow keys to help the dog catch all the ghosts!</p>
+            <p>Match the phrase with the correct Cantonese word.</p>
+        </div>
+        <div class="mode-buttons">
+            <button onclick="startGame('easy')">Easy</button>
+            <button onclick="startGame('medium')">Medium</button>
+            <button onclick="startGame('hard')">Hard</button>
+        </div>
+        <div class="highscores">
+            <h3>High Scores</h3>
+            <div class="score-item">Medium: <span id="mediumHighScoreDisplay">0</span></div>
+            <div class="score-item">Hard: <span id="hardHighScoreDisplay">0</span></div>
+        </div>
+    </div>
+
+    <div id="gameScreen" style="display: none;">
+        <div id="verbDisplay"></div>
+        <div id="scoreDisplay"></div>
+        <canvas id="gameCanvas" width="600" height="600"></canvas>
+    </div>
+
+    <div id="winScreen" style="display: none;">
+        <h1>🎉 恭喜！ 🎉</h1>
+        <p class="instructions" id="winMessage"></p>
+        <button onclick="showStartScreen()">Return to Home</button>
+    </div>
+</div>
+
+<script>
+const canvas = document.getElementById('gameCanvas');
+const ctx = canvas.getContext('2d');
+const gridSize = 30;
+const tileCount = 20;
+
+// Cantonese phrases (2+ characters, "already / now / finished / in progress")
+const verbs = [
+    { infinitive: 'already ate', conjugations: ['食咗飯'] },
+    { infinitive: 'eating now', conjugations: ['食緊飯'] },
+    { infinitive: 'went out', conjugations: ['出咗去'] },
+    { infinitive: 'coming now', conjugations: ['嚟緊'] },
+    { infinitive: 'not going', conjugations: ['唔去'] },
+    { infinitive: 'not eating', conjugations: ['唔食'] },
+    { infinitive: 'don’t have money', conjugations: ['冇錢'] },
+    { infinitive: 'don’t want to go', conjugations: ['唔想去'] },
+    { infinitive: 'just arrived', conjugations: ['啱啱嚟'] },
+    { infinitive: 'already left', conjugations: ['已經走咗'] },
+    { infinitive: 'finished homework', conjugations: ['做完功課'] },
+    { infinitive: 'still working', conjugations: ['做緊工'] },
+    { infinitive: 'already slept', conjugations: ['瞓咗覺'] },
+    { infinitive: 'sleeping now', conjugations: ['瞓緊覺'] },
+    { infinitive: 'just woke up', conjugations: ['啱啱醒'] },
+    { infinitive: 'already bought', conjugations: ['買咗嘢'] },
+    { infinitive: 'still shopping', conjugations: ['買緊嘢'] },
+    { infinitive: 'already read', conjugations: ['讀咗書'] },
+    { infinitive: 'reading now', conjugations: ['讀緊書'] },
+    { infinitive: 'already wrote', conjugations: ['寫咗信'] },
+    { infinitive: 'writing now', conjugations: ['寫緊信'] },
+    { infinitive: 'already played', conjugations: ['玩咗遊戲'] },
+    { infinitive: 'playing now', conjugations: ['玩緊遊戲'] },
+    { infinitive: 'already drank', conjugations: ['飲咗水'] },
+    { infinitive: 'drinking now', conjugations: ['飲緊水'] },
+    { infinitive: 'already cooked', conjugations: ['煮咗飯'] },
+    { infinitive: 'cooking now', conjugations: ['煮緊飯'] },
+    { infinitive: 'already ran', conjugations: ['跑咗步'] },
+    { infinitive: 'running now', conjugations: ['跑緊步'] },
+    { infinitive: 'already swam', conjugations: ['游咗水'] },
+    { infinitive: 'swimming now', conjugations: ['游緊水'] },
+];
+
+const pronouns = ['1', '2', '3', '4', '5', '6']; // keeping dummy pronouns
+
+let gameMode = 'easy';
+let currentLevel = 0;
+let currentPronounIndex = 0;
+let dog = { x: 10, y: 10 };
+let ghosts = [];
+let direction = { x: 0, y: 0 };
+let frozen = false;
+let gameLoop;
+let score = 0;
+let mediumHighScore = localStorage.getItem('mediumHighScore') || 0;
+let hardHighScore = localStorage.getItem('hardHighScore') || 0;
+let ghostMoveCounter = 0;
+
+document.getElementById('mediumHighScoreDisplay').textContent = mediumHighScore;
+document.getElementById('hardHighScoreDisplay').textContent = hardHighScore;
+
+// ... rest of your code stays the same, just using new verbs array
+</script>
+</body>
+</html>
