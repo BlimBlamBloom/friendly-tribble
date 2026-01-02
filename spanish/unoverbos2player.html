@@ -447,19 +447,20 @@
 
         function listenToGame(code) {
             const gameRef = ref(database, `games/${code}`);
-            onValue(gameRef, (snapshot) => {
-                gameState = snapshot.val();
-                if (!gameState) return;
+        onValue(gameRef, (snapshot) => {
+    gameState = snapshot.val();
+    if (!gameState) return;
 
-                if (gameState.started) {
-                    document.getElementById('lobbyScreen').style.display = 'none';
-                    document.getElementById('gameScreen').style.display = 'block';
-                    renderGame();
-                } else {
-                    document.getElementById('lobbyInfo').textContent = 
-                        `Waiting for players... (${gameState.playerCount}/2)`;
-                }
-            });
+    // Check if anyone won
+    Object.entries(gameState.players).forEach(([pid, player]) => {
+        if (player.hand.length === 0) {
+            endGame(player.name);
+        }
+    });
+
+    renderGame();
+});
+
         }
 
         function createDeck() {
