@@ -1,415 +1,561 @@
-import React, { useState, useEffect, useRef } from 'react';
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oruga de Números</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-const CaterpillarEscape = () => {
-  const [gameState, setGameState] = useState('home');
-  const [level, setLevel] = useState(1);
-  const [score, setScore] = useState(0);
-  const [input, setInput] = useState('');
-  const [caterpillar, setCaterpillar] = useState([]);
-  const [positions, setPositions] = useState([]); // Track all segment positions
-  const [direction, setDirection] = useState(1); // 1 for right, -1 for left
-  const [currentRow, setCurrentRow] = useState(0);
-  const [currentCol, setCurrentCol] = useState(0);
-  const inputRef = useRef(null);
+        body {
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+        }
 
-  const SEGMENT_SIZE = 70;
-  const SCREEN_WIDTH = typeof window !== 'undefined' ? window.innerWidth : 1200;
-  const MAX_COL = Math.floor(SCREEN_WIDTH / SEGMENT_SIZE) - 1;
+        #game-container {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+            background: linear-gradient(to bottom, #78350f, #92400e, #451a03);
+        }
 
-  const levelConfig = {
-    1: { max: 9, target: 15 },
-    2: { max: 20, target: 20 },
-    3: { max: 30, target: 30 },
-    4: { max: 100, target: 50 }
-  };
+        .background-stones {
+            position: absolute;
+            inset: 0;
+            opacity: 0.1;
+            pointer-events: none;
+        }
 
-  const spanishNumbers = {
-    0: 'cero', 1: 'uno', 2: 'dos', 3: 'tres', 4: 'cuatro',
-    5: 'cinco', 6: 'seis', 7: 'siete', 8: 'ocho', 9: 'nueve',
-    10: 'diez', 11: 'once', 12: 'doce', 13: 'trece', 14: 'catorce',
-    15: 'quince', 16: 'dieciseis', 17: 'diecisiete', 18: 'dieciocho', 19: 'diecinueve',
-    20: 'veinte', 21: 'veintiuno', 22: 'veintidos', 23: 'veintitres', 24: 'veinticuatro',
-    25: 'veinticinco', 26: 'veintiseis', 27: 'veintisiete', 28: 'veintiocho', 29: 'veintinueve',
-    30: 'treinta', 31: 'treinta y uno', 32: 'treinta y dos', 33: 'treinta y tres', 34: 'treinta y cuatro',
-    35: 'treinta y cinco', 36: 'treinta y seis', 37: 'treinta y siete', 38: 'treinta y ocho', 39: 'treinta y nueve',
-    40: 'cuarenta', 41: 'cuarenta y uno', 42: 'cuarenta y dos', 43: 'cuarenta y tres', 44: 'cuarenta y cuatro',
-    45: 'cuarenta y cinco', 46: 'cuarenta y seis', 47: 'cuarenta y siete', 48: 'cuarenta y ocho', 49: 'cuarenta y nueve',
-    50: 'cincuenta', 51: 'cincuenta y uno', 52: 'cincuenta y dos', 53: 'cincuenta y tres', 54: 'cincuenta y cuatro',
-    55: 'cincuenta y cinco', 56: 'cincuenta y seis', 57: 'cincuenta y siete', 58: 'cincuenta y ocho', 59: 'cincuenta y nueve',
-    60: 'sesenta', 61: 'sesenta y uno', 62: 'sesenta y dos', 63: 'sesenta y tres', 64: 'sesenta y cuatro',
-    65: 'sesenta y cinco', 66: 'sesenta y seis', 67: 'sesenta y siete', 68: 'sesenta y ocho', 69: 'sesenta y nueve',
-    70: 'setenta', 71: 'setenta y uno', 72: 'setenta y dos', 73: 'setenta y tres', 74: 'setenta y cuatro',
-    75: 'setenta y cinco', 76: 'setenta y seis', 77: 'setenta y siete', 78: 'setenta y ocho', 79: 'setenta y nueve',
-    80: 'ochenta', 81: 'ochenta y uno', 82: 'ochenta y dos', 83: 'ochenta y tres', 84: 'ochenta y cuatro',
-    85: 'ochenta y cinco', 86: 'ochenta y seis', 87: 'ochenta y siete', 88: 'ochenta y ocho', 89: 'ochenta y nueve',
-    90: 'noventa', 91: 'noventa y uno', 92: 'noventa y dos', 93: 'noventa y tres', 94: 'noventa y cuatro',
-    95: 'noventa y cinco', 96: 'noventa y seis', 97: 'noventa y siete', 98: 'noventa y ocho', 99: 'noventa y nueve',
-    100: 'cien'
-  };
+        .stone {
+            position: absolute;
+            background: #44403c;
+            border-radius: 4px;
+        }
 
-  const normalizeSpanish = (text) => {
-    return text.toLowerCase()
-      .replace(/á/g, 'a')
-      .replace(/é/g, 'e')
-      .replace(/í/g, 'i')
-      .replace(/ó/g, 'o')
-      .replace(/ú/g, 'u')
-      .trim();
-  };
+        .screen {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
+        }
 
-  const generateFullCaterpillar = () => {
-    const config = levelConfig[level];
-    const segments = [];
-    for (let i = 0; i < config.target; i++) {
-      segments.push(Math.floor(Math.random() * (config.max + 1)));
-    }
-    setCaterpillar(segments);
-  };
+        .title {
+            font-size: 4rem;
+            font-weight: bold;
+            color: #fef3c7;
+            text-shadow: 4px 4px 8px rgba(0,0,0,0.8);
+        }
 
-  const startGame = () => {
-    setGameState('countdown');
-    setScore(0);
-    setLevel(1);
-    setCurrentRow(0);
-    setCurrentCol(0);
-    setDirection(1);
-    setPositions([]);
-  };
+        .subtitle {
+            font-size: 1.5rem;
+            color: #fef3c7;
+            text-align: center;
+        }
 
-  const startLevel = () => {
-    setGameState('countdown');
-    setCurrentRow(0);
-    setCurrentCol(0);
-    setDirection(1);
-    setPositions([]);
-  };
+        .btn {
+            padding: 1.5rem 3rem;
+            font-size: 2rem;
+            font-weight: bold;
+            background: #fef3c7;
+            color: #78350f;
+            border: none;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            transition: all 0.3s;
+        }
 
-  const [countdown, setCountdown] = useState(3);
+        .btn:hover {
+            background: #fde68a;
+            transform: scale(1.1);
+        }
 
-  useEffect(() => {
-    if (gameState === 'countdown') {
-      if (countdown > 0) {
-        const timer = setTimeout(() => setCountdown(countdown - 1), 1000);
-        return () => clearTimeout(timer);
-      } else {
-        setGameState('playing');
-        generateFullCaterpillar();
-        if (inputRef.current) inputRef.current.focus();
-      }
-    } else if (gameState === 'levelComplete' || gameState === 'home') {
-      setCountdown(3);
-    }
-  }, [gameState, countdown]);
+        .countdown {
+            font-size: 8rem;
+            font-weight: bold;
+            color: #fef3c7;
+            animation: pulse 1s ease-in-out infinite;
+        }
 
-  useEffect(() => {
-    if (gameState === 'playing') {
-      const timer = setInterval(() => {
-        setPositions(prev => {
-          const newPositions = [{ row: currentRow, col: currentCol }, ...prev];
-          // Keep only as many positions as we have segments
-          return newPositions.slice(0, caterpillar.length);
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.1); }
+        }
+
+        .score-display {
+            position: absolute;
+            bottom: 1rem;
+            right: 1rem;
+            background: rgba(68, 26, 3, 0.8);
+            padding: 1rem 2rem;
+            border-radius: 9999px;
+            z-index: 20;
+        }
+
+        .score-text {
+            color: #fef3c7;
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        .caterpillar-head, .caterpillar-segment {
+            position: absolute;
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            transition: all 0.15s linear;
+            z-index: 10;
+        }
+
+        .caterpillar-head {
+            background: #166534;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .eye {
+            width: 12px;
+            height: 12px;
+            background: black;
+            border-radius: 50%;
+            position: absolute;
+            top: 16px;
+        }
+
+        .eye.left { left: 12px; }
+        .eye.right { right: 12px; }
+
+        .mouth {
+            width: 24px;
+            height: 4px;
+            background: #14532d;
+            border-radius: 9999px;
+            position: absolute;
+            bottom: 20px;
+        }
+
+        .caterpillar-segment {
+            background: #15803d;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .caterpillar-segment.target {
+            background: #dc2626;
+            animation: pulse 1s ease-in-out infinite;
+            box-shadow: 0 0 0 4px #f87171;
+        }
+
+        .stick-figure {
+            position: absolute;
+            bottom: 8rem;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+            animation: bounce 0.3s ease-in-out infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(-10px); }
+        }
+
+        .input-container {
+            position: absolute;
+            bottom: 1rem;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 24rem;
+            max-width: 90vw;
+            z-index: 20;
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .input-field {
+            flex: 1;
+            padding: 1rem 1.5rem;
+            font-size: 1.5rem;
+            border-radius: 0.5rem;
+            background: #fef3c7;
+            color: #78350f;
+            border: none;
+            font-weight: bold;
+            outline: none;
+        }
+
+        .input-field:focus {
+            box-shadow: 0 0 0 4px #fbbf24;
+        }
+
+        .submit-btn {
+            padding: 1rem 2rem;
+            font-size: 1.5rem;
+            font-weight: bold;
+            background: #16a34a;
+            color: white;
+            border: none;
+            border-radius: 0.5rem;
+            cursor: pointer;
+        }
+
+        .submit-btn:hover {
+            background: #15803d;
+        }
+
+        .emoji {
+            font-size: 4rem;
+            animation: bounce 0.5s ease-in-out infinite;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="game-container">
+        <div class="background-stones" id="bg-stones"></div>
+
+        <!-- Home Screen -->
+        <div id="home-screen" class="screen">
+            <h1 class="title">Oruga de Números</h1>
+            <p class="subtitle">¡Escribe los números en español para escapar!</p>
+            <button class="btn" onclick="startGame()">EMPEZAR</button>
+        </div>
+
+        <!-- Countdown Screen -->
+        <div id="countdown-screen" class="screen hidden">
+            <div class="countdown" id="countdown-text">3</div>
+        </div>
+
+        <!-- Game Screen -->
+        <div id="game-screen" class="hidden">
+            <div class="score-display">
+                <div class="score-text" id="score-text">15/15</div>
+            </div>
+            <div id="caterpillar-container"></div>
+            <svg width="60" height="80" viewBox="0 0 60 80" class="stick-figure" id="stick-figure">
+                <ellipse cx="30" cy="12" rx="12" ry="4" fill="#8B4513"/>
+                <rect x="20" y="12" width="20" height="8" fill="#8B4513"/>
+                <ellipse cx="30" cy="20" rx="8" ry="3" fill="#654321"/>
+                <circle cx="30" cy="28" r="8" fill="#f4a460" stroke="#333" stroke-width="1"/>
+                <circle cx="27" cy="27" r="1.5" fill="#000"/>
+                <circle cx="33" cy="27" r="1.5" fill="#000"/>
+                <path d="M 26 30 Q 30 32 34 30" stroke="#333" stroke-width="1" fill="none"/>
+                <line x1="30" y1="36" x2="30" y2="55" stroke="#333" stroke-width="2"/>
+                <line x1="30" y1="40" x2="20" y2="35" stroke="#333" stroke-width="2"/>
+                <line x1="30" y1="40" x2="40" y2="48" stroke="#333" stroke-width="2"/>
+                <line x1="30" y1="55" x2="22" y2="70" stroke="#333" stroke-width="2"/>
+                <line x1="30" y1="55" x2="38" y2="65" stroke="#333" stroke-width="2"/>
+            </svg>
+            <div class="input-container">
+                <input type="text" id="input-field" class="input-field" placeholder="Escribe en español..." autocomplete="off">
+                <button class="submit-btn" onclick="submitAnswer()">✓</button>
+            </div>
+        </div>
+
+        <!-- Level Complete Screen -->
+        <div id="level-complete-screen" class="screen hidden">
+            <div class="emoji">🎉</div>
+            <h2 class="title" id="level-complete-title">¡Nivel 1 Completo!</h2>
+            <button class="btn" onclick="nextLevel()">Siguiente Nivel</button>
+        </div>
+
+        <!-- Game Over Screen -->
+        <div id="gameover-screen" class="screen hidden">
+            <div class="emoji">😱</div>
+            <h2 class="title">¡Atrapado!</h2>
+            <p class="subtitle">¡La oruga te atrapó!</p>
+            <button class="btn" onclick="startGame()">Intentar de Nuevo</button>
+        </div>
+
+        <!-- Win Screen -->
+        <div id="win-screen" class="screen hidden">
+            <div class="emoji">🏆</div>
+            <h2 class="title">¡Escapaste!</h2>
+            <p class="subtitle">¡Completaste los 4 niveles!</p>
+            <button class="btn" onclick="startGame()">Jugar de Nuevo</button>
+        </div>
+    </div>
+
+    <script>
+        const SEGMENT_SIZE = 70;
+        const MAX_COL = Math.floor(window.innerWidth / SEGMENT_SIZE) - 1;
+
+        const levelConfig = {
+            1: { max: 9, target: 15 },
+            2: { max: 20, target: 20 },
+            3: { max: 30, target: 30 },
+            4: { max: 100, target: 50 }
+        };
+
+        const spanishNumbers = {
+            0: 'cero', 1: 'uno', 2: 'dos', 3: 'tres', 4: 'cuatro',
+            5: 'cinco', 6: 'seis', 7: 'siete', 8: 'ocho', 9: 'nueve',
+            10: 'diez', 11: 'once', 12: 'doce', 13: 'trece', 14: 'catorce',
+            15: 'quince', 16: 'dieciseis', 17: 'diecisiete', 18: 'dieciocho', 19: 'diecinueve',
+            20: 'veinte', 21: 'veintiuno', 22: 'veintidos', 23: 'veintitres', 24: 'veinticuatro',
+            25: 'veinticinco', 26: 'veintiseis', 27: 'veintisiete', 28: 'veintiocho', 29: 'veintinueve',
+            30: 'treinta', 31: 'treinta y uno', 32: 'treinta y dos', 33: 'treinta y tres', 34: 'treinta y cuatro',
+            35: 'treinta y cinco', 36: 'treinta y seis', 37: 'treinta y siete', 38: 'treinta y ocho', 39: 'treinta y nueve',
+            40: 'cuarenta', 41: 'cuarenta y uno', 42: 'cuarenta y dos', 43: 'cuarenta y tres', 44: 'cuarenta y cuatro',
+            45: 'cuarenta y cinco', 46: 'cuarenta y seis', 47: 'cuarenta y siete', 48: 'cuarenta y ocho', 49: 'cuarenta y nueve',
+            50: 'cincuenta', 51: 'cincuenta y uno', 52: 'cincuenta y dos', 53: 'cincuenta y tres', 54: 'cincuenta y cuatro',
+            55: 'cincuenta y cinco', 56: 'cincuenta y seis', 57: 'cincuenta y siete', 58: 'cincuenta y ocho', 59: 'cincuenta y nueve',
+            60: 'sesenta', 61: 'sesenta y uno', 62: 'sesenta y dos', 63: 'sesenta y tres', 64: 'sesenta y cuatro',
+            65: 'sesenta y cinco', 66: 'sesenta y seis', 67: 'sesenta y siete', 68: 'sesenta y ocho', 69: 'sesenta y nueve',
+            70: 'setenta', 71: 'setenta y uno', 72: 'setenta y dos', 73: 'setenta y tres', 74: 'setenta y cuatro',
+            75: 'setenta y cinco', 76: 'setenta y seis', 77: 'setenta y siete', 78: 'setenta y ocho', 79: 'setenta y nueve',
+            80: 'ochenta', 81: 'ochenta y uno', 82: 'ochenta y dos', 83: 'ochenta y tres', 84: 'ochenta y cuatro',
+            85: 'ochenta y cinco', 86: 'ochenta y seis', 87: 'ochenta y siete', 88: 'ochenta y ocho', 89: 'ochenta y nueve',
+            90: 'noventa', 91: 'noventa y uno', 92: 'noventa y dos', 93: 'noventa y tres', 94: 'noventa y cuatro',
+            95: 'noventa y cinco', 96: 'noventa y seis', 97: 'noventa y siete', 98: 'noventa y ocho', 99: 'noventa y nueve',
+            100: 'cien'
+        };
+
+        let gameState = 'home';
+        let level = 1;
+        let score = 0;
+        let caterpillar = [];
+        let positions = [];
+        let direction = 1;
+        let currentRow = 0;
+        let currentCol = 0;
+        let gameInterval = null;
+        let headElement = null;
+
+        function normalizeSpanish(text) {
+            return text.toLowerCase()
+                .replace(/á/g, 'a')
+                .replace(/é/g, 'e')
+                .replace(/í/g, 'i')
+                .replace(/ó/g, 'o')
+                .replace(/ú/g, 'u')
+                .trim();
+        }
+
+        function generateCaterpillar() {
+            const config = levelConfig[level];
+            caterpillar = [];
+            for (let i = 0; i < config.target; i++) {
+                caterpillar.push(Math.floor(Math.random() * (config.max + 1)));
+            }
+        }
+
+        function showScreen(screenId) {
+            document.querySelectorAll('.screen').forEach(s => s.classList.add('hidden'));
+            document.getElementById('game-screen').classList.add('hidden');
+            document.getElementById(screenId).classList.remove('hidden');
+        }
+
+        function startGame() {
+            level = 1;
+            score = 0;
+            startLevel();
+        }
+
+        function startLevel() {
+            currentRow = 0;
+            currentCol = 0;
+            direction = 1;
+            positions = [];
+            
+            showScreen('countdown-screen');
+            let count = 3;
+            document.getElementById('countdown-text').textContent = count;
+            
+            const countInterval = setInterval(() => {
+                count--;
+                if (count > 0) {
+                    document.getElementById('countdown-text').textContent = count;
+                } else {
+                    clearInterval(countInterval);
+                    startPlaying();
+                }
+            }, 1000);
+        }
+
+        function startPlaying() {
+            generateCaterpillar();
+            gameState = 'playing';
+            
+            showScreen('game-screen');
+            document.getElementById('game-screen').classList.remove('hidden');
+            
+            updateScore();
+            document.getElementById('input-field').value = '';
+            document.getElementById('input-field').focus();
+            
+            createHead();
+            
+            if (gameInterval) clearInterval(gameInterval);
+            gameInterval = setInterval(gameLoop, 800);
+        }
+
+        function createHead() {
+            const container = document.getElementById('caterpillar-container');
+            container.innerHTML = '';
+            
+            headElement = document.createElement('div');
+            headElement.className = 'caterpillar-head';
+            headElement.innerHTML = `
+                <div class="eye left"></div>
+                <div class="eye right"></div>
+                <div class="mouth"></div>
+            `;
+            container.appendChild(headElement);
+        }
+
+        function gameLoop() {
+            if (gameState !== 'playing') return;
+            
+            positions.unshift({ row: currentRow, col: currentCol });
+            positions = positions.slice(0, caterpillar.length);
+            
+            let newCol = currentCol + direction;
+            let newRow = currentRow;
+            let newDir = direction;
+            
+            if (newCol > MAX_COL) {
+                newCol = MAX_COL;
+                newRow += 1;
+                newDir = -1;
+                
+                if (newRow >= 10) {
+                    endGame('gameover');
+                    return;
+                }
+            } else if (newCol < 0) {
+                newCol = 0;
+                newRow += 1;
+                newDir = 1;
+                
+                if (newRow >= 10) {
+                    endGame('gameover');
+                    return;
+                }
+            }
+            
+            currentCol = newCol;
+            currentRow = newRow;
+            direction = newDir;
+            
+            renderCaterpillar();
+        }
+
+        function renderCaterpillar() {
+            if (headElement) {
+                headElement.style.left = `${currentCol * SEGMENT_SIZE + 35}px`;
+                headElement.style.top = `${currentRow * SEGMENT_SIZE + 35}px`;
+                headElement.style.transform = direction === -1 
+                    ? 'translate(-50%, -50%) scaleX(-1)' 
+                    : 'translate(-50%, -50%)';
+            }
+            
+            const container = document.getElementById('caterpillar-container');
+            const segments = container.querySelectorAll('.caterpillar-segment');
+            segments.forEach(s => s.remove());
+            
+            positions.forEach((pos, idx) => {
+                if (idx >= caterpillar.length) return;
+                
+                const segment = document.createElement('div');
+                segment.className = 'caterpillar-segment';
+                if (idx === 0) segment.classList.add('target');
+                segment.textContent = caterpillar[idx];
+                segment.style.left = `${pos.col * SEGMENT_SIZE + 35}px`;
+                segment.style.top = `${pos.row * SEGMENT_SIZE + 35}px`;
+                segment.style.transform = 'translate(-50%, -50%)';
+                container.appendChild(segment);
+            });
+        }
+
+        function submitAnswer() {
+            if (caterpillar.length === 0 || positions.length === 0) return;
+            
+            const input = document.getElementById('input-field').value;
+            const currentNumber = caterpillar[0];
+            const correctAnswer = normalizeSpanish(spanishNumbers[currentNumber]);
+            const userAnswer = normalizeSpanish(input);
+            
+            if (userAnswer === correctAnswer) {
+                score++;
+                caterpillar.shift();
+                positions.shift();
+                
+                updateScore();
+                
+                const target = levelConfig[level].target;
+                if (score >= target) {
+                    if (level === 4) {
+                        endGame('win');
+                    } else {
+                        endGame('levelComplete');
+                    }
+                }
+            }
+            
+            document.getElementById('input-field').value = '';
+            document.getElementById('input-field').focus();
+        }
+
+        function updateScore() {
+            const total = levelConfig[level].target;
+            document.getElementById('score-text').textContent = `${caterpillar.length}/${total}`;
+        }
+
+        function endGame(type) {
+            if (gameInterval) {
+                clearInterval(gameInterval);
+                gameInterval = null;
+            }
+            gameState = type;
+            
+            if (type === 'gameover') {
+                showScreen('gameover-screen');
+            } else if (type === 'win') {
+                showScreen('win-screen');
+            } else if (type === 'levelComplete') {
+                document.getElementById('level-complete-title').textContent = `¡Nivel ${level} Completo!`;
+                showScreen('level-complete-screen');
+            }
+        }
+
+        function nextLevel() {
+            level++;
+            score = 0;
+            startLevel();
+        }
+
+        document.getElementById('input-field').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') submitAnswer();
         });
 
-        // Move head to next position
-        let newCol = currentCol;
-        let newRow = currentRow;
-        let newDir = direction;
-
-        newCol += direction;
-
-        // Check boundaries
-        if (newCol > MAX_COL) {
-          // Hit right boundary
-          newCol = MAX_COL;
-          newRow += 1;
-          newDir = -1;
-          
-          if (newRow >= 10) {
-            setGameState('gameOver');
-            return;
-          }
-        } else if (newCol < 0) {
-          // Hit left boundary
-          newCol = 0;
-          newRow += 1;
-          newDir = 1;
-          
-          if (newRow >= 10) {
-            setGameState('gameOver');
-            return;
-          }
+        // Generate background stones
+        const bgStones = document.getElementById('bg-stones');
+        for (let i = 0; i < 30; i++) {
+            const stone = document.createElement('div');
+            stone.className = 'stone';
+            stone.style.width = '48px';
+            stone.style.height = '48px';
+            stone.style.left = `${Math.random() * 100}%`;
+            stone.style.top = `${Math.random() * 100}%`;
+            stone.style.transform = `rotate(${Math.random() * 45}deg)`;
+            bgStones.appendChild(stone);
         }
-
-        setCurrentCol(newCol);
-        setCurrentRow(newRow);
-        setDirection(newDir);
-      }, 800);
-      
-      return () => clearInterval(timer);
-    }
-  }, [gameState, currentCol, currentRow, direction, MAX_COL, caterpillar.length]);
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (caterpillar.length === 0 || positions.length === 0) return;
-
-    // The target is the first segment in the body (index 0)
-    const currentNumber = caterpillar[0];
-    const correctAnswer = normalizeSpanish(spanishNumbers[currentNumber]);
-    const userAnswer = normalizeSpanish(input);
-
-    if (userAnswer === correctAnswer) {
-      const newScore = score + 1;
-      setScore(newScore);
-      
-      // Remove the first segment
-      const newCaterpillar = caterpillar.slice(1);
-      setCaterpillar(newCaterpillar);
-      
-      // Remove the first position
-      setPositions(prev => prev.slice(1));
-
-      const target = levelConfig[level].target;
-      if (newScore >= target) {
-        if (level === 4) {
-          setGameState('won');
-        } else {
-          setGameState('levelComplete');
-        }
-      }
-    }
-    
-    setInput('');
-  };
-
-  const nextLevel = () => {
-    setLevel(level + 1);
-    setScore(0);
-    startLevel();
-  };
-
-  const StickFigure = () => (
-    <svg width="60" height="80" viewBox="0 0 60 80" className="animate-bounce" style={{ animationDuration: '0.3s' }}>
-      <ellipse cx="30" cy="12" rx="12" ry="4" fill="#8B4513"/>
-      <rect x="20" y="12" width="20" height="8" fill="#8B4513"/>
-      <ellipse cx="30" cy="20" rx="8" ry="3" fill="#654321"/>
-      <circle cx="30" cy="28" r="8" fill="#f4a460" stroke="#333" strokeWidth="1"/>
-      <circle cx="27" cy="27" r="1.5" fill="#000"/>
-      <circle cx="33" cy="27" r="1.5" fill="#000"/>
-      <path d="M 26 30 Q 30 32 34 30" stroke="#333" strokeWidth="1" fill="none"/>
-      <line x1="30" y1="36" x2="30" y2="55" stroke="#333" strokeWidth="2"/>
-      <line x1="30" y1="40" x2="20" y2="35" stroke="#333" strokeWidth="2"/>
-      <line x1="30" y1="40" x2="40" y2="48" stroke="#333" strokeWidth="2"/>
-      <line x1="30" y1="55" x2="22" y2="70" stroke="#333" strokeWidth="2"/>
-      <line x1="30" y1="55" x2="38" y2="65" stroke="#333" strokeWidth="2"/>
-    </svg>
-  );
-
-  if (gameState === 'home') {
-    return (
-      <div className="relative w-full h-screen bg-gradient-to-b from-amber-900 via-amber-800 to-amber-950 overflow-hidden">
-        <div className="absolute inset-0 opacity-20">
-          {[...Array(20)].map((_, i) => (
-            <div key={i} className="absolute w-16 h-16 bg-stone-800 rounded-lg" 
-                 style={{ 
-                   left: `${Math.random() * 100}%`, 
-                   top: `${Math.random() * 100}%`,
-                   transform: `rotate(${Math.random() * 45}deg)`
-                 }} />
-          ))}
-        </div>
-
-        <div className="absolute animate-bounce" 
-             style={{ 
-               animation: 'float 8s infinite linear',
-               left: '20%',
-               top: '30%'
-             }}>
-          <div className="w-12 h-12 rounded-full bg-green-700 flex items-center justify-center">
-            <div className="w-10 h-10 rounded-full bg-green-600 flex items-center justify-center">
-              <div className="w-3 h-3 bg-black rounded-full mr-1"></div>
-              <div className="w-3 h-3 bg-black rounded-full"></div>
-            </div>
-          </div>
-        </div>
-
-        <div className="absolute animate-pulse" 
-             style={{ 
-               animation: 'run 6s infinite linear',
-               left: '50%',
-               top: '50%'
-             }}>
-          <StickFigure />
-        </div>
-
-        <div className="relative z-10 flex flex-col items-center justify-center h-full gap-8">
-          <h1 className="text-7xl font-bold text-amber-200 text-center drop-shadow-lg" 
-              style={{ textShadow: '4px 4px 8px rgba(0,0,0,0.8)' }}>
-            Oruga de Números
-          </h1>
-          <p className="text-2xl text-amber-100 text-center">¡Escribe los números en español para escapar!</p>
-          <button 
-            onClick={startGame}
-            className="px-12 py-6 text-3xl font-bold text-amber-900 bg-amber-200 rounded-lg hover:bg-amber-300 transition-all transform hover:scale-110 shadow-2xl">
-            EMPEZAR
-          </button>
-        </div>
-
-        <style>{`
-          @keyframes float {
-            0%, 100% { transform: translate(0, 0) rotate(0deg); }
-            25% { transform: translate(100px, 100px) rotate(90deg); }
-            50% { transform: translate(200px, 50px) rotate(180deg); }
-            75% { transform: translate(100px, -50px) rotate(270deg); }
-          }
-          @keyframes run {
-            0%, 100% { transform: translate(0, 0); }
-            50% { transform: translate(300px, -100px); }
-          }
-        `}</style>
-      </div>
-    );
-  }
-
-  if (gameState === 'countdown') {
-    return (
-      <div className="w-full h-screen bg-gradient-to-b from-amber-900 via-amber-800 to-amber-950 flex items-center justify-center">
-        <div className="text-9xl font-bold text-amber-200 animate-pulse">
-          {countdown}
-        </div>
-      </div>
-    );
-  }
-
-  if (gameState === 'levelComplete') {
-    return (
-      <div className="w-full h-screen bg-gradient-to-b from-amber-900 via-amber-800 to-amber-950 flex flex-col items-center justify-center gap-8">
-        <div className="text-7xl animate-bounce">🎉</div>
-        <h2 className="text-6xl font-bold text-amber-200">¡Nivel {level} Completo!</h2>
-        <div className="animate-ping">
-          <StickFigure />
-        </div>
-        <button 
-          onClick={nextLevel}
-          className="px-12 py-6 text-3xl font-bold text-amber-900 bg-amber-200 rounded-lg hover:bg-amber-300 transition-all transform hover:scale-110 shadow-2xl">
-          Siguiente Nivel
-        </button>
-      </div>
-    );
-  }
-
-  if (gameState === 'gameOver') {
-    return (
-      <div className="w-full h-screen bg-gradient-to-b from-red-900 via-red-800 to-red-950 flex flex-col items-center justify-center gap-8">
-        <div className="text-7xl">😱</div>
-        <h2 className="text-6xl font-bold text-red-200">¡Atrapado!</h2>
-        <p className="text-3xl text-red-100">¡La oruga te atrapó!</p>
-        <button 
-          onClick={startGame}
-          className="px-12 py-6 text-3xl font-bold text-red-900 bg-red-200 rounded-lg hover:bg-red-300 transition-all transform hover:scale-110 shadow-2xl">
-          Intentar de Nuevo
-        </button>
-      </div>
-    );
-  }
-
-  if (gameState === 'won') {
-    return (
-      <div className="w-full h-screen bg-gradient-to-b from-green-900 via-green-800 to-green-950 flex flex-col items-center justify-center gap-8">
-        <div className="text-7xl animate-bounce">🏆</div>
-        <h2 className="text-6xl font-bold text-green-200">¡Escapaste!</h2>
-        <p className="text-3xl text-green-100">¡Completaste los 4 niveles!</p>
-        <button 
-          onClick={startGame}
-          className="px-12 py-6 text-3xl font-bold text-green-900 bg-green-200 rounded-lg hover:bg-green-300 transition-all transform hover:scale-110 shadow-2xl">
-          Jugar de Nuevo
-        </button>
-      </div>
-    );
-  }
-
-  const totalSegments = levelConfig[level].target;
-
-  return (
-    <div className="relative w-full h-screen bg-gradient-to-b from-amber-900 via-amber-800 to-amber-950 overflow-hidden">
-      <div className="absolute inset-0 opacity-10">
-        {[...Array(30)].map((_, i) => (
-          <div key={i} className="absolute w-12 h-12 bg-stone-800 rounded" 
-               style={{ 
-                 left: `${Math.random() * 100}%`, 
-                 top: `${Math.random() * 100}%`,
-                 transform: `rotate(${Math.random() * 45}deg)`
-               }} />
-        ))}
-      </div>
-
-      <div className="absolute bottom-4 right-4 bg-amber-950 bg-opacity-80 px-8 py-4 rounded-full z-20">
-        <div className="text-amber-200 text-3xl font-bold">{caterpillar.length}/{totalSegments}</div>
-      </div>
-
-      {/* Caterpillar head */}
-      <div className="absolute transition-all duration-150 ease-linear z-10" 
-           style={{ 
-             left: `${currentCol * SEGMENT_SIZE + 35}px`,
-             top: `${currentRow * SEGMENT_SIZE + 35}px`,
-             transform: direction === -1 ? 'translate(-50%, -50%) scaleX(-1)' : 'translate(-50%, -50%)'
-           }}>
-        <div className="w-16 h-16 rounded-full bg-green-800 flex items-center justify-center relative"
-             style={direction === -1 ? { transform: 'scaleX(-1)' } : {}}>
-          <div className="w-3 h-3 bg-black rounded-full absolute left-3 top-4"></div>
-          <div className="w-3 h-3 bg-black rounded-full absolute right-3 top-4"></div>
-          <div className="w-6 h-1 bg-green-900 rounded-full absolute bottom-5"></div>
-        </div>
-      </div>
-
-      {/* Body segments */}
-      {positions.map((pos, idx) => {
-        if (idx >= caterpillar.length) return null;
-        const num = caterpillar[idx];
-        const isTarget = idx === 0; // First body segment is the target
-        return (
-          <div key={idx} 
-               className={`absolute w-16 h-16 rounded-full flex items-center justify-center text-2xl font-bold text-white transition-all duration-150 z-10
-                 ${isTarget ? 'bg-red-600 animate-pulse ring-4 ring-red-400' : 'bg-green-700'}`}
-               style={{
-                 left: `${pos.col * SEGMENT_SIZE + 35}px`,
-                 top: `${pos.row * SEGMENT_SIZE + 35}px`,
-                 transform: 'translate(-50%, -50%)'
-               }}>
-            {num}
-          </div>
-        );
-      })}
-
-      <div className="absolute bottom-32 left-1/2 transform -translate-x-1/2 z-10">
-        <StickFigure />
-      </div>
-
-      <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 w-96 z-20">
-        <div className="flex gap-2">
-          <input
-            ref={inputRef}
-            type="text"
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            onKeyPress={(e) => {
-              if (e.key === 'Enter') {
-                handleSubmit(e);
-              }
-            }}
-            className="flex-1 px-6 py-4 text-2xl rounded-lg bg-amber-100 text-amber-900 font-bold focus:outline-none focus:ring-4 focus:ring-amber-400"
-            placeholder="Escribe en español..."
-            autoComplete="off"
-          />
-          <button 
-            onClick={handleSubmit}
-            className="px-8 py-4 text-2xl font-bold bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors">
-            ✓
-          </button>
-        </div>
-      </div>
-    </div>
-  );
-};
-
-export default CaterpillarEscape;
+    </script>
+</body>
+</html>
