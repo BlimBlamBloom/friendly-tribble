@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>企鹅不喜欢下雨 - Chinese Vocabulary Game</title>
+    <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+    <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.5/babel.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body, html {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        }
+        #root {
+            width: 100%;
+            height: 100%;
+        }
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+        .animate-bounce {
+            animation: bounce 0.4s ease-in-out infinite;
+        }
+        .animate-pulse {
+            animation: pulse 1s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect, useRef } = React;
+
+        const ChineseVocabRainGame = () => {
+            const [drops, setDrops] = useState([]);
+            const [titleRaindrops, setTitleRaindrops] = useState([]);
+            const [score, setScore] = useState(0);
+            const [misses, setMisses] = useState(0);
+            const [selectedDrop, setSelectedDrop] = useState(null);
+            const [gameOver, setGameOver] = useState(false);
+            const [gameWon, setGameWon] = useState(false);
+            const [showTitle, setShowTitle] = useState(true);
+            const [penguinPos, setPenguinPos] = useState(10);
+            const [penguinDirection, setPenguinDirection] = useState(1);
+            const dropIdRef = useRef(0);
+            const titleDropIdRef = useRef(0);
+            const spawnTimerRef = useRef(null);
+            const checkTimerRef = useRef(null);
+
+            const vocabulary = [
+                { chinese: '先生', english: 'sir / Mr.' },
+                { chinese: '你好', english: 'hello' },
+                { chinese: '猫', english: 'cat' },
+                { chinese: '狗', english: 'dog' },
+                { chinese: '鱼', english: 'fish' },
+                { chinese: '但是', english: 'but / however' },
+                { chinese: '健身房', english: 'gym' },
+                { chinese: '开车', english: 'to drive' },
+                { chinese: '太', english: 'too / extremely' },
+                { chinese: '房子', english: 'house' },
+                { chinese: '排球', english: 'volleyball' },
+                { chinese: '篮球', english: 'basketball' },
+                { chinese: '电话', english: 'telephone' },
+                { chinese: '乒乓', english: 'ping pong' },
+                { chinese: '时间', english: 'time' },
+                { chinese: '火车', english: 'train' },
+                { chinese: '火车站', english: 'train station' },
+                { chinese: '东', english: 'east' },
+                { chinese: '北', english: 'north' },
+                { chinese: '南', english: 'south' },
+                { chinese: '男人', english: 'man' },
+                { chinese: '不错', english: 'not bad / pretty good' },
+                { chinese: '律师', english: 'lawyer' },
+                { chinese: '奶奶', english: 'grandmother (paternal)' },
+                { chinese: '牛奶', english: 'milk' },
+                { chinese: '奶茶', english: 'milk tea / bubble tea' },
+                { chinese: '方便面', english: 'instant noodles' },
+                { chinese: '员工', english: 'employee' },
+                { chinese: '吉他', english: 'guitar' },
+                { chinese: '电脑', english: 'computer' },
+                { chinese: '朋友', english: 'friend' },
+                { chinese: '下班', english: 'get off work' },
+                { chinese: '听音乐', english: 'listen to music' },
+                { chinese: '回家', english: 'go home' },
+                { chinese: '请问', english: 'excuse me / may I ask' },
+                { chinese: '漂亮', english: 'pretty / beautiful' },
+                { chinese: '机票', english: 'plane ticket' },
+                { chinese: '多少', english: 'how much / how many' },
+                { chinese: '书', english: 'book' },
+                { chinese: '树', english: 'tree' },
+                { chinese: '鸟', english: 'bird' },
+                { chinese: '差不多', english: 'almost / nearly / about the same' },
+                { chinese: '叉', english: 'fork' },
+                { chinese: '到', english: 'to arrive / to reach' },
+                { chinese: '今年', english: 'this year' },
+                { chinese: '可以', english: 'can / may / okay' },
+                { chinese: '总是', english: 'always' },
+                { chinese: '世界', english: 'world' },
+                { chinese: '以前', english: 'before / in the past' },
+                { chinese: '马上', english: 'immediately / right away' }
+            ];
+
+            const createDrop = (type = null, matchIndex = null, existingDrops = []) => {
+                let text, dropType, matchData;
+                const vocabIndex = matchIndex !== null ? matchIndex : Math.floor(Math.random() * vocabulary.length);
+                const vocab = vocabulary[vocabIndex];
+
+                if (type === 'chinese' || (!type && Math.random() > 0.5)) {
+                    text = vocab.chinese;
+                    dropType = 'chinese';
+                    matchData = { index: vocabIndex, chinese: vocab.chinese, english: vocab.english };
+                } else {
+                    text = vocab.english;
+                    dropType = 'english';
+                    matchData = { index: vocabIndex, chinese: vocab.chinese, english: vocab.english };
+                }
+
+                const position = findValidPosition(existingDrops, 15);
+
+                return {
+                    id: dropIdRef.current++,
+                    text,
+                    type: dropType,
+                    matchData,
+                    x: position.x,
+                    y: position.y,
+                    selected: false
+                };
+            };
+
+            const createTitleDrop = () => {
+                return {
+                    id: titleDropIdRef.current++,
+                    x: Math.random() * 90 + 5,
+                    y: -10
+                };
+            };
+
+            const getCurrentSpeed = () => {
+                const speedIncrease = Math.floor(score / 10) * 0.03;
+                return 0.12 + speedIncrease;
+            };
+
+            const getSpawnInterval = () => {
+                if (score < 30) {
+                    return 5000;
+                }
+                const level = Math.floor((score - 30) / 10);
+                return Math.max(1600, 4000 - (level * 300));
+            };
+
+            const isPositionTooClose = (x, y, existingDrops, minDistance = 15) => {
+                return existingDrops.some(drop => {
+                    const distance = Math.sqrt(Math.pow(drop.x - x, 2) + Math.pow(drop.y - y, 2));
+                    return distance < minDistance;
+                });
+            };
+
+            const findValidPosition = (existingDrops, minDistance = 15) => {
+                let attempts = 0;
+                let x, y;
+                do {
+                    x = Math.random() * 70 + 10;
+                    y = -10 - Math.random() * 20;
+                    attempts++;
+                } while (isPositionTooClose(x, y, existingDrops, minDistance) && attempts < 100);
+                return { x, y };
+            };
+
+            const hasMatchingPair = (drop, allDrops) => {
+                return allDrops.some(otherDrop => {
+                    if (otherDrop.id === drop.id) return false;
+                    if (drop.type === otherDrop.type) return false;
+                    return drop.matchData.index === otherDrop.matchData.index;
+                });
+            };
+
+            const ensureMatchExists = () => {
+                setDrops(prev => {
+                    const dropsAtHalf = prev.filter(d => d.y >= 50 && d.y < 55);
+                    
+                    for (let drop of dropsAtHalf) {
+                        if (!hasMatchingPair(drop, prev)) {
+                            const matchType = drop.type === 'chinese' ? 'english' : 'chinese';
+                            const matchDrop = createDrop(matchType, drop.matchData.index, prev);
+                            return [...prev, matchDrop];
+                        }
+                    }
+                    return prev;
+                });
+            };
+
+            useEffect(() => {
+                if (!showTitle) return;
+
+                const moveInterval = setInterval(() => {
+                    setPenguinPos(prev => {
+                        const next = prev + penguinDirection * 1.2;
+                        if (next > 90 || next < 10) {
+                            setPenguinDirection(d => -d);
+                            return prev;
+                        }
+                        return next;
+                    });
+                }, 50);
+
+                const rainInterval = setInterval(() => {
+                    setTitleRaindrops(prev => [...prev, createTitleDrop()]);
+                }, 300);
+
+                const updateRain = setInterval(() => {
+                    setTitleRaindrops(prev => 
+                        prev.map(d => ({ ...d, y: d.y + 0.3 })).filter(d => d.y < 110)
+                    );
+                }, 50);
+
+                return () => {
+                    clearInterval(moveInterval);
+                    clearInterval(rainInterval);
+                    clearInterval(updateRain);
+                };
+            }, [showTitle, penguinDirection]);
+
+            useEffect(() => {
+                if (showTitle || gameOver || gameWon) return;
+
+                const moveInterval = setInterval(() => {
+                    setPenguinPos(prev => {
+                        const next = prev + penguinDirection * 1.2;
+                        if (next > 90 || next < 10) {
+                            setPenguinDirection(d => -d);
+                            return prev;
+                        }
+                        return next;
+                    });
+                }, 50);
+
+                return () => clearInterval(moveInterval);
+            }, [showTitle, gameOver, gameWon, penguinDirection]);
+
+            const startGame = () => {
+                setShowTitle(false);
+                setDrops([]);
+                setScore(0);
+                setMisses(0);
+                setSelectedDrop(null);
+                setGameOver(false);
+                setGameWon(false);
+                dropIdRef.current = 0;
+            };
+
+            useEffect(() => {
+                if (gameOver || gameWon || showTitle) return;
+
+                let firstDropRef = null;
+
+                const spawnDrop = () => {
+                    setDrops(prev => {
+                        const newDrop = createDrop(null, null, prev);
+                        firstDropRef = newDrop;
+                        return [...prev, newDrop];
+                    });
+                    
+                    setTimeout(() => {
+                        setDrops(prev => {
+                            if (!firstDropRef) return prev;
+                            const matchType = firstDropRef.type === 'chinese' ? 'english' : 'chinese';
+                            const matchDrop = createDrop(matchType, firstDropRef.matchData.index, prev);
+                            firstDropRef = null;
+                            return [...prev, matchDrop];
+                        });
+                    }, 1000 + Math.random() * 2000);
+                };
+
+                spawnDrop();
+                spawnTimerRef.current = setInterval(spawnDrop, getSpawnInterval());
+
+                return () => {
+                    if (spawnTimerRef.current) clearInterval(spawnTimerRef.current);
+                };
+            }, [gameOver, gameWon, showTitle, score]);
+
+            useEffect(() => {
+                if (gameOver || gameWon || showTitle) return;
+
+                checkTimerRef.current = setInterval(ensureMatchExists, 100);
+
+                return () => {
+                    if (checkTimerRef.current) clearInterval(checkTimerRef.current);
+                };
+            }, [gameOver, gameWon, showTitle, drops]);
+
+            useEffect(() => {
+                if (gameOver || gameWon || showTitle) return;
+
+                const interval = setInterval(() => {
+                    setDrops(prev => {
+                        const updated = prev.map(drop => ({
+                            ...drop,
+                            y: drop.y + getCurrentSpeed()
+                        }));
+
+                        const landed = updated.filter(d => d.y >= 95);
+                        if (landed.length > 0) {
+                            setMisses(m => {
+                                const newMisses = m + landed.length;
+                                if (newMisses >= 3) {
+                                    setGameOver(true);
+                                    if (spawnTimerRef.current) clearInterval(spawnTimerRef.current);
+                                }
+                                return newMisses;
+                            });
+                            return updated.filter(d => d.y < 95);
+                        }
+
+                        return updated;
+                    });
+                }, 50);
+
+                return () => clearInterval(interval);
+            }, [gameOver, gameWon, showTitle, score]);
+
+            const handleDropClick = (drop) => {
+                if (gameOver || gameWon) return;
+
+                if (!selectedDrop) {
+                    setSelectedDrop(drop);
+                    setDrops(prev => prev.map(d => 
+                        d.id === drop.id ? { ...d, selected: true } : d
+                    ));
+                } else {
+                    if (selectedDrop.id === drop.id) {
+                        setSelectedDrop(null);
+                        setDrops(prev => prev.map(d => 
+                            d.id === drop.id ? { ...d, selected: false } : d
+                        ));
+                        return;
+                    }
+
+                    if (selectedDrop.type === drop.type) {
+                        setSelectedDrop(drop);
+                        setDrops(prev => prev.map(d => {
+                            if (d.id === drop.id) return { ...d, selected: true };
+                            if (d.id === selectedDrop.id) return { ...d, selected: false };
+                            return d;
+                        }));
+                        return;
+                    }
+
+                    if (selectedDrop.matchData.index === drop.matchData.index) {
+                        setDrops(prev => prev.filter(d => 
+                            d.id !== selectedDrop.id && d.id !== drop.id
+                        ));
+                        setScore(s => {
+                            const newScore = s + 1;
+                            if (newScore >= 100) {
+                                setGameWon(true);
+                                if (spawnTimerRef.current) clearInterval(spawnTimerRef.current);
+                            }
+                            return newScore;
+                        });
+                        setSelectedDrop(null);
+                    } else {
+                        setSelectedDrop(null);
+                        setDrops(prev => prev.map(d => ({ ...d, selected: false })));
+                    }
+                }
+            };
+
+            const resetGame = () => {
+                setShowTitle(true);
+                setPenguinPos(10);
+                setPenguinDirection(1);
+                setTitleRaindrops([]);
+                setDrops([]);
+                setScore(0);
+                setMisses(0);
+                setSelectedDrop(null);
+                setGameOver(false);
+                setGameWon(false);
+                dropIdRef.current = 0;
+                titleDropIdRef.current = 0;
+            };
+
+            const Penguin = () => (
+                <svg width="140" height="120" viewBox="0 0 140 120" style={{ transform: penguinDirection === 1 ? 'scaleX(1)' : 'scaleX(-1)' }}>
+                    <ellipse cx="70" cy="112" rx="30" ry="6" fill="#000" opacity="0.2" />
+                    <ellipse cx="70" cy="75" rx="35" ry="42" fill="#2c3e50" />
+                    <ellipse cx="72" cy="78" rx="26" ry="35" fill="#ecf0f1" />
+                    <ellipse cx="45" cy="65" rx="8" ry="22" fill="#2c3e50" />
+                    <ellipse cx="85" cy="50" rx="18" ry="16" fill="#2c3e50" />
+                    <ellipse cx="88" cy="52" rx="14" ry="12" fill="#ecf0f1" />
+                    <circle cx="92" cy="50" r="6" fill="#000" />
+                    <circle cx="93" cy="49" r="2" fill="#fff" />
+                    <path d="M 100 58 L 108 60 L 106 64 L 100 62 Z" fill="#ff8c42" />
+                    <path d="M 102 60 L 106 61 L 105 63 L 102 62 Z" fill="#ffa500" />
+                    <ellipse cx="58" cy="105" rx="16" ry="8" fill="#ff8c42" className="animate-bounce" style={{ animationDuration: '0.4s' }} />
+                    <path d="M 50 105 L 45 110 L 52 108 Z" fill="#ffa500" />
+                    <path d="M 58 105 L 54 110 L 60 108 Z" fill="#ffa500" />
+                    <path d="M 66 105 L 63 110 L 68 108 Z" fill="#ffa500" />
+                    <ellipse cx="82" cy="105" rx="16" ry="8" fill="#ff8c42" className="animate-bounce" style={{ animationDuration: '0.4s', animationDelay: '0.2s' }} />
+                    <path d="M 74 105 L 69 110 L 76 108 Z" fill="#ffa500" />
+                    <path d="M 82 105 L 78 110 L 84 108 Z" fill="#ffa500" />
+                    <path d="M 90 105 L 87 110 L 92 108 Z" fill="#ffa500" />
+                    <ellipse cx="72" cy="90" rx="8" ry="10" fill="#fff" opacity="0.3" />
+                </svg>
+            );
+
+            return (
+                <div style={{
+                    width: '100%',
+                    height: '100vh',
+                    background: 'linear-gradient(to bottom, #475569, #64748b, #6b7280)',
+                    position: 'relative',
+                    overflow: 'hidden'
+                }}>
+                    {showTitle ? (
+                        <div style={{
+                            position: 'absolute',
+                            inset: 0,
+                            display: 'flex',
+                            flexDirection: 'column',
+                            alignItems: 'center',
+                            justifyContent: 'center'
+                        }}>
+                            {titleRaindrops.map(drop => (
+                                <div
+                                    key={drop.id}
+                                    style={{
+                                        position: 'absolute',
+                                        left: `${drop.x}%`,
+                                        top: `${drop.y}%`,
+                                        transform: 'translate(-50%, -50%)'
+                                    }}
+                                >
+                                    <svg width="60" height="75" viewBox="0 0 80 100" style={{ filter: 'drop-shadow(0 4px 6px rgba(0,0,0,0.3))' }}>
+                                        <path 
+                                            d="M40 5 C20 25, 10 40, 10 60 C10 78, 23 92, 40 92 C57 92, 70 78, 70 60 C70 40, 60 25, 40 5 Z" 
+                                            fill="#60a5fa"
+                                            stroke="#3b82f6"
+                                            strokeWidth="2"
+                                        />
+                                    </svg>
+                                </div>
+                            ))}
+                            
+                            <div style={{
+                                transition: 'all 0.3s ease-linear',
+                                marginBottom: '2rem',
+                                position: 'relative',
+                                zIndex: 10,
+                                left: `${penguinPos - 50}%`
+                            }}>
+                                <Penguin />
+                            </div>
+                            
+                            <div style={{ textAlign: 'center', position: 'relative', zIndex: 10 }}>
+                                <h1 style={{
+                                    fontSize: '3.75rem',
+                                    fontWeight: 'bold',
+                                    color: 'white',
+                                    marginBottom: '2rem',
+                                    textShadow: '0 4px 6px rgba(0,0,0,0.3)'
+                                }}>
+                                    企鹅不喜欢下雨
+                                </h1>
+                                <button
+                                    onClick={startGame}
+                                    style={{
+                                        backgroundColor: '#2563eb',
+                                        color: 'white',
+                                        fontSize: '1.5rem',
+                                        padding: '1rem 2rem',
+                                        borderRadius: '0.5rem',
+                                        border: 'none',
+                                        cursor: 'pointer',
+                                        boxShadow: '0 4px 6px rgba(0,0,0,0.3)',
+                                        transition: 'background-color 0.2s'
+                                    }}
+                                    onMouseOver={(e) => e.target.style.backgroundColor = '#1d4ed8'}
+                                    onMouseOut={(e) => e.target.style.backgroundColor = '#2563eb'}
+                                >
+                                    开始玩
+                                </button>
+                            </div>
+                        </div>
+                    ) : (
+                        <>
+                            <div style={{
+                                position: 'absolute',
+                                top: '1rem',
+                                left: '1rem',
+                                color: 'white',
+                                fontSize: '1.25rem',
+                                fontWeight: 'bold',
+                                backgroundColor: 'rgba(0,0,0,0.5)',
+                                padding: '0.5rem 1rem',
+                                borderRadius: '0.5rem'
+                            }}>
+                                分数: {score}/100
+                            </div>
+                            <div style={{
+                                position: 'absolute',
+                                top: '1rem',
+                                right: '1rem',
+                                color: 'white',
+                                fontSize: '1.25rem',
+                                fontWeight: 'bold',
+                                backgroundColor: 'rgba(0,0,0,0.5)',
+                                padding: '0.5rem 1rem',
+                                borderRadius: '0.5rem'
+                            }}>
+                                错误: {misses}/3
+                            </div>
+
+                            {drops.map(drop => (
+                                <div
+                                    key={drop.id}
+                                    onClick={() => handleDropClick(drop)}
+                                    style={{
+                                        position: 'absolute',
+                                        cursor: 'pointer',
+                                        transition: 'all 0.2s',
+                                        left: `${drop.x}%`,
+                                        top: `${drop.y}%`,
+                                        transform: `translate(-50%, -50%) scale(${drop.selected ? 1.1 : 1})`
+                                    }}
+                                    onMouseOver={(e) => {
+                                        if (!drop.selected) e.currentTarget.style.transform = `translate(-50%, -50%) scale(1.05)`;
+                                    }}
+                                    onMouseOut={(e) => {
+                                        if (!drop.selected) e.currentTarget.style.transform = `translate(-50%, -50%) scale(1)`;
+                                    }}
+                                >
+                                    <div className={drop.selected ? 'animate-pulse' : ''} style={{ position: 'relative' }}>
+                                        <svg width="80" height="100" viewBox="0 0 80 100" style={{ filter: 'drop-shadow(0 4px 6px rgba(0,0,0,0.3))' }}>
+                                            <path 
+                                                d="M40 5 C20 25, 10 40, 10 60 C10 78, 23 92, 40 92 C57 92, 70 78, 70 60 C70 40, 60 25, 40 5 Z" 
+                                                fill={drop.selected ? '#fbbf24' : '#60a5fa'}
+                                                stroke={drop.selected ? '#f59e0b' : '#3b82f6'}
+                                                strokeWidth="2"
+                                            />
+                                        </svg>
+                                        <div style={{
+                                            position: 'absolute',
+                                            inset: 0,
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            justifyContent: 'center',
+                                            fontSize: drop.type === 'chinese' ? '1.25rem' : '0.9rem',
+                                            fontWeight: '900',
+                                            color: 'white',
+                                            textShadow: '2px 2px 4px rgba(0,0,0,0.8), -1px -1px 2px rgba(0,0,0,0.6)',
+                                            fontFamily: drop.type === 'chinese' ? 'SimSun, serif' : 'Arial, sans-serif',
+                                            letterSpacing: '0.5px',
+                                            padding: '0.5rem',
+                                            textAlign: 'center',
+                                            lineHeight: '1.2'
+                                        }}>
+                                            {drop.text}
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+
+                            <div style={{
+                                position: 'absolute',
+                                bottom: '2rem',
+                                left: `${penguinPos}%`,
+                                transform: 'translateX(-50%)',
+                                transition: 'all 0.3s ease-linear'
+                            }}>
+                                <Penguin />
+                            </div>
+
+                            {(gameOver || gameWon) && (
+                                <div style={{
+                                    position: 'absolute',
+                                    inset: 0,
+                                    backgroundColor: 'rgba(0,0,0,0.7)',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center'
+                                }}>
+                                    <div style={{
+                                        backgroundColor: 'white',
+                                        padding: '2rem',
+                                        borderRadius: '0.5rem',
+                                        textAlign: 'center'
+                                    }}>
+                                        <h2 style={{
+                                            fontSize: '1.875rem',
+                                            fontWeight: 'bold',
+                                            marginBottom: '1rem'
+                                        }}>
+                                            {gameWon ? '恭喜！🎉' : '游戏结束！😿'}
+                                        </h2>
+                                        <p style={{
+                                            fontSize: '1.25rem',
+                                            marginBottom: '1.5rem'
+                                        }}>
+                                            {gameWon 
+                                                ? '你安全回家了！' 
+                                                : '企鹅不喜欢雨！'}
+                                        </p>
+                                        <p style={{
+                                            fontSize: '1.125rem',
+                                            marginBottom: '1.5rem'
+                                        }}>
+                                            最终分数: {score}/100
+                                        </p>
+                                        <button
+                                            onClick={resetGame}
+                                            style={{
+                                                backgroundColor: '#2563eb',
+                                                color: 'white',
+                                                padding: '0.75rem 1.5rem',
+                                                borderRadius: '0.5rem',
+                                                border: 'none',
+                                                cursor: 'pointer',
+                                                transition: 'background-color 0.2s'
+                                            }}
+                                            onMouseOver={(e) => e.target.style.backgroundColor = '#1d4ed8'}
+                                            onMouseOut={(e) => e.target.style.backgroundColor = '#2563eb'}
+                                        >
+                                            再玩一次
+                                        </button>
+                                    </div>
+                                </div>
+                            )}
+                        </>
+                    )}
+                </div>
+            );
+        };
+
+        ReactDOM.render(<ChineseVocabRainGame />, document.getElementById('root'));
+    </script>
+</body>
+</html>
