@@ -1,482 +1,600 @@
-import React, { useState, useEffect, useRef } from 'react';
-
-const SpanishRainGame = () => {
-  const [drops, setDrops] = useState([]);
-  const [titleRaindrops, setTitleRaindrops] = useState([]);
-  const [score, setScore] = useState(0);
-  const [misses, setMisses] = useState(0);
-  const [selectedDrop, setSelectedDrop] = useState(null);
-  const [gameOver, setGameOver] = useState(false);
-  const [gameWon, setGameWon] = useState(false);
-  const [showTitle, setShowTitle] = useState(true);
-  const [catPos, setCatPos] = useState(10);
-  const [catDirection, setCatDirection] = useState(1);
-  const dropIdRef = useRef(0);
-  const titleDropIdRef = useRef(0);
-  const spawnTimerRef = useRef(null);
-  const checkTimerRef = useRef(null);
-
-  const verbs = {
-    hablar: { yo: 'hablo', tú: 'hablas', ella: 'habla', nosotros: 'hablamos', vosotros: 'habláis', ellos: 'hablan' },
-    escuchar: { yo: 'escucho', tú: 'escuchas', ella: 'escucha', nosotros: 'escuchamos', vosotros: 'escucháis', ellos: 'escuchan' },
-    estudiar: { yo: 'estudio', tú: 'estudias', ella: 'estudia', nosotros: 'estudiamos', vosotros: 'estudiáis', ellos: 'estudian' },
-    bailar: { yo: 'bailo', tú: 'bailas', ella: 'baila', nosotros: 'bailamos', vosotros: 'bailáis', ellos: 'bailan' },
-    viajar: { yo: 'viajo', tú: 'viajas', ella: 'viaja', nosotros: 'viajamos', vosotros: 'viajáis', ellos: 'viajan' },
-    trabajar: { yo: 'trabajo', tú: 'trabajas', ella: 'trabaja', nosotros: 'trabajamos', vosotros: 'trabajáis', ellos: 'trabajan' }
-  };
-
-  const pronouns = ['yo', 'tú', 'ella', 'nosotros', 'vosotros', 'ellos'];
-
-  const createDrop = (type = null, matchPronoun = null) => {
-    let text, dropType, matchData;
-
-    if (type === 'pronoun' || (!type && Math.random() > 0.5)) {
-      text = matchPronoun || pronouns[Math.floor(Math.random() * pronouns.length)];
-      dropType = 'pronoun';
-      matchData = { pronoun: text };
-    } else {
-      const verbKeys = Object.keys(verbs);
-      const verb = verbKeys[Math.floor(Math.random() * verbKeys.length)];
-      const pronoun = matchPronoun || pronouns[Math.floor(Math.random() * pronouns.length)];
-      text = verbs[verb][pronoun];
-      dropType = 'conjugation';
-      matchData = { verb, pronoun, conjugation: text };
-    }
-
-    return {
-      id: dropIdRef.current++,
-      text,
-      type: dropType,
-      matchData,
-      x: Math.random() * 70 + 10,
-      y: -10 - Math.random() * 20,
-      selected: false
-    };
-  };
-
-  const createTitleDrop = () => {
-    return {
-      id: titleDropIdRef.current++,
-      x: Math.random() * 90 + 5,
-      y: -10
-    };
-  };
-
-  const getCurrentSpeed = () => {
-    const speedIncrease = Math.floor(score / 10) * 0.03;
-    return 0.12 + speedIncrease;
-  };
-
-  const getSpawnInterval = () => {
-    const level = Math.floor(score / 10);
-    return Math.max(1600, 4000 - (level * 300));
-  };
-
-  const isPositionTooClose = (x, y, existingDrops) => {
-    return existingDrops.some(drop => {
-      const distance = Math.sqrt(Math.pow(drop.x - x, 2) + Math.pow(drop.y - y, 2));
-      return distance < 50;
-    });
-  };
-
-  const findValidPosition = (existingDrops) => {
-    let attempts = 0;
-    let x, y;
-    do {
-      x = Math.random() * 70 + 10;
-      y = -10 - Math.random() * 20;
-      attempts++;
-    } while (isPositionTooClose(x, y, existingDrops) && attempts < 50);
-    return { x, y };
-  };
-
-  const hasMatchingPair = (drop, allDrops) => {
-    return allDrops.some(otherDrop => {
-      if (otherDrop.id === drop.id) return false;
-      if (drop.type === otherDrop.type) return false;
-      return drop.matchData.pronoun === otherDrop.matchData.pronoun;
-    });
-  };
-
-  const ensureMatchExists = () => {
-    setDrops(prev => {
-      const dropsAtHalf = prev.filter(d => d.y >= 50 && d.y < 55);
-      
-      for (let drop of dropsAtHalf) {
-        if (!hasMatchingPair(drop, prev)) {
-          const matchType = drop.type === 'pronoun' ? 'conjugation' : 'pronoun';
-          const pos = findValidPosition(prev);
-          const matchDrop = { ...createDrop(matchType, drop.matchData.pronoun), x: pos.x, y: pos.y };
-          return [...prev, matchDrop];
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>No me gusta la lluvia - Spanish Verb Game</title>
+    <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+    <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.5/babel.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-      }
-      return prev;
-    });
-  };
-
-  useEffect(() => {
-    if (!showTitle) return;
-
-    const moveInterval = setInterval(() => {
-      setCatPos(prev => {
-        const next = prev + catDirection * 1.2;
-        if (next > 90 || next < 10) {
-          setCatDirection(d => -d);
-          return prev;
+        body, html {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
         }
-        return next;
-      });
-    }, 50);
-
-    const rainInterval = setInterval(() => {
-      setTitleRaindrops(prev => [...prev, createTitleDrop()]);
-    }, 300);
-
-    const updateRain = setInterval(() => {
-      setTitleRaindrops(prev => 
-        prev.map(d => ({ ...d, y: d.y + 0.3 })).filter(d => d.y < 110)
-      );
-    }, 50);
-
-    return () => {
-      clearInterval(moveInterval);
-      clearInterval(rainInterval);
-      clearInterval(updateRain);
-    };
-  }, [showTitle, catDirection]);
-
-  useEffect(() => {
-    if (showTitle || gameOver || gameWon) return;
-
-    const moveInterval = setInterval(() => {
-      setCatPos(prev => {
-        const next = prev + catDirection * 1.2;
-        if (next > 90 || next < 10) {
-          setCatDirection(d => -d);
-          return prev;
+        #root {
+            width: 100%;
+            height: 100%;
         }
-        return next;
-      });
-    }, 50);
-
-    return () => clearInterval(moveInterval);
-  }, [showTitle, gameOver, gameWon, catDirection]);
-
-  const startGame = () => {
-    setShowTitle(false);
-    setDrops([]);
-    setScore(0);
-    setMisses(0);
-    setSelectedDrop(null);
-    setGameOver(false);
-    setGameWon(false);
-    dropIdRef.current = 0;
-  };
-
-  useEffect(() => {
-    if (gameOver || gameWon || showTitle) return;
-
-    const spawnDrop = () => {
-      const newDrop = createDrop();
-      setDrops(prev => [...prev, newDrop]);
-      
-      setTimeout(() => {
-        const matchType = newDrop.type === 'pronoun' ? 'conjugation' : 'pronoun';
-        const matchDrop = createDrop(matchType, newDrop.matchData.pronoun);
-        setDrops(prev => [...prev, matchDrop]);
-      }, 1000 + Math.random() * 2000);
-    };
-
-    spawnDrop();
-    spawnTimerRef.current = setInterval(spawnDrop, getSpawnInterval());
-
-    return () => {
-      if (spawnTimerRef.current) clearInterval(spawnTimerRef.current);
-    };
-  }, [gameOver, gameWon, showTitle, score]);
-
-  useEffect(() => {
-    if (gameOver || gameWon || showTitle) return;
-
-    checkTimerRef.current = setInterval(ensureMatchExists, 100);
-
-    return () => {
-      if (checkTimerRef.current) clearInterval(checkTimerRef.current);
-    };
-  }, [gameOver, gameWon, showTitle, drops]);
-
-  useEffect(() => {
-    if (gameOver || gameWon || showTitle) return;
-
-    const interval = setInterval(() => {
-      setDrops(prev => {
-        const updated = prev.map(drop => ({
-          ...drop,
-          y: drop.y + getCurrentSpeed()
-        }));
-
-        const landed = updated.filter(d => d.y >= 95);
-        if (landed.length > 0) {
-          setMisses(m => {
-            const newMisses = m + landed.length;
-            if (newMisses >= 3) {
-              setGameOver(true);
-              if (spawnTimerRef.current) clearInterval(spawnTimerRef.current);
-            }
-            return newMisses;
-          });
-          return updated.filter(d => d.y < 95);
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
         }
+        .animate-bounce {
+            animation: bounce 0.4s ease-in-out infinite;
+        }
+        .animate-pulse {
+            animation: pulse 1s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
 
-        return updated;
-      });
-    }, 50);
+    <script type="text/babel">
+        const { useState, useEffect, useRef } = React;
 
-    return () => clearInterval(interval);
-  }, [gameOver, gameWon, showTitle, score]);
+        const SpanishRainGame = () => {
+            const [drops, setDrops] = useState([]);
+            const [titleRaindrops, setTitleRaindrops] = useState([]);
+            const [score, setScore] = useState(0);
+            const [misses, setMisses] = useState(0);
+            const [selectedDrop, setSelectedDrop] = useState(null);
+            const [gameOver, setGameOver] = useState(false);
+            const [gameWon, setGameWon] = useState(false);
+            const [showTitle, setShowTitle] = useState(true);
+            const [penguinPos, setPenguinPos] = useState(10);
+            const [penguinDirection, setPenguinDirection] = useState(1);
+            const dropIdRef = useRef(0);
+            const titleDropIdRef = useRef(0);
+            const spawnTimerRef = useRef(null);
+            const checkTimerRef = useRef(null);
 
-  const handleDropClick = (drop) => {
-    if (gameOver || gameWon) return;
+            const verbs = {
+                hablar: { yo: 'hablo', tú: 'hablas', ella: 'habla', nosotros: 'hablamos', vosotros: 'habláis', ellos: 'hablan' },
+                escuchar: { yo: 'escucho', tú: 'escuchas', ella: 'escucha', nosotros: 'escuchamos', vosotros: 'escucháis', ellos: 'escuchan' },
+                estudiar: { yo: 'estudio', tú: 'estudias', ella: 'estudia', nosotros: 'estudiamos', vosotros: 'estudiáis', ellos: 'estudian' },
+                bailar: { yo: 'bailo', tú: 'bailas', ella: 'baila', nosotros: 'bailamos', vosotros: 'bailáis', ellos: 'bailan' },
+                viajar: { yo: 'viajo', tú: 'viajas', ella: 'viaja', nosotros: 'viajamos', vosotros: 'viajáis', ellos: 'viajan' },
+                trabajar: { yo: 'trabajo', tú: 'trabajas', ella: 'trabaja', nosotros: 'trabajamos', vosotros: 'trabajáis', ellos: 'trabajan' }
+            };
 
-    if (!selectedDrop) {
-      setSelectedDrop(drop);
-      setDrops(prev => prev.map(d => 
-        d.id === drop.id ? { ...d, selected: true } : d
-      ));
-    } else {
-      if (selectedDrop.id === drop.id) {
-        setSelectedDrop(null);
-        setDrops(prev => prev.map(d => 
-          d.id === drop.id ? { ...d, selected: false } : d
-        ));
-        return;
-      }
+            const pronouns = ['yo', 'tú', 'ella', 'nosotros', 'vosotros', 'ellos'];
 
-      const pronounDrop = selectedDrop.type === 'pronoun' ? selectedDrop : drop;
-      const conjugationDrop = selectedDrop.type === 'conjugation' ? selectedDrop : drop;
+            const createDrop = (type = null, matchPronoun = null) => {
+                let text, dropType, matchData;
 
-      if (selectedDrop.type === drop.type) {
-        setSelectedDrop(drop);
-        setDrops(prev => prev.map(d => {
-          if (d.id === drop.id) return { ...d, selected: true };
-          if (d.id === selectedDrop.id) return { ...d, selected: false };
-          return d;
-        }));
-        return;
-      }
+                if (type === 'pronoun' || (!type && Math.random() > 0.5)) {
+                    text = matchPronoun || pronouns[Math.floor(Math.random() * pronouns.length)];
+                    dropType = 'pronoun';
+                    matchData = { pronoun: text };
+                } else {
+                    const verbKeys = Object.keys(verbs);
+                    const verb = verbKeys[Math.floor(Math.random() * verbKeys.length)];
+                    const pronoun = matchPronoun || pronouns[Math.floor(Math.random() * pronouns.length)];
+                    text = verbs[verb][pronoun];
+                    dropType = 'conjugation';
+                    matchData = { verb, pronoun, conjugation: text };
+                }
 
-      if (conjugationDrop.matchData.pronoun === pronounDrop.matchData.pronoun) {
-        setDrops(prev => prev.filter(d => 
-          d.id !== selectedDrop.id && d.id !== drop.id
-        ));
-        setScore(s => {
-          const newScore = s + 1;
-          if (newScore >= 100) {
-            setGameWon(true);
-            if (spawnTimerRef.current) clearInterval(spawnTimerRef.current);
-          }
-          return newScore;
-        });
-        setSelectedDrop(null);
-      } else {
-        setSelectedDrop(null);
-        setDrops(prev => prev.map(d => ({ ...d, selected: false })));
-      }
-    }
-  };
+                return {
+                    id: dropIdRef.current++,
+                    text,
+                    type: dropType,
+                    matchData,
+                    x: Math.random() * 70 + 10,
+                    y: -10 - Math.random() * 20,
+                    selected: false
+                };
+            };
 
-  const resetGame = () => {
-    setShowTitle(true);
-    setCatPos(10);
-    setCatDirection(1);
-    setTitleRaindrops([]);
-    setDrops([]);
-    setScore(0);
-    setMisses(0);
-    setSelectedDrop(null);
-    setGameOver(false);
-    setGameWon(false);
-    dropIdRef.current = 0;
-    titleDropIdRef.current = 0;
-  };
+            const createTitleDrop = () => {
+                return {
+                    id: titleDropIdRef.current++,
+                    x: Math.random() * 90 + 5,
+                    y: -10
+                };
+            };
 
-  const Cat = () => (
-    <svg width="160" height="110" viewBox="0 0 160 110" style={{ transform: catDirection === 1 ? 'scaleX(1)' : 'scaleX(-1)' }}>
-      <ellipse cx="80" cy="102" rx="35" ry="6" fill="#000" opacity="0.15" />
-      
-      <ellipse cx="65" cy="75" rx="38" ry="28" fill="#e6d5c3" />
-      <ellipse cx="65" cy="78" rx="32" ry="22" fill="#f5ebe0" />
-      
-      <path d="M 30 68 Q 25 72 22 78 Q 20 82 22 86 L 35 82 Q 32 78 30 73 Z" fill="#e6d5c3" />
-      <path d="M 26 80 Q 24 82 23 85 L 30 83 Q 29 81 27 79 Z" fill="#d4b5a0" />
-      
-      <path d="M 85 48 L 92 28 L 88 50 Z" fill="#e6d5c3" />
-      <path d="M 88 45 L 93 32 L 90 48 Z" fill="#f5e6d8" />
-      <ellipse cx="89" cy="42" rx="3" ry="5" fill="#ffb3d9" opacity="0.6" />
-      
-      <ellipse cx="95" cy="58" rx="22" ry="20" fill="#e6d5c3" />
-      <ellipse cx="98" cy="62" rx="17" ry="15" fill="#f5ebe0" />
-      
-      <path d="M 90 55 L 88 52 Q 86 50 88 48 Q 90 50 91 52 Z" fill="#d4b5a0" opacity="0.3" />
-      <path d="M 95 58 L 93 55 Q 91 53 93 51 Q 95 53 96 55 Z" fill="#d4b5a0" opacity="0.3" />
-      
-      <ellipse cx="100" cy="60" rx="7" ry="8" fill="#5d9c6b" />
-      <ellipse cx="101" cy="59" rx="4" ry="5" fill="#2d5a3a" />
-      <ellipse cx="102" cy="58" rx="2" ry="2.5" fill="#fff" opacity="0.8" />
-      
-      <ellipse cx="112" cy="65" rx="3" ry="3.5" fill="#ffb3d9" />
-      <path d="M 112 68 Q 110 69 109 70" stroke="#d4b5a0" strokeWidth="0.8" fill="none" />
-      
-      <path d="M 108 67 L 98 69" stroke="#8b7355" strokeWidth="1" opacity="0.6" />
-      <path d="M 108 68 L 98 70" stroke="#8b7355" strokeWidth="1" opacity="0.6" />
-      <path d="M 108 69 L 98 71" stroke="#8b7355" strokeWidth="1" opacity="0.6" />
-      <path d="M 108 70 L 98 72" stroke="#8b7355" strokeWidth="1" opacity="0.6" />
-      
-      <circle cx="109" cy="75" r="2" fill="#f5ebe0" />
-      <circle cx="105" cy="77" r="1.5" fill="#f5ebe0" />
-      
-      <ellipse cx="108" cy="80" rx="3" ry="4" fill="#fff" opacity="0.9" />
-      
-      <rect x="50" y="88" width="11" height="10" fill="#e6d5c3" rx="2" className="animate-bounce" style={{ animationDuration: '0.35s' }} />
-      <ellipse cx="55.5" cy="98" rx="6" ry="3" fill="#d4b5a0" />
-      <ellipse cx="55.5" cy="95" rx="4" ry="2" fill="#f5ebe0" />
-      
-      <rect x="72" y="88" width="11" height="10" fill="#e6d5c3" rx="2" className="animate-bounce" style={{ animationDuration: '0.35s', animationDelay: '0.175s' }} />
-      <ellipse cx="77.5" cy="98" rx="6" ry="3" fill="#d4b5a0" />
-      <ellipse cx="77.5" cy="95" rx="4" ry="2" fill="#f5ebe0" />
-      
-      <rect x="58" y="90" width="10" height="9" fill="#e6d5c3" rx="2" className="animate-bounce" style={{ animationDuration: '0.35s', animationDelay: '0.09s' }} />
-      <ellipse cx="63" cy="99" rx="5.5" ry="2.5" fill="#d4b5a0" />
-      
-      <rect x="80" y="90" width="10" height="9" fill="#e6d5c3" rx="2" className="animate-bounce" style={{ animationDuration: '0.35s', animationDelay: '0.26s' }} />
-      <ellipse cx="85" cy="99" rx="5.5" ry="2.5" fill="#d4b5a0" />
-    </svg>
-  );
+            const getCurrentSpeed = () => {
+                const speedIncrease = Math.floor(score / 10) * 0.03;
+                return 0.12 + speedIncrease;
+            };
 
-  return (
-    <div className="w-full h-screen bg-gradient-to-b from-slate-700 via-slate-600 to-slate-500 relative overflow-hidden">
-      {showTitle ? (
-        <div className="absolute inset-0 flex flex-col items-center justify-center">
-          {titleRaindrops.map(drop => (
-            <div
-              key={drop.id}
-              className="absolute"
-              style={{
-                left: `${drop.x}%`,
-                top: `${drop.y}%`,
-                transform: 'translate(-50%, -50%)'
-              }}
-            >
-              <svg width="60" height="75" viewBox="0 0 80 100" className="drop-shadow-lg">
-                <path 
-                  d="M40 5 C20 25, 10 40, 10 60 C10 78, 23 92, 40 92 C57 92, 70 78, 70 60 C70 40, 60 25, 40 5 Z" 
-                  fill="#60a5fa"
-                  stroke="#3b82f6"
-                  strokeWidth="2"
-                />
-              </svg>
-            </div>
-          ))}
-          
-          <div 
-            className="transition-all duration-300 ease-linear mb-8 relative z-10"
-            style={{
-              left: `${catPos - 50}%`
-            }}
-          >
-            <Cat />
-          </div>
-          
-          <div className="text-center relative z-10">
-            <h1 className="text-6xl font-bold text-white mb-8 drop-shadow-lg">
-              No me gusta la lluvia
-            </h1>
-            <button
-              onClick={startGame}
-              className="bg-blue-600 text-white text-2xl px-8 py-4 rounded-lg hover:bg-blue-700 transition-colors shadow-lg"
-            >
-              Jugar
-            </button>
-          </div>
-        </div>
-      ) : (
-        <>
-          <div className="absolute top-4 left-4 text-white text-xl font-bold bg-black bg-opacity-50 px-4 py-2 rounded">
-            Puntos: {score}/100
-          </div>
-          <div className="absolute top-4 right-4 text-white text-xl font-bold bg-black bg-opacity-50 px-4 py-2 rounded">
-            Errores: {misses}/3
-          </div>
+            const getSpawnInterval = () => {
+                const level = Math.floor(score / 10);
+                return Math.max(1600, 4000 - (level * 300));
+            };
 
-          {drops.map(drop => (
-            <div
-              key={drop.id}
-              onClick={() => handleDropClick(drop)}
-              className={`absolute cursor-pointer transition-all ${
-                drop.selected ? 'scale-110' : 'hover:scale-105'
-              }`}
-              style={{
-                left: `${drop.x}%`,
-                top: `${drop.y}%`,
-                transform: 'translate(-50%, -50%)'
-              }}
-            >
-              <div className={`relative ${drop.selected ? 'animate-pulse' : ''}`}>
-                <svg width="80" height="100" viewBox="0 0 80 100" className="drop-shadow-lg">
-                  <path 
-                    d="M40 5 C20 25, 10 40, 10 60 C10 78, 23 92, 40 92 C57 92, 70 78, 70 60 C70 40, 60 25, 40 5 Z" 
-                    fill={drop.selected ? '#fbbf24' : '#60a5fa'}
-                    stroke={drop.selected ? '#f59e0b' : '#3b82f6'}
-                    strokeWidth="2"
-                  />
+            const isPositionTooClose = (x, y, existingDrops) => {
+                return existingDrops.some(drop => {
+                    const distance = Math.sqrt(Math.pow(drop.x - x, 2) + Math.pow(drop.y - y, 2));
+                    return distance < 50;
+                });
+            };
+
+            const findValidPosition = (existingDrops) => {
+                let attempts = 0;
+                let x, y;
+                do {
+                    x = Math.random() * 70 + 10;
+                    y = -10 - Math.random() * 20;
+                    attempts++;
+                } while (isPositionTooClose(x, y, existingDrops) && attempts < 50);
+                return { x, y };
+            };
+
+            const hasMatchingPair = (drop, allDrops) => {
+                return allDrops.some(otherDrop => {
+                    if (otherDrop.id === drop.id) return false;
+                    if (drop.type === otherDrop.type) return false;
+                    return drop.matchData.pronoun === otherDrop.matchData.pronoun;
+                });
+            };
+
+            const ensureMatchExists = () => {
+                setDrops(prev => {
+                    const dropsAtHalf = prev.filter(d => d.y >= 50 && d.y < 55);
+                    
+                    for (let drop of dropsAtHalf) {
+                        if (!hasMatchingPair(drop, prev)) {
+                            const matchType = drop.type === 'pronoun' ? 'conjugation' : 'pronoun';
+                            const pos = findValidPosition(prev);
+                            const matchDrop = { ...createDrop(matchType, drop.matchData.pronoun), x: pos.x, y: pos.y };
+                            return [...prev, matchDrop];
+                        }
+                    }
+                    return prev;
+                });
+            };
+
+            useEffect(() => {
+                if (!showTitle) return;
+
+                const moveInterval = setInterval(() => {
+                    setPenguinPos(prev => {
+                        const next = prev + penguinDirection * 1.2;
+                        if (next > 90 || next < 10) {
+                            setPenguinDirection(d => -d);
+                            return prev;
+                        }
+                        return next;
+                    });
+                }, 50);
+
+                const rainInterval = setInterval(() => {
+                    setTitleRaindrops(prev => [...prev, createTitleDrop()]);
+                }, 300);
+
+                const updateRain = setInterval(() => {
+                    setTitleRaindrops(prev => 
+                        prev.map(d => ({ ...d, y: d.y + 0.3 })).filter(d => d.y < 110)
+                    );
+                }, 50);
+
+                return () => {
+                    clearInterval(moveInterval);
+                    clearInterval(rainInterval);
+                    clearInterval(updateRain);
+                };
+            }, [showTitle, penguinDirection]);
+
+            useEffect(() => {
+                if (showTitle || gameOver || gameWon) return;
+
+                const moveInterval = setInterval(() => {
+                    setPenguinPos(prev => {
+                        const next = prev + penguinDirection * 1.2;
+                        if (next > 90 || next < 10) {
+                            setPenguinDirection(d => -d);
+                            return prev;
+                        }
+                        return next;
+                    });
+                }, 50);
+
+                return () => clearInterval(moveInterval);
+            }, [showTitle, gameOver, gameWon, penguinDirection]);
+
+            const startGame = () => {
+                setShowTitle(false);
+                setDrops([]);
+                setScore(0);
+                setMisses(0);
+                setSelectedDrop(null);
+                setGameOver(false);
+                setGameWon(false);
+                dropIdRef.current = 0;
+            };
+
+            useEffect(() => {
+                if (gameOver || gameWon || showTitle) return;
+
+                const spawnDrop = () => {
+                    const newDrop = createDrop();
+                    setDrops(prev => [...prev, newDrop]);
+                    
+                    setTimeout(() => {
+                        const matchType = newDrop.type === 'pronoun' ? 'conjugation' : 'pronoun';
+                        const matchDrop = createDrop(matchType, newDrop.matchData.pronoun);
+                        setDrops(prev => [...prev, matchDrop]);
+                    }, 1000 + Math.random() * 2000);
+                };
+
+                spawnDrop();
+                spawnTimerRef.current = setInterval(spawnDrop, getSpawnInterval());
+
+                return () => {
+                    if (spawnTimerRef.current) clearInterval(spawnTimerRef.current);
+                };
+            }, [gameOver, gameWon, showTitle, score]);
+
+            useEffect(() => {
+                if (gameOver || gameWon || showTitle) return;
+
+                checkTimerRef.current = setInterval(ensureMatchExists, 100);
+
+                return () => {
+                    if (checkTimerRef.current) clearInterval(checkTimerRef.current);
+                };
+            }, [gameOver, gameWon, showTitle, drops]);
+
+            useEffect(() => {
+                if (gameOver || gameWon || showTitle) return;
+
+                const interval = setInterval(() => {
+                    setDrops(prev => {
+                        const updated = prev.map(drop => ({
+                            ...drop,
+                            y: drop.y + getCurrentSpeed()
+                        }));
+
+                        const landed = updated.filter(d => d.y >= 95);
+                        if (landed.length > 0) {
+                            setMisses(m => {
+                                const newMisses = m + landed.length;
+                                if (newMisses >= 3) {
+                                    setGameOver(true);
+                                    if (spawnTimerRef.current) clearInterval(spawnTimerRef.current);
+                                }
+                                return newMisses;
+                            });
+                            return updated.filter(d => d.y < 95);
+                        }
+
+                        return updated;
+                    });
+                }, 50);
+
+                return () => clearInterval(interval);
+            }, [gameOver, gameWon, showTitle, score]);
+
+            const handleDropClick = (drop) => {
+                if (gameOver || gameWon) return;
+
+                if (!selectedDrop) {
+                    setSelectedDrop(drop);
+                    setDrops(prev => prev.map(d => 
+                        d.id === drop.id ? { ...d, selected: true } : d
+                    ));
+                } else {
+                    if (selectedDrop.id === drop.id) {
+                        setSelectedDrop(null);
+                        setDrops(prev => prev.map(d => 
+                            d.id === drop.id ? { ...d, selected: false } : d
+                        ));
+                        return;
+                    }
+
+                    const pronounDrop = selectedDrop.type === 'pronoun' ? selectedDrop : drop;
+                    const conjugationDrop = selectedDrop.type === 'conjugation' ? selectedDrop : drop;
+
+                    if (selectedDrop.type === drop.type) {
+                        setSelectedDrop(drop);
+                        setDrops(prev => prev.map(d => {
+                            if (d.id === drop.id) return { ...d, selected: true };
+                            if (d.id === selectedDrop.id) return { ...d, selected: false };
+                            return d;
+                        }));
+                        return;
+                    }
+
+                    if (conjugationDrop.matchData.pronoun === pronounDrop.matchData.pronoun) {
+                        setDrops(prev => prev.filter(d => 
+                            d.id !== selectedDrop.id && d.id !== drop.id
+                        ));
+                        setScore(s => {
+                            const newScore = s + 1;
+                            if (newScore >= 100) {
+                                setGameWon(true);
+                                if (spawnTimerRef.current) clearInterval(spawnTimerRef.current);
+                            }
+                            return newScore;
+                        });
+                        setSelectedDrop(null);
+                    } else {
+                        setSelectedDrop(null);
+                        setDrops(prev => prev.map(d => ({ ...d, selected: false })));
+                    }
+                }
+            };
+
+            const resetGame = () => {
+                setShowTitle(true);
+                setPenguinPos(10);
+                setPenguinDirection(1);
+                setTitleRaindrops([]);
+                setDrops([]);
+                setScore(0);
+                setMisses(0);
+                setSelectedDrop(null);
+                setGameOver(false);
+                setGameWon(false);
+                dropIdRef.current = 0;
+                titleDropIdRef.current = 0;
+            };
+
+            const Penguin = () => (
+                <svg width="140" height="120" viewBox="0 0 140 120" style={{ transform: penguinDirection === 1 ? 'scaleX(1)' : 'scaleX(-1)' }}>
+                    <ellipse cx="70" cy="112" rx="30" ry="6" fill="#000" opacity="0.2" />
+                    <ellipse cx="70" cy="75" rx="35" ry="42" fill="#2c3e50" />
+                    <ellipse cx="72" cy="78" rx="26" ry="35" fill="#ecf0f1" />
+                    <ellipse cx="45" cy="65" rx="8" ry="22" fill="#2c3e50" />
+                    <ellipse cx="85" cy="50" rx="18" ry="16" fill="#2c3e50" />
+                    <ellipse cx="88" cy="52" rx="14" ry="12" fill="#ecf0f1" />
+                    <circle cx="92" cy="50" r="6" fill="#000" />
+                    <circle cx="93" cy="49" r="2" fill="#fff" />
+                    <path d="M 100 58 L 108 60 L 106 64 L 100 62 Z" fill="#ff8c42" />
+                    <path d="M 102 60 L 106 61 L 105 63 L 102 62 Z" fill="#ffa500" />
+                    <ellipse cx="58" cy="105" rx="16" ry="8" fill="#ff8c42" className="animate-bounce" style={{ animationDuration: '0.4s' }} />
+                    <path d="M 50 105 L 45 110 L 52 108 Z" fill="#ffa500" />
+                    <path d="M 58 105 L 54 110 L 60 108 Z" fill="#ffa500" />
+                    <path d="M 66 105 L 63 110 L 68 108 Z" fill="#ffa500" />
+                    <ellipse cx="82" cy="105" rx="16" ry="8" fill="#ff8c42" className="animate-bounce" style={{ animationDuration: '0.4s', animationDelay: '0.2s' }} />
+                    <path d="M 74 105 L 69 110 L 76 108 Z" fill="#ffa500" />
+                    <path d="M 82 105 L 78 110 L 84 108 Z" fill="#ffa500" />
+                    <path d="M 90 105 L 87 110 L 92 108 Z" fill="#ffa500" />
+                    <ellipse cx="72" cy="90" rx="8" ry="10" fill="#fff" opacity="0.3" />
                 </svg>
-                <div className="absolute inset-0 flex items-center justify-center text-lg font-black text-white"
-                  style={{
-                    textShadow: '2px 2px 4px rgba(0,0,0,0.8), -1px -1px 2px rgba(0,0,0,0.6)',
-                    fontFamily: 'Arial, sans-serif',
-                    letterSpacing: '0.5px'
-                  }}>
-                  {drop.text}
+            );
+
+            return (
+                <div style={{
+                    width: '100%',
+                    height: '100vh',
+                    background: 'linear-gradient(to bottom, #475569, #64748b, #6b7280)',
+                    position: 'relative',
+                    overflow: 'hidden'
+                }}>
+                    {showTitle ? (
+                        <div style={{
+                            position: 'absolute',
+                            inset: 0,
+                            display: 'flex',
+                            flexDirection: 'column',
+                            alignItems: 'center',
+                            justifyContent: 'center'
+                        }}>
+                            {titleRaindrops.map(drop => (
+                                <div
+                                    key={drop.id}
+                                    style={{
+                                        position: 'absolute',
+                                        left: `${drop.x}%`,
+                                        top: `${drop.y}%`,
+                                        transform: 'translate(-50%, -50%)'
+                                    }}
+                                >
+                                    <svg width="60" height="75" viewBox="0 0 80 100" style={{ filter: 'drop-shadow(0 4px 6px rgba(0,0,0,0.3))' }}>
+                                        <path 
+                                            d="M40 5 C20 25, 10 40, 10 60 C10 78, 23 92, 40 92 C57 92, 70 78, 70 60 C70 40, 60 25, 40 5 Z" 
+                                            fill="#60a5fa"
+                                            stroke="#3b82f6"
+                                            strokeWidth="2"
+                                        />
+                                    </svg>
+                                </div>
+                            ))}
+                            
+                            <div style={{
+                                transition: 'all 0.3s ease-linear',
+                                marginBottom: '2rem',
+                                position: 'relative',
+                                zIndex: 10,
+                                left: `${penguinPos - 50}%`
+                            }}>
+                                <Penguin />
+                            </div>
+                            
+                            <div style={{ textAlign: 'center', position: 'relative', zIndex: 10 }}>
+                                <h1 style={{
+                                    fontSize: '3.75rem',
+                                    fontWeight: 'bold',
+                                    color: 'white',
+                                    marginBottom: '2rem',
+                                    textShadow: '0 4px 6px rgba(0,0,0,0.3)'
+                                }}>
+                                    No me gusta la lluvia
+                                </h1>
+                                <button
+                                    onClick={startGame}
+                                    style={{
+                                        backgroundColor: '#2563eb',
+                                        color: 'white',
+                                        fontSize: '1.5rem',
+                                        padding: '1rem 2rem',
+                                        borderRadius: '0.5rem',
+                                        border: 'none',
+                                        cursor: 'pointer',
+                                        boxShadow: '0 4px 6px rgba(0,0,0,0.3)',
+                                        transition: 'background-color 0.2s'
+                                    }}
+                                    onMouseOver={(e) => e.target.style.backgroundColor = '#1d4ed8'}
+                                    onMouseOut={(e) => e.target.style.backgroundColor = '#2563eb'}
+                                >
+                                    Jugar
+                                </button>
+                            </div>
+                        </div>
+                    ) : (
+                        <>
+                            <div style={{
+                                position: 'absolute',
+                                top: '1rem',
+                                left: '1rem',
+                                color: 'white',
+                                fontSize: '1.25rem',
+                                fontWeight: 'bold',
+                                backgroundColor: 'rgba(0,0,0,0.5)',
+                                padding: '0.5rem 1rem',
+                                borderRadius: '0.5rem'
+                            }}>
+                                Puntos: {score}/100
+                            </div>
+                            <div style={{
+                                position: 'absolute',
+                                top: '1rem',
+                                right: '1rem',
+                                color: 'white',
+                                fontSize: '1.25rem',
+                                fontWeight: 'bold',
+                                backgroundColor: 'rgba(0,0,0,0.5)',
+                                padding: '0.5rem 1rem',
+                                borderRadius: '0.5rem'
+                            }}>
+                                Errores: {misses}/3
+                            </div>
+
+                            {drops.map(drop => (
+                                <div
+                                    key={drop.id}
+                                    onClick={() => handleDropClick(drop)}
+                                    style={{
+                                        position: 'absolute',
+                                        cursor: 'pointer',
+                                        transition: 'all 0.2s',
+                                        left: `${drop.x}%`,
+                                        top: `${drop.y}%`,
+                                        transform: `translate(-50%, -50%) scale(${drop.selected ? 1.1 : 1})`
+                                    }}
+                                    onMouseOver={(e) => {
+                                        if (!drop.selected) e.currentTarget.style.transform = `translate(-50%, -50%) scale(1.05)`;
+                                    }}
+                                    onMouseOut={(e) => {
+                                        if (!drop.selected) e.currentTarget.style.transform = `translate(-50%, -50%) scale(1)`;
+                                    }}
+                                >
+                                    <div className={drop.selected ? 'animate-pulse' : ''} style={{ position: 'relative' }}>
+                                        <svg width="80" height="100" viewBox="0 0 80 100" style={{ filter: 'drop-shadow(0 4px 6px rgba(0,0,0,0.3))' }}>
+                                            <path 
+                                                d="M40 5 C20 25, 10 40, 10 60 C10 78, 23 92, 40 92 C57 92, 70 78, 70 60 C70 40, 60 25, 40 5 Z" 
+                                                fill={drop.selected ? '#fbbf24' : '#60a5fa'}
+                                                stroke={drop.selected ? '#f59e0b' : '#3b82f6'}
+                                                strokeWidth="2"
+                                            />
+                                        </svg>
+                                        <div style={{
+                                            position: 'absolute',
+                                            inset: 0,
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            justifyContent: 'center',
+                                            fontSize: '1.125rem',
+                                            fontWeight: '900',
+                                            color: 'white',
+                                            textShadow: '2px 2px 4px rgba(0,0,0,0.8), -1px -1px 2px rgba(0,0,0,0.6)',
+                                            fontFamily: 'Arial, sans-serif',
+                                            letterSpacing: '0.5px'
+                                        }}>
+                                            {drop.text}
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+
+                            <div style={{
+                                position: 'absolute',
+                                bottom: '2rem',
+                                left: `${penguinPos}%`,
+                                transform: 'translateX(-50%)',
+                                transition: 'all 0.3s ease-linear'
+                            }}>
+                                <Penguin />
+                            </div>
+
+                            {(gameOver || gameWon) && (
+                                <div style={{
+                                    position: 'absolute',
+                                    inset: 0,
+                                    backgroundColor: 'rgba(0,0,0,0.7)',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center'
+                                }}>
+                                    <div style={{
+                                        backgroundColor: 'white',
+                                        padding: '2rem',
+                                        borderRadius: '0.5rem',
+                                        textAlign: 'center'
+                                    }}>
+                                        <h2 style={{
+                                            fontSize: '1.875rem',
+                                            fontWeight: 'bold',
+                                            marginBottom: '1rem'
+                                        }}>
+                                            {gameWon ? '¡Felicidades! 🎉' : '¡Juego Terminado! 😿'}
+                                        </h2>
+                                        <p style={{
+                                            fontSize: '1.25rem',
+                                            marginBottom: '1.5rem'
+                                        }}>
+                                            {gameWon 
+                                                ? '¡Llegaste a casa sano y salvo!' 
+                                                : '¡Al pingüino no le gusta la lluvia!'}
+                                        </p>
+                                        <p style={{
+                                            fontSize: '1.125rem',
+                                            marginBottom: '1.5rem'
+                                        }}>
+                                            Puntuación Final: {score}/100
+                                        </p>
+                                        <button
+                                            onClick={resetGame}
+                                            style={{
+                                                backgroundColor: '#2563eb',
+                                                color: 'white',
+                                                padding: '0.75rem 1.5rem',
+                                                borderRadius: '0.5rem',
+                                                border: 'none',
+                                                cursor: 'pointer',
+                                                transition: 'background-color 0.2s'
+                                            }}
+                                            onMouseOver={(e) => e.target.style.backgroundColor = '#1d4ed8'}
+                                            onMouseOut={(e) => e.target.style.backgroundColor = '#2563eb'}
+                                        >
+                                            Jugar de Nuevo
+                                        </button>
+                                    </div>
+                                </div>
+                            )}
+                        </>
+                    )}
                 </div>
-              </div>
-            </div>
-          ))}
+            );
+        };
 
-          <div 
-            className="absolute bottom-8 transition-all duration-300 ease-linear"
-            style={{
-              left: `${catPos}%`,
-              transform: 'translateX(-50%)'
-            }}
-          >
-            <Cat />
-          </div>
-
-          {(gameOver || gameWon) && (
-            <div className="absolute inset-0 bg-black bg-opacity-70 flex items-center justify-center">
-              <div className="bg-white p-8 rounded-lg text-center">
-                <h2 className="text-3xl font-bold mb-4">
-                  {gameWon ? '¡Felicidades! 🎉' : '¡Juego Terminado! 😿'}
-                </h2>
-                <p className="text-xl mb-6">
-                  {gameWon 
-                    ? '¡Llegaste a casa sano y salvo!' 
-                    : '¡Al gato no le gusta la lluvia!'}
-                </p>
-                <p className="text-lg mb-6">Puntuación Final: {score}/100</p>
-                <button
-                  onClick={resetGame}
-                  className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors"
-                >
-                  Jugar de Nuevo
-                </button>
-              </div>
-            </div>
-          )}
-        </>
-      )}
-    </div>
-  );
-};
-
-export default SpanishRainGame;
+        ReactDOM.render(<SpanishRainGame />, document.getElementById('root'));
+    </script>
+</body>
+</html>
