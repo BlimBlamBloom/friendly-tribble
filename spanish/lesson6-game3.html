@@ -222,9 +222,7 @@
                 if (gameOver || gameWon || showTitle) return;
 
                 const spawnDrop = () => {
-                    const pos = findValidPosition(prev);
-                    const newDrop = { ...createDrop(), x: pos.x, y: pos.y };
-
+                    const newDrop = createDrop();
                     setDrops(prev => [...prev, newDrop]);
                     
                     setTimeout(() => {
