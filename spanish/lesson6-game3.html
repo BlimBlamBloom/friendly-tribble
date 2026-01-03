@@ -72,7 +72,7 @@
 
             const pronouns = ['yo', 'tú', 'ella', 'nosotros', 'vosotros', 'ellos'];
 
-            const createDrop = (type = null, matchPronoun = null) => {
+            const createDrop = (type = null, matchPronoun = null, existingDrops = []) => {
                 let text, dropType, matchData;
 
                 if (type === 'pronoun' || (!type && Math.random() > 0.5)) {
@@ -88,13 +88,15 @@
                     matchData = { verb, pronoun, conjugation: text };
                 }
 
+                const position = findValidPosition(existingDrops, 15);
+
                 return {
                     id: dropIdRef.current++,
                     text,
                     type: dropType,
                     matchData,
-                    x: Math.random() * 70 + 10,
-                    y: -10 - Math.random() * 20,
+                    x: position.x,
+                    y: position.y,
                     selected: false
                 };
             };
@@ -113,25 +115,28 @@
             };
 
             const getSpawnInterval = () => {
-                const level = Math.floor(score / 10);
+                if (score < 30) {
+                    return 5000; // Slow for first 30 points
+                }
+                const level = Math.floor((score - 30) / 10);
                 return Math.max(1600, 4000 - (level * 300));
             };
 
-            const isPositionTooClose = (x, y, existingDrops) => {
+            const isPositionTooClose = (x, y, existingDrops, minDistance = 15) => {
                 return existingDrops.some(drop => {
                     const distance = Math.sqrt(Math.pow(drop.x - x, 2) + Math.pow(drop.y - y, 2));
-                    return distance < 50;
+                    return distance < minDistance;
                 });
             };
 
-            const findValidPosition = (existingDrops) => {
+            const findValidPosition = (existingDrops, minDistance = 15) => {
                 let attempts = 0;
                 let x, y;
                 do {
                     x = Math.random() * 70 + 10;
                     y = -10 - Math.random() * 20;
                     attempts++;
-                } while (isPositionTooClose(x, y, existingDrops) && attempts < 50);
+                } while (isPositionTooClose(x, y, existingDrops, minDistance) && attempts < 100);
                 return { x, y };
             };
 
@@ -150,8 +155,7 @@
                     for (let drop of dropsAtHalf) {
                         if (!hasMatchingPair(drop, prev)) {
                             const matchType = drop.type === 'pronoun' ? 'conjugation' : 'pronoun';
-                            const pos = findValidPosition(prev);
-                            const matchDrop = { ...createDrop(matchType, drop.matchData.pronoun), x: pos.x, y: pos.y };
+                            const matchDrop = createDrop(matchType, drop.matchData.pronoun, prev);
                             return [...prev, matchDrop];
                         }
                     }
@@ -221,14 +225,23 @@
             useEffect(() => {
                 if (gameOver || gameWon || showTitle) return;
 
+                let firstDropRef = null;
+
                 const spawnDrop = () => {
-                    const newDrop = createDrop();
-                    setDrops(prev => [...prev, newDrop]);
+                    setDrops(prev => {
+                        const newDrop = createDrop(null, null, prev);
+                        firstDropRef = newDrop;
+                        return [...prev, newDrop];
+                    });
                     
                     setTimeout(() => {
-                        const matchType = newDrop.type === 'pronoun' ? 'conjugation' : 'pronoun';
-                        const matchDrop = createDrop(matchType, newDrop.matchData.pronoun);
-                        setDrops(prev => [...prev, matchDrop]);
+                        setDrops(prev => {
+                            if (!firstDropRef) return prev;
+                            const matchType = firstDropRef.type === 'pronoun' ? 'conjugation' : 'pronoun';
+                            const matchDrop = createDrop(matchType, firstDropRef.matchData.pronoun, prev);
+                            firstDropRef = null;
+                            return [...prev, matchDrop];
+                        });
                     }, 1000 + Math.random() * 2000);
                 };
 
