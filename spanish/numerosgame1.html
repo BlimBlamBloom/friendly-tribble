@@ -142,6 +142,28 @@
             bottom: 20px;
         }
 
+        .antenna {
+            position: absolute;
+            top: -10px;
+            width: 2px;
+            height: 15px;
+            background: #14532d;
+        }
+
+        .antenna::after {
+            content: '';
+            position: absolute;
+            top: -4px;
+            left: -2px;
+            width: 6px;
+            height: 6px;
+            background: #14532d;
+            border-radius: 50%;
+        }
+
+        .antenna.left { left: 18px; transform: rotate(-15deg); }
+        .antenna.right { right: 18px; transform: rotate(15deg); }
+
         .caterpillar-segment {
             background: #15803d;
             display: flex;
@@ -157,6 +179,18 @@
             animation: pulse 1s ease-in-out infinite;
             box-shadow: 0 0 0 4px #f87171;
         }
+
+        .foot {
+            position: absolute;
+            bottom: -8px;
+            width: 3px;
+            height: 12px;
+            background: #14532d;
+            border-radius: 2px;
+        }
+
+        .foot.left { left: 18px; }
+        .foot.right { right: 18px; }
 
         .stick-figure {
             position: absolute;
@@ -293,7 +327,7 @@
 
     <script>
         const SEGMENT_SIZE = 70;
-        const MAX_COL = Math.floor(window.innerWidth / SEGMENT_SIZE) - 1;
+        const MAX_COL = Math.floor((window.innerWidth - SEGMENT_SIZE) / SEGMENT_SIZE);
 
         const levelConfig = {
             1: { max: 9, target: 15 },
@@ -412,6 +446,8 @@
             headElement = document.createElement('div');
             headElement.className = 'caterpillar-head';
             headElement.innerHTML = `
+                <div class="antenna left"></div>
+                <div class="antenna right"></div>
                 <div class="eye left"></div>
                 <div class="eye right"></div>
                 <div class="mouth"></div>
@@ -422,8 +458,11 @@
         function gameLoop() {
             if (gameState !== 'playing') return;
             
+            // Add current position to history BEFORE moving
             positions.unshift({ row: currentRow, col: currentCol });
-            positions = positions.slice(0, caterpillar.length);
+            if (positions.length > caterpillar.length) {
+                positions = positions.slice(0, caterpillar.length);
+            }
             
             let newCol = currentCol + direction;
             let newRow = currentRow;
@@ -458,8 +497,8 @@
 
         function renderCaterpillar() {
             if (headElement) {
-                headElement.style.left = `${currentCol * SEGMENT_SIZE + 35}px`;
-                headElement.style.top = `${currentRow * SEGMENT_SIZE + 35}px`;
+                headElement.style.left = `${currentCol * SEGMENT_SIZE + 32}px`;
+                headElement.style.top = `${currentRow * SEGMENT_SIZE + 32}px`;
                 headElement.style.transform = direction === -1 
                     ? 'translate(-50%, -50%) scaleX(-1)' 
                     : 'translate(-50%, -50%)';
@@ -476,8 +515,13 @@
                 segment.className = 'caterpillar-segment';
                 if (idx === 0) segment.classList.add('target');
                 segment.textContent = caterpillar[idx];
-                segment.style.left = `${pos.col * SEGMENT_SIZE + 35}px`;
-                segment.style.top = `${pos.row * SEGMENT_SIZE + 35}px`;
+                segment.innerHTML = `
+                    ${caterpillar[idx]}
+                    <div class="foot left"></div>
+                    <div class="foot right"></div>
+                `;
+                segment.style.left = `${pos.col * SEGMENT_SIZE + 32}px`;
+                segment.style.top = `${pos.row * SEGMENT_SIZE + 32}px`;
                 segment.style.transform = 'translate(-50%, -50%)';
                 container.appendChild(segment);
             });
@@ -496,6 +540,21 @@
                 caterpillar.shift();
                 positions.shift();
                 
+                // Move head back one position to stay with the body
+                if (positions.length > 0) {
+                    currentCol = positions[0].col;
+                    currentRow = positions[0].row;
+                    // Determine direction based on next position
+                    if (positions.length > 1) {
+                        const nextPos = positions[1];
+                        if (nextPos.col < currentCol) {
+                            direction = 1;
+                        } else if (nextPos.col > currentCol) {
+                            direction = -1;
+                        }
+                    }
+                }
+                
                 updateScore();
                 
                 const target = levelConfig[level].target;
@@ -505,6 +564,8 @@
                     } else {
                         endGame('levelComplete');
                     }
+                } else {
+                    renderCaterpillar();
                 }
             }
             
