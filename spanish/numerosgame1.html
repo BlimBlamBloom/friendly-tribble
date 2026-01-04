@@ -110,11 +110,15 @@
 
         .caterpillar-head, .caterpillar-segment {
             position: absolute;
-            width: 64px;
-            height: 64px;
+            /* We REMOVE the fixed 64px width/height because JS handles it now */
             border-radius: 50%;
             transition: all 0.15s linear;
             z-index: 10;
+            
+            /* ADD THIS: it helps the numbers inside the body scale with the zoom */
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .caterpillar-head {
