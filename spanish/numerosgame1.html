@@ -537,23 +537,16 @@
             
             if (userAnswer === correctAnswer) {
                 score++;
-                caterpillar.shift();
-                positions.shift();
                 
-                // Move head back one position to stay with the body
-                if (positions.length > 0) {
-                    currentCol = positions[0].col;
-                    currentRow = positions[0].row;
-                    // Determine direction based on next position
-                    if (positions.length > 1) {
-                        const nextPos = positions[1];
-                        if (nextPos.col < currentCol) {
-                            direction = 1;
-                        } else if (nextPos.col > currentCol) {
-                            direction = -1;
-                        }
-                    }
-                }
+                // 1. Remove the first number (the one you just typed)
+                caterpillar.shift();
+                
+                // 2. Remove the LAST position (the tail) instead of the first
+                // This keeps the head from jumping backward.
+                positions.pop();
+                
+                // Note: We removed the "currentCol = positions[0].col" lines 
+                // so the head maintains its current path.
                 
                 updateScore();
                 
