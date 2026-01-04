@@ -21,9 +21,12 @@
         #game-container {
             width: 100vw;
             height: 100vh;
-            position: fixed; /* Fixed is safer than relative for full-screen games */
+            position: fixed; 
             top: 0;
             left: 0;
+            /* Ensure the gradient is here */
+            background: linear-gradient(to bottom, #78350f, #92400e, #451a03);
+            z-index: 1;
         }
 
         .background-stones {
@@ -215,16 +218,26 @@
 
        .input-container {
             position: absolute;
-            bottom: 20px; /* Distance from the bottom */
+            bottom: 20px;
             left: 50%;
             transform: translateX(-50%);
-            width: 95%; /* Use percentage so it doesn't go off-screen */
-            max-width: 400px;
+            width: 95%;
+            max-width: 500px;
             z-index: 20;
             display: flex;
             gap: 0.5rem;
         }
         
+        /* This lifts the input bar when the screen height gets small (keyboard open) */
+        @media (max-height: 500px) {
+            .input-container {
+                bottom: 45%; /* Moves it to the middle of the visible area */
+            }
+            .score-display {
+                top: 10px;
+                bottom: auto; /* Moves score to top so it's not hidden */
+            }
+        }
         
 
         .input-field {
@@ -482,7 +495,7 @@
                 newRow += 1;
                 newDir = -1;
                 
-                if (newRow >= 10) {
+                if (newRow >= 7) {
                     endGame('gameover');
                     return;
                 }
@@ -491,7 +504,7 @@
                 newRow += 1;
                 newDir = 1;
                 
-                if (newRow >= 10) {
+                if (newRow >= 7) {
                     endGame('gameover');
                     return;
                 }
@@ -508,8 +521,8 @@
                 // Calculate how wide one "unit" is based on current screen size
                 const unitWidth = window.innerWidth / GRID_COLS;
                 
-                // This 'topBuffer' fixes the "shifted up" bug by pushing Row 0 down
-                const topBuffer = 80; 
+                // This ensures even on small mobile screens, the first row is visible
+                const topBuffer = window.innerHeight < 500 ? 40 : 80;; 
             
                 if (headElement) {
                     // We use unitWidth to place the head exactly in its 1/15th slot
