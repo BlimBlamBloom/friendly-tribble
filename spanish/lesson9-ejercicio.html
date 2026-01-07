@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Ejercicio 9: Verbos -IR</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    padding: 20px;
+    max-width: 900px;
+    margin: auto;
+  }
+  h2 {
+    background-color: #f2f2f2;
+    padding: 10px;
+    border-radius: 8px;
+  }
+  .exercise {
+    margin-bottom: 40px;
+  }
+  .question {
+    margin: 10px 0;
+  }
+  .answer {
+    margin-left: 20px;
+    display: none;
+    color: #007700;
+  }
+  button.toggle-btn {
+    margin-left: 10px;
+    cursor: pointer;
+    border: none;
+    background-color: #e0e0e0;
+    border-radius: 4px;
+    padding: 2px 6px;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+  }
+  td {
+    padding: 6px 10px;
+    vertical-align: top;
+  }
+  .matching td {
+    border-bottom: 1px dashed #aaa;
+  }
+</style>
+</head>
+<body>
+
+<h2>Ejercicio A: Emparejar（配對）</h2>
+<div class="exercise">
+  <h3>A-1: Vocabulario</h3>
+  <table class="matching">
+    <tr><td>1. un poco</td><td>a. 之後</td></tr>
+    <tr><td>2. ¿Por qué?</td><td>b. 門</td></tr>
+    <tr><td>3. ocupada</td><td>c. 忙</td></tr>
+    <tr><td>4. la puerta</td><td>d. 為什麼？</td></tr>
+    <tr><td>5. después de</td><td>e. 一點</td></tr>
+  </table>
+
+  <h3>A-2: Verbos -IR</h3>
+  <table class="matching">
+    <tr><td>1. vivir</td><td>a. 收到</td></tr>
+    <tr><td>2. abrir</td><td>b. 參加 / 出席</td></tr>
+    <tr><td>3. asistir</td><td>c. 住 / 生活</td></tr>
+    <tr><td>4. subir</td><td>d. 打開</td></tr>
+    <tr><td>5. recibir</td><td>e. 爬 / 上去</td></tr>
+  </table>
+</div>
+
+<h2>Ejercicio B: Verbos -IR（填空動詞變化）</h2>
+<div class="exercise">
+  <h3>Sección 1: Conjuga los verbos</h3>
+  <p class="question">1. Yo ________ en Madrid. (vivir) <button class="toggle-btn" onclick="toggleAnswer('b1')">顯示答案</button></p>
+  <p class="answer" id="b1">vivo</p>
+
+  <p class="question">2. Tú ________ la puerta. (abrir) <button class="toggle-btn" onclick="toggleAnswer('b2')">顯示答案</button></p>
+  <p class="answer" id="b2">abres</p>
+
+  <p class="question">3. Él ________ a clase hoy. (asistir) <button class="toggle-btn" onclick="toggleAnswer('b3')">顯示答案</button></p>
+  <p class="answer" id="b3">asiste</p>
+
+  <p class="question">4. Nosotros ________ una carta. (escribir) <button class="toggle-btn" onclick="toggleAnswer('b4')">顯示答案</button></p>
+  <p class="answer" id="b4">escribimos</p>
+
+  <p class="question">5. Vosotros ________ las escaleras. (subir) <button class="toggle-btn" onclick="toggleAnswer('b5')">顯示答案</button></p>
+  <p class="answer" id="b5">subís</p>
+
+  <p class="question">6. Ellos ________ un regalo. (recibir) <button class="toggle-btn" onclick="toggleAnswer('b6')">顯示答案</button></p>
+  <p class="answer" id="b6">reciben</p>
+</div>
+
+<h2>Ejercicio C: Traducción（翻譯）</h2>
+<div class="exercise">
+  <h3>A. Español → 中文</h3>
+  <p class="question">1. Yo vivo cerca de la universidad. <button class="toggle-btn" onclick="toggleAnswer('c1')">顯示答案</button></p>
+  <p class="answer" id="c1">我住在大學附近。</p>
+
+  <p class="question">2. Nosotros abrimos la puerta. <button class="toggle-btn" onclick="toggleAnswer('c2')">顯示答案</button></p>
+  <p class="answer" id="c2">我們打開門。</p>
+
+  <p class="question">3. ¿Por qué estás ocupada? <button class="toggle-btn" onclick="toggleAnswer('c3')">顯示答案</button></p>
+  <p class="answer" id="c3">你為什麼很忙？</p>
+
+  <p class="question">4. Ella sube a su oficina. <button class="toggle-btn" onclick="toggleAnswer('c4')">顯示答案</button></p>
+  <p class="answer" id="c4">她爬上去她的辦公室。</p>
+
+  <p class="question">5. Ellos escriben en el libro. <button class="toggle-btn" onclick="toggleAnswer('c5')">顯示答案</button></p>
+  <p class="answer" id="c5">他們在書裡寫字。</p>
+
+  <h3>B. 中文 → Español</h3>
+  <p class="question">1. 我在早上八點三十五分上課。 <button class="toggle-btn" onclick="toggleAnswer('c6')">顯示答案</button></p>
+  <p class="answer" id="c6">Yo asisto a clase a las ocho y treinta y cinco de la mañana.</p>
+
+  <p class="question">2. 你收到一封信。 <button class="toggle-btn" onclick="toggleAnswer('c7')">顯示答案</button></p>
+  <p class="answer" id="c7">Tú recibes una carta.</p>
+
+  <p class="question">3. 我們住在馬德里。 <button class="toggle-btn" onclick="toggleAnswer('c8')">顯示答案</button></p>
+  <p class="answer" id="c8">Nosotros vivimos en Madrid.</p>
+
+  <p class="question">4. 他們打開書。 <button class="toggle-btn" onclick="toggleAnswer('c9')">顯示答案</button></p>
+  <p class="answer" id="c9">Ellos abren el libro.</p>
+
+  <p class="question">5. 我整天喝啤酒。 <button class="toggle-btn" onclick="toggleAnswer('c10')">顯示答案</button></p>
+  <p class="answer" id="c10">Yo bebo cerveza todo el día.</p>
+</div>
+
+<h2>Ejercicio D: Ordenar las palabras（排列單字）</h2>
+<div class="exercise">
+  <p class="question">1. en / vivo / Madrid / yo <button class="toggle-btn" onclick="toggleAnswer('d1')">顯示答案</button></p>
+  <p class="answer" id="d1">Yo vivo en Madrid.</p>
+
+  <p class="question">2. la / abres / tú / puerta <button class="toggle-btn" onclick="toggleAnswer('d2')">顯示答案</button></p>
+  <p class="answer" id="d2">Tú abres la puerta.</p>
+
+  <p class="question">3. nosotros / clase / asistimos / a <button class="toggle-btn" onclick="toggleAnswer('d3')">顯示答案</button></p>
+  <p class="answer" id="d3">Nosotros asistimos a clase.</p>
+
+  <p class="question">4. escaleras / las / ella / sube <button class="toggle-btn" onclick="toggleAnswer('d4')">顯示答案</button></p>
+  <p class="answer" id="d4">Ella sube las escaleras.</p>
+
+  <p class="question">5. escriben / ellos / carta / una <button class="toggle-btn" onclick="toggleAnswer('d5')">顯示答案</button></p>
+  <p class="answer" id="d5">Ellos escriben una carta.</p>
+</div>
+
+<h2>Ejercicio E: Lectura（閱讀）</h2>
+<div class="exercise">
+  <h3>Párrafo 1</h3>
+  <p>Hoy Isabel está muy ocupada. Ella vive cerca de su office. Por la mañana, ella abre la puerta y asiste a una clase de español. Después de la clase, ella escribe una carta a su amigo Alejandro.</p>
+  <p class="question">1. ¿Cómo está Isabel hoy? <button class="toggle-btn" onclick="toggleAnswer('e1')">顯示答案</button></p>
+  <p class="answer" id="e1">Está muy ocupada.</p>
+  <p class="question">2. ¿Dónde vive ella? <button class="toggle-btn" onclick="toggleAnswer('e2')">顯示答案</button></p>
+  <p class="answer" id="e2">Vive cerca de su oficina.</p>
+  <p class="question">3. ¿Qué escribe Isabel después de la clase? <button class="toggle-btn" onclick="toggleAnswer('e3')">顯示答案</button></p>
+  <p class="answer" id="e3">Escribe una carta a su amigo Alejandro.</p>
+
+  <h3>Párrafo 2</h3>
+  <p>Alma vive en Madrid. Hoy, ella no asiste a la universidad. En casa, ella escribe una carta y lee un libro. Luego, come una naranja. Ella no está ocupada hoy.</p>
+  <p class="question">1. ¿Dónde vive Alma? <button class="toggle-btn" onclick="toggleAnswer('e4')">顯示答案</button></p>
+  <p class="answer" id="e4">Vive en Madrid.</p>
+  <p class="question">2. ¿Qué come ella? <button class="toggle-btn" onclick="toggleAnswer('e5')">顯示答案</button></p>
+  <p class="answer" id="e5">Una naranja.</p>
+  <p class="question">3. ¿Está Alma ocupada hoy? <button class="toggle-btn" onclick="toggleAnswer('e6')">顯示答案</button></p>
+  <p class="answer" id="e6">No, no está ocupada.</p>
+
+  <h3>Párrafo 3</h3>
+  <p>Yo vivo cerca de la escuela. Normalmente asisto a clase a las ocho y media. En clase, abro el libro y escribo mucho. Después de la clase, yo corro a la biblioteca y estudio hasta tarde.</p>
+  <p class="question">1. ¿Dónde vive él? <button class="toggle-btn" onclick="toggleAnswer('e7')">顯示答案</button></p>
+  <p class="answer" id="e7">Vive cerca de la escuela.</p>
+  <p class="question">2. ¿Qué hace él en clase? <button class="toggle-btn" onclick="toggleAnswer('e8')">顯示答案</button></p>
+  <p class="answer" id="e8">Abre el libro y escribe mucho.</p>
+  <p class="question">3. ¿Qué hace él después de la clase? <button class="toggle-btn" onclick="toggleAnswer('e9')">顯示答案</button></p>
+  <p class="answer" id="e9">Corre a la biblioteca y estudia hasta tarde.</p>
+</div>
+
+<script>
+function toggleAnswer(id) {
+  const ans = document.getElementById(id);
+  if (ans.style.display === "none" || ans.style.display === "") {
+    ans.style.display = "block";
+  } else {
+    ans.style.display = "none";
+  }
+}
+</script>
+
+</body>
+</html>
