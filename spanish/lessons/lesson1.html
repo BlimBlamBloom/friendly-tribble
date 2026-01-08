@@ -45,7 +45,6 @@
         import { lessonData } from './lesson1-data.js';
         import { initQuiz } from '../scripts/quiz.js';
 
-        // Populate page with lesson data
         document.getElementById('lesson-title').textContent = lessonData.title;
         document.getElementById('video-frame').src = `https://www.youtube.com/embed/${lessonData.videoId}`;
         document.getElementById('video-frame-2').src = `https://www.youtube.com/embed/${lessonData.videoId}`;
@@ -54,13 +53,11 @@
         document.getElementById('vocabulary').textContent = lessonData.vocabulary;
         document.getElementById('questions').textContent = lessonData.questionsAndAnswers;
         
-        // Create navigation
         document.getElementById('navigation').innerHTML = `
             <a href="${lessonData.navigation.prev.url}">${lessonData.navigation.prev.text}</a>
             <a href="${lessonData.navigation.next.url}">${lessonData.navigation.next.text}</a>
         `;
 
-        // Initialize quiz
         initQuiz(lessonData.quizVocab);
     </script>
 </body>
