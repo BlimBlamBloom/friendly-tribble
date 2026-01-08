@@ -58,7 +58,7 @@ Encantado / Encantada - 很高興認識你（男生用 Encantado，女生用 Enc
     },
     
     navigation: {
-        prev: { text: "← Español", url: "/spanish.html" },
+        prev: { text: "← Español", url: "../spanish.html" },
         next: { text: "Lección 2 →", url: "lesson2.html" }
     }
 };
