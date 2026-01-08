@@ -69,8 +69,6 @@ export function initQuiz(vocab, totalQuestions = 10) {
         loadQuestion();
     }
 
-    // Make restartQuiz available globally
     window.restartQuiz = restartQuiz;
-
     loadQuestion();
 }
