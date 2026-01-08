@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Español Lección 2 - Flülli</title>
+    <link rel="stylesheet" href="../styles/lesson.css">
+</head>
+<body>
+    <h1 id="lesson-title">Loading...</h1>
+    
+    <span class="bold-label">Conversación (Español)</span>
+    <div class="video-container">
+        <iframe id="video-frame" allowfullscreen></iframe>
+    </div>
+    <pre id="conversation-spanish"></pre>
+
+    <span class="bold-label">對話（中文）</span>
+    <pre id="conversation-chinese"></pre>
+    
+    <span class="bold-label">Vocabulario</span>
+    <pre id="vocabulary"></pre>
+
+    <span class="bold-label">Preguntas y Respuestas</span>
+    <pre id="questions"></pre>
+
+    <h2>Escucha 聽力</h2>
+    <div class="video-container">
+        <iframe id="video-frame-2" allowfullscreen></iframe>
+    </div>
+    
+    <hr />
+
+    <h2>Vocabulario</h2>
+    <div id="quiz-container">
+        <p><strong id="word" style="font-size: 1.5em;"></strong></p>
+        <div id="options" class="option-grid"></div>
+        <p id="feedback"></p>
+        <p>Score: <span id="score">0</span> / <span id="total">0</span></p>
+    </div>
+
+    <div class="navigation" id="navigation"></div>
+
+    <script type="module">
+        import { lessonData } from './lesson2-data.js';  // ← ONLY LINE THAT CHANGES!
+        import { initQuiz } from '../scripts/quiz.js';
+
+        // Everything else is identical to lesson1.html
+        document.getElementById('lesson-title').textContent = lessonData.title;
+        document.getElementById('video-frame').src = `https://www.youtube.com/embed/${lessonData.videoId}`;
+        document.getElementById('video-frame-2').src = `https://www.youtube.com/embed/${lessonData.videoId}`;
+        document.getElementById('conversation-spanish').textContent = lessonData.conversation.spanish;
+        document.getElementById('conversation-chinese').textContent = lessonData.conversation.chinese;
+        document.getElementById('vocabulary').textContent = lessonData.vocabulary;
+        document.getElementById('questions').textContent = lessonData.questionsAndAnswers;
+        
+        document.getElementById('navigation').innerHTML = `
+            <a href="${lessonData.navigation.prev.url}">${lessonData.navigation.prev.text}</a>
+            <a href="${lessonData.navigation.next.url}">${lessonData.navigation.next.text}</a>
+        `;
+
+        initQuiz(lessonData.quizVocab);
+    </script>
+</body>
+</html>
