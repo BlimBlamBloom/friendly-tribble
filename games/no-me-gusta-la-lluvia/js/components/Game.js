@@ -34,6 +34,7 @@ export const Game = () => {
         score,
         onMiss: handleMiss,
         onWin: () => {}
+        selectedVerbSet: selectedVerbSet 
     });
 
     const startGame = () => {
@@ -66,7 +67,9 @@ export const Game = () => {
                 onStart: startGame,
                 penguinPos: titlePenguin.penguinPos,
                 penguinDirection: titlePenguin.penguinDirection,
-                titleRaindrops: titleRaindrops
+                titleRaindrops: titleRaindrops,
+                selectedVerbSet: selectedVerbSet,
+                onVerbSetChange: setSelectedVerbSet  
               })
             : e(GameScreen, {
                 score: score,
