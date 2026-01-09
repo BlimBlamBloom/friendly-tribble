@@ -6,7 +6,7 @@ import { getCurrentSpeed, getSpawnInterval } from '../utils/gameHelpers.js';
 const { useState, useEffect, useRef } = React;
 
 export const useRaindrops = (gameState) => {
-    const { isPlaying, score, onMiss, selectedVerbSet } = gameState;
+    const { isPlaying, score, onMiss, selectedVerbSet } = gameState;  // ← CHANGED THIS LINE
     const [drops, setDrops] = useState([]);
     const dropIdRef = useRef(0);
     const spawnTimerRef = useRef(null);
@@ -19,7 +19,7 @@ export const useRaindrops = (gameState) => {
 
         const spawnDrop = () => {
             setDrops(prev => {
-                const newDrop = createDrop(dropIdRef, null, null, prev, selectedVerbSet);
+                const newDrop = createDrop(dropIdRef, null, null, prev, selectedVerbSet);  // ← CHANGED THIS LINE
                 firstDropRef = newDrop;
                 return [...prev, newDrop];
             });
@@ -28,7 +28,7 @@ export const useRaindrops = (gameState) => {
                 setDrops(prev => {
                     if (!firstDropRef) return prev;
                     const matchType = firstDropRef.type === 'pronoun' ? 'conjugation' : 'pronoun';
-                    const matchDrop = createDrop(dropIdRef, matchType, firstDropRef.matchData.pronoun, prev, selectedVerbSet);
+                    const matchDrop = createDrop(dropIdRef, matchType, firstDropRef.matchData.pronoun, prev, selectedVerbSet);  // ← CHANGED THIS LINE
                     firstDropRef = null;
                     return [...prev, matchDrop];
                 });
@@ -41,7 +41,7 @@ export const useRaindrops = (gameState) => {
         return () => {
             if (spawnTimerRef.current) clearInterval(spawnTimerRef.current);
         };
-    }, [isPlaying, score]);
+    }, [isPlaying, score, selectedVerbSet]);  // ← ADDED selectedVerbSet HERE
 
     useEffect(() => {
         if (!isPlaying) return;
@@ -53,7 +53,7 @@ export const useRaindrops = (gameState) => {
                 for (let drop of dropsAtHalf) {
                     if (!hasMatchingPair(drop, prev)) {
                         const matchType = drop.type === 'pronoun' ? 'conjugation' : 'pronoun';
-                        const matchDrop = createDrop(dropIdRef, matchType, drop.matchData.pronoun, prev, selectedVerbSet);
+                        const matchDrop = createDrop(dropIdRef, matchType, drop.matchData.pronoun, prev, selectedVerbSet);  // ← CHANGED THIS LINE
                         return [...prev, matchDrop];
                     }
                 }
@@ -66,7 +66,7 @@ export const useRaindrops = (gameState) => {
         return () => {
             if (checkTimerRef.current) clearInterval(checkTimerRef.current);
         };
-    }, [isPlaying, drops]);
+    }, [isPlaying, drops, selectedVerbSet]);  // ← ADDED selectedVerbSet HERE
 
     useEffect(() => {
         if (!isPlaying) return;
