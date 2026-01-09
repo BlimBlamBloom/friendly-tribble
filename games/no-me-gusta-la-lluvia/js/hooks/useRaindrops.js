@@ -6,7 +6,7 @@ import { getCurrentSpeed, getSpawnInterval } from '../utils/gameHelpers.js';
 const { useState, useEffect, useRef } = React;
 
 export const useRaindrops = (gameState) => {
-    const { isPlaying, score, onMiss } = gameState;
+    const { isPlaying, score, onMiss, selectedVerbSet } = gameState;
     const [drops, setDrops] = useState([]);
     const dropIdRef = useRef(0);
     const spawnTimerRef = useRef(null);
@@ -19,7 +19,7 @@ export const useRaindrops = (gameState) => {
 
         const spawnDrop = () => {
             setDrops(prev => {
-                const newDrop = createDrop(dropIdRef, null, null, prev);
+                const newDrop = createDrop(dropIdRef, null, null, prev, selectedVerbSet);
                 firstDropRef = newDrop;
                 return [...prev, newDrop];
             });
@@ -28,7 +28,7 @@ export const useRaindrops = (gameState) => {
                 setDrops(prev => {
                     if (!firstDropRef) return prev;
                     const matchType = firstDropRef.type === 'pronoun' ? 'conjugation' : 'pronoun';
-                    const matchDrop = createDrop(dropIdRef, matchType, firstDropRef.matchData.pronoun, prev);
+                    const matchDrop = createDrop(dropIdRef, matchType, firstDropRef.matchData.pronoun, prev, selectedVerbSet);
                     firstDropRef = null;
                     return [...prev, matchDrop];
                 });
@@ -53,7 +53,7 @@ export const useRaindrops = (gameState) => {
                 for (let drop of dropsAtHalf) {
                     if (!hasMatchingPair(drop, prev)) {
                         const matchType = drop.type === 'pronoun' ? 'conjugation' : 'pronoun';
-                        const matchDrop = createDrop(dropIdRef, matchType, drop.matchData.pronoun, prev);
+                        const matchDrop = createDrop(dropIdRef, matchType, drop.matchData.pronoun, prev, selectedVerbSet);
                         return [...prev, matchDrop];
                     }
                 }
