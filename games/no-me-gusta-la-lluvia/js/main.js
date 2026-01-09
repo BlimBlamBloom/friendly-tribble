@@ -1,11 +1,15 @@
 // js/main.js
-
 import { Game } from './components/Game.js';
 
-const { createElement } = React;
+// Create a wrapper that uses global React
+const mountApp = () => {
+    const root = document.getElementById('root');
+    ReactDOM.render(React.createElement(Game), root);
+};
 
-// Render the Game component into the #root div
-ReactDOM.render(
-    createElement(Game),
-    document.getElementById('root')
-);
+// Mount when DOM is ready
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', mountApp);
+} else {
+    mountApp();
+}
