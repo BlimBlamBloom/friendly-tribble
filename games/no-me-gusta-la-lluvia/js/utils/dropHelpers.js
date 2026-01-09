@@ -13,8 +13,8 @@ export const findValidPosition = (existingDrops, minDistance = 15) => {
     let attempts = 0;
     let x, y;
     do {
-        x = Math.random() * 70 + 10;
-        y = -10 - Math.random() * 20;
+        x = Math.random() * 70 + 20;
+        y = -10 - Math.random() * 40;
         attempts++;
     } while (isPositionTooClose(x, y, existingDrops, minDistance) && attempts < 100);
     return { x, y };
