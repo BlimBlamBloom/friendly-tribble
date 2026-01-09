@@ -5,7 +5,7 @@ import { Raindrop } from './Raindrop.js';
 
 const { createElement: e } = React;
 
-export const TitleScreen = ({ onStart, penguinPos, penguinDirection, titleRaindrops }) => {
+export const TitleScreen = ({ onStart, penguinPos, penguinDirection, titleRaindrops, selectedVerbSet, onVerbSetChange }) => {
     return e('div',
         {
             style: {
@@ -52,11 +52,54 @@ export const TitleScreen = ({ onStart, penguinPos, penguinDirection, titleRaindr
                 },
                 'No me gusta la lluvia'
             ),
+            // Verb selection buttons
+            e('div',
+                {
+                    style: {
+                        display: 'flex',
+                        gap: '1rem',
+                        marginBottom: '2rem',
+                        justifyContent: 'center'
+                    }
+                },
+                ['Verbos 1', 'Verbos 2', 'Verbos 3'].map(verbSet =>
+                    e('button',
+                        {
+                            key: verbSet,
+                            onClick: () => onVerbSetChange(verbSet),
+                            style: {
+                                backgroundColor: selectedVerbSet === verbSet ? '#1d4ed8' : '#2563eb',
+                                color: 'white',
+                                fontSize: '1.125rem',
+                                padding: '0.75rem 1.5rem',
+                                borderRadius: '0.5rem',
+                                border: selectedVerbSet === verbSet ? '3px solid #fbbf24' : 'none',
+                                cursor: 'pointer',
+                                boxShadow: '0 4px 6px rgba(0,0,0,0.3)',
+                                transition: 'all 0.2s',
+                                fontWeight: selectedVerbSet === verbSet ? 'bold' : 'normal'
+                            },
+                            onMouseOver: (ev) => {
+                                if (selectedVerbSet !== verbSet) {
+                                    ev.target.style.backgroundColor = '#1d4ed8';
+                                }
+                            },
+                            onMouseOut: (ev) => {
+                                if (selectedVerbSet !== verbSet) {
+                                    ev.target.style.backgroundColor = '#2563eb';
+                                }
+                            }
+                        },
+                        verbSet
+                    )
+                )
+            ),
+            // Start button
             e('button',
                 {
                     onClick: onStart,
                     style: {
-                        backgroundColor: '#2563eb',
+                        backgroundColor: '#16a34a',
                         color: 'white',
                         fontSize: '1.5rem',
                         padding: '1rem 2rem',
@@ -66,8 +109,8 @@ export const TitleScreen = ({ onStart, penguinPos, penguinDirection, titleRaindr
                         boxShadow: '0 4px 6px rgba(0,0,0,0.3)',
                         transition: 'background-color 0.2s'
                     },
-                    onMouseOver: (ev) => ev.target.style.backgroundColor = '#1d4ed8',
-                    onMouseOut: (ev) => ev.target.style.backgroundColor = '#2563eb'
+                    onMouseOver: (ev) => ev.target.style.backgroundColor = '#15803d',
+                    onMouseOut: (ev) => ev.target.style.backgroundColor = '#16a34a'
                 },
                 'Jugar'
             )
