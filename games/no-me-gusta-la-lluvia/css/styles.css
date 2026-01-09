@@ -1,27 +1,23 @@
 /* css/styles.css */
 
-/* Reset default browser styles so everything looks consistent */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-/* Make the page fill the entire screen */
 body, html {
     width: 100%;
     height: 100%;
-    overflow: hidden; /* No scrollbars */
+    overflow: hidden;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
 
-/* Make the root container fill the screen too */
 #root {
     width: 100%;
     height: 100%;
 }
 
-/* Animation for bouncing (penguin feet) */
 @keyframes bounce {
     0%, 100% { transform: translateY(0); }
     50% { transform: translateY(-5px); }
@@ -31,7 +27,6 @@ body, html {
     animation: bounce 0.4s ease-in-out infinite;
 }
 
-/* Animation for pulsing (selected raindrops) */
 @keyframes pulse {
     0%, 100% { opacity: 1; }
     50% { opacity: 0.7; }
