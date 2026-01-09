@@ -10,6 +10,8 @@ const { createElement: e, useState } = React;
 
 export const Game = () => {
     const [showTitle, setShowTitle] = useState(true);
+    const [selectedVerbSet, setSelectedVerbSet] = useState('Verbos 1'); 
+
     
     const titlePenguin = usePenguin(showTitle);
     const gamePenguin = usePenguin(!showTitle);
