@@ -3,9 +3,29 @@
 import { Penguin } from './Penguin.js';
 import { Raindrop } from './Raindrop.js';
 
-const { createElement: e } = React;
+const { createElement: e, useState } = React;
 
 export const TitleScreen = ({ onStart, penguinPos, penguinDirection, titleRaindrops, selectedVerbSet, onVerbSetChange }) => {
+    
+    // Function to get button style based on whether it's selected
+    const getButtonStyle = (verbSet, isHovered) => {
+        const isSelected = selectedVerbSet === verbSet;
+        
+        return {
+            backgroundColor: isSelected ? '#1e40af' : (isHovered ? '#1d4ed8' : '#2563eb'),
+            color: 'white',
+            fontSize: '1.125rem',
+            padding: '0.75rem 1.5rem',
+            borderRadius: '0.5rem',
+            border: isSelected ? '3px solid #fbbf24' : '3px solid transparent',
+            cursor: 'pointer',
+            boxShadow: isSelected ? '0 6px 12px rgba(0,0,0,0.4)' : '0 4px 6px rgba(0,0,0,0.3)',
+            transition: 'all 0.2s',
+            fontWeight: isSelected ? 'bold' : 'normal',
+            transform: isSelected ? 'scale(1.05)' : 'scale(1)'
+        };
+    };
+
     return e('div',
         {
             style: {
@@ -59,40 +79,21 @@ export const TitleScreen = ({ onStart, penguinPos, penguinDirection, titleRaindr
                         display: 'flex',
                         gap: '1rem',
                         marginBottom: '2rem',
-                        justifyContent: 'center'
+                        justifyContent: 'center',
+                        flexWrap: 'wrap'
                     }
                 },
-                ['Verbos 1', 'Verbos 2', 'Verbos 3'].map(verbSet =>
-                    e('button',
-                        {
-                            key: verbSet,
-                            onClick: () => onVerbSetChange(verbSet),
-                            style: {
-                                backgroundColor: selectedVerbSet === verbSet ? '#1d4ed8' : '#2563eb',
-                                color: 'white',
-                                fontSize: '1.125rem',
-                                padding: '0.75rem 1.5rem',
-                                borderRadius: '0.5rem',
-                                border: selectedVerbSet === verbSet ? '3px solid #fbbf24' : 'none',
-                                cursor: 'pointer',
-                                boxShadow: '0 4px 6px rgba(0,0,0,0.3)',
-                                transition: 'all 0.2s',
-                                fontWeight: selectedVerbSet === verbSet ? 'bold' : 'normal'
-                            },
-                            onMouseOver: (ev) => {
-                                if (selectedVerbSet !== verbSet) {
-                                    ev.target.style.backgroundColor = '#1d4ed8';
-                                }
-                            },
-                            onMouseOut: (ev) => {
-                                if (selectedVerbSet !== verbSet) {
-                                    ev.target.style.backgroundColor = '#2563eb';
-                                }
-                            }
-                        },
-                        verbSet
-                    )
-                )
+                ...['Verbos 1', 'Verbos 2', 'Verbos 3'].map(verbSet => {
+                    return e(VerbButton, {
+                        key: verbSet,
+                        verbSet: verbSet,
+                        isSelected: selectedVerbSet === verbSet,
+                        onClick: () => {
+                            console.log('Clicked:', verbSet); // Debug log
+                            onVerbSetChange(verbSet);
+                        }
+                    });
+                })
             ),
             // Start button
             e('button',
@@ -115,5 +116,33 @@ export const TitleScreen = ({ onStart, penguinPos, penguinDirection, titleRaindr
                 'Jugar'
             )
         )
+    );
+};
+
+// Separate component for verb buttons with hover state
+const VerbButton = ({ verbSet, isSelected, onClick }) => {
+    const [isHovered, setIsHovered] = useState(false);
+    
+    return e('button',
+        {
+            onClick: onClick,
+            onMouseEnter: () => setIsHovered(true),
+            onMouseLeave: () => setIsHovered(false),
+            style: {
+                backgroundColor: isSelected ? '#1e40af' : (isHovered ? '#1d4ed8' : '#2563eb'),
+                color: 'white',
+                fontSize: '1.125rem',
+                padding: '0.75rem 1.5rem',
+                borderRadius: '0.5rem',
+                border: isSelected ? '3px solid #fbbf24' : '3px solid transparent',
+                cursor: 'pointer',
+                boxShadow: isSelected ? '0 6px 12px rgba(0,0,0,0.4)' : '0 4px 6px rgba(0,0,0,0.3)',
+                transition: 'all 0.2s',
+                fontWeight: isSelected ? 'bold' : 'normal',
+                transform: isSelected ? 'scale(1.05)' : 'scale(1)',
+                minWidth: '120px'
+            }
+        },
+        verbSet
     );
 };
