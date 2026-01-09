@@ -33,7 +33,7 @@ export const Game = () => {
         isPlaying: !showTitle && !gameOver && !gameWon,
         score,
         onMiss: handleMiss,
-        onWin: () => {}
+        onWin: () => {},
         selectedVerbSet: selectedVerbSet 
     });
 
