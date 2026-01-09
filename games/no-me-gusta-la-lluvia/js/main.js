@@ -2,12 +2,10 @@
 
 import { Game } from './components/Game.js';
 
-const { createElement: e } = React;
-const { render } = ReactDOM;
+const { createElement } = React;
 
 // Render the Game component into the #root div
-render(
-    e(Game),
+ReactDOM.render(
+    createElement(Game),
     document.getElementById('root')
 );
-```
