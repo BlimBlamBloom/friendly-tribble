@@ -1,6 +1,6 @@
 // js/utils/dropHelpers.js
 
-import { verbs, pronouns } from '../data/verbs.js';
+import { verbSets, pronouns } from '../data/verbs.js';
 
 export const isPositionTooClose = (x, y, existingDrops, minDistance = 15) => {
     return existingDrops.some(drop => {
@@ -20,7 +20,8 @@ export const findValidPosition = (existingDrops, minDistance = 15) => {
     return { x, y };
 };
 
-export const createDrop = (dropIdRef, type = null, matchPronoun = null, existingDrops = []) => {
+export const createDrop = (dropIdRef, type = null, matchPronoun = null, existingDrops = [], selectedVerbSet = 'Verbos 1') => {
+    const verbs = verbSets[selectedVerbSet];  // ← ADD THIS LINE
     let text, dropType, matchData;
 
     if (type === 'pronoun' || (!type && Math.random() > 0.5)) {
