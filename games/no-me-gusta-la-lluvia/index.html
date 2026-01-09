@@ -5,50 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>No me gusta la lluvia - Spanish Verb Game</title>
     
-    <!-- ============================================ -->
-    <!-- LOAD REACT FROM CDN (Content Delivery Network) -->
-    <!-- ============================================ -->
-    <!-- CDN = Website that hosts libraries for you -->
+    <!-- Load React from CDN with ES modules support -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
     
-    <!-- React Core Library - The main React code -->
-    <script 
-        crossorigin 
-        src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js">
-    </script>
-    
-    <!-- ReactDOM - The part that talks to the browser DOM -->
-    <script 
-        crossorigin 
-        src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js">
-    </script>
-    
-    <!-- ============================================ -->
-    <!-- LOAD BABEL STANDALONE -->
-    <!-- ============================================ -->
-    <!-- Babel transforms JSX into regular JavaScript -->
-    <!-- Without this, browser can't understand <Game /> syntax -->
-    <script 
-        src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.5/babel.min.js">
-    </script>
-    
-    <!-- ============================================ -->
-    <!-- LOAD OUR CSS -->
-    <!-- ============================================ -->
+    <!-- Load our CSS -->
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-    <!-- ============================================ -->
-    <!-- ROOT DIV - React renders everything here -->
-    <!-- ============================================ -->
-    <!-- This div is empty initially -->
-    <!-- React will fill it with your game -->
     <div id="root"></div>
 
-    <!-- ============================================ -->
-    <!-- LOAD OUR MAIN JAVASCRIPT FILE -->
-    <!-- ============================================ -->
-    <!-- type="text/babel" tells Babel to transform this file -->
-    <!-- Babel converts JSX to regular JavaScript -->
-    <script type="text/babel" src="js/main.jsx"></script>
+    <!-- Load as ES6 module - NO Babel needed! -->
+    <script type="module" src="js/main.js"></script>
 </body>
 </html>
