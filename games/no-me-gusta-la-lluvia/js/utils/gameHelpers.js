@@ -2,7 +2,7 @@
 
 export const getCurrentSpeed = (score) => {
     const speedIncrease = Math.floor(score / 10) * 0.03;
-    return 0.12 + speedIncrease;
+    return 0.20 + speedIncrease;
 };
 
 export const getSpawnInterval = (score) => {
