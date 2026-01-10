@@ -8,7 +8,7 @@ import { useRaindrops, useTitleRaindrops } from '../hooks/useRaindrops.js';
 
 const { createElement: e, useState } = React;
 
-export const Game = () => {
+export const VerbGame = () => {
     const [showTitle, setShowTitle] = useState(true);
     const [selectedVerbSet, setSelectedVerbSet] = useState('Verbos 1'); 
 
