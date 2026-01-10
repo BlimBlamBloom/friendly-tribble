@@ -1,10 +1,11 @@
-// js/hooks/useGameLogic.js
+// js/hooks/useVerbGameLogic.js
 
 import { checkMatch } from '../utils/gameHelpers.js';
 
 const { useState } = React;
 
-export const useGameLogic = () => {
+export const useVerbGameLogic = () => {  // ← Changed name
+    // ... rest of code stays exactly the same
     const [score, setScore] = useState(0);
     const [misses, setMisses] = useState(0);
     const [selectedDrop, setSelectedDrop] = useState(null);
