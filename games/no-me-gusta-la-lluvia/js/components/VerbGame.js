@@ -1,4 +1,4 @@
-// js/components/Game.js
+// js/components/VerbGame.js
 
 import { TitleScreen } from './TitleScreen.js';
 import { GameScreen } from './GameScreen.js';
@@ -8,10 +8,9 @@ import { useRaindrops, useTitleRaindrops } from '../hooks/useRaindrops.js';
 
 const { createElement: e, useState } = React;
 
-export const VerbGame = () => {
+export const VerbGame = ({ onBackToMenu }) => {  // ← CHANGED from "Game" to "VerbGame"
     const [showTitle, setShowTitle] = useState(true);
-    const [selectedVerbSet, setSelectedVerbSet] = useState('Verbos 1'); 
-
+    const [selectedVerbSet, setSelectedVerbSet] = useState('Verbos 1');
     
     const titlePenguin = usePenguin(showTitle);
     const gamePenguin = usePenguin(!showTitle);
@@ -34,7 +33,7 @@ export const VerbGame = () => {
         score,
         onMiss: handleMiss,
         onWin: () => {},
-        selectedVerbSet: selectedVerbSet 
+        selectedVerbSet: selectedVerbSet
     });
 
     const startGame = () => {
@@ -69,7 +68,7 @@ export const VerbGame = () => {
                 penguinDirection: titlePenguin.penguinDirection,
                 titleRaindrops: titleRaindrops,
                 selectedVerbSet: selectedVerbSet,
-                onVerbSetChange: setSelectedVerbSet  
+                onVerbSetChange: setSelectedVerbSet
               })
             : e(GameScreen, {
                 score: score,
