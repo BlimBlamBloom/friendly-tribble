@@ -1,7 +1,7 @@
 // js/data/vocabulary.js
 
 export const vocabularySets = {
-    'Animals': {
+    'Lección 1': {
         perro: '狗',
         gato: '猫',
         pájaro: '鸟',
@@ -11,7 +11,7 @@ export const vocabularySets = {
         elefante: '大象',
         león: '狮子'
     },
-    'Colors': {
+    'Lección 2': {
         rojo: '红色',
         azul: '蓝色',
         verde: '绿色',
@@ -21,7 +21,7 @@ export const vocabularySets = {
         naranja: '橙色',
         morado: '紫色'
     },
-    'Food': {
+    'Lección 3': {
         manzana: '苹果',
         pan: '面包',
         agua: '水',
@@ -31,7 +31,7 @@ export const vocabularySets = {
         leche: '牛奶',
         huevo: '鸡蛋'
     },
-    'Family': {
+    'Lección 4': {
         madre: '妈妈',
         padre: '爸爸',
         hermano: '兄弟',
@@ -41,7 +41,7 @@ export const vocabularySets = {
         hijo: '儿子',
         hija: '女儿'
     },
-    'Numbers': {
+    'Lección 5': {
         uno: '一',
         dos: '二',
         tres: '三',
@@ -51,7 +51,7 @@ export const vocabularySets = {
         veinte: '二十',
         cien: '一百'
     },
-    'Body Parts': {
+    'Lección 6': {
         cabeza: '头',
         mano: '手',
         pie: '脚',
@@ -61,7 +61,7 @@ export const vocabularySets = {
         oreja: '耳朵',
         brazo: '胳膊'
     },
-    'Weather': {
+    'Lección 7': {
         sol: '太阳',
         lluvia: '雨',
         nieve: '雪',
@@ -71,7 +71,7 @@ export const vocabularySets = {
         calor: '热',
         tormenta: '暴风雨'
     },
-    'Classroom': {
+    'Lección 8': {
         libro: '书',
         lápiz: '铅笔',
         pluma: '钢笔',
