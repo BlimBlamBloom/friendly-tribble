@@ -3,7 +3,7 @@
 import { TitleScreen } from './TitleScreen.js';
 import { GameScreen } from './GameScreen.js';
 import { usePenguin } from '../hooks/usePenguin.js';
-import { useGameLogic } from '../hooks/useGameLogic.js';
+import { useVerbGameLogic } from '../hooks/useVerbGameLogic.js';
 import { useRaindrops, useTitleRaindrops } from '../hooks/useRaindrops.js';
 
 const { createElement: e, useState } = React;
@@ -27,7 +27,7 @@ export const Game = () => {
         handleDropClick,
         handleMiss,
         reset: resetGameLogic
-    } = useGameLogic();
+    } = useVerbGameLogic();
     
     const { drops, setDrops, reset: resetDrops } = useRaindrops({
         isPlaying: !showTitle && !gameOver && !gameWon,
