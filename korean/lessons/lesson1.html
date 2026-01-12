@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>한국어 제1과 - Flülli</title>
+    <link rel="stylesheet" href="../styles/lesson.css">
+</head>
+<body>
+    <h1 id="lesson-title">Loading...</h1>
+    
+    <span class="bold-label">대화</span>
+    <div class="video-container">
+        <iframe id="video-frame" allowfullscreen></iframe>
+    </div>
+    <pre id="conversation-korean"></pre>
+    <span class="bold-label">Conversation</span>
+    <pre id="conversation-english"></pre>
+    
+    <span class="bold-label">단어</span>
+    <pre id="vocabulary"></pre>
+  
+    <span class="bold-label">질문</span>
+    <pre id="questions"></pre>
+    
+    <hr />
+    <h2>단어 복습</h2>
+    <div id="quiz-container">
+        <p><strong id="word" style="font-size: 1.5em;"></strong></p>
+        <div id="options" class="option-grid"></div>
+        <p id="feedback"></p>
+        <p>Score: <span id="score">0</span> / <span id="total">0</span></p>
+    </div>
+    <div class="navigation" id="navigation"></div>
+    <script type="module">
+        import { lessonData } from './korean-lesson1-data.js';
+        import { initQuiz } from '../scripts/quiz.js';
+        document.getElementById('lesson-title').textContent = lessonData.title;
+        document.getElementById('video-frame').src = `https://www.youtube.com/embed/${lessonData.videoId}`;
+        document.getElementById('conversation-korean').textContent = lessonData.conversation.korean;
+        document.getElementById('conversation-english').textContent = lessonData.conversation.english;
+        document.getElementById('vocabulary').textContent = lessonData.vocabulary;
+        document.getElementById('questions').textContent = lessonData.questionsAndAnswers;
+        
+        document.getElementById('navigation').innerHTML = `
+            <a href="${lessonData.navigation.prev.url}">${lessonData.navigation.prev.text}</a>
+            <a href="${lessonData.navigation.next.url}">${lessonData.navigation.next.text}</a>
+        `;
+        initQuiz(lessonData.quizVocab);
+    </script>
+</body>
+</html>
