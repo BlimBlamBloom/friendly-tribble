@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Korean Lesson 3 - Flülli</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            line-height: 1.8;
+            max-width: 700px;
+            margin: 40px auto;
+            padding: 0 20px;
+            background-color: #fafafa;
+            color: #333;
+        }
+        h1 {
+            text-align: center;
+            color: #d32f2f;
+        }
+        pre {
+            white-space: pre-wrap;
+            font-family: inherit;
+            background: #fff;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #eee;
+        }
+        .navigation {
+            margin-top: 40px;
+            display: flex;
+            justify-content: space-between;
+            max-width: 700px;
+        }
+        .navigation a {
+            color: #1976d2;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .navigation a:hover {
+            text-decoration: underline;
+        }
+        .bold-label {
+            font-weight: bold;
+            margin-top: 20px;
+            display: block;
+            font-size: 1.1em;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <h1>제3과</h1>
+
+    <span class="bold-label">대화</span>
+    <pre>지은: 안녕하세요. 어디 가요?
+
+현지: 안녕하세요. 학교에 가요.
+
+지은: 학교에서 뭐 해요?
+
+현지: 저는 학교에서 공부를 해요. 
+
+지은: 뭐 공부해요?
+
+현지: 한국어를 공부해요. 어디 가요?
+
+지은: 집에 가요.
+
+현지: 집에서 뭐 해요? 
+
+지은: 집에서 영화를 봐요.
+
+현지: 저는 영화를 좋아해요. 
+
+지은: 안녕히 가세요.
+
+현지: 안녕히 계세요. 영화를 재밌게 봐요~</pre>
+
+    <span class="bold-label">Conversation</span>
+    <pre>Jieun: Hello. Where are you going?
+
+Hyeonji: Hello. I’m going to school.
+
+Jieun: What do you do at school?
+
+Hyeonji: I study at school.
+
+Jieun: What do you study?
+
+Hyeonji: I study Korean. Where are you going?
+
+Jieun: I’m going home.
+
+Hyeonji: What do you do at home?
+
+Jieun: I watch a movie at home.
+
+Hyeonji: I like movies.
+
+Jieun: Goodbye.
+
+Hyeonji: Goodbye. Enjoy the movie!</pre>
+  
+    <span class="bold-label">단어1</span>
+    <pre>학교 — School
+에서 — At / In (location of action)
+공부를 해요 — To study / Studying
+한국어 — Korean language
+영화 — Movie
+봐요 — To watch / To see
+재밌게 — Enjoyably / Funly</pre>
+
+    <span class="bold-label">질문</span>
+    <pre>Q: ___에서 뭐 해요? (What do you do at ___?)
+A: ___에서 ____. (At ___, I ___.)
+
+Q: ____ 재밌게 ____. (Enjoy your ____ / [Action] enjoyably.)</pre>
+
+    <span class="bold-label">단어2</span>
+    <pre>식당 — Restaurant
+카페 — Cafe
+공원 — Park
+바다 — Sea / Beach
+산 — Mountain
+드라마 — Drama
+유튜브 — YouTube
+축구 — Soccer
+게임 — Game
+친구 — Friend
+음악 — Music
+만나요 — To meet
+들어요 — To listen
+자요 — To sleep
+사요 — To buy
+산책해요 — To take a walk</pre>
+
+    <hr />
+
+    <h2>Vocabulary Quiz</h2>
+    <div id="quiz-container">
+        <p><strong id="word" style="font-size: 1.5em;"></strong></p>
+        <div id="options" class="option-grid"></div>
+        <p id="feedback"></p>
+        <p>Score: <span id="score">0</span> / <span id="total">0</span></p>
+    </div>
+
+    <style>
+        .option-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin: 20px 0;
+        }
+        .option-card {
+            padding: 16px;
+            background-color: #f0f4f8;
+            border-radius: 12px;
+            text-align: center;
+            cursor: pointer;
+            font-size: 1.1em;
+            transition: all 0.2s ease;
+            box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.05);
+            border: 1px solid #d1d9e0;
+        }
+        .option-card:hover {
+            background-color: #e2e8f0;
+            transform: translateY(-2px);
+        }
+    </style>
+
+    <script>
+    const vocab = {
+        "학교": ["School"],
+        "에서": ["At / In"],
+        "공부를 해요": ["To study / Studying"],
+        "한국어": ["Korean language"],
+        "영화": ["Movie"],
+        "봐요": ["To watch / To see"],
+        "재밌게": ["Enjoyably / Funly"],
+        "식당": ["Restaurant"],
+        "카페": ["Cafe"],
+        "공원": ["Park"],
+        "바다": ["Sea / Beach"],
+        "산": ["Mountain"],
+        "드라마": ["Drama"],
+        "유튜브": ["YouTube"],
+        "축구": ["Soccer"],
+        "게임": ["Game"],
+        "친구": ["Friend"],
+        "음악": ["Music"],
+        "만나요": ["To meet"],
+        "들어요": ["To listen"],
+        "자요": ["To sleep"],
+        "사요": ["To buy"],
+        "산책해요": ["To take a walk"]
+    };
+
+    const words = Object.keys(vocab);
+    let score = 0;
+    let questionIndex = 0;
+    const totalQuestions = 10;
+    let currentWord = "";
+
+    document.getElementById('total').textContent = totalQuestions;
+
+    function getRandomOptions(correctAnswer) {
+        const allAnswers = Object.values(vocab).flat().filter(a => !correctAnswer.includes(a));
+        const shuffled = allAnswers.sort(() => Math.random() - 0.5);
+        const wrongOptions = shuffled.slice(0, 3);
+        const options = [...wrongOptions, correctAnswer[0]];
+        return options.sort(() => Math.random() - 0.5);
+    }
+
+    function loadQuestion() {
+        if (questionIndex >= totalQuestions) {
+            document.getElementById('quiz-container').innerHTML = `
+                <h3>Quiz complete!</h3>
+                <p>Your final score: ${score} out of ${totalQuestions}</p>
+                <button onclick="restartQuiz()" style="padding: 10px 20px; font-size: 1em; cursor: pointer; background: #d32f2f; color: white; border: none; border-radius: 5px;">🔁 Play Again</button>
+            `;
+            return;
+        }
+
+        currentWord = words[Math.floor(Math.random() * words.length)];
+        const correctAnswers = vocab[currentWord];
+        const options = getRandomOptions(correctAnswers);
+
+        document.getElementById('word').textContent = currentWord;
+        document.getElementById('options').innerHTML = "";
+
+        options.forEach(option => {
+            const btn = document.createElement("div");
+            btn.textContent = option;
+            btn.className = "option-card";
+            btn.onclick = () => checkAnswer(option, correctAnswers);
+            document.getElementById("options").appendChild(btn);
+        });
+
+        document.getElementById("feedback").textContent = "";
+    }
+
+    function checkAnswer(selected, correctAnswers) {
+        if (correctAnswers.includes(selected)) {
+            score++;
+            document.getElementById("feedback").textContent = "✅ Correct!";
+            document.getElementById("feedback").style.color = "green";
+        } else {
+            document.getElementById("feedback").textContent = `❌ Wrong. Correct answer: ${correctAnswers[0]}`;
+            document.getElementById("feedback").style.color = "red";
+        }
+
+        document.getElementById("score").textContent = score;
+        questionIndex++;
+        setTimeout(loadQuestion, 1500);
+    }
+
+    function restartQuiz() {
+        score = 0;
+        questionIndex = 0;
+        document.getElementById('quiz-container').innerHTML = `
+            <p><strong id="word" style="font-size: 1.5em;"></strong></p>
+            <div id="options" class="option-grid"></div>
+            <p id="feedback"></p>
+            <p>Score: <span id="score">0</span> / <span id="total">${totalQuestions}</span></p>
+        `;
+        loadQuestion();
+    }
+
+    loadQuestion();
+    </script>
+    
+    <div class="navigation">
+        <a href="lesson2.html">← Lesson 2</a>
+        <a href="lesson4.html">Lesson 4 →</a>
+    </div>
+
+</body>
+</html>
