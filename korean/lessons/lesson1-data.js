@@ -2,7 +2,7 @@ export const lessonData = {
     lessonNumber: 1,
     title: "제1과",
     videoId: "placeholder_video_id",
-    
+    //
     conversation: {
         korean: `지수: 안녕하세요.
 민호: 안녕하세요.
