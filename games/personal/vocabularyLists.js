@@ -2,7 +2,6 @@
 // Vocabulary lists for the rain game
 
 const vocabularyLists = {
-    {
     1: [
         { word: '大蟒蛇', translation: 'python' },
         { word: '动物', translation: 'animal' },
