@@ -3,16 +3,16 @@
 
 const vocabularyLists = {
     1: [
-        { word: 'cat', translation: 'gato' },
-        { word: 'dog', translation: 'perro' },
-        { word: 'house', translation: 'casa' },
-        { word: 'tree', translation: 'árbol' },
-        { word: 'water', translation: 'agua' },
-        { word: 'food', translation: 'comida' },
-        { word: 'book', translation: 'libro' },
-        { word: 'sun', translation: 'sol' },
-        { word: 'moon', translation: 'luna' },
-        { word: 'star', translation: 'estrella' }
+        { word: 'cat', translation: '고양이' },
+        { word: 'dog', translation: '강아지' },
+        { word: 'house', translation: '집' },
+        { word: 'tree', translation: '나무' },
+        { word: 'water', translation: '물' },
+        { word: 'food', translation: '음식' },
+        { word: 'book', translation: '책' },
+        { word: 'sun', translation: '태양' },
+        { word: 'moon', translation: '달' },
+        { word: 'star', translation: '별' }
     ],
     2: [
         { word: 'rain', translation: 'lluvia' },
