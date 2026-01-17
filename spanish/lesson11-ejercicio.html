@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Ejercicio 11</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    padding: 20px;
+    max-width: 900px;
+    margin: auto;
+  }
+  h2 {
+    background-color: #f2f2f2;
+    padding: 10px;
+    border-radius: 8px;
+  }
+  .exercise {
+    margin-bottom: 40px;
+  }
+  .question {
+    margin: 10px 0;
+  }
+  .answer {
+    margin-left: 20px;
+    display: none;
+    color: #007700;
+  }
+  button.toggle-btn {
+    margin-left: 10px;
+    cursor: pointer;
+    border: none;
+    background-color: #e0e0e0;
+    border-radius: 4px;
+    padding: 2px 6px;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+  }
+  td {
+    padding: 6px 10px;
+    vertical-align: top;
+  }
+  .matching td {
+    border-bottom: 1px dashed #aaa;
+  }
+  .word-bank {
+    background-color: #eef7ff;
+    padding: 10px;
+    border: 1px solid #0073e6;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    font-weight: bold;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+
+<h1>Ejercicio 11</h1>
+
+<h2>Ejercicio A: Emparejar（配對）</h2>
+<div class="exercise">
+  <h3>A-1: Vocabulario</h3>
+  <table class="matching">
+    <tr><td>1. un billete de avión</td><td>a. 瘋狂的</td></tr>
+    <tr><td>2. temprano</td><td>b. 買</td></tr>
+    <tr><td>3. comprar</td><td>c. 一張機票</td></tr>
+    <tr><td>4. loco</td><td>d. 航班</td></tr>
+    <tr><td>5. el vuelo</td><td>e. 早</td></tr>
+  </table>
+
+  <h3>A-2: Vocabulario</h3>
+  <table class="matching">
+    <tr><td>1. cuánto cuesta</td><td>a. 可能的</td></tr>
+    <tr><td>2. posible</td><td>b. 多少錢</td></tr>
+    <tr><td>3. barato</td><td>c. 照顧</td></tr>
+    <tr><td>4. secreto</td><td>d. 秘密</td></tr>
+    <tr><td>5. cuidar a</td><td>e. 便宜的</td></tr>
+  </table>
+
+  <h3>A-3: Animales</h3>
+  <table class="matching">
+    <tr><td>1. el gato</td><td>a. 豪豬</td></tr>
+    <tr><td>2. el hámster</td><td>b. 貓</td></tr>
+    <tr><td>3. la iguana</td><td>c. 狗</td></tr>
+    <tr><td>4. el perro</td><td>d. 伊瓜納</td></tr>
+    <tr><td>5. el puercoespín</td><td>e. 倉鼠</td></tr>
+  </table>
+</div>
+
+<h2>Ejercicio B-1: Comprar, Cuidar a, Esperar que</h2>
+<div class="exercise">
+  <p>Completa los espacios con la forma correcta del verbo entre paréntesis.</p>
+  
+  <p class="question">1. Yo ________ un billete para España. (comprar) <button class="toggle-btn" onclick="toggleAnswer('b1')">顯示答案</button></p>
+  <p class="answer" id="b1">compro</p>
+
+  <p class="question">2. Tú ________ a mi perro esta semana. (cuidar a) <button class="toggle-btn" onclick="toggleAnswer('b2')">顯示答案</button></p>
+  <p class="answer" id="b2">cuidas</p>
+
+  <p class="question">3. Nosotros ________ que tengas un buen viaje. (esperar que) <button class="toggle-btn" onclick="toggleAnswer('b3')">顯示答案</button></p>
+  <p class="answer" id="b3">esperamos</p>
+
+  <p class="question">4. Alma ________ una iguana en la tienda. (comprar) <button class="toggle-btn" onclick="toggleAnswer('b4')">顯示答案</button></p>
+  <p class="answer" id="b4">compra</p>
+
+  <p class="question">5. Carlos y yo ________ al gato y al hámster. (cuidar a) <button class="toggle-btn" onclick="toggleAnswer('b5')">顯示答案</button></p>
+  <p class="answer" id="b5">cuidamos</p>
+
+  <p class="question">6. Vosotros ________ que el examen sea fácil. (esperar que) <button class="toggle-btn" onclick="toggleAnswer('b6')">顯示答案</button></p>
+  <p class="answer" id="b6">esperáis</p>
+
+  <p class="question">7. Él ________ los billetes de avión hoy. (comprar) <button class="toggle-btn" onclick="toggleAnswer('b7')">顯示答案</button></p>
+  <p class="answer" id="b7">compra</p>
+
+  <p class="question">8. Yo ________ que el billete sea barato. (esperar que) <button class="toggle-btn" onclick="toggleAnswer('b8')">顯示答案</button></p>
+  <p class="answer" id="b8">espero</p>
+
+  <p class="question">9. Ellos ________ a su puercoespín. (cuidar a) <button class="toggle-btn" onclick="toggleAnswer('b9')">顯示答案</button></p>
+  <p class="answer" id="b9">cuidan</p>
+
+  <p class="question">10. Tú ________ mucha fruta en el mercado. (comprar) <button class="toggle-btn" onclick="toggleAnswer('b10')">顯示答案</button></p>
+  <p class="answer" id="b10">compras</p>
+</div>
+
+<h2>Ejercicio B-2: Las Palabras Interrogativas</h2>
+<div class="exercise">
+  <div class="word-bank">Banco de palabras: Qué / Quién / Quiénes / Cuándo / Dónde / Adónde / Por qué / Cómo / Cuánto / Cuántos / A qué hora / Con quién</div>
+  
+  <p class="question">1. ¿________ vas mañana? Voy a la oficina. <button class="toggle-btn" onclick="toggleAnswer('q1')">顯示答案</button></p>
+  <p class="answer" id="q1">Adónde</p>
+
+  <p class="question">2. ¿________ vas a España? Voy mañana por la mañana. <button class="toggle-btn" onclick="toggleAnswer('q2')">顯示答案</button></p>
+  <p class="answer" id="q2">Cuándo</p>
+
+  <p class="question">3. ¿________ es ella? Ella es mi prima. <button class="toggle-btn" onclick="toggleAnswer('q3')">顯示答案</button></p>
+  <p class="answer" id="q3">Quién</p>
+
+  <p class="question">4. ¿________ cuesta el billete? Cuesta cien euros. <button class="toggle-btn" onclick="toggleAnswer('q4')">顯示答案</button></p>
+  <p class="answer" id="q4">Cuánto</p>
+
+  <p class="question">5. ¿________ haces ahora? Como una quesadilla. <button class="toggle-btn" onclick="toggleAnswer('q5')">顯示答案</button></p>
+  <p class="answer" id="q5">Qué</p>
+
+  <p class="question">6. ¿________ es el vuelo? Es a las seis de la mañana. <button class="toggle-btn" onclick="toggleAnswer('q6')">顯示答案</button></p>
+  <p class="answer" id="q6">A qué hora</p>
+
+  <p class="question">7. ¿________ está el perro? Está en el jardín. <button class="toggle-btn" onclick="toggleAnswer('q7')">顯示答案</button></p>
+  <p class="answer" id="q7">Dónde</p>
+
+  <p class="question">8. ¿________ animales tienes? Tengo cinco animales. <button class="toggle-btn" onclick="toggleAnswer('q8')">顯示答案</button></p>
+  <p class="answer" id="q8">Cuántos</p>
+
+  <p class="question">9. ¿________ vas ahora? Voy a la biblioteca. <button class="toggle-btn" onclick="toggleAnswer('q9')">顯示答案</button></p>
+  <p class="answer" id="q9">Adónde</p>
+
+  <p class="question">10. ¿________ estás triste? Porque mi clase es difícil. <button class="toggle-btn" onclick="toggleAnswer('q10')">顯示答案</button></p>
+  <p class="answer" id="q10">Por qué</p>
+
+  <p class="question">11. ¿________ son ellos? Son mis amigos de Taiwán. <button class="toggle-btn" onclick="toggleAnswer('q11')">顯示答案</button></p>
+  <p class="answer" id="q11">Quiénes</p>
+
+  <p class="question">12. ¿________ se dice "蘋果" en español? Se dice "manzana". <button class="toggle-btn" onclick="toggleAnswer('q12')">顯示答案</button></p>
+  <p class="answer" id="q12">Cómo</p>
+
+  <p class="question">13. ¿________ es tu cumpleaños? Es en enero. <button class="toggle-btn" onclick="toggleAnswer('q13')">顯示答案</button></p>
+  <p class="answer" id="q13">Cuándo</p>
+
+  <p class="question">14. ¿________ vas a la fiesta? Voy con Carlos. <button class="toggle-btn" onclick="toggleAnswer('q14')">顯示答案</button></p>
+  <p class="answer" id="q14">Con quién</p>
+
+  <p class="question">15. ¿________ es esto? Es un puercoespín. <button class="toggle-btn" onclick="toggleAnswer('q15')">顯示答案</button></p>
+  <p class="answer" id="q15">Qué</p>
+</div>
+
+<h2>Ejercicio C: Traducción（翻譯）</h2>
+<div class="exercise">
+  <h3>A. Español → 中文</h3>
+  <p class="question">1. ¿A qué hora es el vuelo mañana? <button class="toggle-btn" onclick="toggleAnswer('c1')">顯示答案</button></p>
+  <p class="answer" id="c1">明天航班是幾點？</p>
+
+  <p class="question">2. El billete de avión es muy barato. <button class="toggle-btn" onclick="toggleAnswer('c2')">顯示答案</button></p>
+  <p class="answer" id="c2">機票非常便宜。</p>
+
+  <p class="question">3. ¿Quién va a cuidar a mis animales? <button class="toggle-btn" onclick="toggleAnswer('c3')">顯示答案</button></p>
+  <p class="answer" id="c3">誰要照顧我的動物們？</p>
+
+  <p class="question">4. Carlos no va a España con Alma. <button class="toggle-btn" onclick="toggleAnswer('c4')">顯示答案</button></p>
+  <p class="answer" id="c4">Carlos 沒有要和 Alma 一起去西班牙。</p>
+
+  <p class="question">5. ¿Por qué me preguntas qué hago mañana? <button class="toggle-btn" onclick="toggleAnswer('c5')">顯示答案</button></p>
+  <p class="answer" id="c5">你為什麼問我明天要做什麼？</p>
+
+  <h3>B. 中文 → Español</h3>
+  <p class="question">1. 你要去哪裡？ <button class="toggle-btn" onclick="toggleAnswer('c6')">顯示答案</button></p>
+  <p class="answer" id="c6">¿Adónde vas?</p>
+
+  <p class="question">2. 我想要買一張機票。 <button class="toggle-btn" onclick="toggleAnswer('c7')">顯示答案</button></p>
+  <p class="answer" id="c7">Quiero comprar un billete de avión.</p>
+
+  <p class="question">3. 你明天要做什麼？ <button class="toggle-btn" onclick="toggleAnswer('c8')">顯示答案</button></p>
+  <p class="answer" id="c8">¿Qué haces mañana?</p>
+
+  <p class="question">4. 我獨自一人去。 <button class="toggle-btn" onclick="toggleAnswer('c9')">顯示答案</button></p>
+  <p class="answer" id="c9">Voy sola.</p>
+
+  <p class="question">5. 希望妳旅途愉快。 <button class="toggle-btn" onclick="toggleAnswer('c10')">顯示答案</button></p>
+  <p class="answer" id="c10">Espero que tengas un buen viaje.</p>
+</div>
+
+<h2>Ejercicio D: Ordenar las palabras（排列單字）</h2>
+<div class="exercise">
+  <p class="question">1. muchas / come / hámster / el / manzanas <button class="toggle-btn" onclick="toggleAnswer('d1')">顯示答案</button></p>
+  <p class="answer" id="d1">El hámster come muchas manzanas.</p>
+
+  <p class="question">2. biblioteca / la / por qué / en / estás <button class="toggle-btn" onclick="toggleAnswer('d2')">顯示答案</button></p>
+  <p class="answer" id="d2">¿Por qué estás en la biblioteca?</p>
+
+  <p class="question">3. comprar / el / mañana / necesito / billete <button class="toggle-btn" onclick="toggleAnswer('d3')">顯示答案</button></p>
+  <p class="answer" id="d3">Necesito comprar el billete mañana.</p>
+
+  <p class="question">4. casa / mi / iguana / está / la / en <button class="toggle-btn" onclick="toggleAnswer('d4')">顯示答案</button></p>
+  <p class="answer" id="d4">La iguana está en mi casa.</p>
+
+  <p class="question">5. tarde / qué / esta / haces / tú <button class="toggle-btn" onclick="toggleAnswer('d5')">顯示答案</button></p>
+  <p class="answer" id="d5">¿Qué haces tú esta tarde?</p>
+
+  <p class="question">6. agua / bebe / puercoespín / mi <button class="toggle-btn" onclick="toggleAnswer('d6')">顯示答案</button></p>
+  <p class="answer" id="d6">Mi puercoespín bebe agua.</p>
+
+  <p class="question">7. es / examen / hora / qué / a / el <button class="toggle-btn" onclick="toggleAnswer('d7')">顯示答案</button></p>
+  <p class="answer" id="d7">¿A qué hora es el examen?</p>
+</div>
+
+<h2>Ejercicio E: Lectura</h2>
+<div class="exercise">
+  <h3>Párrafo 1</h3>
+  <p>Alma tiene siete animales en su casa: un gato, un perro, dos hámsteres, una iguana y dos puercoespines. El hámster es muy pequeño y come muchas manzanas en la biblioteca. El perro y el gato son amigos y corren en el jardín cerca de la universidad. Alma cuida a sus animales todos los días porque son su familia.</p>
+  <p class="question">1. ¿Cuántos animales tiene Alma? <button class="toggle-btn" onclick="toggleAnswer('e1')">顯示答案</button></p>
+  <p class="answer" id="e1">Ella tiene siete animales.</p>
+  <p class="question">2. ¿Qué come el hámster? <button class="toggle-btn" onclick="toggleAnswer('e2')">顯示答案</button></p>
+  <p class="answer" id="e2">El hámster come muchas manzanas.</p>
+  <p class="question">3. ¿Dónde corren el perro y el gato? <button class="toggle-btn" onclick="toggleAnswer('e3')">顯示答案</button></p>
+  <p class="answer" id="e3">Corren en el jardín cerca de la universidad.</p>
+
+  <h3>Párrafo 2</h3>
+  <p>Hoy como en un restaurante mexicano con mi familia. La quesadilla cuesta ocho euros y el jugo de naranja cuesta tres euros. Mi padre no come carne porque es vegetariano, por eso él come una ensalada deliciosa. Nosotros tenemos mucha hambre y comemos mucho ahora.</p>
+  <p class="question">1. ¿Cuánto cuesta la quesadilla? <button class="toggle-btn" onclick="toggleAnswer('e4')">顯示答案</button></p>
+  <p class="answer" id="e4">Cuesta ocho euros.</p>
+  <p class="question">2. ¿Por qué el padre no come carne? <button class="toggle-btn" onclick="toggleAnswer('e5')">顯示答案</button></p>
+  <p class="answer" id="e5">Porque es vegetariano.</p>
+  <p class="question">3. ¿Qué come el padre? <button class="toggle-btn" onclick="toggleAnswer('e6')">顯示答案</button></p>
+  <p class="answer" id="e6">Él come una ensalada.</p>
+
+  <h3>Párrafo 3</h3>
+  <p>Mañana es el examen de química a las ocho de la mañana. Yo necesito estudiar mucho porque la clase es muy difícil. Estoy en la biblioteca con mi amiga y nosotros leemos un libro grande. Yo bebo té negro y mi amiga come una empanada de pollo. Nosotros estamos muy ocupados hoy.</p>
+  <p class="question">1. ¿Cuándo es el examen de química? <button class="toggle-btn" onclick="toggleAnswer('e7')">顯示答案</button></p>
+  <p class="answer" id="e7">Es mañana a las ocho de la mañana.</p>
+  <p class="question">2. ¿Por qué necesita estudiar mucho? <button class="toggle-btn" onclick="toggleAnswer('e8')">顯示答案</button></p>
+  <p class="answer" id="e8">Porque la clase es muy difícil.</p>
+  <p class="question">3. ¿Qué bebe él en la biblioteca? <button class="toggle-btn" onclick="toggleAnswer('e9')">顯示答案</button></p>
+  <p class="answer" id="e9">Él bebe té negro.</p>
+</div>
+
+<script>
+function toggleAnswer(id) {
+  const ans = document.getElementById(id);
+  if (ans.style.display === "none" || ans.style.display === "") {
+    ans.style.display = "block";
+  } else {
+    ans.style.display = "none";
+  }
+}
+</script>
+
+</body>
+</html>
