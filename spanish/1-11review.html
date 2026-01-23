@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Repaso Completo de Español</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    padding: 20px;
+    max-width: 1000px;
+    margin: auto;
+    color: #333;
+  }
+  h1 { text-align: center; color: #0056b3; }
+  h2 {
+    background-color: #f2f2f2;
+    padding: 15px;
+    border-radius: 8px;
+    border-left: 6px solid #0056b3;
+    margin-top: 40px;
+  }
+  .section-content {
+    background-color: #fff;
+    padding: 15px;
+    border: 1px solid #eee;
+    border-radius: 8px;
+  }
+  .exercise { margin-bottom: 50px; }
+  .question { margin: 15px 0; font-weight: bold; }
+  .answer {
+    margin-left: 25px;
+    display: none;
+    color: #008000;
+    font-weight: bold;
+    border-left: 3px solid #008000;
+    padding-left: 10px;
+  }
+  button.toggle-btn {
+    margin-left: 10px;
+    cursor: pointer;
+    border: none;
+    background-color: #0056b3;
+    color: white;
+    border-radius: 4px;
+    padding: 3px 10px;
+    font-size: 0.85em;
+  }
+  table { width: 100%; border-collapse: collapse; margin: 15px 0; }
+  th, td { border: 1px solid #ddd; padding: 10px; text-align: left; }
+  th { background-color: #eef7ff; }
+  .word-bank {
+    background-color: #eef7ff;
+    padding: 15px;
+    border: 2px solid #0056b3;
+    border-radius: 8px;
+    margin: 20px 0;
+    font-weight: bold;
+    text-align: center;
+    line-height: 2;
+  }
+</style>
+</head>
+<body>
+
+<h1>西班牙語綜合練習 (第 1 至 11 課)</h1>
+
+<h2>Ejercicio 1: Vocabulario（詞彙練習）</h2>
+<div class="exercise">
+  <p>請根據中文意義寫出對應的西班牙文單字。</p>
+  
+  <p class="question">1. 下午好 <button class="toggle-btn" onclick="toggleAnswer('v1')">顯示答案</button></p>
+  <p class="answer" id="v1">Buenas tardes</p>
+
+  <p class="question">2. 一瓶紅酒 <button class="toggle-btn" onclick="toggleAnswer('v2')">顯示答案</button></p>
+  <p class="answer" id="v2">una botella de vino tinto</p>
+
+  <p class="question">3. 火車站 <button class="toggle-btn" onclick="toggleAnswer('v3')">顯示答案</button></p>
+  <p class="answer" id="v3">estación de tren</p>
+
+  <p class="question">4. 做運動 <button class="toggle-btn" onclick="toggleAnswer('v4')">顯示答案</button></p>
+  <p class="answer" id="v4">hacer ejercicio</p>
+
+  <p class="question">5. 爬樓梯 <button class="toggle-btn" onclick="toggleAnswer('v5')">顯示答案</button></p>
+  <p class="answer" id="v5">subir las escaleras</p>
+
+  <p class="question">6. 起司薄餅 <button class="toggle-btn" onclick="toggleAnswer('v6')">顯示答案</button></p>
+  <p class="answer" id="v6">quesadilla</p>
+
+  <p class="question">7. 下一個的 / 明天的（機票） <button class="toggle-btn" onclick="toggleAnswer('v7')">顯示答案</button></p>
+  <p class="answer" id="v7">próxima / para mañana</p>
+
+  <p class="question">8. 便宜的 <button class="toggle-btn" onclick="toggleAnswer('v8')">顯示答案</button></p>
+  <p class="answer" id="v8">barato</p>
+
+  <p class="question">9. 打開門 <button class="toggle-btn" onclick="toggleAnswer('v9')">顯示答案</button></p>
+  <p class="answer" id="v9">abrir la puerta</p>
+
+  <p class="question">10. 豪豬 <button class="toggle-btn" onclick="toggleAnswer('v10')">顯示答案</button></p>
+  <p class="answer" id="v10">puercoespín</p>
+</div>
+
+<h2>Ejercicio 2: Conjugación de Verbos（動詞變位）</h2>
+<div class="exercise">
+  <p>根據括號中的動詞與主詞，填入正確的變位形式。</p>
+
+  <p class="question">1. Yo ________ (beber) té negro ahora. <button class="toggle-btn" onclick="toggleAnswer('vb1')">顯示答案</button></p>
+  <p class="answer" id="vb1">bebo</p>
+
+  <p class="question">2. Alma ________ (vivir) cerca de la escuela. <button class="toggle-btn" onclick="toggleAnswer('vb2')">顯示答案</button></p>
+  <p class="answer" id="vb2">vive</p>
+
+  <p class="question">3. ¿Qué ________ (hacer) tú mañana? <button class="toggle-btn" onclick="toggleAnswer('vb3')">顯示答案</button></p>
+  <p class="answer" id="vb3">haces</p>
+
+  <p class="question">4. Nosotros ________ (estudiar) para el examen de química. <button class="toggle-btn" onclick="toggleAnswer('vb4')">顯示答案</button></p>
+  <p class="answer" id="vb4">estudiamos</p>
+
+  <p class="question">5. Ellos ________ (asistir) a una clase de baile. <button class="toggle-btn" onclick="toggleAnswer('vb5')">顯示答案</button></p>
+  <p class="answer" id="vb5">asisten</p>
+
+  <p class="question">6. Tú ________ (cenar) a las nueve de la noche. <button class="toggle-btn" onclick="toggleAnswer('vb6')">顯示答案</button></p>
+  <p class="answer" id="vb6">cenas</p>
+
+  <p class="question">7. Yo ________ (abrir) la puerta de la oficina. <button class="toggle-btn" onclick="toggleAnswer('vb7')">顯示答案</button></p>
+  <p class="answer" id="vb7">abro</p>
+
+  <p class="question">8. Carlos ________ (correr) todo el día. <button class="toggle-btn" onclick="toggleAnswer('vb8')">顯示答案</button></p>
+  <p class="answer" id="vb8">corre</p>
+
+  <p class="question">9. Vosotros ________ (escribir) en la biblioteca. <button class="toggle-btn" onclick="toggleAnswer('vb9')">顯示答案</button></p>
+  <p class="answer" id="vb9">escribís</p>
+
+  <p class="question">10. ¿Usted ________ (trabajar) en el banco? <button class="toggle-btn" onclick="toggleAnswer('vb10')">顯示答案</button></p>
+  <p class="answer" id="vb10">trabaja</p>
+</div>
+
+<h2>Ejercicio 3: Ser vs Estar（是非動詞用法）</h2>
+<div class="exercise">
+  <p>選擇正確的動詞（Ser 或 Estar）並填入變位形式。</p>
+
+  <p class="question">1. Yo ________ de Taiwán. (Ser/Estar) <button class="toggle-btn" onclick="toggleAnswer('se1')">顯示答案</button></p>
+  <p class="answer" id="se1">soy</p>
+
+  <p class="question">2. La quesadilla ________ fría ahora. (Ser/Estar) <button class="toggle-btn" onclick="toggleAnswer('se2')">顯示答案</button></p>
+  <p class="answer" id="se2">está</p>
+
+  <p class="question">3. Alma ________ en la biblioteca. (Ser/Estar) <button class="toggle-btn" onclick="toggleAnswer('se3')">顯示答案</button></p>
+  <p class="answer" id="se3">está</p>
+
+  <p class="question">4. La clase de baile ________ muy divertida. (Ser/Estar) <button class="toggle-btn" onclick="toggleAnswer('se4')">顯示答案</button></p>
+  <p class="answer" id="se4">es</p>
+
+  <p class="question">5. ¿Tú ________ cansado hoy? (Ser/Estar) <button class="toggle-btn" onclick="toggleAnswer('se5')">顯示答案</button></p>
+  <p class="answer" id="se5">estás</p>
+
+  <p class="question">6. Hoy ________ el 30 de diciembre. (Ser/Estar) <button class="toggle-btn" onclick="toggleAnswer('se6')">顯示答案</button></p>
+  <p class="answer" id="se6">es</p>
+
+  <p class="question">7. Nosotros ________ amigos de Alejandro. (Ser/Estar) <button class="toggle-btn" onclick="toggleAnswer('se7')">顯示答案</button></p>
+  <p class="answer" id="se7">somos</p>
+
+  <p class="question">8. Carlos ________ un bicho raro. (Ser/Estar) <button class="toggle-btn" onclick="toggleAnswer('se8')">顯示答案</button></p>
+  <p class="answer" id="se8">es</p>
+</div>
+
+<h2>Ejercicio 4: La Hora y Números（時間與數字）</h2>
+<div class="exercise">
+  <p class="question">1. ¿Qué hora es? (1:30 PM) <button class="toggle-btn" onclick="toggleAnswer('h1')">顯示答案</button></p>
+  <p class="answer" id="h1">Es la una y media de la tarde.</p>
+
+  <p class="question">2. ¿Qué hora es? (12:00 PM) <button class="toggle-btn" onclick="toggleAnswer('h2')">顯示答案</button></p>
+  <p class="answer" id="h2">Es el mediodía.</p>
+
+  <p class="question">3. ¿A qué hora es el vuelo? (6:15 AM) <button class="toggle-btn" onclick="toggleAnswer('h3')">顯示答案</button></p>
+  <p class="answer" id="h3">Es a las seis y cuarto de la mañana.</p>
+
+  <p class="question">4. 寫出數字 26 的西班牙文： <button class="toggle-btn" onclick="toggleAnswer('h4')">顯示答案</button></p>
+  <p class="answer" id="h4">veintiséis</p>
+
+  <p class="question">5. 寫出數字 100 的西班牙文： <button class="toggle-btn" onclick="toggleAnswer('h5')">顯示答案</button></p>
+  <p class="answer" id="h5">cien</p>
+
+  <p class="question">6. 寫出數字 45 的西班牙文： <button class="toggle-btn" onclick="toggleAnswer('h6')">顯示答案</button></p>
+  <p class="answer" id="h6">cuarenta y cinco</p>
+</div>
+
+<h2>Ejercicio 5: Lectura Comprensiva（閱讀理解）</h2>
+<div class="exercise">
+  <div class="section-content">
+    <h3>Texto 1: El día de Polly</h3>
+    <p>Polly vive en una casa cerca de su universidad. Hoy ella está muy ocupada porque tiene un examen de química la próxima semana. Por la mañana, Polly desayuna a las ocho y media; ella come dos manzanas y bebe un té negro. Después de desayunar, ella abre la puerta y corre a la biblioteca. En la biblioteca, Polly lee un libro difícil y estudia español con su amiga Alma. A la una de la tarde, ellas almuerzan en un restaurante cerca de la oficina. Polly come una ensalada y Alma come una quesadilla de pollo. Por la tarde, Polly asiste a una clase de baile. La clase es muy divertida y ellas bailan mucho. Por la noche, Polly está cansada. Ella ceno a las nueve y cuarenta y cinco, ve una película y después escribe en su diario.</p>
+    
+    <p class="question">1. ¿Por qué está Polly ocupada hoy? <button class="toggle-btn" onclick="toggleAnswer('l1')">顯示答案</button></p>
+    <p class="answer" id="l1">Porque tiene un examen de química la próxima semana.</p>
+
+    <p class="question">2. ¿Qué come y bebe Polly por la mañana? <button class="toggle-btn" onclick="toggleAnswer('l2')">顯示答案</button></p>
+    <p class="answer" id="l2">Come dos manzanas y bebe un té negro.</p>
+
+    <p class="question">3. ¿A qué hora almuerzan Polly y Alma? <button class="toggle-btn" onclick="toggleAnswer('l3')">顯示答案</button></p>
+    <p class="answer" id="l3">Almuerzan a la una de la tarde.</p>
+
+    <p class="question">4. ¿Cómo es la clase de baile? <button class="toggle-btn" onclick="toggleAnswer('l4')">顯示答案</button></p>
+    <p class="answer" id="l4">La clase es muy divertida.</p>
+  </div>
+
+  <div class="section-content" style="margin-top:20px;">
+    <h3>Texto 2: El viaje de Alma</h3>
+    <p>Alma quiere una aventura. Mañana por la mañana, ella viaja a España sola. Ella necesita comprar un billete de avión hoy. El vuelo es muy temprano, a las seis de la mañana, pero el billete es barato; solo cuesta cien euros. Alma tiene muchos animales en su casa: un gato, un perro, una iguana, un hámster y un puercoespín. Carlos es el amigo de Alma. Carlos no viaja a España con Alma. Alma pregunta a Carlos: "¿Puedes cuidar a mis animales?". Carlos dice que sí. Carlos va a cuidar a los animales porque Alma es su amiga. Carlos espera que Alma tenga un buen viaje. Hoy Carlos y Alma comen en un restaurante para terminar el día. Carlos come pollo y Alma bebe agua.</p>
+
+    <p class="question">1. ¿Adónde viaja Alma mañana? <button class="toggle-btn" onclick="toggleAnswer('l5')">顯示答案</button></p>
+    <p class="answer" id="l5">Viaja a España.</p>
+
+    <p class="question">2. ¿Cuánto cuesta el billete de avión? <button class="toggle-btn" onclick="toggleAnswer('l6')">顯示答案</button></p>
+    <p class="answer" id="l6">Cuesta cien euros.</p>
+
+    <p class="question">3. ¿Qué animales tiene Alma? <button class="toggle-btn" onclick="toggleAnswer('l7')">顯示答案</button></p>
+    <p class="answer" id="l7">Tiene un gato, un perro, una iguana, un hámster y un puercoespín.</p>
+
+    <p class="question">4. ¿Quién va a cuidar a los animales? <button class="toggle-btn" onclick="toggleAnswer('l8')">顯示答案</button></p>
+    <p class="answer" id="l8">Carlos va a cuidar a los animales.</p>
+  </div>
+</div>
+
+<h2>Ejercicio 6: En el Restaurante y Viaje（餐廳與旅遊短語）</h2>
+<div class="exercise">
+  <p>將下列句子翻譯成西班牙文。</p>
+
+  <p class="question">1. 請給我菜單，謝謝。 <button class="toggle-btn" onclick="toggleAnswer('f1')">顯示答案</button></p>
+  <p class="answer" id="f1">La carta, por favor. Gracias.</p>
+
+  <p class="question">2. 您想要吃什麼？ <button class="toggle-btn" onclick="toggleAnswer('f2')">顯示答案</button></p>
+  <p class="answer" id="f2">¿Qué quiere comer usted?</p>
+
+  <p class="question">3. 請給我兩份雞肉起司薄餅。 <button class="toggle-btn" onclick="toggleAnswer('f3')">顯示答案</button></p>
+  <p class="answer" id="f3">Me pones dos quesadillas de pollo, por favor.</p>
+
+  <p class="question">4. 我想要買一張機票。 <button class="toggle-btn" onclick="toggleAnswer('f4')">顯示答案</button></p>
+  <p class="answer" id="f4">Quiero comprar un billete de avión.</p>
+
+  <p class="question">5. 誰要照顧我的狗？ <button class="toggle-btn" onclick="toggleAnswer('f5')">顯示答案</button></p>
+  <p class="answer" id="f5">¿Quién va a cuidar a mi perro?</p>
+
+  <p class="question">6. 下午好，你怎麼樣？ <button class="toggle-btn" onclick="toggleAnswer('f6')">顯示答案</button></p>
+  <p class="answer" id="f6">Buenas tardes. ¿Cómo estás?</p>
+
+  <p class="question">7. 我想要一瓶紅酒和一個水杯。 <button class="toggle-btn" onclick="toggleAnswer('f7')">顯示答案</button></p>
+  <p class="answer" id="f7">Quiero una botella de vino tinto y un vaso de agua.</p>
+</div>
+
+<script>
+function toggleAnswer(id) {
+  const ans = document.getElementById(id);
+  if (ans.style.display === "none" || ans.style.display === "") {
+    ans.style.display = "block";
+  } else {
+    ans.style.display = "none";
+  }
+}
+</script>
+
+</body>
+</html>
